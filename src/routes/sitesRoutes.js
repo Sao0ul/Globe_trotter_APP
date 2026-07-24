@@ -5,13 +5,12 @@
 
 //Elle se contente de dire : "Si quelqu'un appelle GET /utilisateurs, j'appelle la fonction X du contrôleur.
 
-
 const express = require('express');
 const router = express.Router();
-const { getSites, creerSite, noterSite } = require('../controllers/sitesController');
+const { getSites, createSite, rateSite } = require('../controllers/sitesController');
 
 router.get('/', getSites);
-router.post('/', creerSite);
-router.post('/:id/noter', noterSite);
+router.post('/', createSite);
+router.post('/:id/rate', rateSite);
 
 module.exports = router;

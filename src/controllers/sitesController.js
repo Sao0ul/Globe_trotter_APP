@@ -1,80 +1,52 @@
-//Le contrôleur reçoit la requête du client 
-//via la route, décide de ce qu'il faut faire,
-//et orchestre les opérations
-
-
-
-
-const { lireSites, ecrireSites } = require('../models/sitesModel');
+const asyncHandler = require('../middlewares/asyncHandler');
+const { getAllSites, createSite, addRating } = require('../models/sitesModel');
 const crypto = require('crypto');
 
+
+
 // GET /api/sites — liste tous les sites (avec recherche optionnelle)
-function getSites(req, res) {
-  let sites = lireSites();
-  const { recherche, categorie } = req.query;
-
-  if (recherche) {
-    const terme = recherche.toLowerCase();
-    sites = sites.filter(s =>
-      s.titre.toLowerCase().includes(terme) ||
-      s.localisation.toLowerCase().includes(terme)
-    );
-  }
-
-  if (categorie) {
-    sites = sites.filter(s => s.categorie === categorie);
-  }
-
+const getSites = asyncHandler(async (req, res) => {
+  const { search, category } = req.query;
+  const sites = await getAllSites({ search, category });
   res.json(sites);
-}
+});
 
 // POST /api/sites — un user propose un nouveau site
-function creerSite(req, res) {
-  const { titre, description, localisation, categorie, auteur } = req.body;
+const createSiteHandler = asyncHandler(async (req, res) => {
+  const { title, description, location, category, author } = req.body;
 
-  if (!titre || !localisation) {
-    return res.status(400).json({ erreur: 'titre et localisation sont requis' });
+  if (!title || !location) {
+    return res.status(400).json({ error: 'title and location are required' });
   }
 
-  const sites = lireSites();
-  const nouveauSite = {
+  const newSite = await createSite({
     id: crypto.randomUUID(),
-    titre,
+    title,
     description: description || '',
-    localisation,
-    categorie: categorie || 'autre',
-    auteur: auteur || 'anonyme',
-    notes: [],
-    moyenne: 0,
-    dateAjout: new Date().toISOString()
-  };
+    location,
+    category: category || 'autre',
+    author: author || 'anonyme',
+  });
 
-  sites.push(nouveauSite);
-  ecrireSites(sites);
-  res.status(201).json(nouveauSite);
-}
+  res.status(201).json(newSite);
+});
 
-// POST /api/sites/:id/noter — ajouter une note
-function noterSite(req, res) {
+// POST /api/sites/:id/rate — ajouter une note
+const rateSite = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { note } = req.body;
+  const { rating } = req.body;
 
-  if (typeof note !== 'number' || note < 1 || note > 5) {
-    return res.status(400).json({ erreur: 'note doit être un nombre entre 1 et 5' });
+  if (typeof rating !== 'number' || rating < 1 || rating > 5) {
+    return res.status(400).json({ error: 'rating must be a number between 1 and 5' });
   }
 
-  const sites = lireSites();
-  const site = sites.find(s => s.id === id);
+  const site = await addRating(id, rating);
 
   if (!site) {
-    return res.status(404).json({ erreur: 'site introuvable' });
+    return res.status(404).json({ error: 'site not found' });
   }
 
-  site.notes.push(note);
-  site.moyenne = site.notes.reduce((a, b) => a + b, 0) / site.notes.length;
-
-  ecrireSites(sites);
   res.json(site);
-}
+});
 
-module.exports = { getSites, creerSite, noterSite };
+module.exports = { getSites, createSite: createSiteHandler, rateSite };
