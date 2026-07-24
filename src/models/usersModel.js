@@ -1,15 +1,25 @@
-const fs = require('fs');
-const path = require('path');
+const pool = require('../db/pool');
 
-const DATA_PATH = path.join(__dirname, '../data/users.json');
-
-function lireUsers() {
-  const data = fs.readFileSync(DATA_PATH, 'utf-8');
-  return JSON.parse(data);
+async function findByEmail(email) {
+  const [rows] = await pool.query(
+    'SELECT * FROM users WHERE email = ? LIMIT 1',
+    [email]
+  );
+  return rows[0] || null;
 }
 
-function ecrireUsers(users) {
-  fs.writeFileSync(DATA_PATH, JSON.stringify(users, null, 2));
+async function createUser({ id, email, passwordHash, username }) {
+  await pool.query(
+    'INSERT INTO users (id, email, password_hash, username) VALUES (?, ?, ?, ?)',
+    [id, email, passwordHash, username]
+  );
+
+  return {
+    id,
+    email,
+    username,
+    createdAt: new Date().toISOString(),
+  };
 }
 
-module.exports = { lireUsers, ecrireUsers };
+module.exports = { findByEmail, createUser };
