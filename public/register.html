@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/images/logoLogin.png" />
+    <title>Discover Cameroon — Inscription</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Même fichier CSS que login.html : les classes sont génériques,
+         pas besoin de register.css séparé -->
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+    <!-- ==============================
+            VIDEO DE FOND (identique à login.html)
+    =============================== -->
+
+    <video id="background-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        poster="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80">
+
+        <source src="videos/cameroon.mp4" type="video/mp4">
+
+    </video>
+
+    <div class="video-overlay"></div>
+
+    <!-- ==============================
+            REGISTER
+    =============================== -->
+
+    <main class="login-container">
+
+        <div class="login-card">
+
+            <div class="logo">
+
+                <div class="logo-circle">
+
+                    <img src="./assets/images/logoLogin.png" alt="Discover Cameroon">
+
+                </div>
+
+                <h1>Créer un compte</h1>
+
+                <p>
+
+                    Rejoins la communauté Discover Cameroon et commence
+                    à explorer les plus belles destinations du pays.
+
+                </p>
+
+            </div>
+
+            <div id="errorMessage" class="error-message" hidden></div>
+            <div id="successMessage" class="success-message" hidden></div>
+
+            <form id="registerForm">
+
+                <div class="input-group">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Pseudo"
+                        required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Adresse email"
+                        required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Mot de passe"
+                        required
+                        minlength="6">
+
+                </div>
+
+                <button type="submit">
+
+                    <i class="fa-solid fa-user-plus"></i>
+
+                    S'inscrire
+
+                </button>
+
+            </form>
+
+            <p class="register">
+
+                Déjà un compte ?
+
+                <a href="index.html">
+
+                    Se connecter
+
+                </a>
+
+            </p>
+
+        </div>
+
+    </main>
+
+    <script src="js/register.js"></script>
+
+    <script>
+
+        // Identique à login.html : si la vidéo locale ne charge pas,
+        // on la masque et le fond image (défini dans le body en CSS) prend le relais.
+        const video = document.getElementById("background-video");
+
+        video.onerror = () => {
+            video.style.display = "none";
+        };
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/images/logoLogin.png" />
+    <title>Discover Cameroon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Background video -->
+    <video id="background-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80">
+        <source src="videos/cameroon.mp4" type="video/mp4">
+    </video>
+
+    <div class="video-overlay"></div>
+
+    <main class="login-container">
+        <div class="login-card">
+            <div class="logo">
+                <div class="logo-circle">
+                    <img src="./assets/images/logoLogin.png" alt="Discover Cameroon">
+                </div>
+                <h1>Discover Cameroon</h1>
+                <p>Discover Cameroon's most beautiful landscapes, book tours, and enjoy an unforgettable experience.</p>
+            </div>
+
+            <div id="errorMessage" class="error-message" hidden></div>
+
+            <form id="loginForm">
+                <div class="input-group">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Email address" required>
+                </div>
+
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+
+                <div class="options">
+                    <label><input type="checkbox">Remember me</label>
+                    <a href="#">Forgot password?</a>
+                </div>
+
+                <button type="submit"><i class="fa-solid fa-right-to-bracket"></i>Sign in</button>
+            </form>
+
+            <div class="separator"><span>OR</span></div>
+
+            <div class="social-buttons">
+                <button class="social"><i class="fab fa-google"></i></button>
+                <button class="social"><i class="fab fa-facebook-f"></i></button>
+                <button class="social"><i class="fab fa-apple"></i></button>
+            </div>
+
+            <p class="register">Don't have an account? <a href="register.html">Create account</a></p>
+        </div>
+    </main>
+
+    <script src="js/auth.js"></script>
+    <script>
+        // If the local video doesn't exist, hide it so the poster image shows.
+        const video = document.getElementById('background-video');
+        video.onerror = () => { video.style.display = 'none'; };
+    </script>
+</body>
+</html>

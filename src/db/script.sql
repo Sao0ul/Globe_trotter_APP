@@ -38,3 +38,8 @@ CREATE TABLE IF NOT EXISTS ratings (
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (site_id) REFERENCES sites(id) ON DELETE CASCADE
 );
+
+-- Ajoute la gestion de la confirmation de compte à la table users existante
+ALTER TABLE users
+  ADD COLUMN is_verified BOOLEAN NOT NULL DEFAULT FALSE,
+  ADD COLUMN verification_token CHAR(36) DEFAULT NULL;
