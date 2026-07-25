@@ -301,18 +301,77 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   width: 300px;
   max-width: 100%;
   box-shadow: 0 4px 18px -8px rgba(22, 51, 43, 0.25);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+  position: relative;
+}
+.search-wrap:hover,
+.search-wrap:focus-within {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(227, 169, 58, 0.85);
+  box-shadow: 0 8px 30px -12px rgba(22, 51, 43, 0.35);
+  transform: translateY(-1px);
+}
+.search-wrap .search-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7C8A80;
+  padding: 0 12px 0 14px;
+  flex-shrink: 0;
+  transition: color 0.2s ease, transform 0.25s ease;
+}
+.search-wrap:focus-within .search-icon {
+  color: var(--gold);
+  transform: rotate(10deg);
+  animation: icon-tilt 1.8s ease-in-out infinite;
+}
+.search-wrap .search-explorer {
+  position: absolute;
+  top: 50%;
+  left: 44px;
+  transform: translate(-50%, -50%);
+  width: 26px;
+  height: 26px;
+  pointer-events: none;
+  opacity: 0;
+  color: var(--forest-deep);
+  filter: drop-shadow(0 0 1px rgba(0,0,0,0.12));
+  transition: opacity 0.2s ease;
+}
+.search-wrap .search-explorer svg {
+  width: 100%;
+  height: 100%;
+}
+.search-wrap:focus-within .search-explorer {
+  opacity: 1;
+  animation: explorer-walk 1.6s ease-out 0s 1 forwards;
 }
 .search-wrap input {
   border: none;
   background: none;
   outline: none;
   font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--ink);
   width: 100%;
-  padding: 10px 14px;
+  padding: 10px 14px 10px 0;
 }
 .search-wrap input::placeholder { color: #7C8A80; opacity: 1; }
+
+@keyframes icon-tilt {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(8deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-6deg); }
+}
+
+@keyframes explorer-walk {
+  0% { transform: translate(-50%, -50%) translateX(0) scale(1); }
+  30% { transform: translate(-50%, -50%) translateX(100px) scale(1.05); }
+  70% { transform: translate(-50%, -50%) translateX(190px) scale(0.97); }
+  100% { transform: translate(-50%, -50%) translateX(220px) scale(0.96); }
+}
+
 
 
 /* ================= FILTERS ================= */
