@@ -5,12 +5,14 @@
 
 //Elle se contente de dire : "Si quelqu'un appelle GET /utilisateurs, j'appelle la fonction X du contrôleur.
 
+
 const express = require('express');
 const router = express.Router();
+const verifyToken = require('../middlewares/authMiddleware');
 const { getSites, createSite, rateSite } = require('../controllers/sitesController');
 
 router.get('/', getSites);
-router.post('/', createSite);
-router.post('/:id/rate', rateSite);
+router.post('/', verifyToken, createSite);
+router.post('/:id/rate', verifyToken, rateSite);
 
 module.exports = router;
