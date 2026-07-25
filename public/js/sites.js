@@ -1,8 +1,7 @@
 // Protection de la page + chargement/affichage des sites + création + notation + déconnexion.
 
 const token = localStorage.getItem("token");
-let username = localStorage.getItem("username");
-let userPreferences = [];
+const username = localStorage.getItem("username");
 
 if (!token) {
   window.location.href = "index.html";
@@ -10,7 +9,6 @@ if (!token) {
 
 // -------------------- Sidebar : salutation --------------------
 
-const preferencesSummary = document.getElementById("preferencesSummary");
 document.getElementById("greetingName").textContent = username;
 document.getElementById("avatarInitials").textContent = username
   ? username.slice(0, 2).toUpperCase()
@@ -49,44 +47,8 @@ function afficherEtat(nom) {
 
 // -------------------- Chargement des sites --------------------
 
-async function loadUserProfile() {
-  try {
-    const response = await fetch('/api/users/me', {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-
-    if (!response.ok) {
-      localStorage.clear();
-      window.location.href = 'index.html';
-      return false;
-    }
-
-    const profile = await response.json();
-    username = profile.username || username;
-    userPreferences = Array.isArray(profile.preferences) ? profile.preferences : [];
-
-    document.getElementById('greetingName').textContent = username;
-    document.getElementById('avatarInitials').textContent = username
-      ? username.slice(0, 2).toUpperCase()
-      : '?';
-
-    preferencesSummary.textContent = userPreferences.length
-      ? `Preferences: ${userPreferences.join(', ')}`
-      : 'No preferences selected';
-
-    return true;
-  } catch {
-    localStorage.clear();
-    window.location.href = 'index.html';
-    return false;
-  }
-}
-
 async function chargerSites() {
   afficherEtat("loading");
-
-  const profileLoaded = await loadUserProfile();
-  if (!profileLoaded) return;
 
   let response;
   try {
@@ -232,7 +194,6 @@ searchInput.addEventListener("input", (event) => {
   rechercheActuelle = event.target.value;
   afficherSites();
 });
-
 
 // -------------------- Panneau "Proposer un site" --------------------
 

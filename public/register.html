@@ -17,11 +17,10 @@
     <!-- Même fichier CSS que login.html : les classes sont génériques,
          pas besoin de register.css séparé -->
     <link rel="stylesheet" href="css/style.css">
-
+    <link rel="stylesheet" href="css/register.css">
 </head>
 
 <body>
-
     <!-- ==============================
             VIDEO DE FOND (identique à login.html)
     =============================== -->
@@ -105,17 +104,67 @@
                         minlength="6">
                 </div>
 
-                <div class="input-group preferences-group">
-                    <span class="preferences-label">Choisissez vos préférences de voyage</span>
-                    <div class="preferences-options">
-                        <label><input type="checkbox" name="preferences" value="nature"> Nature</label>
-                        <label><input type="checkbox" name="preferences" value="culture"> Culture</label>
-                        <label><input type="checkbox" name="preferences" value="adventure"> Adventure</label>
-                        <label><input type="checkbox" name="preferences" value="relaxation"> Relaxation</label>
-                        <label><input type="checkbox" name="preferences" value="mountain"> Mountain</label>
-                        <label><input type="checkbox" name="preferences" value="beach"> Beach</label>
-                        <label><input type="checkbox" name="preferences" value="other"> Other</label>
+                <div class="preferences-dropdown" id="preferencesDropdown">
+
+                    <button type="button" class="preferences-trigger" id="preferencesTrigger" aria-haspopup="listbox" aria-expanded="false">
+                        <i class="fa-solid fa-compass"></i>
+                        <span class="preferences-trigger-text" id="preferencesTriggerText">Sélectionne tes préférences</span>
+                        <i class="fa-solid fa-chevron-down preferences-chevron"></i>
+                    </button>
+
+                    <div class="preferences-panel" id="preferencesPanel" role="listbox">
+
+                        <label class="pref-option">
+                            <input type="checkbox" value="nature">
+                            <i class="fa-solid fa-leaf pref-option-icon"></i>
+                            <span class="pref-option-label">Nature</span>
+                            <i class="fa-solid fa-check pref-option-check"></i>
+                        </label>
+
+                        <label class="pref-option">
+                            <input type="checkbox" value="culture">
+                            <i class="fa-solid fa-landmark pref-option-icon"></i>
+                            <span class="pref-option-label">Culture</span>
+                            <i class="fa-solid fa-check pref-option-check"></i>
+                        </label>
+
+                        <label class="pref-option">
+                            <input type="checkbox" value="adventure">
+                            <i class="fa-solid fa-person-hiking pref-option-icon"></i>
+                            <span class="pref-option-label">Aventure</span>
+                            <i class="fa-solid fa-check pref-option-check"></i>
+                        </label>
+
+                        <label class="pref-option">
+                            <input type="checkbox" value="relaxation">
+                            <i class="fa-solid fa-spa pref-option-icon"></i>
+                            <span class="pref-option-label">Détente</span>
+                            <i class="fa-solid fa-check pref-option-check"></i>
+                        </label>
+
+                        <label class="pref-option">
+                            <input type="checkbox" value="mountain">
+                            <i class="fa-solid fa-mountain pref-option-icon"></i>
+                            <span class="pref-option-label">Montagne</span>
+                            <i class="fa-solid fa-check pref-option-check"></i>
+                        </label>
+
+                        <label class="pref-option">
+                            <input type="checkbox" value="beach">
+                            <i class="fa-solid fa-umbrella-beach pref-option-icon"></i>
+                            <span class="pref-option-label">Plage</span>
+                            <i class="fa-solid fa-check pref-option-check"></i>
+                        </label>
+
+                        <label class="pref-option">
+                            <input type="checkbox" value="other">
+                            <i class="fa-solid fa-star pref-option-icon"></i>
+                            <span class="pref-option-label">Autre</span>
+                            <i class="fa-solid fa-check pref-option-check"></i>
+                        </label>
+
                     </div>
+
                 </div>
 
                 <button type="submit">
