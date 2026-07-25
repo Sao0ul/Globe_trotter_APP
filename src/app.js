@@ -7,7 +7,7 @@ const errorHandler = require('./middlewares/errorHandler');
 //routes created 
 const authRoutes = require('./routes/authRoutes');
 const sitesRoutes = require('./routes/sitesRoutes');
-
+const userRoutes = require('./routes/userRoutes');
 
 
 const cors = require('cors');
@@ -21,6 +21,7 @@ app.use(express.static('public'));//servir du contenu statique
 
 app.use('/api/sites', sitesRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 app.use(errorHandler);
 
 app.listen(PORT, () => {

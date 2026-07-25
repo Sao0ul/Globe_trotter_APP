@@ -9,6 +9,14 @@ async function findByEmail(email) {
   return rows[0] || null;
 }
 
+async function findById(id) {
+  const [rows] = await pool.query(
+    'SELECT * FROM users WHERE id = ? LIMIT 1',
+    [id]
+  );
+  return rows[0] || null;
+}
+
 // Cherche un utilisateur par son token de vérification — utilisé lors du clic sur le lien de confirmation
 async function findByVerificationToken(token) {
   const [rows] = await pool.query(
@@ -46,4 +54,4 @@ async function verifyUser(token) {
   return result.affectedRows > 0;
 }
 
-module.exports = { findByEmail, findByVerificationToken, createUser, verifyUser };
+module.exports = { findByEmail, findById, findByVerificationToken, createUser, verifyUser };

@@ -25,7 +25,8 @@ const createSiteHandler = asyncHandler(async (req, res) => {
     description: description || '',
     location,
     category: category || 'autre',
-    author: author || 'anonyme',
+    auteur: req.user.username, // vient du token vérifié, pas du body (que n'importe qui peut falsifier)
+    imageUrl: req.body.imageUrl || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80'
   });
 
   res.status(201).json(newSite);
