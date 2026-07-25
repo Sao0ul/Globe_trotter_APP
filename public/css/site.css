@@ -97,37 +97,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   border-right: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.sidebar-brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 4px 6px 22px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  margin-bottom: 18px;
-  position: relative;
-}
 
-.brand-mark { width: 34px; height: 34px; flex-shrink: 0; }
-
-.brand-word { display: flex; flex-direction: column; line-height: 1.15; }
-
-.brand-name {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.2rem;
-  letter-spacing: -0.01em;
-}
-.brand-name em { color: var(--gold); font-style: normal; font-weight: 700; }
-
-.brand-tag {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 0.72rem;
-  text-transform: none;
-  letter-spacing: 0.01em;
-  color: #9DB5AA;
-  margin-top: 2px;
-}
 
 .sidebar-close { display: none; position: absolute; right: 0; top: 0; color: var(--ink-inverse); font-size: 1.1rem; }
 
@@ -236,17 +206,61 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 .app.sidebar-collapsed { grid-template-columns: 84px 1fr; }
 
-.sidebar-collapsed .brand-word,
+
 .sidebar-collapsed .greeting-text,
 .sidebar-collapsed .nav-label,
 .sidebar-collapsed .nav-hint,
 .sidebar-collapsed .nav-item span:not(.nav-hint) { display: none; }
 
-.sidebar-collapsed .sidebar-brand,
 .sidebar-collapsed .sidebar-greeting,
 .sidebar-collapsed .nav-item { justify-content: center; }
 
 .sidebar-collapsed .nav-collapse svg { transform: rotate(180deg); }
+
+
+/* ================= PAGE HEADER (logo + recherche) ================= */
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 253, 248, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  padding: 8px 14px;
+}
+.brand-mark { width: 34px; height: 34px; flex-shrink: 0; }
+.brand-word { display: flex; flex-direction: column; line-height: 1.15; }
+
+.brand-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--forest-deep);
+  letter-spacing: -0.01em;
+}
+.brand-name em { color: var(--clay); font-style: normal; font-weight: 700; }
+
+.brand-tag {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+
+
 
 /* ================= TOPBAR ================= */
 
@@ -277,23 +291,17 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 .search-wrap {
-  margin-left: auto;
   display: flex;
   align-items: center;
-  gap: 10px;
   background: rgba(255, 253, 248, 0.65);
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
   border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 30px;
-  padding: 10px 16px;
+  border-radius: 10px;
   width: 300px;
   max-width: 100%;
-  color: var(--ink-soft);
   box-shadow: 0 4px 18px -8px rgba(22, 51, 43, 0.25);
-  cursor: text;
 }
-.search-wrap svg { flex-shrink: 0; }
 .search-wrap input {
   border: none;
   background: none;
@@ -302,8 +310,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   font-size: 0.9rem;
   color: var(--ink);
   width: 100%;
+  padding: 10px 14px;
 }
 .search-wrap input::placeholder { color: #7C8A80; opacity: 1; }
+
 
 /* ================= FILTERS ================= */
 
@@ -641,7 +651,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
   .main { padding: 20px 20px 60px; }
   .topbar { align-items: center; }
-  .search-wrap { min-width: 100%; order: 3; }
+  .page-header { justify-content: flex-start; }
+  .search-wrap { width: 100%; order: 2; }
   .topbar-heading h1 { font-size: 1.5rem; }
   .form-row { grid-template-columns: 1fr; }
 }

@@ -195,10 +195,6 @@ searchInput.addEventListener("input", (event) => {
   afficherSites();
 });
 
-// Cliquer n'importe où dans la barre de recherche (loupe incluse) donne le focus au champ.
-searchWrap.addEventListener("click", () => {
-  searchInput.focus();
-});
 
 // -------------------- Panneau "Proposer un site" --------------------
 
