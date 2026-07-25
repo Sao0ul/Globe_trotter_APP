@@ -38,10 +38,10 @@ async function getSiteById(id) {
   return rows[0] || null;
 }
 
-async function createSite({ id, title, description, location, category, author }) {
+async function createSite({ id, title, description, location, category, author ,imageUrl, difficulty,dangerosity,price }) {
   await pool.query(
-    'INSERT INTO sites (id, title, description, location, category, author) VALUES (?, ?, ?, ?, ?, ?)',
-    [id, title, description, location, category, author]
+    'INSERT INTO sites (id, title, description, location, category, author, image_url, difficulty, dangerosity, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [id, title, description, location, category, author, imageUrl, difficulty, dangerosity, price]
   );
   return getSiteById(id);
 }

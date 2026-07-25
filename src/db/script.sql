@@ -1,11 +1,6 @@
--- Crée ou met à jour l'utilisateur pour accepter les connexions externes
-CREATE USER IF NOT EXISTS 'GlobeTrotter_user'@'%' IDENTIFIED BY 'GlobeTrotter_Password';
+DROP DATABASE IF EXISTS GlobeTrotterAPP_DB;
+CREATE DATABASE GlobeTrotterAPP_DB;
 
--- Accorde tous les privilèges sur la base de données de votre application
-GRANT ALL PRIVILEGES ON GlobeTrotterAPP_DB.* TO 'GlobeTrotter_user'@'%';
-
--- Applique instantanément les changements
-FLUSH PRIVILEGES;
 
 use GlobeTrotterAPP_DB;
 
@@ -26,7 +21,6 @@ CREATE TABLE IF NOT EXISTS sites (
   title VARCHAR(255) NOT NULL,
   description TEXT,
   location VARCHAR(255) NOT NULL,
-  category VARCHAR(100) NOT NULL DEFAULT 'autre',
   author VARCHAR(100) NOT NULL DEFAULT 'anonyme',
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -43,3 +37,20 @@ CREATE TABLE IF NOT EXISTS ratings (
 ALTER TABLE users
   ADD COLUMN is_verified BOOLEAN NOT NULL DEFAULT FALSE,
   ADD COLUMN verification_token CHAR(36) DEFAULT NULL;
+
+ALTER TABLE sites
+  ADD COLUMN image_url VARCHAR(500) DEFAULT NULL,
+  ADD COLUMN difficulty ENUM('easy','moderate','difficult') DEFAULT NULL,
+  ADD COLUMN dangerosity ENUM('low','moderate','high') DEFAULT NULL,
+  ADD COLUMN category ENUM('nature','culture','adventure','relaxation','mountain','beach','other') DEFAULT 'other',
+  ADD COLUMN price INT DEFAULT NULL;
+
+ALTER TABLE sites
+  ADD COLUMN user_id CHAR(36) DEFAULT NULL,
+  ADD CONSTRAINT fk_sites_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL;
+
+
+
+
+
+
