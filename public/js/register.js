@@ -11,8 +11,8 @@ registerForm.addEventListener("submit", async (event) => {
   const username = document.getElementById("username").value;
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
-  const preferences = Array.from(document.querySelectorAll('input[name="preferences"]:checked'))
-    .map((input) => input.value);
+  const preferencesSelect = document.getElementById("preferences");
+  const preferences = Array.from(preferencesSelect.selectedOptions).map((option) => option.value);
 
   // Réinitialise les messages à chaque tentative
   errorMessage.hidden = true;

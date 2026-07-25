@@ -335,3 +335,4 @@ logoutBtn.addEventListener("click", () => {
 // -------------------- Démarrage --------------------
 
 chargerSites();
+
