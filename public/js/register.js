@@ -11,6 +11,8 @@ registerForm.addEventListener("submit", async (event) => {
   const username = document.getElementById("username").value;
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
+  const preferences = Array.from(document.querySelectorAll('input[name="preferences"]:checked'))
+    .map((input) => input.value);
 
   // Réinitialise les messages à chaque tentative
   errorMessage.hidden = true;
@@ -20,7 +22,7 @@ registerForm.addEventListener("submit", async (event) => {
     const response = await fetch("/api/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password, username }),
+      body: JSON.stringify({ email, password, username, preferences }),
     });
 
     const data = await response.json();

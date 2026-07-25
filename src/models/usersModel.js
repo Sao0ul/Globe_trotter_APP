@@ -27,11 +27,18 @@ async function findByVerificationToken(token) {
 }
 
 // Crée un nouvel utilisateur, non vérifié par défaut, avec un token de confirmation
-async function createUser({ id, email, passwordHash, username, verificationToken }) {
+async function createUser({ id, email, passwordHash, username, verificationToken, preferences }) {
   await pool.query(
-    `INSERT INTO users (id, email, password_hash, username, is_verified, verification_token)
-     VALUES (?, ?, ?, ?, FALSE, ?)`,
-    [id, email, passwordHash, username, verificationToken]
+    `INSERT INTO users (id, email, password_hash, username, preferences, is_verified, verification_token)
+     VALUES (?, ?, ?, ?, ?, FALSE, ?)`,
+    [
+      id,
+      email,
+      passwordHash,
+      username,
+      preferences ? JSON.stringify(preferences) : null,
+      verificationToken,
+    ]
   );
 
   return {
@@ -40,6 +47,7 @@ async function createUser({ id, email, passwordHash, username, verificationToken
     username,
     isVerified: false,
     createdAt: new Date().toISOString(),
+    preferences: preferences || [],
   };
 }
 

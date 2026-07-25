@@ -8,7 +8,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 // POST /api/auth/register — création de compte, non vérifié par défaut
 const register = asyncHandler(async (req, res) => {
-  const { email, password, username } = req.body;
+  const { email, password, username, preferences } = req.body;
 
   if (!email || !password || !username) {
     return res.status(400).json({ error: 'email, password and username are required' });
@@ -18,6 +18,20 @@ const register = asyncHandler(async (req, res) => {
   if (existing) {
     return res.status(409).json({ error: 'an account already exists with this email' });
   }
+
+  const allowedPreferences = [
+    'nature',
+    'culture',
+    'adventure',
+    'relaxation',
+    'mountain',
+    'beach',
+    'other',
+  ];
+
+  const normalizedPreferences = Array.isArray(preferences)
+    ? preferences.filter((pref) => allowedPreferences.includes(pref))
+    : [];
 
   const passwordHash = await bcrypt.hash(password, 10);
 
@@ -30,6 +44,7 @@ const register = asyncHandler(async (req, res) => {
     passwordHash,
     username,
     verificationToken,
+    preferences: normalizedPreferences,
   });
 
   // Lien de confirmation — en conditions réelles, on l'enverrait par email (SMTP).
