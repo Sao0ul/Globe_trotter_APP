@@ -9,12 +9,23 @@ const getMe = asyncHandler(async (req, res) => {
     return res.status(404).json({ error: 'user not found' });
   }
 
+  const preferences = (() => {
+    if (!user.preferences) return [];
+    if (Array.isArray(user.preferences)) return user.preferences;
+    try {
+      return JSON.parse(user.preferences);
+    } catch {
+      return [];
+    }
+  })();
+
   res.json({
     id: user.id,
     email: user.email,
     username: user.username,
     role: user.role || 'member',
-    joined: user.created_at
+    joined: user.created_at,
+    preferences,
   });
 });
 
