@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explorer Cameroun Visit</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/sites.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explorer — Cameroun Visit</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='10' fill='%2316332B'/%3E%3Cpath d='M6 34 L17 15 L23 26 L28 19 L43 34 Z' fill='%23E3A93A'/%3E%3Cpath d='M6 34 L17 15 L23 26 L20 33 L6 34 Z' fill='%23F4C868'/%3E%3Ccircle cx='35' cy='12' r='4' fill='%23B8452F'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
 </head>
 <body>
 
-<div class="app">
+<!-- Background video (même fichier que index.html, pour un rendu cohérent entre les pages) -->
+<video id="background-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1757777598981-2a589811168d?auto=format&fit=crop&w=1920&q=80">
+  <source src="videos/cameroon.mp4" type="video/mp4">
+</video>
+
+<div class="video-overlay"></div>
+
+<div class="app" id="appShell">
 
   <!-- ===================== SIDEBAR ===================== -->
   <aside class="sidebar" id="sidebar">
@@ -67,6 +75,11 @@
       </a>
     </nav>
 
+    <button class="nav-item nav-collapse" id="collapseSidebar" aria-label="Réduire le menu">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6M4 4v16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Réduire le menu</span>
+    </button>
+
     <button class="nav-item nav-logout" id="logoutBtn">
       <svg viewBox="0 0 24 24" fill="none"><path d="M9 4H5v16h4M16 8l4 4-4 4M20 12H9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span>Déconnexion</span>
@@ -88,7 +101,7 @@
         <h1>Explorer les destinations</h1>
       </div>
 
-      <div class="search-wrap">
+      <div class="search-wrap" id="searchWrap">
         <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         <input type="text" id="searchInput" placeholder="Chercher un lieu, une ville, une région…">
       </div>
@@ -170,6 +183,31 @@
         <textarea name="description" rows="4" required placeholder="Ce qui rend ce lieu unique…"></textarea>
       </label>
 
+      <div class="form-section-label">Bon à savoir avant de partir</div>
+
+      <div class="form-row form-row-3">
+        <label>
+          <span>Difficulté d'accès</span>
+          <select name="difficulte">
+            <option value="facile">Facile</option>
+            <option value="modere">Modérée</option>
+            <option value="difficile">Difficile</option>
+          </select>
+        </label>
+        <label>
+          <span>Dangerosité</span>
+          <select name="dangerosite">
+            <option value="faible">Faible</option>
+            <option value="moderee">Modérée</option>
+            <option value="elevee">Élevée</option>
+          </select>
+        </label>
+        <label>
+          <span>Prix estimé (FCFA)</span>
+          <input type="number" name="prix" min="0" step="500" placeholder="Ex. 5000">
+        </label>
+      </div>
+
       <p class="form-error" id="addSiteError" hidden></p>
 
       <div class="form-actions">
@@ -194,6 +232,11 @@
         <span></span>
       </p>
       <p class="card-desc"></p>
+      <div class="card-tags">
+        <span class="tag tag-difficulte"></span>
+        <span class="tag tag-danger"></span>
+        <span class="tag tag-prix"></span>
+      </div>
       <div class="card-foot">
         <button class="rating" type="button">
           <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.3l7.1-.7z"/></svg>
@@ -206,5 +249,10 @@
 </template>
 
 <script src="js/sites.js"></script>
+<script>
+// Si la vidéo locale n'existe pas encore, on masque la balise pour que le poster (image) prenne le relais.
+const bgVideo = document.getElementById('background-video');
+bgVideo.onerror = () => { bgVideo.style.display = 'none'; };
+</script>
 </body>
 </html>
