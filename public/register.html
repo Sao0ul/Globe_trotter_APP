@@ -104,17 +104,67 @@
                         minlength="6">
                 </div>
 
-                <div class="input-group select-group">
-                    <i class="fa-solid fa-list-check"></i>
-                    <select id="preferences" name="preferences" multiple size="5" aria-label="Travel preferences">
-                        <option value="nature">🌿 nature</option>
-                        <option value="culture">🏛️ culture</option>
-                        <option value="adventure">🧗 adventure</option>
-                        <option value="relaxation">🛀 relaxation</option>
-                        <option value="mountain">⛰️ mountain</option>
-                        <option value="beach">🏖️ beach</option>
-                        <option value="other">✨ other</option>
-                    </select>
+                <div class="preferences-dropdown" id="preferencesDropdown">
+
+                    <button type="button" class="preferences-trigger" id="preferencesTrigger" aria-haspopup="listbox" aria-expanded="false">
+                        <i class="fa-solid fa-compass"></i>
+                        <span class="preferences-trigger-text" id="preferencesTriggerText">Sélectionne tes préférences</span>
+                        <i class="fa-solid fa-chevron-down preferences-chevron"></i>
+                    </button>
+
+                    <div class="preferences-panel" id="preferencesPanel" role="listbox">
+
+                        <label class="pref-option">
+                            <input type="checkbox" value="nature">
+                            <i class="fa-solid fa-leaf pref-option-icon"></i>
+                            <span class="pref-option-label">Nature</span>
+                            <i class="fa-solid fa-check pref-option-check"></i>
+                        </label>
+
+                        <label class="pref-option">
+                            <input type="checkbox" value="culture">
+                            <i class="fa-solid fa-landmark pref-option-icon"></i>
+                            <span class="pref-option-label">Culture</span>
+                            <i class="fa-solid fa-check pref-option-check"></i>
+                        </label>
+
+                        <label class="pref-option">
+                            <input type="checkbox" value="adventure">
+                            <i class="fa-solid fa-person-hiking pref-option-icon"></i>
+                            <span class="pref-option-label">Aventure</span>
+                            <i class="fa-solid fa-check pref-option-check"></i>
+                        </label>
+
+                        <label class="pref-option">
+                            <input type="checkbox" value="relaxation">
+                            <i class="fa-solid fa-spa pref-option-icon"></i>
+                            <span class="pref-option-label">Détente</span>
+                            <i class="fa-solid fa-check pref-option-check"></i>
+                        </label>
+
+                        <label class="pref-option">
+                            <input type="checkbox" value="mountain">
+                            <i class="fa-solid fa-mountain pref-option-icon"></i>
+                            <span class="pref-option-label">Montagne</span>
+                            <i class="fa-solid fa-check pref-option-check"></i>
+                        </label>
+
+                        <label class="pref-option">
+                            <input type="checkbox" value="beach">
+                            <i class="fa-solid fa-umbrella-beach pref-option-icon"></i>
+                            <span class="pref-option-label">Plage</span>
+                            <i class="fa-solid fa-check pref-option-check"></i>
+                        </label>
+
+                        <label class="pref-option">
+                            <input type="checkbox" value="other">
+                            <i class="fa-solid fa-star pref-option-icon"></i>
+                            <span class="pref-option-label">Autre</span>
+                            <i class="fa-solid fa-check pref-option-check"></i>
+                        </label>
+
+                    </div>
+
                 </div>
 
                 <button type="submit">
