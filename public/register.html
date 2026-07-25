@@ -17,11 +17,10 @@
     <!-- Même fichier CSS que login.html : les classes sont génériques,
          pas besoin de register.css séparé -->
     <link rel="stylesheet" href="css/style.css">
-
+    <link rel="stylesheet" href="css/register.css">
 </head>
 
 <body>
-
     <!-- ==============================
             VIDEO DE FOND (identique à login.html)
     =============================== -->
@@ -105,17 +104,17 @@
                         minlength="6">
                 </div>
 
-                <div class="input-group preferences-group">
-                    <span class="preferences-label">Choisissez vos préférences de voyage</span>
-                    <div class="preferences-options">
-                        <label><input type="checkbox" name="preferences" value="nature"> Nature</label>
-                        <label><input type="checkbox" name="preferences" value="culture"> Culture</label>
-                        <label><input type="checkbox" name="preferences" value="adventure"> Adventure</label>
-                        <label><input type="checkbox" name="preferences" value="relaxation"> Relaxation</label>
-                        <label><input type="checkbox" name="preferences" value="mountain"> Mountain</label>
-                        <label><input type="checkbox" name="preferences" value="beach"> Beach</label>
-                        <label><input type="checkbox" name="preferences" value="other"> Other</label>
-                    </div>
+                <div class="input-group select-group">
+                    <i class="fa-solid fa-list-check"></i>
+                    <select id="preferences" name="preferences" multiple size="5" aria-label="Travel preferences">
+                        <option value="nature">🌿 nature</option>
+                        <option value="culture">🏛️ culture</option>
+                        <option value="adventure">🧗 adventure</option>
+                        <option value="relaxation">🛀 relaxation</option>
+                        <option value="mountain">⛰️ mountain</option>
+                        <option value="beach">🏖️ beach</option>
+                        <option value="other">✨ other</option>
+                    </select>
                 </div>
 
                 <button type="submit">

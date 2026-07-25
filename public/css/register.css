@@ -1,0 +1,78 @@
+/* Register page specific styling */
+
+/* Keep the new preferences select field aligned with the other inputs */
+.input-group.select-group {
+    padding-right: 20px;
+    position: relative;
+}
+
+.input-group.select-group select {
+    flex: 1;
+    width: 100%;
+    min-height: 120px;
+    max-height: 220px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: white;
+    font-size: 15px;
+    line-height: 1.5;
+    padding: 14px 10px 12px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.input-group.select-group select option {
+    color: #111;
+    background: #fff;
+}
+
+.input-group.select-group i {
+    color: white;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.input-group.select-group::after {
+    content: "";
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+    transform: rotate(45deg);
+    pointer-events: none;
+}
+
+.input-group.select-group:hover,
+.input-group.select-group:focus-within {
+    background: rgba(255,255,255,.18);
+}
+
+/* Ensure the select panel is scrollable on smaller screens */
+.input-group.select-group select {
+    overflow: auto;
+}
+
+/* Make the select label and scroll hint more readable */
+.input-group.select-group::-moz-focus-inner {
+    border: 0;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .input-group.select-group select {
+        min-height: 100px;
+        max-height: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .input-group.select-group select {
+        min-height: 90px;
+        max-height: 160px;
+    }
+}
