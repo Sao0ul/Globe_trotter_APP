@@ -17,11 +17,7 @@
 
 <body>
 
-    <video id="background-video" autoplay muted loop playsinline
-        poster="https://images.unsplash.com/photo-1757777598981-2a589811168d?auto=format&fit=crop&w=1920&q=80">
-        <source src="videos/cameroon.mp4" type="video/mp4">
-    </video>
-    <div class="video-overlay"></div>
+    <div class="bg-overlay"></div>
 
     <div class="app" id="appShell">
 
@@ -382,11 +378,6 @@
 
     <script src="js/i18n.js"></script>
     <script src="js/sites.js"></script>
-    <script>
-        const bgVideo = document.getElementById('background-video');
-        bgVideo.onerror = () => { bgVideo.style.display = 'none'; };
-    </script>
 </body>
 
 </html>
-

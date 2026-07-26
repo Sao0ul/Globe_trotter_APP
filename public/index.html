@@ -1,36 +1,40 @@
 ﻿<!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="assets/images/logoLogin.png" />
     <title data-i18n="login.title">Discover Cameroon</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <!-- Background video -->
-    <video id="background-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80">
-        <source src="videos/cameroon.mp4" type="video/mp4">
-    </video>
+
 
     <div class="video-overlay"></div>
 
+    <!-- ================= LANGUAGE SWITCHER ================= -->
+    <div id="languageSwitcher" class="language-switcher">
+        <button type="button" class="lang-pill" data-lang="fr">FR</button>
+        <button type="button" class="lang-pill" data-lang="en">EN</button>
+    </div>
+
+    <!-- ================= LOGIN ================= -->
     <main class="login-container">
         <div class="login-card">
+
             <div class="logo">
                 <div class="logo-circle">
                     <img src="./assets/images/logoLogin.png" alt="Discover Cameroon">
                 </div>
-                <div class="language-switcher-container">
-                    <select id="languageSwitcher" class="language-switcher" aria-label="Language selector">
-                        <option value="fr" data-i18n="lang.french">Français</option>
-                        <option value="en" data-i18n="lang.english">English</option>
-                    </select>
-                </div>
                 <h1 data-i18n="login.title">Discover Cameroon</h1>
-                <p data-i18n="login.subtitle">Discover Cameroon's most beautiful landscapes, book tours, and enjoy an unforgettable experience.</p>
+                <p data-i18n="login.subtitle">Discover Cameroon's most beautiful landscapes, book tours, and enjoy an
+                    unforgettable experience.</p>
             </div>
 
             <div id="errorMessage" class="error-message" hidden></div>
@@ -38,20 +42,28 @@
             <form id="loginForm">
                 <div class="input-group">
                     <i class="fa-solid fa-envelope"></i>
-                    <input type="email" id="email" placeholder="Email address" data-i18n-placeholder="login.emailPlaceholder" required>
+                    <input type="email" id="email" placeholder="Email address"
+                        data-i18n-placeholder="login.emailPlaceholder" required>
                 </div>
 
                 <div class="input-group">
                     <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="password" placeholder="Password" data-i18n-placeholder="login.passwordPlaceholder" required>
+                    <input type="password" id="password" placeholder="Password"
+                        data-i18n-placeholder="login.passwordPlaceholder" required>
                 </div>
 
                 <div class="options">
-                    <label><input type="checkbox"><span data-i18n="login.rememberMe">Remember me</span></label>
+                    <label>
+                        <input type="checkbox">
+                        <span data-i18n="login.rememberMe">Remember me</span>
+                    </label>
                     <a href="#" data-i18n="login.forgotPassword">Forgot password?</a>
                 </div>
 
-                <button type="submit"><i class="fa-solid fa-right-to-bracket"></i><span data-i18n="login.signIn">Sign in</span></button>
+                <button type="submit">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    <span data-i18n="login.signIn">Sign in</span>
+                </button>
             </form>
 
             <div class="separator"><span data-i18n="login.or">OR</span></div>
@@ -62,16 +74,17 @@
                 <button class="social"><i class="fab fa-apple"></i></button>
             </div>
 
-            <p class="register"><span data-i18n="login.noAccount">Don't have an account?</span> <a href="register.html" data-i18n="login.createAccount">Create account</a></p>
+            <p class="register">
+                <span data-i18n="login.noAccount">Don't have an account?</span>
+                <a href="register.html" data-i18n="login.createAccount">Create account</a>
+            </p>
+
         </div>
     </main>
 
     <script src="js/i18n.js"></script>
     <script src="js/auth.js"></script>
-    <script>
-        // If the local video doesn't exist, hide it so the poster image shows.
-        const video = document.getElementById('background-video');
-        video.onerror = () => { video.style.display = 'none'; };
-    </script>
+
 </body>
+
 </html>
