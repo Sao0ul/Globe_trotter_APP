@@ -39,6 +39,12 @@ let tousLesSites = [];
 let categorieActive = "tous";
 let rechercheActuelle = "";
 
+// -------------------- Pagination dynamique --------------------
+
+let pageActuelle = 1;
+let chargementEnCours = false;
+let ilResteDesSites = true;
+
 const filterLabelKeys = {
   tous: "filters.all",
   nature: "filters.nature",
@@ -47,6 +53,22 @@ const filterLabelKeys = {
   montagne: "filters.mountain",
   aventure: "filters.adventure"
 };
+
+// Compte combien de colonnes le CSS Grid affiche réellement en ce moment.
+// Lit grid-template-columns calculé par le navigateur (ex: "320px 320px 320px" → 3 colonnes),
+// ce qui tient compte automatiquement de la largeur d'écran ET de l'état de la sidebar.
+function compterColonnesVisibles() {
+  const style = window.getComputedStyle(sitesGrid);
+  const colonnes = style.gridTemplateColumns.split(" ").filter(Boolean);
+  return colonnes.length || 1;
+}
+
+// Nombre de sites à demander par chargement : 2 rangées complètes à la fois,
+// pour limiter le nombre de requêtes tout en évitant de sur-charger.
+function calculerLimiteParPage() {
+  const colonnes = compterColonnesVisibles();
+  return colonnes * 2;
+}
 
 // -------------------- Affichage des états --------------------
 
@@ -84,16 +106,31 @@ function selectionnerCategorie(categorie) {
 
 // -------------------- Chargement des sites --------------------
 
-async function chargerSites() {
-  afficherEtat("loading");
+// reinitialiser=true : recharge tout depuis la page 1 (nouveau filtre, retry, etc.)
+// reinitialiser=false : ajoute la page suivante à la liste déjà chargée (scroll)
+async function chargerSites(reinitialiser = true) {
+  if (chargementEnCours) return;
+  if (!reinitialiser && !ilResteDesSites) return;
+
+  chargementEnCours = true;
+
+  if (reinitialiser) {
+    afficherEtat("loading");
+    pageActuelle = 1;
+    tousLesSites = [];
+    ilResteDesSites = true;
+  }
+
+  const limit = calculerLimiteParPage();
 
   let response;
   try {
-    response = await fetch("/api/sites", {
+    response = await fetch(`/api/sites?page=${pageActuelle}&limit=${limit}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
   } catch {
     afficherEtat("error");
+    chargementEnCours = false;
     return;
   }
 
@@ -105,11 +142,33 @@ async function chargerSites() {
 
   if (!response.ok) {
     afficherEtat("error");
+    chargementEnCours = false;
     return;
   }
 
-  tousLesSites = await response.json();
+  const data = await response.json();
+
+  // On accumule les pages plutôt que de remplacer : le filtrage client
+  // continue de fonctionner sur l'ensemble déjà chargé.
+  tousLesSites = tousLesSites.concat(data.sites);
+  ilResteDesSites = data.hasMore;
+  pageActuelle++;
+
   afficherSites();
+  chargementEnCours = false;
+
+  // Si après ce chargement la page n'est toujours pas remplie (peu de contenu
+  // ou grand écran), on redemande automatiquement la suite.
+  await chargerPageSuivanteSiNecessaire();
+}
+
+// Vérifie si le contenu affiché remplit la fenêtre ; sinon, charge la page suivante.
+// Évite qu'un grand écran affiche une grille à moitié vide sans scroll possible.
+async function chargerPageSuivanteSiNecessaire() {
+  const pageEstAssezRemplie = document.documentElement.scrollHeight > window.innerHeight + 100;
+  if (!pageEstAssezRemplie && ilResteDesSites && !chargementEnCours) {
+    await chargerSites(false);
+  }
 }
 
 // -------------------- Filtrage (catégorie + recherche) --------------------
@@ -232,7 +291,6 @@ filtersPanel.addEventListener("click", (event) => {
   const chip = event.target.closest(".chip");
   if (!chip) return;
 
-  // Synchronise le badge icône du bouton avec celui du chip cliqué
   const iconSource = chip.querySelector(".chip-icon");
   const iconTarget = document.getElementById("filtersToggleIcon");
   if (iconSource && iconTarget) {
@@ -284,8 +342,6 @@ addSiteForm.addEventListener("submit", async (event) => {
   const dangerosite = addSiteForm.dangerosite.value;
   const prix = addSiteForm.prix.value ? Number(addSiteForm.prix.value) : null;
 
-  // Note : l'auteur est envoyé ici pour l'instant, mais devrait à terme
-  // être déterminé côté serveur depuis req.user plutôt que depuis le client.
   const response = await fetch("/api/sites", {
     method: "POST",
     headers: {
@@ -310,7 +366,28 @@ addSiteForm.addEventListener("submit", async (event) => {
   chargerSites();
 });
 
-document.getElementById("retryLoad").addEventListener("click", chargerSites);
+document.getElementById("retryLoad").addEventListener("click", () => chargerSites(true));
+
+// -------------------- Chargement au scroll --------------------
+
+window.addEventListener("scroll", () => {
+  const prochesDuBas =
+    window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 300;
+
+  if (prochesDuBas) {
+    chargerSites(false);
+  }
+});
+
+// Redemande le nombre de colonnes visibles quand la fenêtre change de taille
+// (rotation d'écran, redimensionnement) — recharge tout pour rester cohérent.
+let redimensionnementTimeout;
+window.addEventListener("resize", () => {
+  clearTimeout(redimensionnementTimeout);
+  redimensionnementTimeout = setTimeout(() => {
+    chargerSites(true);
+  }, 400);
+});
 
 // -------------------- Sidebar mobile --------------------
 
@@ -341,6 +418,9 @@ if (localStorage.getItem("sidebarCollapsed") === "true") {
 collapseBtn.addEventListener("click", () => {
   const estReduite = appShell.classList.toggle("sidebar-collapsed");
   localStorage.setItem("sidebarCollapsed", estReduite);
+  // La largeur de la grille change quand la sidebar se replie/déplie :
+  // on recharge pour que le nombre de sites par page corresponde au nouvel espace.
+  chargerSites(true);
 });
 
 // -------------------- Déconnexion --------------------
@@ -359,5 +439,5 @@ document.addEventListener("i18n:languageChanged", () => {
 
 window.i18n?.ready?.then(() => {
   mettreAJourLabelFiltre();
-  chargerSites();
+  chargerSites(true);
 });

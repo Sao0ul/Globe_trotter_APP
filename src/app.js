@@ -24,6 +24,11 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use(errorHandler);
 
+//health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'UP' });
+});
+
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur le port ${PORT}`);
 });

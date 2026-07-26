@@ -9,7 +9,7 @@ services:
     env_file: .env
     depends_on:
       - db
-    command: npx nodemon src/app.js
+    command: npm run dev
 
   db:
     image: mysql:8
@@ -17,6 +17,9 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
       MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      PEXELS_API_KEY: ${PEXELS_API_KEY}
     ports:
       - "3306:3306"
     volumes:
