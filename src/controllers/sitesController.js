@@ -1,30 +1,130 @@
 const asyncHandler = require('../middlewares/asyncHandler');
-const { getAllSites, createSite, addRating } = require('../models/sitesModel');
+const { getAllSites, createSite, addRating, getSiteByPreference } = require('../models/sitesModel');
 const crypto = require('crypto');
 
-// Traduit une ligne de la base (anglais/snake_case) vers le format attendu par le frontend (français)
+// ==========================================================
+// CONVERSION FR (frontend) <-> EN (ENUM en base de données)
+// Le frontend envoie toujours la valeur brute de l'attribut `value`
+// des <option>, qui reste en français quelle que soit la langue affichée
+// (i18n.js ne traduit que le texte visible, jamais l'attribut value).
+// ==========================================================
+
+const CATEGORY_FR_TO_EN = {
+  nature: 'nature',
+  culture: 'culture',
+  aventure: 'adventure',
+  beach: 'beach',
+  mountain: 'mountain',
+  relaxation: 'relaxation',
+  other: 'other',
+};
+
+const CATEGORY_EN_TO_FR = Object.fromEntries(
+  Object.entries(CATEGORY_FR_TO_EN).map(([fr, en]) => [en, fr])
+);
+
+const DIFFICULTY_FR_TO_EN = {
+  facile: 'easy',
+  modere: 'moderate',
+  difficile: 'difficult',
+};
+
+const DIFFICULTY_EN_TO_FR = Object.fromEntries(
+  Object.entries(DIFFICULTY_FR_TO_EN).map(([fr, en]) => [en, fr])
+);
+
+const DANGER_FR_TO_EN = {
+  faible: 'low',
+  moderee: 'moderate',
+  elevee: 'high',
+};
+
+const DANGER_EN_TO_FR = Object.fromEntries(
+  Object.entries(DANGER_FR_TO_EN).map(([fr, en]) => [en, fr])
+);
+
+// ==========================================================
+// RECHERCHE D'IMAGE AUTOMATIQUE (API Pexels)
+// Si aucune image n'est fournie à la création d'un site, on cherche
+// une photo pertinente via Pexels plutôt que d'utiliser un placeholder fixe.
+// ==========================================================
+
+const FALLBACK_IMAGE = 'https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=800';
+
+async function findImageForSite(title, location) {
+  const apiKey = process.env.PEXELS_API_KEY;
+
+  // Pas de clé configurée : on ne bloque pas la création, on retombe sur le fallback
+  if (!apiKey) {
+    console.warn('[sitesController] PEXELS_API_KEY manquante — utilisation de l\'image par défaut');
+    return FALLBACK_IMAGE;
+  }
+
+  // Combine titre + localisation pour une recherche plus précise (ex: "Chutes de la Lobé Kribi")
+  const query = encodeURIComponent(`${title} ${location}`.trim());
+
+  try {
+    const response = await fetch(
+      `https://api.pexels.com/v1/search?query=${query}&per_page=1&orientation=landscape`,
+      { headers: { Authorization: apiKey } }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Pexels a répondu avec le statut ${response.status}`);
+    }
+
+    const data = await response.json();
+    const photo = data.photos?.[0];
+
+    return photo?.src?.large || FALLBACK_IMAGE;
+  } catch (error) {
+    console.error('[sitesController] Erreur recherche image Pexels:', error.message);
+    return FALLBACK_IMAGE;
+  }
+}
+
+// ==========================================================
+// Traduit une ligne de la base (anglais/snake_case) vers le format
+// attendu par le frontend (clés françaises, pour rester compatible
+// avec les data-i18n existants comme difficulty.facile, categories.aventure)
+// ==========================================================
+
 function toFrontendSite(row) {
   return {
     id: row.id,
     titre: row.title,
     description: row.description,
     localisation: row.location,
-    categorie: row.category,
+    categorie: CATEGORY_EN_TO_FR[row.category] || row.category,
     auteur: row.author,
     imageUrl: row.image_url,
-    difficulte: row.difficulte,
-    dangerosite: row.dangerosite,
-    prix: row.prix,
+    difficulte: DIFFICULTY_EN_TO_FR[row.difficulty] || row.difficulty,
+    dangerosite: DANGER_EN_TO_FR[row.dangerosity] || row.dangerosity,
+    prix: row.price,
     moyenne: Number(row.average_rating) || 0,
-    dateAjout: row.created_at
+    dateAjout: row.created_at,
   };
 }
 
-// GET /api/sites — liste tous les sites (avec recherche optionnelle)
+// GET /api/sites — liste paginée des sites (recherche, catégorie ou préférence optionnelles)
 const getSites = asyncHandler(async (req, res) => {
-  const { search, category } = req.query;
-  const sites = await getAllSites({ search, category });
-  res.json(sites.map(toFrontendSite));
+  const { search, preference } = req.query;
+
+  // La catégorie arrive en français depuis le frontend : on la convertit avant la requête SQL
+  const category = req.query.category ? CATEGORY_FR_TO_EN[req.query.category] : undefined;
+
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 20;
+
+  const sites = preference
+    ? await getSiteByPreference(preference, { page, limit })
+    : await getAllSites({ search, category, page, limit });
+
+  res.json({
+    sites: sites.map(toFrontendSite),
+    page,
+    hasMore: sites.length === limit,
+  });
 });
 
 // POST /api/sites — un user propose un nouveau site
@@ -35,17 +135,21 @@ const createSiteHandler = asyncHandler(async (req, res) => {
     return res.status(400).json({ error: 'titre et localisation sont requis' });
   }
 
+  // Si aucune image n'est fournie par l'utilisateur, on en cherche une automatiquement
+  const finalImageUrl = imageUrl || await findImageForSite(titre, localisation);
+
   const newSite = await createSite({
     id: crypto.randomUUID(),
     title: titre,
     description: description || '',
     location: localisation,
-    category: categorie || 'autre',
-    author: req.user.username, // vient du token vérifié, pas du body
-    imageUrl: imageUrl || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
-    difficulte: difficulte || null,
-    dangerosite: dangerosite || null,
-    prix: prix !== undefined && prix !== null && prix !== '' ? Number(prix) : null
+    category: CATEGORY_FR_TO_EN[categorie] || 'other',
+    author: req.user.username,
+    userId: req.user.id,
+    imageUrl: finalImageUrl,
+    difficulty: difficulte ? DIFFICULTY_FR_TO_EN[difficulte] : null,
+    dangerosity: dangerosite ? DANGER_FR_TO_EN[dangerosite] : null,
+    price: prix !== undefined && prix !== null && prix !== '' ? Number(prix) : null,
   });
 
   res.status(201).json(toFrontendSite(newSite));
