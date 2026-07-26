@@ -121,31 +121,31 @@ function afficherSites() {
 
     node.querySelector(".card-number").textContent =
       "N°" + String(site.id ?? index + 1).padStart(3, "0");
-    node.querySelector(".card-category").textContent = site.categorie || "—";
+    node.querySelector(".card-category").textContent =
+      window.i18n.t(`categories.${site.categorie}`) || site.categorie || "—";
     node.querySelector(".card-title").textContent = site.titre;
     node.querySelector(".card-location span").textContent = site.localisation;
     node.querySelector(".card-desc").textContent = site.description || "";
     node.querySelector(".rating-value").textContent = moyenneNote(site).toFixed(1);
-    node.querySelector(".card-author").textContent = site.auteur ? `par ${site.auteur}` : "";
-
-    const libellesDifficulte = { facile: "Facile", modere: "Modérée", difficile: "Difficile" };
-    const libellesDanger = { faible: "Risque faible", moderee: "Risque modéré", elevee: "Risque élevé" };
+    node.querySelector(".card-author").textContent =
+      site.auteur ? `${window.i18n.t("site.authorPrefix")} ${site.auteur}` : "";
 
     const tagDifficulte = node.querySelector(".tag-difficulte");
     if (site.difficulte) {
       tagDifficulte.dataset.level = site.difficulte;
-      tagDifficulte.textContent = libellesDifficulte[site.difficulte] || site.difficulte;
+      tagDifficulte.textContent = window.i18n.t(`difficulty.${site.difficulte}`) || site.difficulte;
     }
 
     const tagDanger = node.querySelector(".tag-danger");
     if (site.dangerosite) {
       tagDanger.dataset.level = site.dangerosite;
-      tagDanger.textContent = libellesDanger[site.dangerosite] || site.dangerosite;
+      tagDanger.textContent = window.i18n.t(`danger.${site.dangerosite}`) || site.dangerosite;
     }
 
     const tagPrix = node.querySelector(".tag-prix");
     if (site.prix !== undefined && site.prix !== null && site.prix !== "") {
-      tagPrix.textContent = `${Number(site.prix).toLocaleString("fr-FR")} FCFA`;
+      const locale = window.i18n.language === "en" ? "en-US" : "fr-FR";
+      tagPrix.textContent = `${Number(site.prix).toLocaleString(locale)} FCFA`;
     }
 
     node.querySelector(".rating").addEventListener("click", () => noterSite(site.id));
@@ -157,7 +157,7 @@ function afficherSites() {
 // -------------------- Notation --------------------
 
 async function noterSite(siteId) {
-  const saisie = window.prompt("Votre note pour ce site (1 à 5) :");
+  const saisie = window.prompt(window.i18n.t("site.ratePrompt"));
   const valeur = Number(saisie);
   if (!valeur || valeur < 1 || valeur > 5) return;
 
@@ -171,7 +171,7 @@ async function noterSite(siteId) {
   });
 
   if (!response.ok) {
-    alert("Impossible d'enregistrer la note pour le moment.");
+    alert(window.i18n.t("site.rateError"));
     return;
   }
 
@@ -293,6 +293,12 @@ logoutBtn.addEventListener("click", () => {
   window.location.href = "index.html";
 });
 
+document.addEventListener("i18n:languageChanged", () => {
+  afficherSites();
+});
+
 // -------------------- Démarrage --------------------
 
-chargerSites();
+window.i18n?.ready?.then(() => {
+  chargerSites();
+});

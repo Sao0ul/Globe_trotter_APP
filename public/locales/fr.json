@@ -1,0 +1,127 @@
+{
+  "lang": {
+    "english": "English",
+    "french": "Français"
+  },
+  "login": {
+    "title": "Discover Cameroon",
+    "subtitle": "Découvrez les plus beaux paysages du Cameroun, réservez des tours et vivez une expérience inoubliable.",
+    "emailPlaceholder": "Adresse email",
+    "passwordPlaceholder": "Mot de passe",
+    "rememberMe": "Se souvenir de moi",
+    "forgotPassword": "Mot de passe oublié ?",
+    "signIn": "Se connecter",
+    "or": "OU",
+    "createAccount": "Créer un compte",
+    "noAccount": "Pas encore de compte ?"
+  },
+  "register": {
+    "title": "Créer un compte",
+    "subtitle": "Rejoignez Discover Cameroon et commencez à explorer les plus belles destinations du pays.",
+    "usernamePlaceholder": "Pseudo",
+    "emailPlaceholder": "Adresse email",
+    "passwordPlaceholder": "Mot de passe",
+    "selectPreferences": "Sélectionnez vos préférences",
+    "signUp": "S'inscrire",
+    "alreadyHaveAccount": "Déjà un compte ?",
+    "signInLink": "Se connecter",
+    "successHtml": "Compte créé ! Confirmez-le en cliquant {link}.",
+    "successLink": "ici",
+    "preferencesSelected": "{count} préférence(s) sélectionnée(s)"
+  },
+  "preferences": {
+    "nature": "Nature",
+    "culture": "Culture",
+    "adventure": "Aventure",
+    "relaxation": "Détente",
+    "mountain": "Montagne",
+    "beach": "Plage",
+    "other": "Autre"
+  },
+  "sidebar": {
+    "navigation": "Navigation",
+    "hello": "Bonjour",
+    "explore": "Explorer",
+    "addSite": "Proposer un site",
+    "messages": "Messages",
+    "profile": "Profil",
+    "infos": "Infos",
+    "collapseMenu": "Réduire le menu",
+    "logout": "Déconnexion"
+  },
+  "topbar": {
+    "heading": "Explorer les destinations",
+    "searchPlaceholder": "Rechercher des destinations, des lieux..."
+  },
+  "filters": {
+    "all": "Tous",
+    "nature": "Nature",
+    "culture": "Culture",
+    "beach": "Plage",
+    "mountain": "Montagne",
+    "adventure": "Aventure"
+  },
+  "state": {
+    "loading": "Chargement des destinations...",
+    "empty": "Aucune destination pour l'instant.",
+    "emptyAction": "Proposer la première",
+    "error": "Impossible de charger les destinations. Vérifiez votre connexion et réessayez.",
+    "retry": "Réessayer"
+  },
+  "addSite": {
+    "eyebrow": "Nouvelle fiche",
+    "heading": "Proposer un site",
+    "title": "Titre",
+    "location": "Localisation",
+    "category": "Catégorie",
+    "imageUrl": "Image (URL)",
+    "description": "Description",
+    "details": "Bon à savoir avant de partir",
+    "difficulty": "Difficulté d'accès",
+    "danger": "Dangerosité",
+    "price": "Prix estimé (FCFA)",
+    "cancel": "Annuler",
+    "publish": "Publier la fiche"
+  },
+  "form": {
+    "placeholderTitle": "Ex. Chutes de la Lobé",
+    "placeholderLocation": "Ex. Kribi, région du Sud",
+    "placeholderImage": "https://…",
+    "placeholderDescription": "Ce qui rend ce lieu unique…",
+    "placeholderPrice": "Ex. 5000"
+  },
+  "categories": {
+    "all": "Tous",
+    "nature": "Nature",
+    "culture": "Culture",
+    "beach": "Plage",
+    "plage": "Plage",
+    "mountain": "Montagne",
+    "montagne": "Montagne",
+    "adventure": "Aventure",
+    "aventure": "Aventure",
+    "relaxation": "Détente",
+    "other": "Autre"
+  },
+  "difficulty": {
+    "facile": "Facile",
+    "modere": "Modérée",
+    "difficile": "Difficile"
+  },
+  "danger": {
+    "faible": "Faible",
+    "moderee": "Modérée",
+    "elevee": "Élevée"
+  },
+  "site": {
+    "ratePrompt": "Votre note pour ce site (1 à 5) :",
+    "rateError": "Impossible d'enregistrer la note pour le moment.",
+    "authorPrefix": "par"
+  },
+  "errors": {
+    "loginFailed": "Email ou mot de passe incorrect.",
+    "serverUnavailable": "Impossible de contacter le serveur",
+    "registerFailed": "Erreur lors de l'inscription",
+    "createSite": "Erreur lors de la création"
+  }
+}

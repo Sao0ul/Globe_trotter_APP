@@ -1,4 +1,4 @@
-/* Reset */
+﻿/* Reset */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
@@ -104,4 +104,4 @@ button[type="submit"]:hover { transform: translateY(-3px); box-shadow: 0 15px 35
 
 /* Success message (signup confirmation) */
 .success-message { margin-bottom: 18px; padding: 14px; border-radius: 12px; background: #ddffdd; color: #0a6b0a; }
-.success-message a { color: #0a6b0a; font-weight: 700; text-decoration: underline; }
+.success-message a { color: #0a6b0a; font-weight: 700; text-decoration: underline; }\n/* Language selector */\n.language-switcher-container { text-align: right; margin-bottom: 20px; }\n.language-switcher { width: 100%; max-width: 160px; appearance: none; border-radius: 999px; border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.12); color: white; padding: 10px 12px; font-size: 0.95rem; font-weight: 500; }\n@media (max-width: 480px) { .language-switcher-container { margin-bottom: 14px; } }

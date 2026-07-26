@@ -1,6 +1,6 @@
-/* =========================================================
-   Cameroun Visit — sites.html
-   Palette : forêt profonde / sable / or savane / argile
+﻿/* =========================================================
+   Cameroun Visit â€” sites.html
+   Palette : forÃªt profonde / sable / or savane / argile
    ========================================================= */
 
 :root {
@@ -32,11 +32,11 @@ body {
   font-family: var(--font-body);
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
-  /* Photo de savane (acacia, Etosha) au lieu de la forêt du login */
+  /* Photo de savane (acacia, Etosha) au lieu de la forÃªt du login */
   background: url("https://images.unsplash.com/photo-1757777598981-2a589811168d?auto=format&fit=crop&w=1920&q=80") center center/cover no-repeat fixed;
 }
 
-/* ================= FOND VIDÉO (identique au login) ================= */
+/* ================= FOND VIDÃ‰O (identique au login) ================= */
 
 #background-video {
   position: fixed;
@@ -202,7 +202,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 .sidebar-scrim { display: none; }
 
-/* ================= SIDEBAR RÉDUITE (desktop) ================= */
+/* ================= SIDEBAR RÃ‰DUITE (desktop) ================= */
 
 .app.sidebar-collapsed { grid-template-columns: 84px 1fr; }
 
@@ -706,7 +706,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     color: var(--forest-deep);
   }
 
-  .nav-collapse { display: none; } /* la sidebar mobile a déjà son propre système (menuToggle) */
+  .nav-collapse { display: none; } /* la sidebar mobile a dÃ©jÃ  son propre systÃ¨me (menuToggle) */
 
   .main { padding: 20px 20px 60px; }
   .topbar { align-items: center; }
@@ -715,3 +715,4 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .topbar-heading h1 { font-size: 1.5rem; }
   .form-row { grid-template-columns: 1fr; }
 }
+\n/* Language selector */\n.language-switcher-container { margin-left: auto; }\n.language-switcher { border-radius: 999px; border: 1px solid rgba(255,255,255,.5); background: rgba(255,253,248,.8); color: var(--ink); padding: 10px 14px; font-size: 0.95rem; font-weight: 500; }\n@media (max-width: 900px) { .language-switcher-container { width: 100%; } }

@@ -11,14 +11,14 @@ const preferencesTrigger = document.getElementById("preferencesTrigger");
 const preferencesTriggerText = document.getElementById("preferencesTriggerText");
 const preferencesPanel = document.getElementById("preferencesPanel");
 
-const libellesPreferences = {
-  nature: "Nature",
-  culture: "Culture",
-  adventure: "Aventure",
-  relaxation: "Détente",
-  mountain: "Montagne",
-  beach: "Plage",
-  other: "Autre"
+const preferenceLabelKeys = {
+  nature: "preferences.nature",
+  culture: "preferences.culture",
+  adventure: "preferences.adventure",
+  relaxation: "preferences.relaxation",
+  mountain: "preferences.mountain",
+  beach: "preferences.beach",
+  other: "preferences.other"
 };
 
 function ouvrirFermerPreferences() {
@@ -37,13 +37,13 @@ function mettreAJourTexteDeclencheur() {
   ).map((cb) => cb.value);
 
   if (cochees.length === 0) {
-    preferencesTriggerText.textContent = "Sélectionne tes préférences";
+    preferencesTriggerText.textContent = window.i18n.t("register.selectPreferences");
     preferencesTriggerText.classList.remove("has-selection");
   } else if (cochees.length === 1) {
-    preferencesTriggerText.textContent = libellesPreferences[cochees[0]] || cochees[0];
+    preferencesTriggerText.textContent = window.i18n.t(preferenceLabelKeys[cochees[0]]) || cochees[0];
     preferencesTriggerText.classList.add("has-selection");
   } else {
-    preferencesTriggerText.textContent = `${cochees.length} préférences sélectionnées`;
+    preferencesTriggerText.textContent = window.i18n.t("register.preferencesSelected", { count: cochees.length });
     preferencesTriggerText.classList.add("has-selection");
   }
 }
@@ -97,7 +97,7 @@ registerForm.addEventListener("submit", async (event) => {
 
     if (!response.ok) {
       // Ex: 409 si l'email existe déjà, 400 si un champ manque
-      errorMessage.textContent = data.error || "Erreur lors de l'inscription";
+      errorMessage.textContent = data.error || window.i18n.t("errors.registerFailed");
       errorMessage.hidden = false;
       return;
     }
@@ -105,11 +105,9 @@ registerForm.addEventListener("submit", async (event) => {
     // En simulation, le lien de confirmation est affiché directement à l'écran.
     // En conditions réelles (vrai SMTP), ce lien serait envoyé par email
     // et cette ligne n'existerait pas dans le frontend.
-    successMessage.innerHTML = `
-      Compte créé ! Confirme-le en cliquant
-      <a href="${data.confirmationLink}">ici</a>
-      (lien de confirmation simulé, normalement envoyé par email).
-    `;
+    successMessage.innerHTML = window.i18n.t("register.successHtml", {
+      link: `<a href="${data.confirmationLink}">${window.i18n.t("register.successLink")}</a>`
+    });
     successMessage.hidden = false;
     registerForm.reset();
     mettreAJourTexteDeclencheur();
@@ -117,7 +115,15 @@ registerForm.addEventListener("submit", async (event) => {
   } catch (error) {
     // Erreur réseau, différente d'une erreur métier renvoyée par l'API
     console.error("Erreur d'inscription:", error);
-    errorMessage.textContent = "Impossible de contacter le serveur";
+    errorMessage.textContent = window.i18n.t("errors.serverUnavailable");
     errorMessage.hidden = false;
   }
+});
+
+document.addEventListener("i18n:languageChanged", () => {
+  mettreAJourTexteDeclencheur();
+});
+
+window.i18n?.ready?.then(() => {
+  mettreAJourTexteDeclencheur();
 });

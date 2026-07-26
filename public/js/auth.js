@@ -24,7 +24,7 @@ loginForm.addEventListener("submit", async (event) => {
 
     if (!response.ok) {
       // Cas particulier : compte pas encore confirmé (403)
-      errorMessage.textContent = data.error || "Email ou mot de passe incorrect.";
+      errorMessage.textContent = data.error || window.i18n.t("errors.loginFailed");
       errorMessage.hidden = false;
       return;
     }
@@ -36,7 +36,7 @@ loginForm.addEventListener("submit", async (event) => {
 
   } catch (error) {
     console.error("Erreur de connexion:", error);
-    errorMessage.textContent = "Impossible de contacter le serveur";
+    errorMessage.textContent = window.i18n.t("errors.serverUnavailable");
     errorMessage.hidden = false;
   }
 });
