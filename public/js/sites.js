@@ -23,6 +23,9 @@ const errorState = document.getElementById("errorState");
 const cardTemplate = document.getElementById("cardTemplate");
 
 const filters = document.getElementById("filters");
+const filtersToggle = document.getElementById("filtersToggle");
+const filtersPanel = document.getElementById("filtersPanel");
+const filtersToggleLabel = document.getElementById("filtersToggleLabel");
 const searchInput = document.getElementById("searchInput");
 const searchWrap = document.getElementById("searchWrap");
 
@@ -36,6 +39,15 @@ let tousLesSites = [];
 let categorieActive = "tous";
 let rechercheActuelle = "";
 
+const filterLabelKeys = {
+  tous: "filters.all",
+  nature: "filters.nature",
+  culture: "filters.culture",
+  beach: "filters.beach",
+  montagne: "filters.mountain",
+  aventure: "filters.adventure"
+};
+
 // -------------------- Affichage des états --------------------
 
 function afficherEtat(nom) {
@@ -43,6 +55,31 @@ function afficherEtat(nom) {
   emptyState.hidden = nom !== "empty";
   errorState.hidden = nom !== "error";
   sitesGrid.hidden = nom !== "grid";
+}
+
+function mettreAJourLabelFiltre() {
+  const labelKey = filterLabelKeys[categorieActive] || "filters.all";
+  filtersToggleLabel.textContent = window.i18n?.t(labelKey) || "All";
+}
+
+function ouvrirMenuFiltre() {
+  filtersPanel.hidden = false;
+  filtersToggle.setAttribute("aria-expanded", "true");
+}
+
+function fermerMenuFiltre() {
+  filtersPanel.hidden = true;
+  filtersToggle.setAttribute("aria-expanded", "false");
+}
+
+function selectionnerCategorie(categorie) {
+  categorieActive = categorie;
+  document.querySelectorAll(".filters-panel .chip").forEach((chip) => {
+    chip.classList.toggle("is-active", chip.dataset.cat === categorie);
+  });
+  mettreAJourLabelFiltre();
+  afficherSites();
+  fermerMenuFiltre();
 }
 
 // -------------------- Chargement des sites --------------------
@@ -121,31 +158,31 @@ function afficherSites() {
 
     node.querySelector(".card-number").textContent =
       "N°" + String(site.id ?? index + 1).padStart(3, "0");
-    node.querySelector(".card-category").textContent = site.categorie || "—";
+    node.querySelector(".card-category").textContent =
+      window.i18n.t(`categories.${site.categorie}`) || site.categorie || "—";
     node.querySelector(".card-title").textContent = site.titre;
     node.querySelector(".card-location span").textContent = site.localisation;
     node.querySelector(".card-desc").textContent = site.description || "";
     node.querySelector(".rating-value").textContent = moyenneNote(site).toFixed(1);
-    node.querySelector(".card-author").textContent = site.auteur ? `par ${site.auteur}` : "";
-
-    const libellesDifficulte = { facile: "Facile", modere: "Modérée", difficile: "Difficile" };
-    const libellesDanger = { faible: "Risque faible", moderee: "Risque modéré", elevee: "Risque élevé" };
+    node.querySelector(".card-author").textContent =
+      site.auteur ? `${window.i18n.t("site.authorPrefix")} ${site.auteur}` : "";
 
     const tagDifficulte = node.querySelector(".tag-difficulte");
     if (site.difficulte) {
       tagDifficulte.dataset.level = site.difficulte;
-      tagDifficulte.textContent = libellesDifficulte[site.difficulte] || site.difficulte;
+      tagDifficulte.textContent = window.i18n.t(`difficulty.${site.difficulte}`) || site.difficulte;
     }
 
     const tagDanger = node.querySelector(".tag-danger");
     if (site.dangerosite) {
       tagDanger.dataset.level = site.dangerosite;
-      tagDanger.textContent = libellesDanger[site.dangerosite] || site.dangerosite;
+      tagDanger.textContent = window.i18n.t(`danger.${site.dangerosite}`) || site.dangerosite;
     }
 
     const tagPrix = node.querySelector(".tag-prix");
     if (site.prix !== undefined && site.prix !== null && site.prix !== "") {
-      tagPrix.textContent = `${Number(site.prix).toLocaleString("fr-FR")} FCFA`;
+      const locale = window.i18n.language === "en" ? "en-US" : "fr-FR";
+      tagPrix.textContent = `${Number(site.prix).toLocaleString(locale)} FCFA`;
     }
 
     node.querySelector(".rating").addEventListener("click", () => noterSite(site.id));
@@ -157,7 +194,7 @@ function afficherSites() {
 // -------------------- Notation --------------------
 
 async function noterSite(siteId) {
-  const saisie = window.prompt("Votre note pour ce site (1 à 5) :");
+  const saisie = window.prompt(window.i18n.t("site.ratePrompt"));
   const valeur = Number(saisie);
   if (!valeur || valeur < 1 || valeur > 5) return;
 
@@ -171,7 +208,7 @@ async function noterSite(siteId) {
   });
 
   if (!response.ok) {
-    alert("Impossible d'enregistrer la note pour le moment.");
+    alert(window.i18n.t("site.rateError"));
     return;
   }
 
@@ -180,14 +217,34 @@ async function noterSite(siteId) {
 
 // -------------------- Filtres et recherche (UI) --------------------
 
-filters.addEventListener("click", (event) => {
+filtersToggle.addEventListener("click", (event) => {
+  event.stopPropagation();
+  const estOuvert = filtersToggle.getAttribute("aria-expanded") === "true";
+  if (estOuvert) {
+    fermerMenuFiltre();
+  } else {
+    ouvrirMenuFiltre();
+  }
+});
+
+filtersPanel.addEventListener("click", (event) => {
+  event.stopPropagation();
   const chip = event.target.closest(".chip");
   if (!chip) return;
 
-  document.querySelectorAll(".chip").forEach((c) => c.classList.remove("is-active"));
-  chip.classList.add("is-active");
-  categorieActive = chip.dataset.cat;
-  afficherSites();
+  // Synchronise le badge icône du bouton avec celui du chip cliqué
+  const iconSource = chip.querySelector(".chip-icon");
+  const iconTarget = document.getElementById("filtersToggleIcon");
+  if (iconSource && iconTarget) {
+    iconTarget.className = "filters-toggle-icon-badge " + iconSource.className;
+    iconTarget.innerHTML = iconSource.innerHTML;
+  }
+
+  selectionnerCategorie(chip.dataset.cat);
+});
+
+document.addEventListener("click", () => {
+  fermerMenuFiltre();
 });
 
 searchInput.addEventListener("input", (event) => {
@@ -293,6 +350,14 @@ logoutBtn.addEventListener("click", () => {
   window.location.href = "index.html";
 });
 
+document.addEventListener("i18n:languageChanged", () => {
+  mettreAJourLabelFiltre();
+  afficherSites();
+});
+
 // -------------------- Démarrage --------------------
 
-chargerSites();
+window.i18n?.ready?.then(() => {
+  mettreAJourLabelFiltre();
+  chargerSites();
+});

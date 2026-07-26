@@ -1,25 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-
+﻿<!DOCTYPE html>
+<html lang="fr">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="assets/images/logoLogin.png" />
-    <title>Discover Cameroon — Inscription</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
-    <!-- Même fichier CSS que login.html : les classes sont génériques,
-         pas besoin de register.css séparé -->
+    <title data-i18n="register.title">Discover Cameroon — Inscription</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/register.css">
 </head>
-
 <body>
     <!-- ==============================
             VIDEO DE FOND (identique à login.html)
@@ -31,9 +21,7 @@
         loop
         playsinline
         poster="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80">
-
         <source src="videos/cameroon.mp4" type="video/mp4">
-
     </video>
 
     <div class="video-overlay"></div>
@@ -43,169 +31,116 @@
     =============================== -->
 
     <main class="login-container">
-
         <div class="login-card">
-
             <div class="logo">
-
                 <div class="logo-circle">
-
                     <img src="./assets/images/logoLogin.png" alt="Discover Cameroon">
-
                 </div>
-
-                <h1>Créer un compte</h1>
-
-                <p>
-
-                    Rejoins la communauté Discover Cameroon et commence
-                    à explorer les plus belles destinations du pays.
-
-                </p>
-
+                <div class="language-switcher-container">
+                    <select id="languageSwitcher" class="language-switcher" aria-label="Language selector">
+                        <option value="fr" data-i18n="lang.french">Français</option>
+                        <option value="en" data-i18n="lang.english">English</option>
+                    </select>
+                </div>
+                <h1 data-i18n="register.title">Créer un compte</h1>
+                <p data-i18n="register.subtitle">Rejoins la communauté Discover Cameroon et commence à explorer les plus belles destinations du pays.</p>
             </div>
 
             <div id="errorMessage" class="error-message" hidden></div>
             <div id="successMessage" class="success-message" hidden></div>
 
             <form id="registerForm">
-
                 <div class="input-group">
-
                     <i class="fa-solid fa-user"></i>
-
-                    <input
-                        type="text"
-                        id="username"
-                        placeholder="Pseudo"
-                        required>
-
+                    <input type="text" id="username" placeholder="Pseudo" data-i18n-placeholder="register.usernamePlaceholder" required>
                 </div>
 
                 <div class="input-group">
-
                     <i class="fa-solid fa-envelope"></i>
-
-                    <input
-                        type="email"
-                        id="email"
-                        placeholder="Adresse email"
-                        required>
-
+                    <input type="email" id="email" placeholder="Adresse email" data-i18n-placeholder="register.emailPlaceholder" required>
                 </div>
 
                 <div class="input-group">
                     <i class="fa-solid fa-lock"></i>
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="Mot de passe"
-                        required
-                        minlength="6">
+                    <input type="password" id="password" placeholder="Mot de passe" data-i18n-placeholder="register.passwordPlaceholder" required minlength="6">
                 </div>
 
                 <div class="preferences-dropdown" id="preferencesDropdown">
-
                     <button type="button" class="preferences-trigger" id="preferencesTrigger" aria-haspopup="listbox" aria-expanded="false">
                         <i class="fa-solid fa-compass"></i>
-                        <span class="preferences-trigger-text" id="preferencesTriggerText">Sélectionne tes préférences</span>
+                        <span class="preferences-trigger-text" id="preferencesTriggerText" data-i18n="register.selectPreferences">Sélectionne tes préférences</span>
                         <i class="fa-solid fa-chevron-down preferences-chevron"></i>
                     </button>
 
                     <div class="preferences-panel" id="preferencesPanel" role="listbox">
-
                         <label class="pref-option">
                             <input type="checkbox" value="nature">
                             <i class="fa-solid fa-leaf pref-option-icon"></i>
-                            <span class="pref-option-label">Nature</span>
+                            <span class="pref-option-label" data-i18n="preferences.nature">Nature</span>
                             <i class="fa-solid fa-check pref-option-check"></i>
                         </label>
-
                         <label class="pref-option">
                             <input type="checkbox" value="culture">
                             <i class="fa-solid fa-landmark pref-option-icon"></i>
-                            <span class="pref-option-label">Culture</span>
+                            <span class="pref-option-label" data-i18n="preferences.culture">Culture</span>
                             <i class="fa-solid fa-check pref-option-check"></i>
                         </label>
-
                         <label class="pref-option">
                             <input type="checkbox" value="adventure">
                             <i class="fa-solid fa-person-hiking pref-option-icon"></i>
-                            <span class="pref-option-label">Aventure</span>
+                            <span class="pref-option-label" data-i18n="preferences.adventure">Aventure</span>
                             <i class="fa-solid fa-check pref-option-check"></i>
                         </label>
-
                         <label class="pref-option">
                             <input type="checkbox" value="relaxation">
                             <i class="fa-solid fa-spa pref-option-icon"></i>
-                            <span class="pref-option-label">Détente</span>
+                            <span class="pref-option-label" data-i18n="preferences.relaxation">Détente</span>
                             <i class="fa-solid fa-check pref-option-check"></i>
                         </label>
-
                         <label class="pref-option">
                             <input type="checkbox" value="mountain">
                             <i class="fa-solid fa-mountain pref-option-icon"></i>
-                            <span class="pref-option-label">Montagne</span>
+                            <span class="pref-option-label" data-i18n="preferences.mountain">Montagne</span>
                             <i class="fa-solid fa-check pref-option-check"></i>
                         </label>
-
                         <label class="pref-option">
                             <input type="checkbox" value="beach">
                             <i class="fa-solid fa-umbrella-beach pref-option-icon"></i>
-                            <span class="pref-option-label">Plage</span>
+                            <span class="pref-option-label" data-i18n="preferences.beach">Plage</span>
                             <i class="fa-solid fa-check pref-option-check"></i>
                         </label>
-
                         <label class="pref-option">
                             <input type="checkbox" value="other">
                             <i class="fa-solid fa-star pref-option-icon"></i>
-                            <span class="pref-option-label">Autre</span>
+                            <span class="pref-option-label" data-i18n="preferences.other">Autre</span>
                             <i class="fa-solid fa-check pref-option-check"></i>
                         </label>
-
                     </div>
-
                 </div>
 
                 <button type="submit">
                     <i class="fa-solid fa-user-plus"></i>
-
-                    S'inscrire
-
+                    <span data-i18n="register.signUp">S'inscrire</span>
                 </button>
-
             </form>
 
             <p class="register">
-
-                Déjà un compte ?
-
-                <a href="index.html">
-
-                    Se connecter
-
-                </a>
-
+                <span data-i18n="register.alreadyHaveAccount">Déjà un compte ?</span>
+                <a href="index.html" data-i18n="register.signInLink">Se connecter</a>
             </p>
-
         </div>
-
     </main>
 
+    <script src="js/i18n.js"></script>
     <script src="js/register.js"></script>
 
     <script>
-
         // Identique à login.html : si la vidéo locale ne charge pas,
         // on la masque et le fond image (défini dans le body en CSS) prend le relais.
         const video = document.getElementById("background-video");
-
         video.onerror = () => {
             video.style.display = "none";
         };
-
     </script>
-
 </body>
-
 </html>

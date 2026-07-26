@@ -1,271 +1,392 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Explorer — Cameroun Visit</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='10' fill='%2316332B'/%3E%3Cpath d='M6 34 L17 15 L23 26 L28 19 L43 34 Z' fill='%23E3A93A'/%3E%3Cpath d='M6 34 L17 15 L23 26 L20 33 L6 34 Z' fill='%23F4C868'/%3E%3Ccircle cx='35' cy='12' r='4' fill='%23B8452F'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/site.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="sites.title">Explorer Cameroun Visit</title>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='10' fill='%2316332B'/%3E%3Cpath d='M6 34 L17 15 L23 26 L28 19 L43 34 Z' fill='%23E3A93A'/%3E%3Cpath d='M6 34 L17 15 L23 26 L20 33 L6 34 Z' fill='%23F4C868'/%3E%3Ccircle cx='35' cy='12' r='4' fill='%23B8452F'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/site.css">
 </head>
+
 <body>
 
-<!-- Background video (même fichier que index.html, pour un rendu cohérent entre les pages) -->
-<video id="background-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1757777598981-2a589811168d?auto=format&fit=crop&w=1920&q=80">
-  <source src="videos/cameroon.mp4" type="video/mp4">
-</video>
+    <video id="background-video" autoplay muted loop playsinline
+        poster="https://images.unsplash.com/photo-1757777598981-2a589811168d?auto=format&fit=crop&w=1920&q=80">
+        <source src="videos/cameroon.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
 
-<div class="video-overlay"></div>
+    <div class="app" id="appShell">
 
-<div class="app" id="appShell">
+        <!-- ===================== SIDEBAR ===================== -->
+        <aside class="sidebar" id="sidebar">
+            <button class="sidebar-close" id="sidebarClose" aria-label="Fermer le menu">✕</button>
 
-  <!-- ===================== SIDEBAR ===================== -->
-  <aside class="sidebar" id="sidebar">
-
-    <button class="sidebar-close" id="sidebarClose" aria-label="Fermer le menu">✕</button>
-
-    <div class="sidebar-greeting">
-      <div class="avatar" id="avatarInitials">…</div>
-      <div class="greeting-text">
-        <span class="greeting-hello">Bonjour</span>
-        <span class="greeting-name" id="greetingName">Explorateur</span>
-      </div>
-    </div>
-
-    <nav class="sidebar-nav">
-      <span class="nav-label">Navigation</span>
-
-      <a href="sites.html" class="nav-item is-active" data-view="explore">
-        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M15.5 8.5L13 13l-4.5 2.5L11 11l4.5-2.5z" fill="currentColor"/></svg>
-        <span>Explorer</span>
-      </a>
-
-      <button class="nav-item" id="openAddSite" data-view="add">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-        <span>Proposer un site</span>
-        <span class="nav-hint">Ajouter</span>
-      </button>
-
-      <a href="messages.html" class="nav-item" data-view="chat">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H8l-4 4V5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-        <span>Messages</span>
-      </a>
-
-      <a href="profile.html" class="nav-item" data-view="profile">
-        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.6"/><path d="M5 20c1.4-4 4.2-6 7-6s5.6 2 7 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        <span>Profil</span>
-      </a>
-
-      <a href="infos.html" class="nav-item" data-view="infos">
-        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 11v5.5M12 8v.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-        <span>Infos</span>
-      </a>
-    </nav>
-
-    <button class="nav-item nav-collapse" id="collapseSidebar" aria-label="Réduire le menu">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6M4 4v16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <span>Réduire le menu</span>
-    </button>
-
-    <button class="nav-item nav-logout" id="logoutBtn">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M9 4H5v16h4M16 8l4 4-4 4M20 12H9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <span>Déconnexion</span>
-    </button>
-  </aside>
-
-  <div class="sidebar-scrim" id="sidebarScrim"></div>
-
-  <!-- ===================== MAIN ===================== -->
-  <main class="main">
-    <div class="page-header">
-        <div class="brand">
-            <svg class="brand-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M4 34 L16 14 L23 26 L28 18 L44 34 Z" fill="#E3A93A"/>
-            <path d="M4 34 L16 14 L23 26 L19 33 L4 34 Z" fill="#F4C868"/>
-            <circle cx="36" cy="11" r="4.2" fill="#B8452F"/>
-            </svg>
-            <div class="brand-word">
-            <span class="brand-name">Cameroun<em>Visit</em></span>
-            <span class="brand-tag">Carnet d'exploration</span>
+            <div class="sidebar-greeting">
+                <div class="avatar" id="avatarInitials">…</div>
+                <div class="greeting-text">
+                    <span class="greeting-hello" data-i18n="sidebar.hello">Bonjour</span>
+                    <span class="greeting-name" id="greetingName">Explorateur</span>
+                </div>
             </div>
+
+            <nav class="sidebar-nav">
+                <span class="nav-label" data-i18n="sidebar.navigation">Navigation</span>
+
+                <a href="sites.html" class="nav-item is-active" data-view="explore">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6" />
+                        <path d="M15.5 8.5L13 13l-4.5 2.5L11 11l4.5-2.5z" fill="currentColor" />
+                    </svg>
+                    <span data-i18n="sidebar.explore">Explorer</span>
+                </a>
+
+                <button class="nav-item" id="openAddSite" data-view="add">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    </svg>
+                    <span data-i18n="sidebar.addSite">Proposer un site</span>
+                    <span class="nav-hint" data-i18n="sidebar.addHint">Ajouter</span>
+                </button>
+
+                <a href="messages.html" class="nav-item" data-view="chat">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M4 5h16v11H8l-4 4V5z" stroke="currentColor" stroke-width="1.6"
+                            stroke-linejoin="round" />
+                    </svg>
+                    <span data-i18n="sidebar.messages">Messages</span>
+                </a>
+
+                <a href="profile.html" class="nav-item" data-view="profile">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.6" />
+                        <path d="M5 20c1.4-4 4.2-6 7-6s5.6 2 7 6" stroke="currentColor" stroke-width="1.6"
+                            stroke-linecap="round" />
+                    </svg>
+                    <span data-i18n="sidebar.profile">Profil</span>
+                </a>
+
+                <a href="infos.html" class="nav-item" data-view="infos">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6" />
+                        <path d="M12 11v5.5M12 8v.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    </svg>
+                    <span data-i18n="sidebar.infos">Infos</span>
+                </a>
+            </nav>
+
+            <button class="nav-item nav-collapse" id="collapseSidebar" aria-label="Réduire le menu">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M15 6l-6 6 6 6M4 4v16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span data-i18n="sidebar.collapseMenu">Réduire le menu</span>
+            </button>
+
+            <button class="nav-item nav-logout" id="logoutBtn">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M9 4H5v16h4M16 8l4 4-4 4M20 12H9" stroke="currentColor" stroke-width="1.6"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span data-i18n="sidebar.logout">Déconnexion</span>
+            </button>
+        </aside>
+
+        <div class="sidebar-scrim" id="sidebarScrim"></div>
+
+        <!-- ===================== MAIN ===================== -->
+        <main class="main">
+
+            <div class="page-header">
+                <div class="brand">
+                    <svg class="brand-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true">
+                        <path d="M4 34 L16 14 L23 26 L28 18 L44 34 Z" fill="#E3A93A" />
+                        <path d="M4 34 L16 14 L23 26 L19 33 L4 34 Z" fill="#F4C868" />
+                        <circle cx="36" cy="11" r="4.2" fill="#B8452F" />
+                    </svg>
+                    <div class="brand-word">
+                        <span class="brand-name">Cameroun<em>Visit</em></span>
+                        <span class="brand-tag">Carnet d'exploration</span>
+                    </div>
+                </div>
+
+                <div class="search-wrap" id="searchWrap">
+                    <span class="search-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="7" />
+                            <path d="m16 16 5 5" />
+                        </svg>
+                    </span>
+                    <input type="text" id="searchInput" placeholder="Rechercher un lieu, une destination…"
+                        data-i18n-placeholder="topbar.searchPlaceholder">
+                    <span class="search-explorer" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="8" r="2.2" fill="var(--gold)" stroke="var(--forest-deep)" />
+                            <path d="M12 10.5v3.5M9 16.5s1.5-1.2 3-1.2 3 1.2 3 1.2" stroke="var(--forest-deep)" />
+                            <path d="M9.5 13.2l-1.4 2.8M14.5 13.2l1.4 2.8" stroke="var(--forest-deep)" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+
+            <header class="topbar">
+                <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" />
+                    </svg>
+                </button>
+
+                <div class="topbar-heading">
+                    <h1 data-i18n="topbar.heading">Explorer les destinations</h1>
+                </div>
+
+                <div class="language-switcher" id="languageSwitcher" role="group" aria-label="Choisir la langue">
+                    <span class="language-switcher-thumb" aria-hidden="true"></span>
+                    <button type="button" class="lang-pill is-active" data-lang="fr">FR</button>
+                    <button type="button" class="lang-pill" data-lang="en">EN</button>
+                </div>
+            </header>
+
+            <div class="filters" id="filters">
+                <button type="button" class="filters-toggle" id="filtersToggle" aria-expanded="false"
+                    aria-controls="filtersPanel">
+                    <span class="filters-toggle-icon-badge chip-icon chip-icon-tous" id="filtersToggleIcon">
+                        <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
+                            <path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z" />
+                        </svg>
+                    </span>
+                    <span id="filtersToggleLabel" data-i18n="filters.all">Tous</span>
+                    <span class="filters-toggle-icon">▾</span>
+                </button>
+                <div class="filters-panel" id="filtersPanel" hidden>
+                    <button type="button" class="chip is-active" data-cat="tous">
+                        <span class="chip-icon chip-icon-tous">
+                            <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
+                                <path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z" />
+                            </svg>
+                        </span>
+                        <span data-i18n="filters.all">Tous</span>
+                    </button>
+
+                    <button type="button" class="chip" data-cat="nature">
+                        <span class="chip-icon chip-icon-nature">
+                            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor"
+                                stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 3c-4 1-7 5-7 9a5 5 0 0 0 5 5c4 0 8-4 9-9 1-4-3-6-7-5z" />
+                                <path d="M8.5 16C10 13 12 10.5 15 8" />
+                            </svg>
+                        </span>
+                        <span data-i18n="filters.nature">Nature</span>
+                    </button>
+
+                    <button type="button" class="chip" data-cat="culture">
+                        <span class="chip-icon chip-icon-culture">
+                            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor"
+                                stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 10l8-5 8 5M5 10v8M9 10v8M15 10v8M19 10v8M3 20h18" />
+                            </svg>
+                        </span>
+                        <span data-i18n="filters.culture">Culture</span>
+                    </button>
+
+                    <button type="button" class="chip" data-cat="beach">
+                        <span class="chip-icon chip-icon-beach">
+                            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor"
+                                stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 3C7 3 3.5 7 3 11h18c-.5-4-4-8-9-8zM12 3v16M9 21c0-1 1-2 3-2s3 1 3 2" />
+                            </svg>
+                        </span>
+                        <span data-i18n="filters.beach">Plage</span>
+                    </button>
+
+                    <button type="button" class="chip" data-cat="montagne">
+                        <span class="chip-icon chip-icon-montagne">
+                            <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
+                                <path d="M3 18l6-10 4 6 3-4 5 8H3z" />
+                            </svg>
+                        </span>
+                        <span data-i18n="filters.mountain">Montagne</span>
+                    </button>
+
+                    <button type="button" class="chip" data-cat="aventure">
+                        <span class="chip-icon chip-icon-aventure">
+                            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor"
+                                stroke-width="1.6">
+                                <circle cx="12" cy="12" r="9" />
+                                <path d="M15.5 8.5L13 13l-4.5 2.5L11 11l4.5-2.5z" fill="currentColor" stroke="none" />
+                            </svg>
+                        </span>
+                        <span data-i18n="filters.adventure">Aventure</span>
+                    </button>
+                </div>
+            </div>
+
+            <section class="grid" id="sitesGrid"></section>
+
+            <div class="state-panel" id="loadingState">
+                <div class="spinner"></div>
+                <p data-i18n="state.loading">Chargement des destinations…</p>
+            </div>
+
+            <div class="state-panel" id="emptyState" hidden>
+                <svg viewBox="0 0 24 24" fill="none" width="40" height="40">
+                    <path d="M4 20l6-11 4 6 3-4 3 9H4z" stroke="currentColor" stroke-width="1.4"
+                        stroke-linejoin="round" />
+                </svg>
+                <p data-i18n="state.empty">Aucune destination pour l'instant.</p>
+                <button class="btn-ghost" id="emptyStateAdd" data-i18n="state.emptyAction">Proposer la première</button>
+            </div>
+
+            <div class="state-panel" id="errorState" hidden>
+                <p data-i18n="state.error">Impossible de charger les destinations. Vérifiez votre connexion et
+                    réessayez.</p>
+                <button class="btn-ghost" id="retryLoad" data-i18n="state.retry">Réessayer</button>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- ===================== ADD SITE PANEL ===================== -->
+    <div class="overlay" id="addSiteOverlay">
+        <div class="add-panel">
+            <div class="add-panel-head">
+                <div>
+                    <span class="eyebrow" data-i18n="addSite.eyebrow">Nouvelle fiche</span>
+                    <h2 data-i18n="addSite.heading">Proposer un site</h2>
+                </div>
+                <button class="close-btn" id="closeAddSite" aria-label="Fermer">✕</button>
+            </div>
+
+            <form id="addSiteForm" class="add-form">
+                <label>
+                    <span data-i18n="addSite.title">Titre</span>
+                    <input type="text" name="titre" required placeholder="Ex. Chutes de la Lobé"
+                        data-i18n-placeholder="form.placeholderTitle">
+                </label>
+
+                <div class="form-row">
+                    <label>
+                        <span data-i18n="addSite.location">Localisation</span>
+                        <input type="text" name="localisation" required placeholder="Ex. Kribi, région du Sud"
+                            data-i18n-placeholder="form.placeholderLocation">
+                    </label>
+                    <label>
+                        <span data-i18n="addSite.category">Catégorie</span>
+                        <select name="categorie" required>
+                            <option value="nature" data-i18n="categories.nature">nature</option>
+                            <option value="culture" data-i18n="categories.culture">culture</option>
+                            <option value="aventure" data-i18n="categories.adventure">aventure</option>
+                            <option value="beach" data-i18n="categories.beach">beach</option>
+                            <option value="mountain" data-i18n="categories.mountain">mountain</option>
+                            <option value="relaxation" data-i18n="categories.relaxation">relaxation</option>
+                            <option value="other" data-i18n="categories.other">other</option>
+                        </select>
+                    </label>
+                </div>
+
+                <label>
+                    <span data-i18n="addSite.imageUrl">Image (URL)</span>
+                    <input type="url" name="imageUrl" placeholder="https://…"
+                        data-i18n-placeholder="form.placeholderImage">
+                </label>
+
+                <label>
+                    <span data-i18n="addSite.description">Description</span>
+                    <textarea name="description" rows="4" required placeholder="Ce qui rend ce lieu unique…"
+                        data-i18n-placeholder="form.placeholderDescription"></textarea>
+                </label>
+
+                <div class="form-section-label" data-i18n="addSite.details">Bon à savoir avant de partir</div>
+
+                <div class="form-row form-row-3">
+                    <label>
+                        <span data-i18n="addSite.difficulty">Difficulté d'accès</span>
+                        <select name="difficulte">
+                            <option value="facile" data-i18n="difficulty.facile">Facile</option>
+                            <option value="modere" data-i18n="difficulty.modere">Modérée</option>
+                            <option value="difficile" data-i18n="difficulty.difficile">Difficile</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span data-i18n="addSite.danger">Dangerosité</span>
+                        <select name="dangerosite">
+                            <option value="faible" data-i18n="danger.faible">Faible</option>
+                            <option value="moderee" data-i18n="danger.moderee">Modérée</option>
+                            <option value="elevee" data-i18n="danger.elevee">Élevée</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span data-i18n="addSite.price">Prix estimé (FCFA)</span>
+                        <input type="number" name="prix" min="0" step="500" placeholder="Ex. 5000"
+                            data-i18n-placeholder="form.placeholderPrice">
+                    </label>
+                </div>
+
+                <p class="form-error" id="addSiteError" hidden></p>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-ghost" id="cancelAddSite"
+                        data-i18n="addSite.cancel">Annuler</button>
+                    <button type="submit" class="btn-solid" data-i18n="addSite.publish">Publier la fiche</button>
+                </div>
+            </form>
         </div>
-
-        <div class="search-wrap" id="searchWrap">
-          <span class="search-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>
-          </span>
-          <input type="text" id="searchInput" placeholder="  search destinations, places..">
-          <span class="search-explorer" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="8" r="2.2" fill="var(--gold)" stroke="var(--forest-deep)"/>
-              <path d="M12 10.5v3.5M9 16.5s1.5-1.2 3-1.2 3 1.2 3 1.2" stroke="var(--forest-deep)"/>
-              <path d="M9.5 13.2l-1.4 2.8M14.5 13.2l1.4 2.8" stroke="var(--forest-deep)"/>
-            </svg>
-          </span>
-        </div>
-        </div>
-
-    <header class="topbar">
-      <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      </button>
-
-      <div class="topbar-heading">
-        <h1>Explorer les destinations</h1>
-      </div>
-
-    </header>
-
-    <div class="filters" id="filters">
-      <button class="chip is-active" data-cat="tous">Tous</button>
-      <button class="chip" data-cat="nature">Nature</button>
-      <button class="chip" data-cat="culture">Culture</button>
-      <button class="chip" data-cat="plage">Plage</button>
-      <button class="chip" data-cat="montagne">Montagne</button>
-      <button class="chip" data-cat="aventure">Aventure</button>
     </div>
 
-    <section class="grid" id="sitesGrid">
-      <!-- injected by sites.js -->
-    </section>
+    <template id="cardTemplate">
+        <article class="card">
+            <div class="card-media">
+                <img alt="">
+                <span class="card-number"></span>
+                <span class="card-category"></span>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title"></h3>
+                <p class="card-location">
+                    <svg viewBox="0 0 24 24" fill="none" width="13" height="13">
+                        <path d="M12 21s7-6.5 7-11.5A7 7 0 105 9.5C5 14.5 12 21 12 21z" stroke="currentColor"
+                            stroke-width="1.6" />
+                        <circle cx="12" cy="9.5" r="2.2" stroke="currentColor" stroke-width="1.4" />
+                    </svg>
+                    <span></span>
+                </p>
+                <p class="card-desc"></p>
+                <div class="card-tags">
+                    <span class="tag tag-difficulte"></span>
+                    <span class="tag tag-danger"></span>
+                    <span class="tag tag-prix"></span>
+                </div>
+                <div class="card-foot">
+                    <button class="rating" type="button">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+                            <path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.3l7.1-.7z" />
+                        </svg>
+                        <span class="rating-value"></span>
+                    </button>
+                    <span class="card-author"></span>
+                </div>
+            </div>
+        </article>
+    </template>
 
-    <div class="state-panel" id="loadingState">
-      <div class="spinner"></div>
-      <p>Chargement des destinations…</p>
-    </div>
-
-    <div class="state-panel" id="emptyState" hidden>
-      <svg viewBox="0 0 24 24" fill="none" width="40" height="40"><path d="M4 20l6-11 4 6 3-4 3 9H4z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-      <p>Aucune destination pour l'instant.</p>
-      <button class="btn-ghost" id="emptyStateAdd">Proposer la première</button>
-    </div>
-
-    <div class="state-panel" id="errorState" hidden>
-      <p>Impossible de charger les destinations. Vérifiez votre connexion et réessayez.</p>
-      <button class="btn-ghost" id="retryLoad">Réessayer</button>
-    </div>
-
-  </main>
-</div>
-
-<!-- ===================== ADD SITE PANEL ===================== -->
-<div class="overlay" id="addSiteOverlay">
-  <div class="add-panel">
-    <div class="add-panel-head">
-      <div>
-        <span class="eyebrow">Nouvelle fiche</span>
-        <h2>Proposer un site</h2>
-      </div>
-      <button class="close-btn" id="closeAddSite" aria-label="Fermer">✕</button>
-    </div>
-
-    <form id="addSiteForm" class="add-form">
-      <label>
-        <span>Titre</span>
-        <input type="text" name="titre" required placeholder="Ex. Chutes de la Lobé">
-      </label>
-
-      <div class="form-row">
-        <label>
-          <span>Localisation</span>
-          <input type="text" name="localisation" required placeholder="Ex. Kribi, région du Sud">
-        </label>
-        <label>
-          <span>Catégorie</span>
-          <select name="categorie" required>
-            <option value="nature">nature</option>
-            <option value="culture">culture</option>
-            <option value="aventure">aventure</option>
-            <option value="beach">beach</option>
-            <option value="mountain">mountain</option>
-            <option value="relaxation">relaxation</option>
-            <option value="other">other</option>
-          </select>
-        </label>
-      </div>
-
-      <label>
-        <span>Image (URL)</span>
-        <input type="url" name="imageUrl" placeholder="https://…">
-      </label>
-
-      <label>
-        <span>Description</span>
-        <textarea name="description" rows="4" required placeholder="Ce qui rend ce lieu unique…"></textarea>
-      </label>
-
-      <div class="form-section-label">Bon à savoir avant de partir</div>
-
-      <div class="form-row form-row-3">
-        <label>
-          <span>Difficulté d'accès</span>
-          <select name="difficulte">
-            <option value="facile">Facile</option>
-            <option value="modere">Modérée</option>
-            <option value="difficile">Difficile</option>
-          </select>
-        </label>
-        <label>
-          <span>Dangerosité</span>
-          <select name="dangerosite">
-            <option value="faible">Faible</option>
-            <option value="moderee">Modérée</option>
-            <option value="elevee">Élevée</option>
-          </select>
-        </label>
-        <label>
-          <span>Prix estimé (FCFA)</span>
-          <input type="number" name="prix" min="0" step="500" placeholder="Ex. 5000">
-        </label>
-      </div>
-
-      <p class="form-error" id="addSiteError" hidden></p>
-
-      <div class="form-actions">
-        <button type="button" class="btn-ghost" id="cancelAddSite">Annuler</button>
-        <button type="submit" class="btn-solid">Publier la fiche</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<template id="cardTemplate">
-  <article class="card">
-    <div class="card-media">
-      <img alt="">
-      <span class="card-number"></span>
-      <span class="card-category"></span>
-    </div>
-    <div class="card-body">
-      <h3 class="card-title"></h3>
-      <p class="card-location">
-        <svg viewBox="0 0 24 24" fill="none" width="13" height="13"><path d="M12 21s7-6.5 7-11.5A7 7 0 105 9.5C5 14.5 12 21 12 21z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="9.5" r="2.2" stroke="currentColor" stroke-width="1.4"/></svg>
-        <span></span>
-      </p>
-      <p class="card-desc"></p>
-      <div class="card-tags">
-        <span class="tag tag-difficulte"></span>
-        <span class="tag tag-danger"></span>
-        <span class="tag tag-prix"></span>
-      </div>
-      <div class="card-foot">
-        <button class="rating" type="button">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.3l7.1-.7z"/></svg>
-          <span class="rating-value"></span>
-        </button>
-        <span class="card-author"></span>
-      </div>
-    </div>
-  </article>
-</template>
-
-<script src="js/sites.js"></script>
-<script>
-// Si la vidéo locale n'existe pas encore, on masque la balise pour que le poster (image) prenne le relais.
-const bgVideo = document.getElementById('background-video');
-bgVideo.onerror = () => { bgVideo.style.display = 'none'; };
-</script>
+    <script src="js/i18n.js"></script>
+    <script src="js/sites.js"></script>
+    <script>
+        const bgVideo = document.getElementById('background-video');
+        bgVideo.onerror = () => { bgVideo.style.display = 'none'; };
+    </script>
 </body>
+
 </html>
+
