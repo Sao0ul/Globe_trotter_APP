@@ -53,6 +53,9 @@
     "heading": "Explorer les destinations",
     "searchPlaceholder": "Rechercher des destinations, des lieux..."
   },
+  "sites": {
+    "title": "Explorer — Cameroun Visit"
+  },
   "filters": {
     "all": "Tous",
     "nature": "Nature",

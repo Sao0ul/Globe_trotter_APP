@@ -103,20 +103,44 @@
   function updateLanguageSwitcher() {
     const switcher = document.getElementById("languageSwitcher");
     if (!switcher) return;
-    switcher.value = currentLanguage;
+
+    if (switcher.tagName === "SELECT") {
+      switcher.value = currentLanguage;
+      return;
+    }
+
+    switcher.querySelectorAll(".lang-pill").forEach((pill) => {
+      pill.classList.toggle("is-active", pill.dataset.lang === currentLanguage);
+    });
+    switcher.setAttribute("data-language", currentLanguage);
   }
 
   function onLanguageChange(event) {
-    const selected = event.target.value;
-    if (selected && selected !== currentLanguage) {
-      setLanguage(selected);
+    const switcher = document.getElementById("languageSwitcher");
+    if (!switcher) return;
+
+    if (switcher.tagName === "SELECT") {
+      const selected = event.target.value;
+      if (selected && selected !== currentLanguage) {
+        setLanguage(selected);
+      }
+      return;
+    }
+
+    const nextLanguage = currentLanguage === "fr" ? "en" : "fr";
+    if (nextLanguage !== currentLanguage) {
+      setLanguage(nextLanguage);
     }
   }
 
   function attachLanguageSwitcher() {
     const switcher = document.getElementById("languageSwitcher");
     if (!switcher) return;
-    switcher.addEventListener("change", onLanguageChange);
+    if (switcher.tagName === "SELECT") {
+      switcher.addEventListener("change", onLanguageChange);
+    } else {
+      switcher.addEventListener("click", onLanguageChange);
+    }
     updateLanguageSwitcher();
   }
 

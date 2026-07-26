@@ -23,6 +23,9 @@ const errorState = document.getElementById("errorState");
 const cardTemplate = document.getElementById("cardTemplate");
 
 const filters = document.getElementById("filters");
+const filtersToggle = document.getElementById("filtersToggle");
+const filtersPanel = document.getElementById("filtersPanel");
+const filtersToggleLabel = document.getElementById("filtersToggleLabel");
 const searchInput = document.getElementById("searchInput");
 const searchWrap = document.getElementById("searchWrap");
 
@@ -36,6 +39,15 @@ let tousLesSites = [];
 let categorieActive = "tous";
 let rechercheActuelle = "";
 
+const filterLabelKeys = {
+  tous: "filters.all",
+  nature: "filters.nature",
+  culture: "filters.culture",
+  beach: "filters.beach",
+  montagne: "filters.mountain",
+  aventure: "filters.adventure"
+};
+
 // -------------------- Affichage des états --------------------
 
 function afficherEtat(nom) {
@@ -43,6 +55,31 @@ function afficherEtat(nom) {
   emptyState.hidden = nom !== "empty";
   errorState.hidden = nom !== "error";
   sitesGrid.hidden = nom !== "grid";
+}
+
+function mettreAJourLabelFiltre() {
+  const labelKey = filterLabelKeys[categorieActive] || "filters.all";
+  filtersToggleLabel.textContent = window.i18n?.t(labelKey) || "All";
+}
+
+function ouvrirMenuFiltre() {
+  filtersPanel.hidden = false;
+  filtersToggle.setAttribute("aria-expanded", "true");
+}
+
+function fermerMenuFiltre() {
+  filtersPanel.hidden = true;
+  filtersToggle.setAttribute("aria-expanded", "false");
+}
+
+function selectionnerCategorie(categorie) {
+  categorieActive = categorie;
+  document.querySelectorAll(".filters-panel .chip").forEach((chip) => {
+    chip.classList.toggle("is-active", chip.dataset.cat === categorie);
+  });
+  mettreAJourLabelFiltre();
+  afficherSites();
+  fermerMenuFiltre();
 }
 
 // -------------------- Chargement des sites --------------------
@@ -180,14 +217,25 @@ async function noterSite(siteId) {
 
 // -------------------- Filtres et recherche (UI) --------------------
 
-filters.addEventListener("click", (event) => {
+filtersToggle.addEventListener("click", (event) => {
+  event.stopPropagation();
+  const estOuvert = filtersToggle.getAttribute("aria-expanded") === "true";
+  if (estOuvert) {
+    fermerMenuFiltre();
+  } else {
+    ouvrirMenuFiltre();
+  }
+});
+
+filtersPanel.addEventListener("click", (event) => {
+  event.stopPropagation();
   const chip = event.target.closest(".chip");
   if (!chip) return;
+  selectionnerCategorie(chip.dataset.cat);
+});
 
-  document.querySelectorAll(".chip").forEach((c) => c.classList.remove("is-active"));
-  chip.classList.add("is-active");
-  categorieActive = chip.dataset.cat;
-  afficherSites();
+document.addEventListener("click", () => {
+  fermerMenuFiltre();
 });
 
 searchInput.addEventListener("input", (event) => {
@@ -294,11 +342,13 @@ logoutBtn.addEventListener("click", () => {
 });
 
 document.addEventListener("i18n:languageChanged", () => {
+  mettreAJourLabelFiltre();
   afficherSites();
 });
 
 // -------------------- Démarrage --------------------
 
 window.i18n?.ready?.then(() => {
+  mettreAJourLabelFiltre();
   chargerSites();
 });

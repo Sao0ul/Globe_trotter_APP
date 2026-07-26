@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title data-i18n="sidebar.explore">Explorer — Cameroun Visit</title>
+<title data-i18n="sites.title">Explorer — Cameroun Visit</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='10' fill='%2316332B'/%3E%3Cpath d='M6 34 L17 15 L23 26 L28 19 L43 34 Z' fill='%23E3A93A'/%3E%3Cpath d='M6 34 L17 15 L23 26 L20 33 L6 34 Z' fill='%23F4C868'/%3E%3Ccircle cx='35' cy='12' r='4' fill='%23B8452F'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +26,7 @@
     <div class="sidebar-greeting">
       <div class="avatar" id="avatarInitials">…</div>
       <div class="greeting-text">
-        <span class="greeting-hello" data-i18n="sidebar.explore">Bonjour</span>
+        <span class="greeting-hello" data-i18n="sidebar.hello">Bonjour</span>
         <span class="greeting-name" id="greetingName">Explorateur</span>
       </div>
     </div>
@@ -104,20 +104,26 @@
         <h1 data-i18n="topbar.heading">Explorer les destinations</h1>
       </div>
       <div class="language-switcher-container">
-        <select id="languageSwitcher" class="language-switcher" aria-label="Language selector">
-          <option value="fr" data-i18n="lang.french">Français</option>
-          <option value="en" data-i18n="lang.english">English</option>
-        </select>
+        <button id="languageSwitcher" class="language-switcher" type="button" aria-label="Toggle language">
+          <span class="lang-pill" data-lang="en">EN</span>
+          <span class="lang-pill" data-lang="fr">FR</span>
+        </button>
       </div>
     </header>
 
     <div class="filters" id="filters">
-      <button class="chip is-active" data-cat="tous" data-i18n="filters.all">Tous</button>
-      <button class="chip" data-cat="nature" data-i18n="filters.nature">Nature</button>
-      <button class="chip" data-cat="culture" data-i18n="filters.culture">Culture</button>
-      <button class="chip" data-cat="beach" data-i18n="filters.beach">Plage</button>
-      <button class="chip" data-cat="montagne" data-i18n="filters.mountain">Montagne</button>
-      <button class="chip" data-cat="aventure" data-i18n="filters.adventure">Aventure</button>
+      <button type="button" class="filters-toggle" id="filtersToggle" aria-expanded="false" aria-controls="filtersPanel">
+        <span id="filtersToggleLabel">Tous</span>
+        <span class="filters-toggle-icon">▾</span>
+      </button>
+      <div class="filters-panel" id="filtersPanel" hidden>
+        <button type="button" class="chip is-active" data-cat="tous" data-i18n="filters.all">Tous</button>
+        <button type="button" class="chip" data-cat="nature" data-i18n="filters.nature">Nature</button>
+        <button type="button" class="chip" data-cat="culture" data-i18n="filters.culture">Culture</button>
+        <button type="button" class="chip" data-cat="beach" data-i18n="filters.beach">Plage</button>
+        <button type="button" class="chip" data-cat="montagne" data-i18n="filters.mountain">Montagne</button>
+        <button type="button" class="chip" data-cat="aventure" data-i18n="filters.adventure">Aventure</button>
+      </div>
     </div>
 
     <section class="grid" id="sitesGrid">
