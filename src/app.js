@@ -1,34 +1,39 @@
 const express = require('express');
+const cors = require('cors');
 
-//middlewares
+// middlewares
 const errorHandler = require('./middlewares/errorHandler');
 
-
-//routes created 
+// routes
 const authRoutes = require('./routes/authRoutes');
 const sitesRoutes = require('./routes/sitesRoutes');
 const userRoutes = require('./routes/userRoutes');
 
-
-const cors = require('cors');
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  credentials: true,
+}));
 app.use(express.json());
-app.use(express.static('public'));//servir du contenu statique
+app.use(express.static('public')); // servir du contenu statique
 
-app.use('/api/sites', sitesRoutes);
-app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
-app.use(errorHandler);
-
-//health check endpoint
+// health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'UP' });
 });
 
-app.listen(PORT, () => {
-  console.log(`Serveur démarré sur le port ${PORT}`);
-});
+app.use('/api/sites', sitesRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+
+// doit rester le DERNIER app.use : capture les erreurs de toutes les routes ci-dessus
+app.use(errorHandler);
+
+// exporter l'application pour les tests ; ne démarre le serveur que si ce fichier est exécuté directement
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`Serveur démarré sur le port ${PORT}`));
+}
+
+module.exports = app;
