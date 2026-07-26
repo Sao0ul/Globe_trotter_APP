@@ -231,6 +231,15 @@ filtersPanel.addEventListener("click", (event) => {
   event.stopPropagation();
   const chip = event.target.closest(".chip");
   if (!chip) return;
+
+  // Synchronise le badge icône du bouton avec celui du chip cliqué
+  const iconSource = chip.querySelector(".chip-icon");
+  const iconTarget = document.getElementById("filtersToggleIcon");
+  if (iconSource && iconTarget) {
+    iconTarget.className = "filters-toggle-icon-badge " + iconSource.className;
+    iconTarget.innerHTML = iconSource.innerHTML;
+  }
+
   selectionnerCategorie(chip.dataset.cat);
 });
 
