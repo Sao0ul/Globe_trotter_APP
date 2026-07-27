@@ -1,0 +1,67 @@
+name: Docker CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify Docker installation
+        run: |
+          docker --version
+          docker compose version
+
+      - name: Create test .env
+        run: |
+          cat <<EOF > .env
+          DB_ROOT_PASSWORD=root_test_pass
+          DB_NAME=my_database
+          DB_USER=test_user
+          DB_PASSWORD=test_pass
+          PEXELS_API_KEY=mock_key
+          EOF
+
+      - name: Start Docker containers
+        run: docker compose up -d --build
+
+      - name: Wait for MySQL
+        run: |
+          timeout 120 bash -c '
+          until docker compose exec -T db mysqladmin ping -h"localhost" --silent; do
+            echo "Waiting for MySQL..."
+            sleep 2
+          done
+          '
+
+      # Supprime cette étape si ton API ne possède pas de route /health
+      - name: Wait for API
+        run: |
+          timeout 120 bash -c '
+          until curl -fs http://localhost:3000/health; do
+            echo "Waiting for API..."
+            sleep 3
+          done
+          '
+
+      - name: Run unit tests
+        run: docker compose exec -T api npm test
+
+      - name: Display container logs on failure
+        if: failure()
+        run: docker compose logs
+
+      - name: Stop and remove containers
+        if: always()
+        run: docker compose down -v
