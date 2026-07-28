@@ -18,19 +18,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Créé en premier afin que le fichier existe même si une étape échoue.
+      # DB_NAME aligné sur celui codé en dur dans script.sql (GlobeTrotterAPP_DB)
       - name: Create test .env
         run: |
           cat <<EOF > .env
           DB_HOST=db
           DB_PORT=3306
           DB_ROOT_PASSWORD=root_test_pass
-          DB_NAME=my_database
+          DB_NAME=GlobeTrotterAPP_DB
           DB_USER=test_user
           DB_PASSWORD=test_pass
           PEXELS_API_KEY=mock_key
           JWT_SECRET=test_secret_key_for_ci
           EOF
+
       - name: Verify Docker installation
         run: |
           docker --version
@@ -52,9 +53,6 @@ jobs:
         run: docker compose up -d --build
 
       # Attend que MySQL accepte réellement les connexions
-      # (plus fiable qu'un simple mysqladmin ping).
-      # set -a / source .env / set +a : charge et exporte les variables du
-      # fichier .env généré plus haut, pour que le sous-shell bash -c en hérite.
       - name: Wait for MySQL
         run: |
           set -a
@@ -70,13 +68,23 @@ jobs:
             done
           '
 
+      # Applique le schéma (tables users, sites, ratings...) sur la base fraîchement créée.
+      # Utilise le compte root car script.sql fait DROP/CREATE DATABASE,
+      # une opération que le user applicatif (test_user) n'a pas le droit de faire.
+      - name: Apply database schema
+        run: |
+          set -a
+          source .env
+          set +a
+          docker compose exec -T db mysql -uroot -p"$DB_ROOT_PASSWORD" < ./src/db/script.sql
+
       # Attend que l'API réponde sur la route /health.
       - name: Wait for API
         run: |
           timeout 180 bash -c '
             until curl -fs http://localhost:3000/health >/dev/null
             do
-              echo "En attente de l\'\''API..."
+              echo "En attente de l'\''API..."
               sleep 3
             done
           '
@@ -102,8 +110,5 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Trigger backend deployment
-        run: curl -fsS "${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }}"
-
-      - name: Trigger frontend deployment
-        run: curl -fsS "${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK }}"
+      - name: Trigger deployment
+        run: curl -fsS "${{ secrets.RENDER_DEPLOY_HOOK }}"
