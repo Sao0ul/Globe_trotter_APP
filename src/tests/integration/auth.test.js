@@ -1,6 +1,6 @@
 const request = require('supertest');
-const app = require('../../src/app');
-const pool = require('../../src/db/pool');
+const app = require('../../app');
+const pool = require('../../db/pool');
 
 // Génère un email unique à chaque appel pour éviter les conflits (409) entre tests,
 // vu que la base n'est pas réinitialisée entre chaque test individuel.
