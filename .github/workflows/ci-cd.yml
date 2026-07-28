@@ -1,10 +1,9 @@
-name: Docker CI Pipeline
+name: Docker CI/CD Pipeline
 
 on:
   push:
     branches:
       - main
-
   pull_request:
     branches:
       - main
@@ -23,6 +22,18 @@ jobs:
           docker --version
           docker compose version
 
+      - name: Installer Node.js (pour le lint)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Installer les dépendances (pour le lint)
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
       - name: Create test .env
         run: |
           cat <<EOF > .env
@@ -31,6 +42,7 @@ jobs:
           DB_USER=test_user
           DB_PASSWORD=test_pass
           PEXELS_API_KEY=mock_key
+          JWT_SECRET=test_secret_key_for_ci
           EOF
 
       - name: Start Docker containers
@@ -65,3 +77,16 @@ jobs:
       - name: Stop and remove containers
         if: always()
         run: docker compose down -v
+
+  deploy:
+    name: Déploiement (Render)
+    needs: run-tests
+    # Ne déploie que sur un push direct vers main (jamais sur une pull request)
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Déclencher le déploiement du backend
+        run: curl -fsS "${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }}"
+
+      - name: Déclencher le déploiement du frontend
+        run: curl -fsS "${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK }}"

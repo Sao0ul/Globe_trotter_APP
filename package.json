@@ -18,7 +18,9 @@
     "dev": "nodemon src/app.js",
     "start": "node src/app.js",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test:unit": "jest tests/unit",
+    "test:integration": "jest tests/integration"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
