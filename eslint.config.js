@@ -2,7 +2,10 @@ module.exports = [
     {
         ignores: ["node_modules/**"],
     },
+
+    // Backend : Node.js en CommonJS (src/, fichiers de config à la racine)
     {
+        files: ["src/**/*.js", "*.js"],
         languageOptions: {
             ecmaVersion: 2022,
             sourceType: "commonjs",
@@ -24,6 +27,28 @@ module.exports = [
                 afterAll: "readonly",
                 beforeEach: "readonly",
                 afterEach: "readonly",
+            },
+        },
+        rules: {
+            "no-unused-vars": "warn",
+        },
+    },
+
+    // Frontend : modules ES natifs, exécutés dans le navigateur
+    {
+        files: ["public/js/**/*.js"],
+        languageOptions: {
+            ecmaVersion: 2022,
+            sourceType: "module",
+            globals: {
+                window: "readonly",
+                document: "readonly",
+                localStorage: "readonly",
+                fetch: "readonly",
+                console: "readonly",
+                alert: "readonly",
+                prompt: "readonly",
+                navigator: "readonly",
             },
         },
         rules: {
