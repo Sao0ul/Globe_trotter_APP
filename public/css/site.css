@@ -500,7 +500,7 @@ button {
   width: calc(50% - 3px);
   height: calc(100% - 6px);
   border-radius: 999px;
-  background: red;
+  background: var(--forest-deep);
   transition: transform 0.25s ease;
   z-index: 0;
 }
