@@ -52,27 +52,32 @@ jobs:
 
       # Attend que MySQL accepte réellement les connexions
       # (plus fiable qu'un simple mysqladmin ping).
+      # set -a / source .env / set +a : charge et exporte les variables du
+      # fichier .env généré plus haut, pour que le sous-shell bash -c en hérite.
       - name: Wait for MySQL
         run: |
+          set -a
+          source .env
+          set +a
           timeout 180 bash -c '
-          until docker compose exec -T db \
-            mysql -u"$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" \
-            -e "SELECT 1;" >/dev/null 2>&1
-          do
-            echo "Waiting for MySQL..."
-            sleep 2
-          done
+            until docker compose exec -T db \
+              mysql -u"$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" \
+              -e "SELECT 1;" >/dev/null 2>&1
+            do
+              echo "En attente de MySQL..."
+              sleep 2
+            done
           '
 
       # Attend que l'API réponde sur la route /health.
       - name: Wait for API
         run: |
           timeout 180 bash -c '
-          until curl -fs http://localhost:3000/health >/dev/null
-          do
-            echo "Waiting for API..."
-            sleep 3
-          done
+            until curl -fs http://localhost:3000/health >/dev/null
+            do
+              echo "En attente de l\'\''API..."
+              sleep 3
+            done
           '
 
       - name: Show running containers
