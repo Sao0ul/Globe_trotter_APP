@@ -173,4 +173,14 @@ const rateSite = asyncHandler(async (req, res) => {
   res.json(toFrontendSite(site));
 });
 
-module.exports = { getSites, createSite: createSiteHandler, rateSite };
+module.exports = {
+  getSites,
+  createSite: createSiteHandler,
+  rateSite,
+  CATEGORY_FR_TO_EN,
+  CATEGORY_EN_TO_FR,
+  DIFFICULTY_FR_TO_EN,
+  DIFFICULTY_EN_TO_FR,
+  DANGER_FR_TO_EN,
+  DANGER_EN_TO_FR,
+};
