@@ -21,7 +21,7 @@
 
   /* Fond changeable en un seul endroit : remplace juste cette URL */
   /* --bg-image: url("https://images.unsplash.com/photo-1757777598981-2a589811168d?auto=format&fit=crop&w=1920&q=80"); */
-  --bg-image: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80");
+  --bg-image: url("https://images.pexels.com/photos/17290983/pexels-photo-17290983.jpeg");
 }
 
 /* ================= RESET & BASE ================= */
@@ -484,7 +484,7 @@ button {
   padding: 3px;
   height: 34px;
   border-radius: 999px;
-  background: rgba(255, 253, 248, 0.9);
+  background: rgba(226, 166, 13, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.55);
   box-shadow: 0 3px 10px -4px rgba(22, 51, 43, 0.25);
 }
