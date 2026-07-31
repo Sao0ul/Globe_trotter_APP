@@ -461,7 +461,7 @@ button {
   font-size: 2rem;
   font-weight: 600;
   margin: 4px 0 0;
-  color: var(--forest-deep);
+  color: rgba(227, 233, 229,.8);
 }
 
 .eyebrow {
@@ -484,9 +484,9 @@ button {
   padding: 3px;
   height: 34px;
   border-radius: 999px;
-  background: rgba(226, 166, 13, 0.9);
-  border: 1px solid rgba(71, 150, 40, 0.55);
-  box-shadow: 0 3px 10px -4px rgba(22, 51, 43, 0.25);
+  background: rgba(142, 148, 62, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 3px 10px -4px rgba(106, 172, 153, 0.25);
 }
 
 .language-switcher:hover {
@@ -500,8 +500,8 @@ button {
   width: calc(50% - 3px);
   height: calc(100% - 6px);
   border-radius: 999px;
-  background: yellow ;
-  box-shadow: 0 1px 1px 2px rgb(136, 136, 64);
+  background: rgb(248, 232, 1) ;
+  box-shadow: 0 1px 1px 2px rgb(51, 56, 50);
   transition: transform 0.25s ease;
   z-index: 0;
 }

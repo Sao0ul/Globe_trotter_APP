@@ -2,6 +2,7 @@ DROP DATABASE IF EXISTS GlobeTrotterAPP_DB;
 CREATE DATABASE GlobeTrotterAPP_DB;
 
 
+
 use GlobeTrotterAPP_DB;
 
 
@@ -49,9 +50,3 @@ ALTER TABLE sites
 ALTER TABLE sites
   ADD COLUMN user_id CHAR(36) DEFAULT NULL,
   ADD CONSTRAINT fk_sites_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL;
-
-
-
-
-
-
