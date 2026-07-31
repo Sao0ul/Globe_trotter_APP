@@ -46,9 +46,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run ESLint
+      - name: Run ESLint (Static Analysis)
         run: npm run lint
 
+      # 🧪 ÉTAPE 1 : Tests unitaires (S'exécutent directement en local sur le code brut sans Docker)
+      - name: Run Unit Tests
+        run: npm run test:unit
+
+      # ⚙️ ÉTAPE 2 : Préparation de l'environnement pour l'intégration
       - name: Build and start Docker containers
         run: docker compose up -d --build
 
@@ -92,8 +97,9 @@ jobs:
       - name: Show running containers
         run: docker compose ps
 
-      - name: Run unit tests
-        run: docker compose exec -T api npm test
+      # 🧪 ÉTAPE 3 : Tests d'intégration (S'exécutent à l'intérieur du conteneur lié à la BDD)
+      - name: Run Integration Tests
+        run: docker compose exec -T api npm run test:integration
 
       - name: Display container logs on failure
         if: failure()
@@ -105,7 +111,7 @@ jobs:
 
   deploy:
     name: Deploy to Render
-    needs: run-tests
+    needs: [run-tests, security-scan]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
 
