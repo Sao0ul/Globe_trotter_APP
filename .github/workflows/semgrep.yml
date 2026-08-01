@@ -1,0 +1,14 @@
+- name: Pull Semgrep image
+  run: docker pull semgrep/semgrep:latest
+
+- name: Run Semgrep
+  run: |
+    docker run --rm \
+      -v "${{ github.workspace }}:/src" \
+      semgrep/semgrep:latest \
+      semgrep scan \
+      --config=auto \
+      --exclude=node_modules \
+      --exclude=.env \
+      --error \
+      /src

@@ -1,0 +1,763 @@
+/
+├── .github/
+│   └── workflows/
+│       ├── ci-cd.yml
+│       └── semgrep.yml
+├── certs/
+│   └── ca.pem
+├── public/
+│   ├── assets/
+│   │   ├── images/
+│   │   │   ├── favicon.png
+│   │   │   └── logoLogin.png
+│   │   └── videos/
+│   ├── css/
+│   │   ├── register.css
+│   │   │   ├── .has-selection
+│   │   │   ├── .is-open
+│   │   │   ├── .is-selected
+│   │   │   ├── .pref-option
+│   │   │   ├── .pref-option-check
+│   │   │   ├── .pref-option-icon
+│   │   │   ├── .pref-option-label
+│   │   │   ├── .preferences-chevron
+│   │   │   ├── .preferences-dropdown
+│   │   │   ├── .preferences-panel
+│   │   │   ├── .preferences-trigger
+│   │   │   ├── .preferences-trigger-text
+│   │   │   ├── chevron
+│   │   │   ├── dropdown
+│   │   │   ├── first-child
+│   │   │   ├── focus-visible
+│   │   │   ├── has
+│   │   │   ├── hover
+│   │   │   ├── i
+│   │   │   ├── input
+│   │   │   ├── max-width
+│   │   │   ├── open
+│   │   │   ├── option
+│   │   │   ├── option-check
+│   │   │   ├── option-icon
+│   │   │   ├── option-label
+│   │   │   ├── panel
+│   │   │   ├── selected
+│   │   │   ├── selection
+│   │   │   ├── trigger
+│   │   │   ├── trigger-text
+│   │   ├── site.css
+│   │   │   ├── .add-form
+│   │   │   ├── .add-panel
+│   │   │   ├── .add-panel-head
+│   │   │   ├── .app
+│   │   │   ├── .avatar
+│   │   │   ├── .bg-overlay
+│   │   │   ├── .brand
+│   │   │   ├── .brand-mark
+│   │   │   ├── .brand-name
+│   │   │   ├── .brand-tag
+│   │   │   ├── .brand-word
+│   │   │   ├── .btn-ghost
+│   │   │   ├── .btn-solid
+│   │   │   ├── .card
+│   │   │   ├── .card-author
+│   │   │   ├── .card-body
+│   │   │   ├── .card-category
+│   │   │   ├── .card-desc
+│   │   │   ├── .card-foot
+│   │   │   ├── .card-location
+│   │   │   ├── .card-media
+│   │   │   ├── .card-number
+│   │   │   ├── .card-tags
+│   │   │   ├── .card-title
+│   │   │   ├── .chip
+│   │   │   ├── .chip-icon
+│   │   │   ├── .chip-icon-aventure
+│   │   │   ├── .chip-icon-beach
+│   │   │   ├── .chip-icon-culture
+│   │   │   ├── .chip-icon-montagne
+│   │   │   ├── .chip-icon-nature
+│   │   │   ├── .chip-icon-tous
+│   │   │   ├── .close-btn
+│   │   │   ├── .eyebrow
+│   │   │   ├── .filters
+│   │   │   ├── .filters-panel
+│   │   │   ├── .filters-toggle
+│   │   │   ├── .filters-toggle-icon
+│   │   │   ├── .filters-toggle-icon-badge
+│   │   │   ├── .form-actions
+│   │   │   ├── .form-error
+│   │   │   ├── .form-row
+│   │   │   ├── .form-row-3
+│   │   │   ├── .form-section-label
+│   │   │   ├── .greeting-hello
+│   │   │   ├── .greeting-name
+│   │   │   ├── .greeting-text
+│   │   │   ├── .grid
+│   │   │   ├── .is-active
+│   │   │   ├── .is-open
+│   │   │   ├── .lang-pill
+│   │   │   ├── .language-switcher
+│   │   │   ├── .language-switcher-thumb
+│   │   │   ├── .main
+│   │   │   ├── .menu-toggle
+│   │   │   ├── .nav-collapse
+│   │   │   ├── .nav-hint
+│   │   │   ├── .nav-item
+│   │   │   ├── .nav-label
+│   │   │   ├── .nav-logout
+│   │   │   ├── .overlay
+│   │   │   ├── .page-header
+│   │   │   ├── .rating
+│   │   │   ├── .search-explorer
+│   │   │   ├── .search-icon
+│   │   │   ├── .search-wrap
+│   │   │   ├── .sidebar
+│   │   │   ├── .sidebar-close
+│   │   │   ├── .sidebar-collapsed
+│   │   │   ├── .sidebar-greeting
+│   │   │   ├── .sidebar-nav
+│   │   │   ├── .sidebar-scrim
+│   │   │   ├── .spinner
+│   │   │   ├── .state-panel
+│   │   │   ├── .tag
+│   │   │   ├── .tag-danger
+│   │   │   ├── .tag-difficulte
+│   │   │   ├── .tag-prix
+│   │   │   ├── .topbar
+│   │   │   ├── .topbar-heading
+│   │   │   ├── a
+│   │   │   ├── actions
+│   │   │   ├── active
+│   │   │   ├── aria-expanded
+│   │   │   ├── author
+│   │   │   ├── body
+│   │   │   ├── btn
+│   │   │   ├── button
+│   │   │   ├── category
+│   │   │   ├── close
+│   │   │   ├── collapse
+│   │   │   ├── collapsed
+│   │   │   ├── danger
+│   │   │   ├── data-language
+│   │   │   ├── data-level
+│   │   │   ├── desc
+│   │   │   ├── difficile
+│   │   │   ├── difficulte
+│   │   │   ├── elevee
+│   │   │   ├── em
+│   │   │   ├── empty
+│   │   │   ├── en
+│   │   │   ├── error
+│   │   │   ├── explorer
+│   │   │   ├── explorer-walk
+│   │   │   ├── facile
+│   │   │   ├── fade-in
+│   │   │   ├── faible
+│   │   │   ├── focus
+│   │   │   ├── focus-visible
+│   │   │   ├── focus-within
+│   │   │   ├── foot
+│   │   │   ├── form
+│   │   │   ├── ghost
+│   │   │   ├── greeting
+│   │   │   ├── h1
+│   │   │   ├── h2
+│   │   │   ├── header
+│   │   │   ├── heading
+│   │   │   ├── hello
+│   │   │   ├── hidden
+│   │   │   ├── hint
+│   │   │   ├── hover
+│   │   │   ├── html
+│   │   │   ├── icon
+│   │   │   ├── icon-aventure
+│   │   │   ├── icon-beach
+│   │   │   ├── icon-culture
+│   │   │   ├── icon-montagne
+│   │   │   ├── icon-nature
+│   │   │   ├── icon-tilt
+│   │   │   ├── icon-tous
+│   │   │   ├── img
+│   │   │   ├── input
+│   │   │   ├── item
+│   │   │   ├── label
+│   │   │   ├── location
+│   │   │   ├── logout
+│   │   │   ├── mark
+│   │   │   ├── max-width
+│   │   │   ├── media
+│   │   │   ├── modere
+│   │   │   ├── moderee
+│   │   │   ├── name
+│   │   │   ├── nav
+│   │   │   ├── not
+│   │   │   ├── number
+│   │   │   ├── open
+│   │   │   ├── overlay
+│   │   │   ├── panel
+│   │   │   ├── panel-head
+│   │   │   ├── pill
+│   │   │   ├── placeholder
+│   │   │   ├── prefers-reduced-motion
+│   │   │   ├── prix
+│   │   │   ├── reduce
+│   │   │   ├── root
+│   │   │   ├── row
+│   │   │   ├── row-3
+│   │   │   ├── scrim
+│   │   │   ├── section-label
+│   │   │   ├── select
+│   │   │   ├── solid
+│   │   │   ├── span
+│   │   │   ├── spin
+│   │   │   ├── svg
+│   │   │   ├── switcher
+│   │   │   ├── switcher-thumb
+│   │   │   ├── tag
+│   │   │   ├── tags
+│   │   │   ├── text
+│   │   │   ├── textarea
+│   │   │   ├── title
+│   │   │   ├── toggle
+│   │   │   ├── toggle-icon
+│   │   │   ├── toggle-icon-badge
+│   │   │   ├── true
+│   │   │   ├── word
+│   │   │   ├── wrap
+│   │   └── style.css
+│   │       ├── .active
+│   │       ├── .error-message
+│   │       ├── .input-group
+│   │       ├── .is-active
+│   │       ├── .lang-btn
+│   │       ├── .lang-pill
+│   │       ├── .language-switcher
+│   │       ├── .login-card
+│   │       ├── .login-container
+│   │       ├── .logo
+│   │       ├── .logo-circle
+│   │       ├── .options
+│   │       ├── .register
+│   │       ├── .separator
+│   │       ├── .social
+│   │       ├── .social-buttons
+│   │       ├── .success-message
+│   │       ├── .video-overlay
+│   │       ├── a
+│   │       ├── active
+│   │       ├── after
+│   │       ├── before
+│   │       ├── body
+│   │       ├── btn
+│   │       ├── button
+│   │       ├── buttons
+│   │       ├── card
+│   │       ├── circle
+│   │       ├── container
+│   │       ├── fade
+│   │       ├── focus-within
+│   │       ├── group
+│   │       ├── h1
+│   │       ├── hover
+│   │       ├── html
+│   │       ├── i
+│   │       ├── img
+│   │       ├── input
+│   │       ├── label
+│   │       ├── max-width
+│   │       ├── message
+│   │       ├── overlay
+│   │       ├── p
+│   │       ├── pill
+│   │       ├── placeholder
+│   │       ├── root
+│   │       ├── span
+│   │       ├── submit
+│   │       ├── switcher
+│   │       ├── type
+│   ├── js/
+│   │   ├── app.js
+│   │   │   ├── imports
+│   │   │   │   ├── ./model.js
+│   │   │   │   ├── ./view.js
+│   │   │   ├── function afficherRoute(route)
+│   │   │   ├── function handleLogin({ email, password })
+│   │   │   ├── function handleLogout()
+│   │   │   ├── function handleNavigation(route)
+│   │   ├── auth.js
+│   │   ├── i18n.js
+│   │   │   ├── function getInitialLanguage()
+│   │   │   ├── function resolveTranslation(path)
+│   │   │   ├── function interpolate(value, replacements)
+│   │   │   ├── function t(key, replacements, fallback)
+│   │   │   ├── function updateHtmlLang()
+│   │   │   ├── function translatePage()
+│   │   │   ├── function updateLanguageSwitcher()
+│   │   │   ├── function onLanguageChange(event)
+│   │   │   ├── function attachLanguageSwitcher()
+│   │   │   ├── function setLanguage(language)
+│   │   ├── models.js
+│   │   │   ├── class AppModel
+│   │   │   │   ├── isAuthenticated()
+│   │   │   │   ├── login({ email, password })
+│   │   │   │   ├── if(!res.ok)
+│   │   │   │   ├── logout()
+│   │   │   │   ├── fetchAvecAuth(url)
+│   │   │   │   ├── if(res.status === 401)
+│   │   │   │   ├── getProfile()
+│   │   │   │   ├── getSites()
+│   │   │   │   ├── getDashboardData()
+│   │   │   │   ├── getVisites()
+│   │   ├── register.js
+│   │   │   ├── function ouvrirFermerPreferences()
+│   │   │   ├── function fermerPreferences()
+│   │   │   ├── function mettreAJourTexteDeclencheur()
+│   │   └── sites.js
+│   │       ├── function compterColonnesVisibles()
+│   │       ├── function calculerLimiteParPage()
+│   │       ├── function afficherEtat(nom)
+│   │       ├── function mettreAJourLabelFiltre()
+│   │       ├── function ouvrirMenuFiltre()
+│   │       ├── function fermerMenuFiltre()
+│   │       ├── function selectionnerCategorie(categorie)
+│   │       ├── function chargerSites(reinitialiser = true)
+│   │       ├── function chargerPageSuivanteSiNecessaire()
+│   │       ├── function correspondAuxFiltres(site)
+│   │       ├── function moyenneNote(site)
+│   │       ├── function afficherSites()
+│   │       ├── function noterSite(siteId)
+│   │       ├── function ouvrirPanneauAjout()
+│   │       ├── function fermerPanneauAjout()
+│   │       ├── function fermerSidebar()
+│   ├── locales/
+│   │   ├── en.json
+│   │   └── fr.json
+│   ├── index.html
+│   │   ├── html
+│   │   │   ├── head
+│   │   │   │   ├── meta
+│   │   │   │   ├── meta
+│   │   │   │   ├── link
+│   │   │   │   ├── title
+│   │   │   │   ├── link
+│   │   │   │   ├── link
+│   │   │   │   └── link
+│   │   │   └── body
+│   │   │       ├── div.video-overlay
+│   │   │       ├── div#languageSwitcher.language-switcher
+│   │   │       │   ├── button.lang-pill
+│   │   │       │   └── button.lang-pill
+│   │   │       ├── main.login-container
+│   │   │       │   └── div.login-card
+│   │   │       │       ├── div.logo
+│   │   │       │       │   ├── div.logo-circle
+│   │   │       │       │   │   └── img
+│   │   │       │       │   ├── h1
+│   │   │       │       │   └── p
+│   │   │       │       ├── div#errorMessage.error-message
+│   │   │       │       ├── form#loginForm
+│   │   │       │       │   ├── div.input-group
+│   │   │       │       │   │   ├── i.fa-solid.fa-envelope
+│   │   │       │       │   │   └── input#email
+│   │   │       │       │   ├── div.input-group
+│   │   │       │       │   │   ├── i.fa-solid.fa-lock
+│   │   │       │       │   │   └── input#password
+│   │   │       │       │   ├── div.options
+│   │   │       │       │   │   ├── label
+│   │   │       │       │   │   │   ├── input
+│   │   │       │       │   │   │   └── span
+│   │   │       │       │   │   └── a
+│   │   │       │       │   └── button
+│   │   │       │       │       ├── i.fa-solid.fa-right-to-bracket
+│   │   │       │       │       └── span
+│   │   │       │       ├── div.separator
+│   │   │       │       │   └── span
+│   │   │       │       ├── div.social-buttons
+│   │   │       │       │   ├── button.social
+│   │   │       │       │   │   └── i.fab.fa-google
+│   │   │       │       │   ├── button.social
+│   │   │       │       │   │   └── i.fab.fa-facebook-f
+│   │   │       │       │   └── button.social
+│   │   │       │       │       └── i.fab.fa-apple
+│   │   │       │       └── p.register
+│   │   │       │           ├── span
+│   │   │       │           └── a
+│   │   │       ├── script
+│   │   │       └── script
+│   ├── register.html
+│   │   ├── html
+│   │   │   ├── head
+│   │   │   │   ├── meta
+│   │   │   │   ├── meta
+│   │   │   │   ├── link
+│   │   │   │   ├── title
+│   │   │   │   ├── link
+│   │   │   │   ├── link
+│   │   │   │   ├── link
+│   │   │   │   └── link
+│   │   │   └── body
+│   │   │       ├── div.video-overlay
+│   │   │       ├── div#languageSwitcher.language-switcher
+│   │   │       │   ├── button.lang-pill
+│   │   │       │   └── button.lang-pill
+│   │   │       ├── main.login-container
+│   │   │       │   └── div.login-card
+│   │   │       │       ├── div.logo
+│   │   │       │       │   ├── div.logo-circle
+│   │   │       │       │   │   └── img
+│   │   │       │       │   ├── h1
+│   │   │       │       │   └── p
+│   │   │       │       ├── div#errorMessage.error-message
+│   │   │       │       ├── div#successMessage.success-message
+│   │   │       │       ├── form#registerForm
+│   │   │       │       │   ├── div.input-group
+│   │   │       │       │   │   ├── i.fa-solid.fa-user
+│   │   │       │       │   │   └── input#username
+│   │   │       │       │   ├── div.input-group
+│   │   │       │       │   │   ├── i.fa-solid.fa-envelope
+│   │   │       │       │   │   └── input#email
+│   │   │       │       │   ├── div.input-group
+│   │   │       │       │   │   ├── i.fa-solid.fa-lock
+│   │   │       │       │   │   └── input#password
+│   │   │       │       │   ├── div#preferencesDropdown.preferences-dropdown
+│   │   │       │       │   │   ├── button#preferencesTrigger.preferences-trigger
+│   │   │       │       │   │   │   ├── i.fa-solid.fa-compass
+│   │   │       │       │   │   │   ├── span#preferencesTriggerText.preferences-trigger-text
+│   │   │       │       │   │   │   └── i.fa-solid.fa-chevron-down.preferences-chevron
+│   │   │       │       │   │   └── div#preferencesPanel.preferences-panel
+│   │   │       │       │   │       ├── label.pref-option
+│   │   │       │       │   │       │   ├── input
+│   │   │       │       │   │       │   ├── i.fa-solid.fa-leaf.pref-option-icon
+│   │   │       │       │   │       │   ├── span.pref-option-label
+│   │   │       │       │   │       │   └── i.fa-solid.fa-check.pref-option-check
+│   │   │       │       │   │       ├── label.pref-option
+│   │   │       │       │   │       │   ├── input
+│   │   │       │       │   │       │   ├── i.fa-solid.fa-landmark.pref-option-icon
+│   │   │       │       │   │       │   ├── span.pref-option-label
+│   │   │       │       │   │       │   └── i.fa-solid.fa-check.pref-option-check
+│   │   │       │       │   │       ├── label.pref-option
+│   │   │       │       │   │       │   ├── input
+│   │   │       │       │   │       │   ├── i.fa-solid.fa-person-hiking.pref-option-icon
+│   │   │       │       │   │       │   ├── span.pref-option-label
+│   │   │       │       │   │       │   └── i.fa-solid.fa-check.pref-option-check
+│   │   │       │       │   │       ├── label.pref-option
+│   │   │       │       │   │       │   ├── input
+│   │   │       │       │   │       │   ├── i.fa-solid.fa-spa.pref-option-icon
+│   │   │       │       │   │       │   ├── span.pref-option-label
+│   │   │       │       │   │       │   └── i.fa-solid.fa-check.pref-option-check
+│   │   │       │       │   │       ├── label.pref-option
+│   │   │       │       │   │       │   ├── input
+│   │   │       │       │   │       │   ├── i.fa-solid.fa-mountain.pref-option-icon
+│   │   │       │       │   │       │   ├── span.pref-option-label
+│   │   │       │       │   │       │   └── i.fa-solid.fa-check.pref-option-check
+│   │   │       │       │   │       ├── label.pref-option
+│   │   │       │       │   │       │   ├── input
+│   │   │       │       │   │       │   ├── i.fa-solid.fa-umbrella-beach.pref-option-icon
+│   │   │       │       │   │       │   ├── span.pref-option-label
+│   │   │       │       │   │       │   └── i.fa-solid.fa-check.pref-option-check
+│   │   │       │       │   │       └── label.pref-option
+│   │   │       │       │   │           ├── input
+│   │   │       │       │   │           ├── i.fa-solid.fa-star.pref-option-icon
+│   │   │       │       │   │           ├── span.pref-option-label
+│   │   │       │       │   │           └── i.fa-solid.fa-check.pref-option-check
+│   │   │       │       │   └── button
+│   │   │       │       │       ├── i.fa-solid.fa-user-plus
+│   │   │       │       │       └── span
+│   │   │       │       └── p.register
+│   │   │       │           ├── span
+│   │   │       │           └── a
+│   │   │       ├── script
+│   │   │       └── script
+│   └── sites.html
+│       ├── html
+│       │   ├── head
+│       │   │   ├── meta
+│       │   │   ├── meta
+│       │   │   ├── title
+│       │   │   ├── link
+│       │   │   ├── link
+│       │   │   ├── link
+│       │   │   ├── link
+│       │   │   └── link
+│       │   └── body
+│       │       ├── div.bg-overlay
+│       │       ├── div#appShell.app
+│       │       │   ├── aside#sidebar.sidebar
+│       │       │   │   ├── button#sidebarClose.sidebar-close
+│       │       │   │   ├── div.sidebar-greeting
+│       │       │   │   │   ├── div#avatarInitials.avatar
+│       │       │   │   │   └── div.greeting-text
+│       │       │   │   │       ├── span.greeting-hello
+│       │       │   │   │       └── span#greetingName.greeting-name
+│       │       │   │   ├── nav.sidebar-nav
+│       │       │   │   │   ├── span.nav-label
+│       │       │   │   │   ├── a.nav-item.is-active
+│       │       │   │   │   │   ├── svg
+│       │       │   │   │   │   │   ├── circle
+│       │       │   │   │   │   │   └── path
+│       │       │   │   │   │   └── span
+│       │       │   │   │   ├── button#openAddSite.nav-item
+│       │       │   │   │   │   ├── svg
+│       │       │   │   │   │   │   └── path
+│       │       │   │   │   │   ├── span
+│       │       │   │   │   │   └── span.nav-hint
+│       │       │   │   │   ├── a.nav-item
+│       │       │   │   │   │   ├── svg
+│       │       │   │   │   │   │   └── path
+│       │       │   │   │   │   └── span
+│       │       │   │   │   ├── a.nav-item
+│       │       │   │   │   │   ├── svg
+│       │       │   │   │   │   │   ├── circle
+│       │       │   │   │   │   │   └── path
+│       │       │   │   │   │   └── span
+│       │       │   │   │   └── a.nav-item
+│       │       │   │   │       ├── svg
+│       │       │   │   │       │   ├── circle
+│       │       │   │   │       │   └── path
+│       │       │   │   │       └── span
+│       │       │   │   ├── button#collapseSidebar.nav-item.nav-collapse
+│       │       │   │   │   ├── svg
+│       │       │   │   │   │   └── path
+│       │       │   │   │   └── span
+│       │       │   │   └── button#logoutBtn.nav-item.nav-logout
+│       │       │   │       ├── svg
+│       │       │   │       │   └── path
+│       │       │   │       └── span
+│       │       │   ├── div#sidebarScrim.sidebar-scrim
+│       │       │   └── main.main
+│       │       │       ├── div.page-header
+│       │       │       │   ├── div.brand
+│       │       │       │   │   ├── svg.brand-mark
+│       │       │       │   │   │   ├── path
+│       │       │       │   │   │   ├── path
+│       │       │       │   │   │   └── circle
+│       │       │       │   │   └── div.brand-word
+│       │       │       │   │       ├── span.brand-name
+│       │       │       │   │       │   └── em
+│       │       │       │   │       └── span.brand-tag
+│       │       │       │   └── div#searchWrap.search-wrap
+│       │       │       │       ├── span.search-icon
+│       │       │       │       │   └── svg
+│       │       │       │       │       ├── circle
+│       │       │       │       │       └── path
+│       │       │       │       ├── input#searchInput
+│       │       │       │       └── span.search-explorer
+│       │       │       │           └── svg
+│       │       │       │               ├── circle
+│       │       │       │               ├── path
+│       │       │       │               └── path
+│       │       │       ├── header.topbar
+│       │       │       │   ├── button#menuToggle.menu-toggle
+│       │       │       │   │   └── svg
+│       │       │       │   │       └── path
+│       │       │       │   ├── div.topbar-heading
+│       │       │       │   │   └── h1
+│       │       │       │   └── div#languageSwitcher.language-switcher
+│       │       │       │       ├── span.language-switcher-thumb
+│       │       │       │       ├── button.lang-pill.is-active
+│       │       │       │       └── button.lang-pill
+│       │       │       ├── div#filters.filters
+│       │       │       │   ├── button#filtersToggle.filters-toggle
+│       │       │       │   │   ├── span#filtersToggleIcon.filters-toggle-icon-badge.chip-icon.chip-icon-tous
+│       │       │       │   │   │   └── svg
+│       │       │       │   │   │       └── path
+│       │       │       │   │   ├── span#filtersToggleLabel
+│       │       │       │   │   └── span.filters-toggle-icon
+│       │       │       │   └── div#filtersPanel.filters-panel
+│       │       │       │       ├── button.chip.is-active
+│       │       │       │       │   ├── span.chip-icon.chip-icon-tous
+│       │       │       │       │   │   └── svg
+│       │       │       │       │   │       └── path
+│       │       │       │       │   └── span
+│       │       │       │       ├── button.chip
+│       │       │       │       │   ├── span.chip-icon.chip-icon-nature
+│       │       │       │       │   │   └── svg
+│       │       │       │       │   │       ├── path
+│       │       │       │       │   │       └── path
+│       │       │       │       │   └── span
+│       │       │       │       ├── button.chip
+│       │       │       │       │   ├── span.chip-icon.chip-icon-culture
+│       │       │       │       │   │   └── svg
+│       │       │       │       │   │       └── path
+│       │       │       │       │   └── span
+│       │       │       │       ├── button.chip
+│       │       │       │       │   ├── span.chip-icon.chip-icon-beach
+│       │       │       │       │   │   └── svg
+│       │       │       │       │   │       └── path
+│       │       │       │       │   └── span
+│       │       │       │       ├── button.chip
+│       │       │       │       │   ├── span.chip-icon.chip-icon-montagne
+│       │       │       │       │   │   └── svg
+│       │       │       │       │   │       └── path
+│       │       │       │       │   └── span
+│       │       │       │       └── button.chip
+│       │       │       │           ├── span.chip-icon.chip-icon-aventure
+│       │       │       │           │   └── svg
+│       │       │       │           │       ├── circle
+│       │       │       │           │       └── path
+│       │       │       │           └── span
+│       │       │       ├── section#sitesGrid.grid
+│       │       │       ├── div#loadingState.state-panel
+│       │       │       │   ├── div.spinner
+│       │       │       │   └── p
+│       │       │       ├── div#emptyState.state-panel
+│       │       │       │   ├── svg
+│       │       │       │   │   └── path
+│       │       │       │   ├── p
+│       │       │       │   └── button#emptyStateAdd.btn-ghost
+│       │       │       └── div#errorState.state-panel
+│       │       │           ├── p
+│       │       │           └── button#retryLoad.btn-ghost
+│       │       ├── div#addSiteOverlay.overlay
+│       │       │   └── div.add-panel
+│       │       │       ├── div.add-panel-head
+│       │       │       │   ├── div
+│       │       │       │   │   ├── span.eyebrow
+│       │       │       │   │   └── h2
+│       │       │       │   └── button#closeAddSite.close-btn
+│       │       │       └── form#addSiteForm.add-form
+│       │       │           ├── label
+│       │       │           │   ├── span
+│       │       │           │   └── input
+│       │       │           ├── div.form-row
+│       │       │           │   ├── label
+│       │       │           │   │   ├── span
+│       │       │           │   │   └── input
+│       │       │           │   └── label
+│       │       │           │       ├── span
+│       │       │           │       └── select
+│       │       │           │           ├── option
+│       │       │           │           ├── option
+│       │       │           │           ├── option
+│       │       │           │           ├── option
+│       │       │           │           ├── option
+│       │       │           │           ├── option
+│       │       │           │           └── option
+│       │       │           ├── label
+│       │       │           │   ├── span
+│       │       │           │   └── input
+│       │       │           ├── label
+│       │       │           │   ├── span
+│       │       │           │   └── textarea
+│       │       │           ├── div.form-section-label
+│       │       │           ├── div.form-row.form-row-3
+│       │       │           │   ├── label
+│       │       │           │   │   ├── span
+│       │       │           │   │   └── select
+│       │       │           │   │       ├── option
+│       │       │           │   │       ├── option
+│       │       │           │   │       └── option
+│       │       │           │   ├── label
+│       │       │           │   │   ├── span
+│       │       │           │   │   └── select
+│       │       │           │   │       ├── option
+│       │       │           │   │       ├── option
+│       │       │           │   │       └── option
+│       │       │           │   └── label
+│       │       │           │       ├── span
+│       │       │           │       └── input
+│       │       │           ├── p#addSiteError.form-error
+│       │       │           └── div.form-actions
+│       │       │               ├── button#cancelAddSite.btn-ghost
+│       │       │               └── button.btn-solid
+│       │       ├── template#cardTemplate
+│       │       │   └── article.card
+│       │       │       ├── div.card-media
+│       │       │       │   ├── img
+│       │       │       │   ├── span.card-number
+│       │       │       │   └── span.card-category
+│       │       │       └── div.card-body
+│       │       │           ├── h3.card-title
+│       │       │           ├── p.card-location
+│       │       │           │   ├── svg
+│       │       │           │   │   ├── path
+│       │       │           │   │   └── circle
+│       │       │           │   └── span
+│       │       │           ├── p.card-desc
+│       │       │           ├── div.card-tags
+│       │       │           │   ├── span.tag.tag-difficulte
+│       │       │           │   ├── span.tag.tag-danger
+│       │       │           │   └── span.tag.tag-prix
+│       │       │           └── div.card-foot
+│       │       │               ├── button.rating
+│       │       │               │   ├── svg
+│       │       │               │   │   └── path
+│       │       │               │   └── span.rating-value
+│       │       │               └── span.card-author
+│       │       ├── script
+│       │       └── script
+├── src/
+│   ├── controllers/
+│   │   ├── authController.js
+│   │   ├── sitesController.js
+│   │   │   ├── function findImageForSite(title, location)
+│   │   │   ├── function toFrontendSite(row)
+│   │   └── userController.js
+│   │       ├── function preferences(()
+│   ├── db/
+│   │   ├── pool.js
+│   │   └── script.sql
+│   ├── middlewares/
+│   │   ├── asyncHandler.js
+│   │   │   ├── function asyncHandler(fn)
+│   │   ├── authMiddleware.js
+│   │   │   ├── function verifierToken(req, res, next)
+│   │   └── errorHandler.js
+│   │       ├── function errorHandler(err, req, res, next)
+│   ├── models/
+│   │   ├── sitesModel.js
+│   │   │   ├── function getAllSites({ search, category, page = 1, limit = 20 } = {})
+│   │   │   ├── function getSiteById(id)
+│   │   │   ├── function createSite({
+  id,
+  title,
+  description,
+  location,
+  category,
+  author,
+  imageUrl,
+  difficulty,
+  dangerosity,
+  price,
+  userId = null,
+})
+│   │   │   ├── function addRating(siteId, rating)
+│   │   │   ├── function getSiteByPreference(preference, { page = 1, limit = 20 } = {})
+│   │   └── usersModel.js
+│   │       ├── function findByEmail(email)
+│   │       ├── function findById(id)
+│   │       ├── function findByVerificationToken(token)
+│   │       ├── function createUser({ id, email, passwordHash, username, verificationToken, preferences })
+│   │       ├── function verifyUser(token)
+│   ├── routes/
+│   │   ├── authRoutes.js
+│   │   ├── sitesRoutes.js
+│   │   └── userRoutes.js
+│   ├── tests/
+│   │   ├── integration/
+│   │   │   ├── auth.test.js
+│   │   │   │   ├── function uniqueEmail()
+│   │   │   │   ├── function extractToken(confirmationLink)
+│   │   │   ├── moyenne.test.js
+│   │   │   │   ├── function extractToken(confirmationLink)
+│   │   │   │   ├── function creerSiteDeTest()
+│   │   │   ├── sites.test.js
+│   │   │   │   ├── function extractToken(confirmationLink)
+│   │   │   └── users.test.js
+│   │   │       ├── function extractToken(confirmationLink)
+│   │   │       ├── function creerUtilisateurConnecte({ username, preferences } = {})
+│   │   └── unit/
+│   │       └── converstionLanguage.test.js
+│   └── app.js
+├── .dockerignore
+├── .env
+├── .env.example
+├── .gitignore
+├── architecture.tree
+├── docker-compose.yml
+├── Dockerfile
+├── eslint.config.js
+├── main.py
+├── package-lock.json
+├── package.json
+└── README.md

@@ -1,0 +1,151 @@
+name: Docker CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-tests:
+    name: Build, Lint & Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # DB_NAME aligné sur celui codé en dur dans script.sql (GlobeTrotterAPP_DB)
+      - name: Create test .env
+        run: |
+          cat <<EOF > .env
+          DB_HOST=db
+          DB_PORT=3306
+          DB_ROOT_PASSWORD=root_test_pass
+          DB_NAME=GlobeTrotterAPP_DB
+          DB_USER=test_user
+          DB_PASSWORD=test_pass
+          PEXELS_API_KEY=mock_key
+          JWT_SECRET=test_secret_key_for_ci
+          EOF
+
+      - name: Verify Docker installation
+        run: |
+          docker --version
+          docker compose version
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint (Static Analysis)
+        run: npm run lint
+
+      # 🧪 ÉTAPE 1 : Tests unitaires (s'exécutent directement en local sur le code
+      # brut, sans Docker — rapides, aucune dépendance externe nécessaire)
+      - name: Run Unit Tests
+        run: npm run test:unit
+
+      # ⚙️ ÉTAPE 2 : Préparation de l'environnement pour l'intégration
+      #
+      # CORRECTIF : on démarre UNIQUEMENT le service "db" ici, pas toute la
+      # stack. Avant, "docker compose up -d --build" démarrait l'API en même
+      # temps que la DB — or script.sql fait un DROP DATABASE + CREATE DATABASE
+      # juste après. Si l'API avait déjà ouvert des connexions à ce moment-là,
+      # le DROP les invalidait en plein vol, ce qui pouvait faire planter l'API
+      # silencieusement et faire échouer "Wait for API" pour une mauvaise raison
+      # (l'API crashée, pas juste "pas encore prête").
+      # En ne démarrant que "db" ici, on garantit que le schéma est appliqué
+      # AVANT que l'API existe et ne se connecte.
+      - name: Build and start database container
+        run: docker compose up -d --build db
+
+      # Attend que MySQL accepte réellement les connexions
+      - name: Wait for MySQL
+        run: |
+          set -a
+          source .env
+          set +a
+          timeout 180 bash -c '
+            until docker compose exec -T db \
+              mysql -u"$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" \
+              -e "SELECT 1;" >/dev/null 2>&1
+            do
+              echo "En attente de MySQL..."
+              sleep 2
+            done
+          '
+
+      # Applique le schéma (tables users, sites, ratings...) sur la base
+      # fraîchement créée. Utilise le compte root car script.sql fait
+      # DROP/CREATE DATABASE, une opération que le user applicatif
+      # (test_user) n'a pas le droit de faire.
+      #
+      # Cette étape se déroule maintenant AVANT le démarrage de l'API
+      # (voir correctif ci-dessus) — plus de risque que l'API tente de se
+      # connecter à une base en cours de suppression/recréation.
+      - name: Apply database schema
+        run: |
+          set -a
+          source .env
+          set +a
+          docker compose exec -T db mysql -uroot -p"$DB_ROOT_PASSWORD" < ./src/db/script.sql
+
+      # CORRECTIF : l'API est démarrée seulement maintenant, une fois le
+      # schéma en place. Elle peut ouvrir ses connexions au pool en sachant
+      # que les tables existent déjà.
+      - name: Build and start API container
+        run: docker compose up -d --build api
+
+      # Attend que l'API réponde sur sa route de health check.
+      #
+      # ⚠️ À VÉRIFIER : cette route doit correspondre EXACTEMENT à celle
+      # définie dans src/app.js. Le projet a discuté à la fois de "/health"
+      # et "/api/health" à différents moments — confirme laquelle est
+      # réellement montée avant de faire confiance à ce curl. Si les deux
+      # ne correspondent pas, cette étape échouera systématiquement en
+      # timeout après 180s, sans message d'erreur clair sur la vraie cause.
+      - name: Wait for API
+        run: |
+          timeout 180 bash -c '
+            until curl -fs http://localhost:3000/health >/dev/null
+            do
+              echo "En attente de l'\''API..."
+              sleep 3
+            done
+          '
+
+      - name: Show running containers
+        run: docker compose ps
+
+      # 🧪 ÉTAPE 3 : Tests d'intégration (s'exécutent à l'intérieur du
+      # conteneur "api", donc avec un accès réel à la DB déjà peuplée du
+      # schéma appliqué plus haut)
+      - name: Run Integration Tests
+        run: docker compose exec -T api npm run test:integration
+
+      - name: Display container logs on failure
+        if: failure()
+        run: docker compose logs --no-color
+
+      - name: Stop and remove containers
+        if: always()
+        run: docker compose down -v
+
+  deploy:
+    name: Deploy to Render
+    needs: [run-tests]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger deployment
+        run: curl -fsS "${{ secrets.RENDER_DEPLOY_HOOK }}"

@@ -9,7 +9,7 @@
   --gold-soft: #F4C868;
   --clay: #B8452F;
   --ink: #1C2620;
-  --ink-soft: #5B6960;
+  --ink-soft: #cc1212;
   --ink-inverse: #F3EFE3;
 
   --font-display: "DM Serif Display", serif;
@@ -21,7 +21,7 @@
 
   /* Fond changeable en un seul endroit : remplace juste cette URL */
   /* --bg-image: url("https://images.unsplash.com/photo-1757777598981-2a589811168d?auto=format&fit=crop&w=1920&q=80"); */
-  --bg-image: url("https://www.kanaga-at.com/wp-content/uploads/2021/07/camerun_spiaggia_di_limbe.jpg");
+  --bg-image: url("https://images.pexels.com/photos/17290983/pexels-photo-17290983.jpeg");
 }
 
 /* ================= RESET & BASE ================= */
@@ -461,7 +461,7 @@ button {
   font-size: 2rem;
   font-weight: 600;
   margin: 4px 0 0;
-  color: var(--forest-deep);
+  color: rgba(227, 233, 229,.8);
 }
 
 .eyebrow {
@@ -484,9 +484,9 @@ button {
   padding: 3px;
   height: 34px;
   border-radius: 999px;
-  background: rgba(255, 253, 248, 0.9);
+  background: rgba(142, 148, 62, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.55);
-  box-shadow: 0 3px 10px -4px rgba(22, 51, 43, 0.25);
+  box-shadow: 0 3px 10px -4px rgba(106, 172, 153, 0.25);
 }
 
 .language-switcher:hover {
@@ -500,7 +500,8 @@ button {
   width: calc(50% - 3px);
   height: calc(100% - 6px);
   border-radius: 999px;
-  background: var(--forest-deep);
+  background: rgb(248, 232, 1) ;
+  box-shadow: 0 1px 1px 2px rgb(51, 56, 50);
   transition: transform 0.25s ease;
   z-index: 0;
 }
@@ -522,7 +523,7 @@ button {
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.02em;
-  color: var(--ink-soft);
+  color: black;
   transition: color 0.2s ease;
 }
 
@@ -657,7 +658,7 @@ button {
 }
 
 .chip-icon-nature {
-  background: linear-gradient(135deg, #4CAF50, #1B5E20);
+  background: linear-gradient(135deg, #9c963f, #2e9435);
 }
 
 .chip-icon-culture {
