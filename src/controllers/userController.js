@@ -12,11 +12,17 @@ const getMe = asyncHandler(async (req, res) => {
   const preferences = (() => {
     if (!user.preferences) return [];
     if (Array.isArray(user.preferences)) return user.preferences;
-    try {
-      return JSON.parse(user.preferences);
-    } catch {
-      return [];
+    if (typeof user.preferences === 'string') {
+      try {
+        return JSON.parse(user.preferences);
+      } catch {
+        return [];
+      }
     }
+    if (typeof user.preferences === 'object') {
+      return Object.values(user.preferences);
+    }
+    return [];
   })();
 
   res.json({

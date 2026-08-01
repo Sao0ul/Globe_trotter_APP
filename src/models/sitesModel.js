@@ -1,49 +1,67 @@
 const pool = require('../db/pool');
 
-// Récupère une page de sites, avec recherche/catégorie optionnelles.
-// page/limit pilotent LIMIT/OFFSET côté SQL pour ne jamais charger toute la table d'un coup.
-async function getAllSites({ search, category, page = 1, limit = 20 } = {}) {
+function buildSiteQuery({ search, category, preference, page = 1, limit = 20 } = {}) {
   let query = `
-    SELECT s.*, COALESCE(AVG(r.rating), 0) AS average_rating
+    SELECT s.*, COALESCE(r.average_rating, 0) AS average_rating
     FROM sites s
-    LEFT JOIN ratings r ON r.site_id = s.id
+    LEFT JOIN (
+      SELECT site_id, AVG(rating)::numeric(3,2) AS average_rating
+      FROM ratings
+      GROUP BY site_id
+    ) r ON r.site_id = s.id
   `;
 
   const conditions = [];
   const params = [];
+  let nextParameterIndex = 1;
 
   if (search) {
-    conditions.push('(s.title LIKE ? OR s.location LIKE ?)');
+    conditions.push(`(LOWER(s.title) LIKE LOWER($${nextParameterIndex}) OR LOWER(s.location) LIKE LOWER($${nextParameterIndex + 1}))`);
     params.push(`%${search}%`, `%${search}%`);
+    nextParameterIndex += 2;
   }
 
   if (category) {
-    conditions.push('s.category = ?');
+    conditions.push(`s.category = $${nextParameterIndex}`);
     params.push(category);
+    nextParameterIndex += 1;
+  }
+
+  if (preference) {
+    conditions.push(`(LOWER(s.category) LIKE LOWER($${nextParameterIndex}) OR LOWER(s.location) LIKE LOWER($${nextParameterIndex + 1}))`);
+    params.push(`%${preference}%`, `%${preference}%`);
+    nextParameterIndex += 2;
   }
 
   if (conditions.length) {
-    query += ' WHERE ' + conditions.join(' AND ');
+    query += ` WHERE ${conditions.join(' AND ')}`;
   }
 
-  query += ' GROUP BY s.id';
-
-  // LIMIT/OFFSET doivent être des nombres, pas des strings, sinon MySQL rejette la requête
   const offset = (page - 1) * limit;
-  query += ' ORDER BY s.created_at DESC LIMIT ? OFFSET ?';
+  query += ` ORDER BY s.created_at DESC LIMIT $${nextParameterIndex} OFFSET $${nextParameterIndex + 1}`;
   params.push(limit, offset);
 
-  const [rows] = await pool.query(query, params);
+  return { query, params };
+}
+
+// Récupère une page de sites, avec recherche/catégorie optionnelles.
+// page/limit pilotent LIMIT/OFFSET côté SQL pour ne jamais charger toute la table d'un coup.
+async function getAllSites({ search, category, page = 1, limit = 20 } = {}) {
+  const { query, params } = buildSiteQuery({ search, category, page, limit });
+  const { rows } = await pool.query(query, params);
   return rows;
 }
 
 async function getSiteById(id) {
-  const [rows] = await pool.query(
-    `SELECT s.*, COALESCE(AVG(r.rating), 0) AS average_rating
+  const { rows } = await pool.query(
+    `SELECT s.*, COALESCE(r.average_rating, 0) AS average_rating
      FROM sites s
-     LEFT JOIN ratings r ON r.site_id = s.id
-     WHERE s.id = ?
-     GROUP BY s.id`,
+     LEFT JOIN (
+       SELECT site_id, AVG(rating)::numeric(3,2) AS average_rating
+       FROM ratings
+       GROUP BY site_id
+     ) r ON r.site_id = s.id
+     WHERE s.id = $1`,
     [id]
   );
 
@@ -68,7 +86,7 @@ async function createSite({
   await pool.query(
     `INSERT INTO sites
       (id, title, description, location, category, author, image_url, difficulty, dangerosity, price, user_id)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
     [id, title, description, location, category, author, imageUrl, difficulty, dangerosity, price, userId]
   );
 
@@ -82,7 +100,7 @@ async function addRating(siteId, rating) {
   }
 
   await pool.query(
-    'INSERT INTO ratings (site_id, rating) VALUES (?, ?)',
+    'INSERT INTO ratings (site_id, rating) VALUES ($1, $2)',
     [siteId, rating]
   );
 
@@ -91,31 +109,8 @@ async function addRating(siteId, rating) {
 
 // Recherche par préférence (catégorie ou localisation), même pagination que getAllSites
 async function getSiteByPreference(preference, { page = 1, limit = 20 } = {}) {
-  let query = `
-    SELECT s.*, COALESCE(AVG(r.rating), 0) AS average_rating
-    FROM sites s
-    LEFT JOIN ratings r ON r.site_id = s.id
-  `;
-
-  const conditions = [];
-  const params = [];
-
-  if (preference) {
-    conditions.push('(s.category LIKE ? OR s.location LIKE ?)');
-    params.push(`%${preference}%`, `%${preference}%`);
-  }
-
-  if (conditions.length) {
-    query += ' WHERE ' + conditions.join(' AND ');
-  }
-
-  query += ' GROUP BY s.id';
-
-  const offset = (page - 1) * limit;
-  query += ' ORDER BY s.created_at DESC LIMIT ? OFFSET ?';
-  params.push(limit, offset);
-
-  const [rows] = await pool.query(query, params);
+  const { query, params } = buildSiteQuery({ preference, page, limit });
+  const { rows } = await pool.query(query, params);
   return rows;
 }
 

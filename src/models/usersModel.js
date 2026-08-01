@@ -2,16 +2,16 @@ const pool = require('../db/pool');
 
 // Cherche un utilisateur par email — utilisé pour login et éviter les doublons à l'inscription
 async function findByEmail(email) {
-  const [rows] = await pool.query(
-    'SELECT * FROM users WHERE email = ? LIMIT 1',
+  const { rows } = await pool.query(
+    'SELECT * FROM users WHERE email = $1 LIMIT 1',
     [email]
   );
   return rows[0] || null;
 }
 
 async function findById(id) {
-  const [rows] = await pool.query(
-    'SELECT * FROM users WHERE id = ? LIMIT 1',
+  const { rows } = await pool.query(
+    'SELECT * FROM users WHERE id = $1 LIMIT 1',
     [id]
   );
   return rows[0] || null;
@@ -19,8 +19,8 @@ async function findById(id) {
 
 // Cherche un utilisateur par son token de vérification — utilisé lors du clic sur le lien de confirmation
 async function findByVerificationToken(token) {
-  const [rows] = await pool.query(
-    'SELECT * FROM users WHERE verification_token = ? LIMIT 1',
+  const { rows } = await pool.query(
+    'SELECT * FROM users WHERE verification_token = $1 LIMIT 1',
     [token]
   );
   return rows[0] || null;
@@ -30,13 +30,13 @@ async function findByVerificationToken(token) {
 async function createUser({ id, email, passwordHash, username, verificationToken, preferences }) {
   await pool.query(
     `INSERT INTO users (id, email, password_hash, username, preferences, is_verified, verification_token)
-     VALUES (?, ?, ?, ?, ?, FALSE, ?)`,
+     VALUES ($1, $2, $3, $4, $5, FALSE, $6)`,
     [
       id,
       email,
       passwordHash,
       username,
-      preferences ? JSON.stringify(preferences) : null,
+      preferences || null,
       verificationToken,
     ]
   );
@@ -53,13 +53,13 @@ async function createUser({ id, email, passwordHash, username, verificationToken
 
 // Marque le compte comme vérifié et supprime le token (usage unique)
 async function verifyUser(token) {
-  const [result] = await pool.query(
+  const result = await pool.query(
     `UPDATE users SET is_verified = TRUE, verification_token = NULL
-     WHERE verification_token = ?`,
+     WHERE verification_token = $1`,
     [token]
   );
-  // affectedRows > 0 confirme qu'un compte correspondait bien à ce token
-  return result.affectedRows > 0;
+
+  return result.rowCount > 0;
 }
 
 module.exports = { findByEmail, findById, findByVerificationToken, createUser, verifyUser };
