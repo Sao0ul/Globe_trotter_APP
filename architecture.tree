@@ -1,7 +1,8 @@
 /
 ├── .github/
 │   └── workflows/
-│       └── ci-cd.yml
+│       ├── ci-cd.yml
+│       └── semgrep.yml
 ├── certs/
 │   └── ca.pem
 ├── public/
