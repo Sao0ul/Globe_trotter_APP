@@ -1,4 +1,4 @@
-const mysql = require('mysql2/promise');
+const { Pool } = require("pg");
 
 const DEFAULT_DB_CONFIG = {
   host: process.env.DB_HOST || '127.0.0.1',

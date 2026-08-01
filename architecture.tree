@@ -1,7 +1,8 @@
 /
 ├── .github/
 │   └── workflows/
-│       └── ci-cd.yml
+│       ├── ci-cd.yml
+│       └── semgrep.yml
 ├── certs/
 │   └── ca.pem
 ├── public/
@@ -295,6 +296,9 @@
 │   │   │   ├── function onLanguageChange(event)
 │   │   │   ├── function attachLanguageSwitcher()
 │   │   │   ├── function setLanguage(language)
+│   │   ├── itineraireMap.js
+│   │   │   ├── function chargerItineraire(depart, arrivee)
+│   │   │   ├── function afficherLegende()
 │   │   ├── models.js
 │   │   │   ├── class AppModel
 │   │   │   │   ├── isAuthenticated()
@@ -383,6 +387,14 @@
 │   │   │       │           └── a
 │   │   │       ├── script
 │   │   │       └── script
+│   ├── itineraires.html
+│   │   ├── html
+│   │   │   ├── head
+│   │   │   │   ├── link
+│   │   │   │   └── script
+│   │   │   └── body
+│   │   │       ├── div#map
+│   │   │       └── div#legende
 │   ├── register.html
 │   │   ├── html
 │   │   │   ├── head
@@ -688,12 +700,27 @@
 ├── src/
 │   ├── controllers/
 │   │   ├── authController.js
+│   │   ├── itineraireController.js
+│   │   │   ├── function resolvePoint(value)
 │   │   ├── sitesController.js
 │   │   │   ├── function findImageForSite(title, location)
 │   │   │   ├── function toFrontendSite(row)
 │   │   └── userController.js
 │   │       ├── function preferences(()
 │   ├── db/
+│   │   ├── architecture.tree
+│   │   ├── export.geojson
+│   │   ├── importGeojson.js
+│   │   │   ├── function determineCategory(tags)
+│   │   │   ├── function extractOsmReference(feature)
+│   │   │   ├── function extractName(tags)
+│   │   │   ├── function extractAddress(tags)
+│   │   │   ├── function extractPhone(tags)
+│   │   │   ├── function extractCoordinates(feature)
+│   │   │   ├── function checkDatabasePrerequisites()
+│   │   │   ├── function importGeojson(filePath)
+│   │   │   ├── function main()
+│   │   │   ├── class AND
 │   │   ├── pool.js
 │   │   └── script.sql
 │   ├── middlewares/
@@ -704,6 +731,8 @@
 │   │   └── errorHandler.js
 │   │       ├── function errorHandler(err, req, res, next)
 │   ├── models/
+│   │   ├── lieuxModel.js
+│   │   │   ├── function getLieuxPresDuTrajet(coordonnees, rayonMetres = 5000, categories = null)
 │   │   ├── sitesModel.js
 │   │   │   ├── function getAllSites({ search, category, page = 1, limit = 20 } = {})
 │   │   │   ├── function getSiteById(id)
@@ -730,6 +759,7 @@
 │   │       ├── function verifyUser(token)
 │   ├── routes/
 │   │   ├── authRoutes.js
+│   │   ├── itineraireRoutes.js
 │   │   ├── sitesRoutes.js
 │   │   └── userRoutes.js
 │   ├── tests/
@@ -756,6 +786,7 @@
 ├── docker-compose.yml
 ├── Dockerfile
 ├── eslint.config.js
+├── init_Remote_Database.bat
 ├── main.py
 ├── package-lock.json
 ├── package.json

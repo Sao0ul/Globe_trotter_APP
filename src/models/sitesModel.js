@@ -1,57 +1,55 @@
 const pool = require('../db/pool');
 
-// Récupère une page de sites, avec recherche/catégorie optionnelles.
-// page/limit pilotent LIMIT/OFFSET côté SQL pour ne jamais charger toute la table d'un coup.
+// Retrieve a paginated page of sites, with optional search and category filters.
 async function getAllSites({ search, category, page = 1, limit = 20 } = {}) {
-  let query = `
-    SELECT s.*, COALESCE(AVG(r.rating), 0) AS average_rating
-    FROM sites s
-    LEFT JOIN ratings r ON r.site_id = s.id
-  `;
-
+  const normalizedPage = Number(page) || 1;
+  const normalizedLimit = Number(limit) || 20;
   const conditions = [];
   const params = [];
+  let placeholderIndex = 1;
+
+  let query = `
+    SELECT s.*, COALESCE((SELECT AVG(r.rating) FROM ratings r WHERE r.site_id = s.id), 0) AS average_rating
+    FROM sites s
+  `;
 
   if (search) {
-    conditions.push('(s.title LIKE ? OR s.location LIKE ?)');
+    const searchClause = '(s.title ILIKE $' + placeholderIndex + ' OR s.location ILIKE $' + (placeholderIndex + 1) + ')';
+    conditions.push(searchClause);
     params.push(`%${search}%`, `%${search}%`);
+    placeholderIndex += 2;
   }
 
   if (category) {
-    conditions.push('s.category = ?');
+    conditions.push('s.category = $' + placeholderIndex);
     params.push(category);
+    placeholderIndex += 1;
   }
 
   if (conditions.length) {
     query += ' WHERE ' + conditions.join(' AND ');
   }
 
-  query += ' GROUP BY s.id';
+  const offset = (normalizedPage - 1) * normalizedLimit;
+  query += ' ORDER BY s.created_at DESC LIMIT $' + placeholderIndex + ' OFFSET $' + (placeholderIndex + 1);
+  params.push(normalizedLimit, offset);
 
-  // LIMIT/OFFSET doivent être des nombres, pas des strings, sinon MySQL rejette la requête
-  const offset = (page - 1) * limit;
-  query += ' ORDER BY s.created_at DESC LIMIT ? OFFSET ?';
-  params.push(limit, offset);
-
-  const [rows] = await pool.query(query, params);
+  const { rows } = await pool.query(query, params);
   return rows;
 }
 
 async function getSiteById(id) {
-  const [rows] = await pool.query(
-    `SELECT s.*, COALESCE(AVG(r.rating), 0) AS average_rating
+  const { rows } = await pool.query(
+    `SELECT s.*, COALESCE((SELECT AVG(r.rating) FROM ratings r WHERE r.site_id = s.id), 0) AS average_rating
      FROM sites s
-     LEFT JOIN ratings r ON r.site_id = s.id
-     WHERE s.id = ?
-     GROUP BY s.id`,
+     WHERE s.id = $1`,
     [id]
   );
 
   return rows[0] || null;
 }
 
-// userId : peut être null si l'auteur n'est pas identifié (ex: import externe),
-// mais devrait normalement toujours venir de req.user.id côté controller.
+// userId can remain null when the author is not identified, but it is usually supplied by the controller.
 async function createSite({
   id,
   title,
@@ -60,6 +58,9 @@ async function createSite({
   category,
   author,
   imageUrl,
+  videoUrl,
+  latitude,
+  longitude,
   difficulty,
   dangerosity,
   price,
@@ -67,13 +68,16 @@ async function createSite({
 }) {
   await pool.query(
     `INSERT INTO sites
-      (id, title, description, location, category, author, image_url, difficulty, dangerosity, price, user_id)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    [id, title, description, location, category, author, imageUrl, difficulty, dangerosity, price, userId]
+      (id, title, description, location, category, author, image_url, video_url, latitude, longitude, difficulty, dangerosity, price, user_id)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    [id, title, description, location, category, author, imageUrl, videoUrl, latitude, longitude, difficulty, dangerosity, price, userId]
   );
 
   return getSiteById(id);
 }
+
+
+
 
 async function addRating(siteId, rating) {
   const site = await getSiteById(siteId);
@@ -82,40 +86,42 @@ async function addRating(siteId, rating) {
   }
 
   await pool.query(
-    'INSERT INTO ratings (site_id, rating) VALUES (?, ?)',
+    'INSERT INTO ratings (site_id, rating) VALUES ($1, $2)',
     [siteId, rating]
   );
 
   return getSiteById(siteId);
 }
 
-// Recherche par préférence (catégorie ou localisation), même pagination que getAllSites
+// Search by preference (category or location) with the same pagination behavior as getAllSites.
 async function getSiteByPreference(preference, { page = 1, limit = 20 } = {}) {
-  let query = `
-    SELECT s.*, COALESCE(AVG(r.rating), 0) AS average_rating
-    FROM sites s
-    LEFT JOIN ratings r ON r.site_id = s.id
-  `;
-
+  const normalizedPage = Number(page) || 1;
+  const normalizedLimit = Number(limit) || 20;
   const conditions = [];
   const params = [];
+  let placeholderIndex = 1;
+
+  let query = `
+    SELECT s.*, COALESCE((SELECT AVG(r.rating) FROM ratings r WHERE r.site_id = s.id), 0) AS average_rating
+    FROM sites s
+  `;
 
   if (preference) {
-    conditions.push('(s.category LIKE ? OR s.location LIKE ?)');
+    const preferenceClause = '(s.category ILIKE $' + placeholderIndex + ' OR s.location ILIKE $' + (placeholderIndex + 1) + ')';
+    conditions.push(preferenceClause);
     params.push(`%${preference}%`, `%${preference}%`);
+    placeholderIndex += 2;
   }
 
   if (conditions.length) {
     query += ' WHERE ' + conditions.join(' AND ');
   }
 
-  query += ' GROUP BY s.id';
+  const offset = (normalizedPage - 1) * normalizedLimit;
+  query += ' ORDER BY s.created_at DESC LIMIT $' + placeholderIndex + ' OFFSET $' + (placeholderIndex + 1);
+  params.push(normalizedLimit, offset);
 
-  const offset = (page - 1) * limit;
-  query += ' ORDER BY s.created_at DESC LIMIT ? OFFSET ?';
-  params.push(limit, offset);
-
-  const [rows] = await pool.query(query, params);
+  const { rows } = await pool.query(query, params);
   return rows;
 }
 

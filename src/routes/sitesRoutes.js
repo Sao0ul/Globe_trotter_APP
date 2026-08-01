@@ -13,6 +13,7 @@ const { getSites, createSite, rateSite } = require('../controllers/sitesControll
 
 router.get('/', getSites);
 router.post('/', verifyToken, createSite);
+router.get('/:id', getSiteDetail); // nouvelle route
 router.post('/:id/rate', verifyToken, rateSite);
 
 module.exports = router;
