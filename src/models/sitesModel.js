@@ -58,6 +58,9 @@ async function createSite({
   category,
   author,
   imageUrl,
+  videoUrl,
+  latitude,
+  longitude,
   difficulty,
   dangerosity,
   price,
@@ -65,13 +68,16 @@ async function createSite({
 }) {
   await pool.query(
     `INSERT INTO sites
-      (id, title, description, location, category, author, image_url, difficulty, dangerosity, price, user_id)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
-    [id, title, description, location, category, author, imageUrl, difficulty, dangerosity, price, userId]
+      (id, title, description, location, category, author, image_url, video_url, latitude, longitude, difficulty, dangerosity, price, user_id)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    [id, title, description, location, category, author, imageUrl, videoUrl, latitude, longitude, difficulty, dangerosity, price, userId]
   );
 
   return getSiteById(id);
 }
+
+
+
 
 async function addRating(siteId, rating) {
   const site = await getSiteById(siteId);
