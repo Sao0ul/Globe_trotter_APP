@@ -18,13 +18,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # DB_NAME aligné sur celui codé en dur dans script.sql (GlobeTrotterAPP_DB)
       - name: Create test .env
         run: |
           cat <<EOF > .env
           DB_HOST=db
-          DB_PORT=3306
-          DB_ROOT_PASSWORD=root_test_pass
+          DB_PORT=5432
           DB_NAME=GlobeTrotterAPP_DB
           DB_USER=test_user
           DB_PASSWORD=test_pass
@@ -56,48 +54,26 @@ jobs:
 
       # ⚙️ ÉTAPE 2 : Préparation de l'environnement pour l'intégration
       #
-      # CORRECTIF : on démarre UNIQUEMENT le service "db" ici, pas toute la
-      # stack. Avant, "docker compose up -d --build" démarrait l'API en même
-      # temps que la DB — or script.sql fait un DROP DATABASE + CREATE DATABASE
-      # juste après. Si l'API avait déjà ouvert des connexions à ce moment-là,
-      # le DROP les invalidait en plein vol, ce qui pouvait faire planter l'API
-      # silencieusement et faire échouer "Wait for API" pour une mauvaise raison
-      # (l'API crashée, pas juste "pas encore prête").
-      # En ne démarrant que "db" ici, on garantit que le schéma est appliqué
-      # AVANT que l'API existe et ne se connecte.
+      # On démarre uniquement le service "db" ici, puis on attend sa santé
+      # avant de lancer l'API. Cela évite une race condition au boot de la
+      # stack pendant l'initialisation de la base PostgreSQL.
       - name: Build and start database container
         run: docker compose up -d --build db
 
-      # Attend que MySQL accepte réellement les connexions
-      - name: Wait for MySQL
+      # Attend que PostgreSQL accepte réellement les connexions.
+      - name: Wait for PostgreSQL
         run: |
           set -a
           source .env
           set +a
           timeout 180 bash -c '
             until docker compose exec -T db \
-              mysql -u"$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" \
-              -e "SELECT 1;" >/dev/null 2>&1
+              pg_isready -U "$DB_USER" -d "$DB_NAME" >/dev/null 2>&1
             do
-              echo "En attente de MySQL..."
+              echo "En attente de PostgreSQL..."
               sleep 2
             done
           '
-
-      # Applique le schéma (tables users, sites, ratings...) sur la base
-      # fraîchement créée. Utilise le compte root car script.sql fait
-      # DROP/CREATE DATABASE, une opération que le user applicatif
-      # (test_user) n'a pas le droit de faire.
-      #
-      # Cette étape se déroule maintenant AVANT le démarrage de l'API
-      # (voir correctif ci-dessus) — plus de risque que l'API tente de se
-      # connecter à une base en cours de suppression/recréation.
-      - name: Apply database schema
-        run: |
-          set -a
-          source .env
-          set +a
-          docker compose exec -T db mysql -uroot -p"$DB_ROOT_PASSWORD" < ./src/db/script.sql
 
       # CORRECTIF : l'API est démarrée seulement maintenant, une fois le
       # schéma en place. Elle peut ouvrir ses connexions au pool en sachant
