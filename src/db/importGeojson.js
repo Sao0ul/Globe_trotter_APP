@@ -422,7 +422,18 @@ async function main() {
 }
 
 
-main().catch((error) => {
-    console.error('Import error:', error.message);
-    process.exit(1);
-});
+if (require.main === module) {
+    main().catch((error) => {
+        console.error('Import error:', error.message);
+        process.exit(1);
+    });
+}
+
+module.exports = {
+    determineCategory,
+    extractOsmReference,
+    extractName,
+    extractAddress,
+    extractPhone,
+    extractCoordinates,
+};

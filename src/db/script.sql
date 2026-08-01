@@ -175,3 +175,16 @@ ALTER TABLE lieux_touristiques
 
 
 
+ALTER TABLE sites
+    ADD COLUMN IF NOT EXISTS osm_type VARCHAR(10)
+        CHECK (osm_type IN ('node', 'way', 'relation')),
+    ADD COLUMN IF NOT EXISTS osm_id BIGINT;
+
+-- Les sites déjà suggérés manuellement gardent osm_type/osm_id à NULL,
+-- ce qui ne viole pas la contrainte UNIQUE (Postgres autorise plusieurs NULLs).
+ALTER TABLE sites
+    ADD CONSTRAINT sites_osm_uniq UNIQUE (osm_type, osm_id);
+
+
+
+
