@@ -1,10 +1,9 @@
 services:
   api:
-    build: . #dit a docker de build en utilisant le Dockerfile à la racine du projet
+    build: .
     ports:
       - "3000:3000"
     volumes:
-      #lier le dossier ap du conteneur à celui du projet pour que les changements soient pris en compte sans rebuild
       - .:/app
       - /app/node_modules
     env_file: .env
@@ -13,19 +12,16 @@ services:
     command: npm run dev
 
   db:
-    image: mysql:8
+    image: postgres:17
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - db_data:/var/lib/mysql
-      # Charge le schéma automatiquement au premier démarrage (volume vide) —
-      # c'est ce qui manquait pour que les tables existent en CI.
+      - db_data:/var/lib/postgresql/data
       - ./src/db/script.sql:/docker-entrypoint-initdb.d/init.sql:ro
 
 volumes:
