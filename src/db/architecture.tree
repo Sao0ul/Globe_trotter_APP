@@ -1,0 +1,15 @@
+/
+├── export.geojson
+├── importGeojson.js
+│   ├── function determineCategory(tags)
+│   ├── function extractOsmReference(feature)
+│   ├── function extractName(tags)
+│   ├── function extractAddress(tags)
+│   ├── function extractPhone(tags)
+│   ├── function extractCoordinates(feature)
+│   ├── function verifierPrerequisDB()
+│   ├── function importGeoJSON(filePath)
+│   ├── function main()
+│   ├── class AND
+├── pool.js
+└── script.sql

@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS lieux_touristiques (
     longitude DOUBLE PRECISION NOT NULL,
 
     address VARCHAR(255),
-    phone VARCHAR(50),
+    phone VARCHAR(255),
 
     geom GEOMETRY(Point, 4326),
 
@@ -157,3 +157,21 @@ BEFORE INSERT OR UPDATE OF latitude, longitude
 ON lieux_touristiques
 FOR EACH ROW
 EXECUTE FUNCTION update_lieu_geom();
+
+-- Ajoute la colonne manquante osm_type
+ALTER TABLE lieux_touristiques
+    ADD COLUMN IF NOT EXISTS osm_type VARCHAR(10)
+    CHECK (osm_type IN ('node', 'way', 'relation'));
+
+-- Remplace la contrainte UNIQUE(osm_id) par une contrainte composite,
+-- cohérente avec le fait que les IDs OSM ne sont uniques que par type
+ALTER TABLE lieux_touristiques
+    DROP CONSTRAINT IF EXISTS lieux_touristiques_osm_id_key;
+
+ALTER TABLE lieux_touristiques
+    ADD CONSTRAINT lieux_touristiques_osm_uniq
+    UNIQUE (osm_type, osm_id);
+
+
+
+

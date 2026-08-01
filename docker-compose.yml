@@ -13,7 +13,7 @@ services:
     command: npm run dev
 
   db:
-    image: postgres:17
+    image: postgis/postgis:17-3.5
     restart: unless-stopped
     environment:
       POSTGRES_DB: ${DB_NAME}
