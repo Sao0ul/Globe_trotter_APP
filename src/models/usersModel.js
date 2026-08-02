@@ -1,12 +1,41 @@
 const pool = require('../db/pool');
 
+function normalizePreferences(preferences) {
+  if (Array.isArray(preferences)) {
+    return preferences;
+  }
+
+  if (preferences == null) {
+    return [];
+  }
+
+  if (typeof preferences === 'string') {
+    try {
+     const parsed = JSON.parse(preferences);
+     return Array.isArray(parsed) ? parsed : [];
+    } catch {
+     return [];
+    }
+  }
+
+  return [];
+}
+
+function mapUserRow(user) {
+  return {
+    ...user,
+    preferences: normalizePreferences(user.preferences),
+  };
+}
+
 // Cherche un utilisateur par email — utilisé pour login et éviter les doublons à l'inscription
 async function findByEmail(email) {
   const { rows } = await pool.query(
     'SELECT * FROM users WHERE email = $1 LIMIT 1',
     [email]
   );
-  return rows[0] || null;
+
+  return rows[0] ? mapUserRow(rows[0]) : null;
 }
 
 async function findById(id) {
@@ -14,7 +43,8 @@ async function findById(id) {
     'SELECT * FROM users WHERE id = $1 LIMIT 1',
     [id]
   );
-  return rows[0] || null;
+
+  return rows[0] ? mapUserRow(rows[0]) : null;
 }
 
 // Cherche un utilisateur par son token de vérification — utilisé lors du clic sur le lien de confirmation
@@ -23,7 +53,8 @@ async function findByVerificationToken(token) {
     'SELECT * FROM users WHERE verification_token = $1 LIMIT 1',
     [token]
   );
-  return rows[0] || null;
+
+  return rows[0] ? mapUserRow(rows[0]) : null;
 }
 
 // Crée un nouvel utilisateur, non vérifié par défaut, avec un token de confirmation
@@ -50,7 +81,7 @@ async function createUser({ id, email, passwordHash, username, verificationToken
     username: user.username,
     isVerified: false,
     createdAt: user.created_at,
-    preferences: Array.isArray(user.preferences) ? user.preferences : [],
+    preferences: normalizePreferences(user.preferences),
   };
 }
 

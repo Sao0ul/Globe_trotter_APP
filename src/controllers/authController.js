@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const asyncHandler = require('../middlewares/asyncHandler');
 const { findByEmail, createUser, verifyUser } = require('../models/usersModel');
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET || 'development-secret';
 
 // POST /api/auth/register — création de compte, non vérifié par défaut
 const register = asyncHandler(async (req, res) => {

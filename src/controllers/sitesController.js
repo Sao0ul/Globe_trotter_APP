@@ -66,7 +66,7 @@ async function findImageForSite(title, location) {
   try {
     const response = await fetch(
       `https://api.pexels.com/v1/search?query=${query}&per_page=1&orientation=landscape`,
-      { headers: { Authorization: apiKey } }
+      { headers: { Authorization: `Bearer ${apiKey}` } }
     );
 
     if (!response.ok) {
