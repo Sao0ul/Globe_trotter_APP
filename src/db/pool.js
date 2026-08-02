@@ -12,4 +12,9 @@ const pool = new Pool({
   connectionTimeoutMillis: 5000,
 });
 
+async function closePool() {
+  await pool.end();
+}
+
 module.exports = pool;
+module.exports.closePool = closePool;

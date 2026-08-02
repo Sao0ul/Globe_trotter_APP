@@ -1,5 +1,34 @@
 const pool = require('../db/pool');
 
+function normalizePreferences(preferences) {
+  if (Array.isArray(preferences)) {
+    return preferences;
+  }
+
+  if (preferences == null) {
+    return [];
+  }
+
+  if (typeof preferences === 'string') {
+    try {
+     const parsed = JSON.parse(preferences);
+     return Array.isArray(parsed) ? parsed : [];
+    } catch {
+     return [];
+    }
+  }
+
+  return [];
+}
+
+function mapUserRow(user) {
+  return {
+    ...user,
+    preferences: normalizePreferences(user.preferences),
+  };
+}
+
+// Cherche un utilisateur par email — utilisé pour login et éviter les doublons à l'inscription
 // Find a user by email to support login and duplicate prevention at registration.
 async function findByEmail(email) {
   const { rows } = await pool.query(
@@ -7,7 +36,7 @@ async function findByEmail(email) {
     [email]
   );
 
-  return rows[0] || null;
+  return rows[0] ? mapUserRow(rows[0]) : null;
 }
 
 async function findById(id) {
@@ -16,7 +45,7 @@ async function findById(id) {
     [id]
   );
 
-  return rows[0] || null;
+  return rows[0] ? mapUserRow(rows[0]) : null;
 }
 
 // Find a user by verification token used by the confirmation link workflow.
@@ -26,7 +55,7 @@ async function findByVerificationToken(token) {
     [token]
   );
 
-  return rows[0] || null;
+  return rows[0] ? mapUserRow(rows[0]) : null;
 }
 
 // Create a new user and return the public payload expected by the controller.
@@ -36,12 +65,12 @@ async function createUser({ id, email, passwordHash, username, verificationToken
      VALUES ($1, $2, $3, $4, $5, FALSE, $6)
      RETURNING id, email, username, is_verified AS "isVerified", created_at AS "createdAt", preferences`,
     [
-      id,
-      email,
-      passwordHash,
-      username,
-      preferences ? JSON.stringify(preferences) : null,
-      verificationToken,
+     id,
+     email,
+     passwordHash,
+     username,
+     preferences ? JSON.stringify(preferences) : '[]',
+     verificationToken,
     ]
   );
 
@@ -51,9 +80,9 @@ async function createUser({ id, email, passwordHash, username, verificationToken
     id: user.id,
     email: user.email,
     username: user.username,
-    isVerified: user.isVerified,
-    createdAt: user.createdAt,
-    preferences: Array.isArray(user.preferences) ? user.preferences : [],
+    isVerified: false,
+    createdAt: user.created_at,
+    preferences: normalizePreferences(user.preferences),
   };
 }
 

@@ -77,11 +77,7 @@ async function findImageForSite(title, location) {
   try {
     const response = await fetch(
       `https://api.pexels.com/v1/search?query=${query}&per_page=1&orientation=landscape`,
-      {
-        headers: {
-          Authorization: apiKey,
-        },
-      }
+      { headers: { Authorization: `Bearer ${apiKey}` } }
     );
 
     if (!response.ok) {
@@ -162,6 +158,12 @@ async function findCoordinatesForLocation(location) {
 // ==========================================================
 
 function toFrontendSite(row) {
+  const media = Array.isArray(row.media)
+    ? row.media
+    : Array.isArray(row.media?.items)
+      ? row.media.items
+      : [];
+
   return {
     id: row.id,
     titre: row.title,
@@ -264,10 +266,13 @@ const createSiteHandler = asyncHandler(async (req, res) => {
     categorie,
     description,
     imageUrl,
-    videoUrl,
     difficulte,
     dangerosite,
     prix,
+    media,
+    photos,
+    videos,
+    videoUrl,
   } = req.body;
 
   if (!titre || !localisation) {
@@ -276,6 +281,36 @@ const createSiteHandler = asyncHandler(async (req, res) => {
     });
   }
 
+  const imageMedia = Array.isArray(photos)
+    ? photos.map((url, index) => ({ type: 'image', url, position: index }))
+    : [];
+
+  const videoMedia = Array.isArray(videos)
+    ? videos.map((url, index) => ({ type: 'video', url, position: index + imageMedia.length }))
+    : [];
+
+  const normalizedMedia = (Array.isArray(media) ? media : [...imageMedia, ...videoMedia])
+    .map((entry, index) => {
+      if (typeof entry === 'string') {
+        return {
+          id: crypto.randomUUID(),
+          type: 'image',
+          url: entry,
+          label: `media-${index + 1}`,
+          position: index,
+        };
+      }
+
+      return {
+        id: entry.id || crypto.randomUUID(),
+        type: entry.type || entry.mediaType || 'image',
+        url: entry.url,
+        label: entry.label || entry.name || `${entry.type || entry.mediaType || 'media'}-${index + 1}`,
+        position: entry.position ?? index,
+      };
+    });
+
+  // Si aucune image n'est fournie par l'utilisateur, on en cherche une automatiquement
   const finalImageUrl =
     imageUrl ||
     await findImageForSite(
@@ -292,36 +327,22 @@ const createSiteHandler = asyncHandler(async (req, res) => {
 
   const newSite = await createSite({
     id: crypto.randomUUID(),
-
     title: titre,
-
     description: description || '',
-
     location: localisation,
-
     category:
       CATEGORY_FR_TO_EN[categorie] || 'other',
-
     author: req.user.username,
-
     userId: req.user.id,
-
     imageUrl: finalImageUrl,
-
+    difficulty: difficulte ? DIFFICULTY_FR_TO_EN[difficulte] : null,
+    media: normalizedMedia,
     videoUrl: videoUrl || null,
-
     latitude,
-
     longitude,
-
-    difficulty: difficulte
-      ? DIFFICULTY_FR_TO_EN[difficulte] || null
-      : null,
-
     dangerosity: dangerosite
       ? DANGER_FR_TO_EN[dangerosite] || null
       : null,
-
     price:
       prix !== undefined &&
         prix !== null &&

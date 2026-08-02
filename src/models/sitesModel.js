@@ -1,55 +1,126 @@
 const pool = require('../db/pool');
+const { randomUUID } = require('crypto');
 
-// Retrieve a paginated page of sites, with optional search and category filters.
-async function getAllSites({ search, category, page = 1, limit = 20 } = {}) {
-  const normalizedPage = Number(page) || 1;
-  const normalizedLimit = Number(limit) || 20;
+function buildSiteBaseQuery() {
+  return `
+    SELECT
+     s.*,
+     COALESCE(ROUND(AVG(r.rating), 2), 0) AS average_rating,
+     COALESCE(
+       (
+         SELECT jsonb_agg(
+           jsonb_build_object(
+             'id', sm.id,
+             'type', sm.media_type,
+             'url', sm.url,
+             'label', sm.label,
+             'position', sm.position
+           )
+           ORDER BY sm.position, sm.created_at
+         )
+         FROM site_media sm
+         WHERE sm.site_id = s.id
+       ),
+       '[]'::jsonb
+     ) AS media
+    FROM sites s
+    LEFT JOIN ratings r ON r.site_id = s.id
+  `;
+}
+
+function normalizeMediaPayload(media = []) {
+  return media.map((entry, index) => ({
+    id: entry.id || entry.uuid,
+    mediaType: entry.type || entry.mediaType || 'image',
+    url: entry.url,
+    label: entry.label || entry.name || `${entry.type || entry.mediaType || 'image'}-${index + 1}`,
+    position: entry.position ?? index,
+  }));
+}
+
+function buildSiteFilterQuery({ search, category, preference } = {}) {
   const conditions = [];
   const params = [];
-  let placeholderIndex = 1;
-
-  let query = `
-    SELECT s.*, COALESCE((SELECT AVG(r.rating) FROM ratings r WHERE r.site_id = s.id), 0) AS average_rating
-    FROM sites s
-  `;
 
   if (search) {
-    const searchClause = '(s.title ILIKE $' + placeholderIndex + ' OR s.location ILIKE $' + (placeholderIndex + 1) + ')';
-    conditions.push(searchClause);
+    conditions.push(`(s.title ILIKE $${params.length + 1} OR s.location ILIKE $${params.length + 2})`);
     params.push(`%${search}%`, `%${search}%`);
-    placeholderIndex += 2;
   }
 
   if (category) {
-    conditions.push('s.category = $' + placeholderIndex);
+    conditions.push(`s.category = $${params.length + 1}`);
     params.push(category);
-    placeholderIndex += 1;
   }
+
+  if (preference) {
+    conditions.push(`(s.category ILIKE $${params.length + 1} OR s.location ILIKE $${params.length + 2})`);
+    params.push(`%${preference}%`, `%${preference}%`);
+  }
+
+  return { conditions, params };
+}
+
+function buildPaginatedQuery(baseQuery, { page = 1, limit = 20, params = [] } = {}) {
+  const normalizedPage = Number(page) || 1;
+  const normalizedLimit = Number(limit) || 20;
+  const offset = (normalizedPage - 1) * normalizedLimit;
+
+  return {
+    query: `${baseQuery} ORDER BY s.created_at DESC LIMIT $${params.length + 1} OFFSET $${params.length + 2}`,
+    params: [...params, normalizedLimit, offset],
+  };
+}
+
+async function querySites({ search, category, preference, page = 1, limit = 20 } = {}) {
+  let query = buildSiteBaseQuery();
+  const { conditions, params } = buildSiteFilterQuery({ search, category, preference });
 
   if (conditions.length) {
-    query += ' WHERE ' + conditions.join(' AND ');
+    query += ` WHERE ${conditions.join(' AND ')}`;
   }
 
-  const offset = (normalizedPage - 1) * normalizedLimit;
-  query += ' ORDER BY s.created_at DESC LIMIT $' + placeholderIndex + ' OFFSET $' + (placeholderIndex + 1);
-  params.push(normalizedLimit, offset);
+  query += ' GROUP BY s.id';
 
-  const { rows } = await pool.query(query, params);
+  const paginatedQuery = buildPaginatedQuery(query, { page, limit, params });
+  const { rows } = await pool.query(paginatedQuery.query, paginatedQuery.params);
+
   return rows;
+}
+
+async function getAllSites({ search, category, page = 1, limit = 20 } = {}) {
+  return querySites({ search, category, page, limit });
 }
 
 async function getSiteById(id) {
   const { rows } = await pool.query(
-    `SELECT s.*, COALESCE((SELECT AVG(r.rating) FROM ratings r WHERE r.site_id = s.id), 0) AS average_rating
-     FROM sites s
-     WHERE s.id = $1`,
+    `${buildSiteBaseQuery()} WHERE s.id = $1 GROUP BY s.id`,
     [id]
   );
 
   return rows[0] || null;
 }
 
-// userId can remain null when the author is not identified, but it is usually supplied by the controller.
+async function persistSiteMedia(client, siteId, mediaEntries) {
+  const normalizedMedia = normalizeMediaPayload(mediaEntries);
+
+  await client.query('DELETE FROM site_media WHERE site_id = $1', [siteId]);
+
+  if (!normalizedMedia.length) {
+    return;
+  }
+
+  await Promise.all(normalizedMedia.map((entry) => client.query(
+    `INSERT INTO site_media (site_id, media_type, url, label, position)
+     VALUES ($1, $2, $3, $4, $5)`,
+    [siteId, entry.mediaType, entry.url, entry.label, entry.position]
+  )));
+}
+
+// userId : peut être null si l'auteur n'est pas identifié (ex: import externe),
+// mais devrait normalement toujours venir de req.user.id côté controller.
+//
+// NOUVEAU (branche geolocalisation) : latitude, longitude, videoUrl ajoutés.
+// ⚠️ Nécessite une migration de schema.sql — voir plus bas.
 async function createSite({
   id,
   title,
@@ -65,64 +136,62 @@ async function createSite({
   dangerosity,
   price,
   userId = null,
+  media = [],
 }) {
-  await pool.query(
-    `INSERT INTO sites
-      (id, title, description, location, category, author, image_url, video_url, latitude, longitude, difficulty, dangerosity, price, user_id)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    [id, title, description, location, category, author, imageUrl, videoUrl, latitude, longitude, difficulty, dangerosity, price, userId]
-  );
+  const client = await pool.connect();
+  const siteId = id || randomUUID();
 
-  return getSiteById(id);
+  if (!title || !location) {
+    throw new Error('Missing required fields: title and location are required.');
+  }
+
+  try {
+    await client.query('BEGIN');
+
+    const { rows } = await client.query(
+     `INSERT INTO sites
+       (id, title, description, location, category, author, image_url, video_url, latitude, longitude, difficulty, dangerosity, price, user_id)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+       ON CONFLICT (id) DO UPDATE SET
+         title = EXCLUDED.title,
+         description = EXCLUDED.description,
+         location = EXCLUDED.location,
+         category = EXCLUDED.category,
+         author = EXCLUDED.author,
+         image_url = EXCLUDED.image_url,
+         video_url = EXCLUDED.video_url,
+         latitude = EXCLUDED.latitude,
+         longitude = EXCLUDED.longitude,
+         difficulty = EXCLUDED.difficulty,
+         dangerosity = EXCLUDED.dangerosity,
+         price = EXCLUDED.price,
+         user_id = EXCLUDED.user_id
+       RETURNING *`,
+     [siteId, title, description, location, category, author, imageUrl, videoUrl, latitude, longitude, difficulty, dangerosity, price, userId]
+    );
+
+    await persistSiteMedia(client, rows[0] ? rows[0].id : siteId, media);
+    await client.query('COMMIT');
+
+    return getSiteById(rows[0] ? rows[0].id : siteId);
+  } catch (error) {
+    await client.query('ROLLBACK');
+    throw error;
+  } finally {
+    client.release();
+  }
 }
-
-
-
 
 async function addRating(siteId, rating) {
   const site = await getSiteById(siteId);
-  if (!site) {
-    return null;
-  }
+  if (!site) return null;
 
-  await pool.query(
-    'INSERT INTO ratings (site_id, rating) VALUES ($1, $2)',
-    [siteId, rating]
-  );
-
+  await pool.query('INSERT INTO ratings (site_id, rating) VALUES ($1, $2)', [siteId, rating]);
   return getSiteById(siteId);
 }
 
-// Search by preference (category or location) with the same pagination behavior as getAllSites.
 async function getSiteByPreference(preference, { page = 1, limit = 20 } = {}) {
-  const normalizedPage = Number(page) || 1;
-  const normalizedLimit = Number(limit) || 20;
-  const conditions = [];
-  const params = [];
-  let placeholderIndex = 1;
-
-  let query = `
-    SELECT s.*, COALESCE((SELECT AVG(r.rating) FROM ratings r WHERE r.site_id = s.id), 0) AS average_rating
-    FROM sites s
-  `;
-
-  if (preference) {
-    const preferenceClause = '(s.category ILIKE $' + placeholderIndex + ' OR s.location ILIKE $' + (placeholderIndex + 1) + ')';
-    conditions.push(preferenceClause);
-    params.push(`%${preference}%`, `%${preference}%`);
-    placeholderIndex += 2;
-  }
-
-  if (conditions.length) {
-    query += ' WHERE ' + conditions.join(' AND ');
-  }
-
-  const offset = (normalizedPage - 1) * normalizedLimit;
-  query += ' ORDER BY s.created_at DESC LIMIT $' + placeholderIndex + ' OFFSET $' + (placeholderIndex + 1);
-  params.push(normalizedLimit, offset);
-
-  const { rows } = await pool.query(query, params);
-  return rows;
+  return querySites({ preference, page, limit });
 }
 
 module.exports = { getAllSites, getSiteById, createSite, addRating, getSiteByPreference };

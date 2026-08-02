@@ -68,7 +68,7 @@ jobs:
           set +a
           timeout 180 bash -c '
             until docker compose exec -T db \
-              pg_isready -U "$DB_USER" -d "$DB_NAME" >/dev/null 2>&1
+              psql -U "$DB_USER" -d "$DB_NAME" -c "SELECT 1;" >/dev/null 2>&1
             do
               echo "En attente de PostgreSQL..."
               sleep 2
