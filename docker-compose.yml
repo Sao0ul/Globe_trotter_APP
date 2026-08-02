@@ -8,11 +8,12 @@ services:
       - /app/node_modules
     env_file: .env
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     command: npm run dev
 
   db:
-    image: postgres:16-alpine
+    image: postgis/postgis:17-3.5
     restart: unless-stopped
     environment:
       POSTGRES_DB: ${DB_NAME}

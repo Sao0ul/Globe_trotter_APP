@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site detail</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Work+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/site.css">
+</head>
+
+<body class="page-shell">
+    <div class="page-frame">
+        <header class="detail-topbar">
+            <a class="btn-ghost btn-back" href="sites.html">← Retour</a>
+            <div class="detail-title-wrap">
+                <span class="eyebrow">Cameroun Visit</span>
+                <h1 id="siteTitle">Chargement du lieu…</h1>
+            </div>
+            <button class="btn-solid" id="openItineraryBtn">Lancer l'itinéraire</button>
+        </header>
+
+        <main class="detail-grid">
+            <section class="detail-card detail-media-card">
+                <div class="detail-video-frame">
+                    <video id="siteVideo" controls poster="https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=800">
+                        <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="detail-video-meta">
+                    <span class="chip chip-active">Vidéo d'aperçu</span>
+                    <span id="siteLocation" class="detail-location">Localisation en cours…</span>
+                </div>
+            </section>
+
+            <section class="detail-card detail-info-card">
+                <div class="detail-hero">
+                    <p id="siteCategory" class="detail-category">Catégorie</p>
+                    <p id="siteDescription" class="detail-description">Description du lieu en cours de chargement.</p>
+                </div>
+
+                <div class="detail-stats">
+                    <div>
+                        <span class="detail-stat-label">Difficulté</span>
+                        <strong id="siteDifficulty">—</strong>
+                    </div>
+                    <div>
+                        <span class="detail-stat-label">Danger</span>
+                        <strong id="siteDanger">—</strong>
+                    </div>
+                    <div>
+                        <span class="detail-stat-label">Prix estimé</span>
+                        <strong id="sitePrice">—</strong>
+                    </div>
+                </div>
+
+                <div class="detail-info-list">
+                    <div class="info-pill">Bon à savoir avant d'aller</div>
+                    <ul id="siteFacts" class="detail-facts"></ul>
+                </div>
+            </section>
+
+            <section class="detail-card detail-map-card">
+                <div class="detail-card-head">
+                    <h2>Carte de navigation</h2>
+                    <span class="detail-tag">Vue locale</span>
+                </div>
+                <div id="miniMap" class="map-preview" aria-label="Carte de localisation du site">
+                    <div class="map-grid"></div>
+                    <div class="map-marker map-marker-site" data-label="Destination"></div>
+                    <div class="map-marker map-marker-hotel" data-label="Hôtel"></div>
+                    <div class="map-marker map-marker-restaurant" data-label="Restaurant"></div>
+                    <div class="map-marker map-marker-hospital" data-label="Hôpital"></div>
+                    <div class="map-marker map-marker-transport" data-label="Transport"></div>
+                </div>
+                <div class="detail-legend">
+                    <span><i class="legend-dot legend-site"></i>Destination</span>
+                    <span><i class="legend-dot legend-restaurant"></i>Restaurant</span>
+                    <span><i class="legend-dot legend-hotel"></i>Hôtel</span>
+                    <span><i class="legend-dot legend-hospital"></i>Hôpital</span>
+                    <span><i class="legend-dot legend-transport"></i>Transport</span>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/i18n.js"></script>
+    <script src="js/site-detail.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itinéraire complet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Work+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/site.css">
+</head>
+
+<body class="page-shell">
+    <div class="page-frame itinerary-frame">
+        <header class="detail-topbar">
+            <a class="btn-ghost btn-back" href="site-detail.html">← Retour</a>
+            <div class="detail-title-wrap">
+                <span class="eyebrow">Itinéraire</span>
+                <h1 id="itineraryTitle">Planification de route</h1>
+            </div>
+            <button class="btn-solid" id="useCurrentLocationBtn">Depuis ma position</button>
+        </header>
+
+        <main class="itinerary-layout">
+            <section class="detail-card itinerary-map-card">
+                <div class="detail-card-head">
+                    <h2>Carte d'itinéraire</h2>
+                    <span class="detail-tag">Cliquez sur la carte pour choisir un point</span>
+                </div>
+                <div id="routeMap" class="route-map" role="img" aria-label="Carte de l'itinéraire">
+                    <svg id="routeSvg" viewBox="0 0 800 460" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="routeGradient" x1="0%" x2="100%" y1="0%" y2="0%">
+                                <stop offset="0%" stop-color="#f4c868" />
+                                <stop offset="100%" stop-color="#1f6f68" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="0" y="0" width="800" height="460" fill="#eff8f5" />
+                        <g class="route-grid"></g>
+                        <path id="routePath" d="" fill="none" stroke="url(#routeGradient)" stroke-width="6" stroke-linecap="round" stroke-dasharray="10 10" />
+                        <g id="routeMarkers"></g>
+                    </svg>
+                </div>
+
+                <div class="detail-legend">
+                    <span><i class="legend-dot legend-site"></i>Destination</span>
+                    <span><i class="legend-dot legend-restaurant"></i>Restaurant</span>
+                    <span><i class="legend-dot legend-hotel"></i>Hôtel</span>
+                    <span><i class="legend-dot legend-hospital"></i>Hôpital</span>
+                    <span><i class="legend-dot legend-transport"></i>Transport</span>
+                </div>
+            </section>
+
+            <aside class="detail-card itinerary-side-card">
+                <div class="detail-card-head">
+                    <h2>Informations de trajet</h2>
+                </div>
+                <p id="routeSummary" class="route-summary">La carte affiche le trajet entre votre point de départ et la destination sélectionnée.</p>
+                <ul id="poiList" class="detail-facts"></ul>
+            </aside>
+        </main>
+    </div>
+
+    <script src="js/i18n.js"></script>
+    <script src="js/itinerary.js"></script>
+</body>
+
+</html>
