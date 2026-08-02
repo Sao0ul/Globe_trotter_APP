@@ -90,6 +90,12 @@ async function findImageForSite(title, location) {
 // ==========================================================
 
 function toFrontendSite(row) {
+  const media = Array.isArray(row.media)
+    ? row.media
+    : Array.isArray(row.media?.items)
+      ? row.media.items
+      : [];
+
   return {
     id: row.id,
     titre: row.title,
@@ -98,6 +104,7 @@ function toFrontendSite(row) {
     categorie: CATEGORY_EN_TO_FR[row.category] || row.category,
     auteur: row.author,
     imageUrl: row.image_url,
+    media,
     difficulte: DIFFICULTY_EN_TO_FR[row.difficulty] || row.difficulty,
     dangerosite: DANGER_EN_TO_FR[row.dangerosity] || row.dangerosity,
     prix: row.price,
@@ -129,11 +136,52 @@ const getSites = asyncHandler(async (req, res) => {
 
 // POST /api/sites — un user propose un nouveau site
 const createSiteHandler = asyncHandler(async (req, res) => {
-  const { titre, localisation, categorie, description, imageUrl, difficulte, dangerosite, prix } = req.body;
+  const {
+    titre,
+    localisation,
+    categorie,
+    description,
+    imageUrl,
+    difficulte,
+    dangerosite,
+    prix,
+    media,
+    photos,
+    videos,
+  } = req.body;
 
   if (!titre || !localisation) {
     return res.status(400).json({ error: 'titre et localisation sont requis' });
   }
+
+  const imageMedia = Array.isArray(photos)
+    ? photos.map((url, index) => ({ type: 'image', url, position: index }))
+    : [];
+
+  const videoMedia = Array.isArray(videos)
+    ? videos.map((url, index) => ({ type: 'video', url, position: index + imageMedia.length }))
+    : [];
+
+  const normalizedMedia = (Array.isArray(media) ? media : [...imageMedia, ...videoMedia])
+    .map((entry, index) => {
+      if (typeof entry === 'string') {
+        return {
+          id: crypto.randomUUID(),
+          type: 'image',
+          url: entry,
+          label: `media-${index + 1}`,
+          position: index,
+        };
+      }
+
+      return {
+        id: entry.id || crypto.randomUUID(),
+        type: entry.type || entry.mediaType || 'image',
+        url: entry.url,
+        label: entry.label || entry.name || `${entry.type || entry.mediaType || 'media'}-${index + 1}`,
+        position: entry.position ?? index,
+      };
+    });
 
   // Si aucune image n'est fournie par l'utilisateur, on en cherche une automatiquement
   const finalImageUrl = imageUrl || await findImageForSite(titre, localisation);
@@ -150,6 +198,7 @@ const createSiteHandler = asyncHandler(async (req, res) => {
     difficulty: difficulte ? DIFFICULTY_FR_TO_EN[difficulte] : null,
     dangerosity: dangerosite ? DANGER_FR_TO_EN[dangerosite] : null,
     price: prix !== undefined && prix !== null && prix !== '' ? Number(prix) : null,
+    media: normalizedMedia,
   });
 
   res.status(201).json(toFrontendSite(newSite));

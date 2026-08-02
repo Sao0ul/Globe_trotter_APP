@@ -18,14 +18,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # DB_NAME aligné sur celui codé en dur dans script.sql (GlobeTrotterAPP_DB)
       - name: Create test .env
         run: |
           cat <<EOF > .env
           DB_HOST=db
-          DB_PORT=3306
-          DB_ROOT_PASSWORD=root_test_pass
-          DB_NAME=GlobeTrotterAPP_DB
+          DB_PORT=5432
+          DB_NAME=globetrotter_app
           DB_USER=test_user
           DB_PASSWORD=test_pass
           PEXELS_API_KEY=mock_key
@@ -68,36 +66,30 @@ jobs:
       - name: Build and start database container
         run: docker compose up -d --build db
 
-      # Attend que MySQL accepte réellement les connexions
-      - name: Wait for MySQL
+      # Attend que PostgreSQL accepte réellement les connexions
+      - name: Wait for PostgreSQL
         run: |
           set -a
           source .env
           set +a
           timeout 180 bash -c '
             until docker compose exec -T db \
-              mysql -u"$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" \
-              -e "SELECT 1;" >/dev/null 2>&1
+              psql -U "$DB_USER" -d "$DB_NAME" -c "SELECT 1;" >/dev/null 2>&1
             do
-              echo "En attente de MySQL..."
+              echo "En attente de PostgreSQL..."
               sleep 2
             done
           '
 
-      # Applique le schéma (tables users, sites, ratings...) sur la base
-      # fraîchement créée. Utilise le compte root car script.sql fait
-      # DROP/CREATE DATABASE, une opération que le user applicatif
-      # (test_user) n'a pas le droit de faire.
-      #
-      # Cette étape se déroule maintenant AVANT le démarrage de l'API
-      # (voir correctif ci-dessus) — plus de risque que l'API tente de se
-      # connecter à une base en cours de suppression/recréation.
+      # Applique le schéma sur la base fraîchement créée.
+      # L'API ne démarre qu'une fois cette étape terminée pour éviter
+      # toute connexion prématurée sur une base encore incomplète.
       - name: Apply database schema
         run: |
           set -a
           source .env
           set +a
-          docker compose exec -T db mysql -uroot -p"$DB_ROOT_PASSWORD" < ./src/db/script.sql
+          docker compose exec -T db psql -U "$DB_USER" -d "$DB_NAME" -f ./src/db/script.sql
 
       # CORRECTIF : l'API est démarrée seulement maintenant, une fois le
       # schéma en place. Elle peut ouvrir ses connexions au pool en sachant

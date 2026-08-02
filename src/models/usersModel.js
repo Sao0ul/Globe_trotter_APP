@@ -2,16 +2,16 @@ const pool = require('../db/pool');
 
 // Cherche un utilisateur par email — utilisé pour login et éviter les doublons à l'inscription
 async function findByEmail(email) {
-  const [rows] = await pool.query(
-    'SELECT * FROM users WHERE email = ? LIMIT 1',
+  const { rows } = await pool.query(
+    'SELECT * FROM users WHERE email = $1 LIMIT 1',
     [email]
   );
   return rows[0] || null;
 }
 
 async function findById(id) {
-  const [rows] = await pool.query(
-    'SELECT * FROM users WHERE id = ? LIMIT 1',
+  const { rows } = await pool.query(
+    'SELECT * FROM users WHERE id = $1 LIMIT 1',
     [id]
   );
   return rows[0] || null;
@@ -19,8 +19,8 @@ async function findById(id) {
 
 // Cherche un utilisateur par son token de vérification — utilisé lors du clic sur le lien de confirmation
 async function findByVerificationToken(token) {
-  const [rows] = await pool.query(
-    'SELECT * FROM users WHERE verification_token = ? LIMIT 1',
+  const { rows } = await pool.query(
+    'SELECT * FROM users WHERE verification_token = $1 LIMIT 1',
     [token]
   );
   return rows[0] || null;
@@ -28,38 +28,42 @@ async function findByVerificationToken(token) {
 
 // Crée un nouvel utilisateur, non vérifié par défaut, avec un token de confirmation
 async function createUser({ id, email, passwordHash, username, verificationToken, preferences }) {
-  await pool.query(
+  const { rows } = await pool.query(
     `INSERT INTO users (id, email, password_hash, username, preferences, is_verified, verification_token)
-     VALUES (?, ?, ?, ?, ?, FALSE, ?)`,
+     VALUES ($1, $2, $3, $4, $5, FALSE, $6)
+     RETURNING *`,
     [
-      id,
-      email,
-      passwordHash,
-      username,
-      preferences ? JSON.stringify(preferences) : null,
-      verificationToken,
+     id,
+     email,
+     passwordHash,
+     username,
+     preferences ? JSON.stringify(preferences) : '[]',
+     verificationToken,
     ]
   );
 
+  const user = rows[0];
+
   return {
-    id,
-    email,
-    username,
+    id: user.id,
+    email: user.email,
+    username: user.username,
     isVerified: false,
-    createdAt: new Date().toISOString(),
-    preferences: preferences || [],
+    createdAt: user.created_at,
+    preferences: Array.isArray(user.preferences) ? user.preferences : [],
   };
 }
 
 // Marque le compte comme vérifié et supprime le token (usage unique)
 async function verifyUser(token) {
-  const [result] = await pool.query(
+  const { rowCount } = await pool.query(
     `UPDATE users SET is_verified = TRUE, verification_token = NULL
-     WHERE verification_token = ?`,
+     WHERE verification_token = $1`,
     [token]
   );
-  // affectedRows > 0 confirme qu'un compte correspondait bien à ce token
-  return result.affectedRows > 0;
+
+  // rowCount > 0 confirme qu'un compte correspondait bien à ce token
+  return rowCount > 0;
 }
 
 module.exports = { findByEmail, findById, findByVerificationToken, createUser, verifyUser };
