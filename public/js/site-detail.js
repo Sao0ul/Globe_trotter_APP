@@ -290,7 +290,7 @@ async function fetchSiteDetail(siteId) {
   const encodedSiteId = encodeURIComponent(siteId);
 
   const response = await fetch(
-    `/api/sites/details/${encodedSiteId}`,
+    `/api/sites/${encodedSiteId}`,
     {
       method: 'GET',
       headers: {
@@ -431,20 +431,21 @@ async function loadSiteVideo(siteId) {
 
   const data = await fetchSiteVideo(siteId);
 
-  if (!data?.video_url) {
+  const videoUrl = data?.video_url || data?.videoUrl;
+  const imageUrl = data?.image_url || data?.imageUrl;
+ 
+  if (!videoUrl) {
     clearSiteVideo();
     return;
   }
-
+ 
   videoElement.hidden = false;
-
-  videoSourceElement.src = data.video_url;
-  videoSourceElement.type = getVideoMimeType(
-    data.video_url
-  );
-
-  if (data.image_url) {
-    videoElement.poster = data.image_url;
+ 
+  videoSourceElement.src = videoUrl;
+  videoSourceElement.type = getVideoMimeType(videoUrl);
+ 
+  if (imageUrl) {
+    videoElement.poster = imageUrl;
   }
 
   // Recharge le lecteur après modification de la source.
