@@ -10,9 +10,11 @@ const express = require('express');
 const router = express.Router();
 const verifyToken = require('../middlewares/authMiddleware');
 const { getSites, createSite, rateSite, getSiteDetail } = require('../controllers/sitesController');
+const { getSiteVideo } = require('../controllers/sites-detailsController');
 
 router.get('/', getSites);
 router.post('/', verifyToken, createSite);
+router.get('/:id/video', getSiteVideo);
 router.get('/:id', getSiteDetail); // nouvelle route
 router.post('/:id/rate', verifyToken, rateSite);
 

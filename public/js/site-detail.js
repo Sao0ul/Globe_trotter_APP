@@ -321,7 +321,7 @@ async function fetchSiteDetail(siteId) {
  * Récupère la vidéo et l'image d'un site.
  *
  * Route utilisée :
- * GET /api/sites/:id/video
+ * GET /api/sites/details/:id/video
  *
  * @param {string|number} siteId
  * @returns {Promise<object|null>}
