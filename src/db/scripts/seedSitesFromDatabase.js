@@ -3,14 +3,19 @@ const path = require('path');
 const crypto = require('crypto');
 const pool = require('../pool');
 
-const ENRICHED_DIRECTORY = path.join(__dirname, '..', 'database', 'enriched');
-const SITES_FILE = path.join(ENRICHED_DIRECTORY, 'sites.json');
+const SITES_DIRECTORY = path.join(__dirname, '..', 'database', 'sites');
 
-function readJsonFile(filePath) {
-  if (!fs.existsSync(filePath)) {
-    throw new Error(`Enriched data file not found: ${filePath}`);
+function listSiteFiles() {
+  if (!fs.existsSync(SITES_DIRECTORY)) {
+    return [];
   }
 
+  return fs
+    .readdirSync(SITES_DIRECTORY)
+    .filter((name) => name.endsWith('.json') && !name.startsWith('.'));
+}
+
+function readJsonFile(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 }
 
@@ -24,6 +29,7 @@ function normalizeSiteEntry(entry) {
     category: entry.category || 'other',
     author: 'OpenStreetMap',
     imageUrl: entry.imageUrl || null,
+    // Seuls les sites touristiques ont une vidéo (cf. décision du 2026-08-02).
     videoUrl: entry.videoUrl || null,
     latitude: entry.latitude,
     longitude: entry.longitude,
@@ -33,20 +39,23 @@ function normalizeSiteEntry(entry) {
 }
 
 async function seedSitesFromDatabase() {
-  const entries = readJsonFile(SITES_FILE);
+  const fileNames = listSiteFiles();
 
-  if (!Array.isArray(entries) || !entries.length) {
-    console.warn(`[seedSitesFromDatabase] No enriched sites found in ${SITES_FILE}.`);
+  if (!fileNames.length) {
+    console.warn(`[seedSitesFromDatabase] No site files found in ${SITES_DIRECTORY}.`);
     return;
   }
 
-  for (const entry of entries) {
-    const site = normalizeSiteEntry(entry);
+  let seeded = 0;
+  let skipped = 0;
+
+  for (const fileName of fileNames) {
+    const filePath = path.join(SITES_DIRECTORY, fileName);
+    const site = normalizeSiteEntry(readJsonFile(filePath));
 
     if (!site.name || !site.latitude || !site.longitude || !site.osm_type || !site.osm_id) {
-      console.warn(
-        `[seedSitesFromDatabase] Skipping invalid site entry ${site.id}: missing required fields.`
-      );
+      console.warn(`[seedSitesFromDatabase] Skipping ${fileName}: missing required fields.`);
+      skipped++;
       continue;
     }
 
@@ -87,12 +96,16 @@ async function seedSitesFromDatabase() {
         site.osm_id,
       ]
     );
+
+    seeded++;
   }
+
+  console.log(`[seedSitesFromDatabase] Seeded ${seeded} site(s), skipped ${skipped}.`);
 }
 
 async function main() {
   try {
-    console.log(`Seeding tourist sites from ${SITES_FILE}...`);
+    console.log(`Seeding tourist sites from ${SITES_DIRECTORY} (one file per site)...`);
     await seedSitesFromDatabase();
     console.log('Seed completed.');
   } catch (error) {

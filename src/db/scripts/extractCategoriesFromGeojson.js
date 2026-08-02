@@ -11,11 +11,18 @@ const {
   extractAddress,
   extractPhone,
   extractCoordinates,
-} = require('../importGeojson');
+} = require('../lib/geojsonHelpers');
+const { buildFileSlug } = require('../lib/slugify');
 
 const GEOJSON_PATH = path.join(__dirname, '..', 'export.geojson');
 const RAW_DIRECTORY = path.join(__dirname, '..', 'database', 'raw');
-const ENRICHED_DIRECTORY = path.join(__dirname, '..', 'database', 'enriched');
+const SITES_DIRECTORY = path.join(__dirname, '..', 'database', 'sites');
+const LIEUX_DIRECTORY = path.join(__dirname, '..', 'database', 'lieux');
+
+// Seule la catégorie "sites" (sites touristiques) garde une vidéo.
+// Le reste (hôtels, restaurants, hôpitaux, cliniques, pharmacies)
+// n'a droit qu'à une image — cf. décision du 2026-08-02.
+const SITE_FILE_CATEGORY = 'sites';
 
 function ensureDirectoryExists(directoryPath) {
   fs.mkdirSync(directoryPath, { recursive: true });
@@ -23,31 +30,13 @@ function ensureDirectoryExists(directoryPath) {
 
 function readJsonFile(filePath) {
   if (!fs.existsSync(filePath)) {
-    return [];
+    return null;
   }
-
   return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 }
 
 function writeJsonFile(filePath, content) {
-  fs.writeFileSync(filePath, JSON.stringify(content, null, 2));
-}
-
-function normalizeEnrichedEntry(entry) {
-  return {
-    osm_type: entry.osm_type,
-    osm_id: entry.osm_id,
-    category: entry.category,
-    name: entry.name,
-    address: entry.address || null,
-    phone: entry.phone || null,
-    latitude: entry.latitude,
-    longitude: entry.longitude,
-    description: entry.description || '',
-    bonASavoir: entry.bonASavoir || '',
-    imageUrl: entry.imageUrl || '',
-    videoUrl: entry.videoUrl || '',
-  };
+  fs.writeFileSync(filePath, `${JSON.stringify(content, null, 2)}\n`);
 }
 
 function buildRawEntry({ osmReference, category, name, address, phone, coordinates, tags }) {
@@ -64,8 +53,35 @@ function buildRawEntry({ osmReference, category, name, address, phone, coordinat
   };
 }
 
-function buildEnrichedEntry(rawEntry) {
-  return {
+// ==========================================================
+// Index des fichiers déjà présents dans un dossier de lieux,
+// par référence OSM (et non par nom de fichier : un lieu
+// renommé sur OSM ne doit pas se retrouver dupliqué).
+// ==========================================================
+function indexExistingPlaceFiles(directoryPath) {
+  const index = new Map();
+
+  if (!fs.existsSync(directoryPath)) {
+    return index;
+  }
+
+  for (const fileName of fs.readdirSync(directoryPath)) {
+    if (!fileName.endsWith('.json') || fileName.startsWith('.')) {
+      continue;
+    }
+
+    const content = readJsonFile(path.join(directoryPath, fileName));
+
+    if (content && content.osm_type && content.osm_id) {
+      index.set(`${content.osm_type}:${content.osm_id}`, { fileName, content });
+    }
+  }
+
+  return index;
+}
+
+function buildFreshPlaceEntry(rawEntry, { includeVideo }) {
+  const entry = {
     osm_type: rawEntry.osm_type,
     osm_id: rawEntry.osm_id,
     category: rawEntry.category,
@@ -77,53 +93,73 @@ function buildEnrichedEntry(rawEntry) {
     description: '',
     bonASavoir: '',
     imageUrl: '',
-    videoUrl: '',
+  };
+
+  if (includeVideo) {
+    entry.videoUrl = '';
+  }
+
+  return entry;
+}
+
+// Rafraîchit les champs venant d'OSM, garde tout le reste
+// (description/bonASavoir/imageUrl/videoUrl) tel qu'édité à la main.
+function refreshPlaceEntry(existingContent, rawEntry) {
+  return {
+    ...existingContent,
+    category: rawEntry.category,
+    name: rawEntry.name,
+    address: rawEntry.address,
+    phone: rawEntry.phone,
+    latitude: rawEntry.latitude,
+    longitude: rawEntry.longitude,
   };
 }
 
-function mergeEntries(existingEntries, rawEntries) {
-  const existingByOsmRef = new Map();
+function upsertPlaceFiles(directoryPath, rawEntries, { includeVideo }) {
+  ensureDirectoryExists(directoryPath);
 
-  for (const entry of existingEntries) {
-    const key = `${entry.osm_type}:${entry.osm_id}`;
-    existingByOsmRef.set(key, normalizeEnrichedEntry(entry));
-  }
+  const existingIndex = indexExistingPlaceFiles(directoryPath);
+  const usedFileNames = new Set(
+    fs.readdirSync(directoryPath).filter((name) => name.endsWith('.json'))
+  );
 
-  const merged = [];
+  const seenKeys = new Set();
+  let created = 0;
+  let updated = 0;
 
   for (const rawEntry of rawEntries) {
     const key = `${rawEntry.osm_type}:${rawEntry.osm_id}`;
-    const existing = existingByOsmRef.get(key);
+    seenKeys.add(key);
+
+    const existing = existingIndex.get(key);
 
     if (existing) {
-      merged.push({
-        ...existing,
-        category: rawEntry.category,
-        name: rawEntry.name,
-        address: rawEntry.address,
-        phone: rawEntry.phone,
-        latitude: rawEntry.latitude,
-        longitude: rawEntry.longitude,
-      });
-      existingByOsmRef.delete(key);
+      writeJsonFile(
+        path.join(directoryPath, existing.fileName),
+        refreshPlaceEntry(existing.content, rawEntry)
+      );
+      updated++;
       continue;
     }
 
-    merged.push(buildEnrichedEntry(rawEntry));
-  }
+    const baseSlug = buildFileSlug(rawEntry);
+    let fileName = `${baseSlug}.json`;
+    let suffix = 2;
 
-  for (const staleEntry of existingByOsmRef.values()) {
-    merged.push(normalizeEnrichedEntry(staleEntry));
-  }
-
-  return merged.sort((a, b) => {
-    if (a.name && b.name) {
-      return a.name.localeCompare(b.name, 'fr', { sensitivity: 'base' });
+    while (usedFileNames.has(fileName)) {
+      fileName = `${baseSlug}-${suffix}.json`;
+      suffix++;
     }
-    if (a.name) return -1;
-    if (b.name) return 1;
-    return (a.osm_id || 0) - (b.osm_id || 0);
-  });
+
+    usedFileNames.add(fileName);
+    writeJsonFile(path.join(directoryPath, fileName), buildFreshPlaceEntry(rawEntry, { includeVideo }));
+    created++;
+  }
+
+  const staleKeys = [...existingIndex.keys()].filter((k) => !seenKeys.has(k));
+
+  return { created, updated, staleCount: staleKeys.length };
 }
 
 async function extractCategoriesFromGeojson() {
@@ -138,7 +174,8 @@ async function extractCategoriesFromGeojson() {
   }
 
   ensureDirectoryExists(RAW_DIRECTORY);
-  ensureDirectoryExists(ENRICHED_DIRECTORY);
+  ensureDirectoryExists(SITES_DIRECTORY);
+  ensureDirectoryExists(LIEUX_DIRECTORY);
 
   const rawByCategory = {};
   const counters = {
@@ -197,36 +234,38 @@ async function extractCategoriesFromGeojson() {
     counters.extracted++;
   }
 
+  const placeCounters = {};
+
   for (const [fileCategory, rawEntries] of Object.entries(rawByCategory)) {
-    const rawFilePath = path.join(RAW_DIRECTORY, `${fileCategory}.json`);
-    const enrichedFilePath = path.join(ENRICHED_DIRECTORY, `${fileCategory}.json`);
+    // raw/ reste un vidage en vrac, jetable, régénéré en entier à chaque extraction.
+    writeJsonFile(path.join(RAW_DIRECTORY, `${fileCategory}.json`), rawEntries);
 
-    writeJsonFile(rawFilePath, rawEntries);
+    const isSites = fileCategory === SITE_FILE_CATEGORY;
+    const targetDirectory = isSites
+      ? SITES_DIRECTORY
+      : path.join(LIEUX_DIRECTORY, fileCategory);
 
-    const existingEnriched = readJsonFile(enrichedFilePath);
-    const enrichedEntries = mergeEntries(
-      existingEnriched,
-      rawEntries.map((rawEntry) => {
-        if (fileCategory === 'sites') {
-          return {
-            ...rawEntry,
-            category: mapTagsToSiteCategory(rawEntry.tags || {}),
-          };
-        }
+    const entriesForPlaceFiles = rawEntries.map((rawEntry) => {
+      if (!isSites) {
         return rawEntry;
-      })
-    );
+      }
+      // Les sites touristiques ont leur propre taxonomie de catégorie
+      // (nature/culture/adventure/...), différente du tag OSM brut.
+      return { ...rawEntry, category: mapTagsToSiteCategory(rawEntry.tags || {}) };
+    });
 
-    writeJsonFile(enrichedFilePath, enrichedEntries);
+    placeCounters[fileCategory] = upsertPlaceFiles(targetDirectory, entriesForPlaceFiles, {
+      includeVideo: isSites,
+    });
   }
 
-  return counters;
+  return { counters, placeCounters };
 }
 
 async function main() {
   try {
     console.log(`Extracting categories from ${GEOJSON_PATH}...`);
-    const counters = await extractCategoriesFromGeojson();
+    const { counters, placeCounters } = await extractCategoriesFromGeojson();
 
     console.log('Extraction completed:');
     console.log(`  Extracted: ${counters.extracted}`);
@@ -234,6 +273,13 @@ async function main() {
     console.log(`  Skipped (missing name): ${counters.skippedMissingName}`);
     console.log(`  Skipped (invalid category): ${counters.skippedInvalidCategory}`);
     console.log(`  Skipped (invalid geometry): ${counters.skippedInvalidGeometry}`);
+
+    console.log('\nPer-category place files:');
+    for (const [fileCategory, stats] of Object.entries(placeCounters)) {
+      console.log(
+        `  ${fileCategory}: ${stats.created} created, ${stats.updated} updated, ${stats.staleCount} not seen this run (left untouched)`
+      );
+    }
   } catch (error) {
     console.error('Extraction failed:', error.message);
     process.exitCode = 1;

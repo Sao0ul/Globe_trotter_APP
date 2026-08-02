@@ -2,24 +2,27 @@ const fs = require('fs');
 const path = require('path');
 const pool = require('../pool');
 
-const ENRICHED_DIRECTORY = path.join(__dirname, '..', 'database', 'enriched');
-const CATEGORY_FILES = [
-  'hotels.json',
-  'restaurants.json',
-  'hopitaux.json',
-  'cliniques.json',
-  'pharmacies.json',
-];
+const LIEUX_DIRECTORY = path.join(__dirname, '..', 'database', 'lieux');
+const CATEGORY_FOLDERS = ['hotels', 'restaurants', 'hopitaux', 'cliniques', 'pharmacies'];
 
-function readJsonFile(filePath) {
-  if (!fs.existsSync(filePath)) {
+function listLieuFiles(categoryFolder) {
+  const directoryPath = path.join(LIEUX_DIRECTORY, categoryFolder);
+
+  if (!fs.existsSync(directoryPath)) {
     return [];
   }
 
+  return fs
+    .readdirSync(directoryPath)
+    .filter((name) => name.endsWith('.json') && !name.startsWith('.'))
+    .map((name) => path.join(directoryPath, name));
+}
+
+function readJsonFile(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 }
 
-function normalizeLieuxEntry(entry) {
+function normalizeLieuEntry(entry) {
   return {
     name: entry.name,
     category: entry.category,
@@ -30,29 +33,35 @@ function normalizeLieuxEntry(entry) {
     description: entry.description || null,
     bonASavoir: entry.bonASavoir || null,
     imageUrl: entry.imageUrl || null,
-    videoUrl: entry.videoUrl || null,
+    // Colonne conservée en base pour un usage futur, mais ces
+    // catégories n'ont volontairement pas de champ videoUrl.
+    videoUrl: null,
     osm_type: entry.osm_type,
     osm_id: entry.osm_id,
   };
 }
 
 async function seedLieuxFromDatabase() {
-  for (const fileName of CATEGORY_FILES) {
-    const filePath = path.join(ENRICHED_DIRECTORY, fileName);
-    const entries = readJsonFile(filePath);
+  let seeded = 0;
+  let skipped = 0;
 
-    if (!Array.isArray(entries) || !entries.length) {
-      console.warn(`[seedLieuxFromDatabase] No enriched entries found in ${filePath}.`);
+  for (const categoryFolder of CATEGORY_FOLDERS) {
+    const filePaths = listLieuFiles(categoryFolder);
+
+    if (!filePaths.length) {
+      console.warn(`[seedLieuxFromDatabase] No files found in database/lieux/${categoryFolder}.`);
       continue;
     }
 
-    for (const entry of entries) {
-      const lieu = normalizeLieuxEntry(entry);
+    for (const filePath of filePaths) {
+      const lieu = normalizeLieuEntry(readJsonFile(filePath));
+      const fileName = path.basename(filePath);
 
       if (!lieu.name || !lieu.latitude || !lieu.longitude || !lieu.osm_type || !lieu.osm_id) {
         console.warn(
-          `[seedLieuxFromDatabase] Skipping invalid entry in ${fileName}: missing required fields.`
+          `[seedLieuxFromDatabase] Skipping ${categoryFolder}/${fileName}: missing required fields.`
         );
+        skipped++;
         continue;
       }
 
@@ -92,13 +101,17 @@ async function seedLieuxFromDatabase() {
           lieu.osm_id,
         ]
       );
+
+      seeded++;
     }
   }
+
+  console.log(`[seedLieuxFromDatabase] Seeded ${seeded} lieu(x), skipped ${skipped}.`);
 }
 
 async function main() {
   try {
-    console.log(`Seeding lieux_touristiques from enriched database files...`);
+    console.log('Seeding lieux_touristiques from database/lieux/<categorie>/*.json...');
     await seedLieuxFromDatabase();
     console.log('Seed completed.');
   } catch (error) {
