@@ -1,0 +1,23 @@
+{
+  "site": {
+    "id": "8b8d92ed-640d-4a82-afdc-b75de4482ffd",
+    "title": "Centre historique de Yaoundé",
+    "location": "Yaoundé",
+    "category": "culture",
+    "imageUrl": "https://images.pexels.com/photos/2104152/pexels-photo-2104152.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  "media": [
+    {
+      "type": "image",
+      "url": "https://images.pexels.com/photos/2104152/pexels-photo-2104152.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "label": "façade historique",
+      "position": 0
+    },
+    {
+      "type": "video",
+      "url": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      "label": "vidéo de visite guidée",
+      "position": 1
+    }
+  ]
+}

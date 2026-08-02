@@ -16,10 +16,10 @@ function buildSiteBaseQuery() {
              'label', sm.label,
              'position', sm.position
            )
+           ORDER BY sm.position, sm.created_at
          )
          FROM site_media sm
          WHERE sm.site_id = s.id
-         ORDER BY sm.position, sm.created_at
        ),
        '[]'::jsonb
      ) AS media
