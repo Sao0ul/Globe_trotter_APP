@@ -20,28 +20,18 @@ const {
  * @returns {number|null}
  */
 function parseSiteId(value) {
-    if (typeof value !== 'string' || !value.trim()) {
+    // On refuse les valeurs comme "12abc".
+    if (!/^\d+$/.test(value)) {
         return null;
     }
 
-    const trimmedValue = value.trim();
+    const id = Number(value);
 
-    const isNumeric = /^\d+$/.test(trimmedValue);
-    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(trimmedValue);
-
-    if (isNumeric) {
-        const id = Number(trimmedValue);
-        if (!Number.isSafeInteger(id) || id <= 0) {
-            return null;
-        }
-        return id;
+    if (!Number.isSafeInteger(id) || id <= 0) {
+        return null;
     }
 
-    if (isUuid) {
-        return trimmedValue;
-    }
-
-    return null;
+    return id;
 }
 
 /**

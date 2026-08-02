@@ -290,7 +290,7 @@ async function fetchSiteDetail(siteId) {
   const encodedSiteId = encodeURIComponent(siteId);
 
   const response = await fetch(
-    `/api/sites/${encodedSiteId}`,
+    `/api/sites/details/${encodedSiteId}`,
     {
       method: 'GET',
       headers: {
@@ -321,7 +321,7 @@ async function fetchSiteDetail(siteId) {
  * Récupère la vidéo et l'image d'un site.
  *
  * Route utilisée :
- * GET /api/sites/details/:id/video
+ * GET /api/sites/:id/video
  *
  * @param {string|number} siteId
  * @returns {Promise<object|null>}
@@ -431,21 +431,20 @@ async function loadSiteVideo(siteId) {
 
   const data = await fetchSiteVideo(siteId);
 
-  const videoUrl = data?.video_url || data?.videoUrl;
-  const imageUrl = data?.image_url || data?.imageUrl;
- 
-  if (!videoUrl) {
+  if (!data?.video_url) {
     clearSiteVideo();
     return;
   }
- 
+
   videoElement.hidden = false;
- 
-  videoSourceElement.src = videoUrl;
-  videoSourceElement.type = getVideoMimeType(videoUrl);
- 
-  if (imageUrl) {
-    videoElement.poster = imageUrl;
+
+  videoSourceElement.src = data.video_url;
+  videoSourceElement.type = getVideoMimeType(
+    data.video_url
+  );
+
+  if (data.image_url) {
+    videoElement.poster = data.image_url;
   }
 
   // Recharge le lecteur après modification de la source.
