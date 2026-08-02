@@ -19,8 +19,8 @@
     "start": "node src/app.js",
     "test": "jest",
     "lint": "eslint .",
-    "test:unit": "jest tests/unit",
-    "test:integration": "jest tests/integration",
+    "test:unit": "jest src/tests/unit",
+    "test:integration": "jest src/tests/integration",
     "db:bootstrap": "node src/db/bootstrap.js",
     "db:seed-sites": "node src/db/seed/seed-sites.js",
     "db:seed": "npm run db:bootstrap && npm run db:seed-sites"
