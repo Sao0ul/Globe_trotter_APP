@@ -12,20 +12,28 @@ Important: la base de données et l'application sont séparées. Le démarrage d
   - /api/users : opérations liées aux utilisateurs
 
 - db : scripts et utilitaires pour la base de données PostgreSQL :
-  - src/db/schema.sql  : définition canonique du schéma (tables, contraintes)
-  - src/db/script.sql  : copie du même schéma pour compatibilité avec docker-entrypoint-initdb.d
-  - src/db/bootstrap.js : utilitaire Node.js qui applique schema.sql sur la DB connectée
+  - src/db/schema.sql  : ancien schéma. Le bootstrap Node.js utilise désormais src/db/script.sql.
+  - src/db/script.sql  : schéma autoritaire utilisé par bootstrap et par Docker.
+  - src/db/bootstrap.js : utilitaire Node.js qui applique script.sql sur la DB connectée
+  - src/db/scripts    : scripts pour extraire des fichiers JSON éditables à partir du GeoJSON et seeder les tables depuis ces fichiers.
   - src/db/seed       : scripts pour insérer des données d'exemple (seed-sites.js)
 
 - tests : tests unitaires et d'intégration avec Jest
 
 2) Commandes pour initialiser / réinitialiser la base (séparées de l'app)
 
-- Initialiser la base (applique schema.sql) sur la DB configurée via .env :
+- Initialiser la base (applique script.sql) sur la DB configurée via .env :
   npm run db:bootstrap
+
+- Extraire le GeoJSON vers des fichiers JSON éditables :
+  npm run db:extract
 
 - Seed (données d'exemple) :
   npm run db:seed-sites
+
+- Seed sites et lieux depuis les fichiers JSON enrichis :
+  npm run db:seed-sites-db
+  npm run db:seed-lieux-db
 
 - Tout en une (bootstrap + seed) :
   npm run db:seed

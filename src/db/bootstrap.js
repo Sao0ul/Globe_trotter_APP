@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const pool = require('./pool');
 
-const schemaPath = path.join(__dirname, 'schema.sql');
+const schemaPath = path.join(__dirname, 'script.sql');
 const schemaSql = fs.readFileSync(schemaPath, 'utf8');
 
 async function bootstrapDatabase() {

@@ -19,9 +19,10 @@ The persistence layer is PostgreSQL. The main files are:
 
 - `src/db/config.js` – resolves the DB connection settings from environment variables.
 - `src/db/pool.js` – creates the shared PostgreSQL pool.
-- `src/db/bootstrap.js` – reads the schema and applies it to the target database.
-- `src/db/schema.sql` – canonical schema definition.
-- `src/db/script.sql` – duplicate of the same schema, kept for compatibility.
+- `src/db/bootstrap.js` – reads the authoritative schema and applies it to the target database.
+- `src/db/schema.sql` – legacy project schema definition.
+- `src/db/script.sql` – authoritative schema definition used by bootstrap.
+- `src/db/scripts/` – extraction and seed helpers for OSM-derived site and lieux files.
 - `src/db/seed/seed-sites.js` – seeds demo travel site records from manifest JSON files.
 
 Important: the project expects `DATABASE_URL` or `DB_*` variables to point to a PostgreSQL database. If `DB_HOST` contains a MySQL-style endpoint, startup will now fail fast with a clear error instead of masking the mismatch.
@@ -92,8 +93,11 @@ curl http://localhost:3000/health
 
 ```bash
 npm run db:bootstrap
+npm run db:extract
 npm run db:seed-sites
-npm run db:seed
+npm run db:seed-db
+npm run db:seed-sites-db
+npm run db:seed-lieux-db
 npm test
 npm run lint
 ```

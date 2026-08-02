@@ -12,18 +12,7 @@ const {
     extractAddress,
     extractCoordinates,
 } = require('./importGeojson');
-
-// mapTagsToSiteCategory n'est pas exporté par importGeojson.js (il ne gère
-// que lieux_touristiques) — on la garde donc définie ici, localement.
-function mapTagsToSiteCategory(tags) {
-    if (tags.historic) return 'culture';
-    if (tags.tourism === 'museum' || tags.tourism === 'gallery') return 'culture';
-    if (tags.tourism === 'zoo' || tags.tourism === 'theme_park') return 'adventure';
-    if (tags.natural === 'peak') return 'mountain';
-    if (tags.natural === 'beach') return 'beach';
-    if (tags.natural || tags.leisure === 'park' || tags.leisure === 'nature_reserve') return 'nature';
-    return 'other';
-}
+const { mapTagsToSiteCategory } = require('./osmTagMapping');
 
 async function importSitesFromGeojson(filePath) {
     const absolutePath = path.resolve(filePath);

@@ -125,6 +125,7 @@ async function createSite({
   id,
   title,
   description,
+  bonASavoir,
   location,
   category,
   author,
@@ -150,24 +151,25 @@ async function createSite({
 
     const { rows } = await client.query(
      `INSERT INTO sites
-       (id, title, description, location, category, author, image_url, video_url, latitude, longitude, difficulty, dangerosity, price, user_id)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+      (id, title, description, bon_a_savoir, location, category, author, image_url, video_url, latitude, longitude, difficulty, dangerosity, price, user_id)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
        ON CONFLICT (id) DO UPDATE SET
          title = EXCLUDED.title,
          description = EXCLUDED.description,
-         location = EXCLUDED.location,
-         category = EXCLUDED.category,
-         author = EXCLUDED.author,
-         image_url = EXCLUDED.image_url,
-         video_url = EXCLUDED.video_url,
-         latitude = EXCLUDED.latitude,
-         longitude = EXCLUDED.longitude,
-         difficulty = EXCLUDED.difficulty,
-         dangerosity = EXCLUDED.dangerosity,
-         price = EXCLUDED.price,
-         user_id = EXCLUDED.user_id
-       RETURNING *`,
-     [siteId, title, description, location, category, author, imageUrl, videoUrl, latitude, longitude, difficulty, dangerosity, price, userId]
+        bon_a_savoir = EXCLUDED.bon_a_savoir,
+        location = EXCLUDED.location,
+        category = EXCLUDED.category,
+        author = EXCLUDED.author,
+        image_url = EXCLUDED.image_url,
+        video_url = EXCLUDED.video_url,
+        latitude = EXCLUDED.latitude,
+        longitude = EXCLUDED.longitude,
+        difficulty = EXCLUDED.difficulty,
+        dangerosity = EXCLUDED.dangerosity,
+        price = EXCLUDED.price,
+        user_id = EXCLUDED.user_id
+      RETURNING *`,
+     [siteId, title, description, bonASavoir, location, category, author, imageUrl, videoUrl, latitude, longitude, difficulty, dangerosity, price, userId]
     );
 
     await persistSiteMedia(client, rows[0] ? rows[0].id : siteId, media);

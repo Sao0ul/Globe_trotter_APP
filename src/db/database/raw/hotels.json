@@ -1,0 +1,6112 @@
+[
+  {
+    "osm_type": "relation",
+    "osm_id": 13129874,
+    "category": "hotel",
+    "name": "Salma Hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8652699,
+    "longitude": 11.4619437,
+    "tags": {
+      "@id": "relation/13129874",
+      "building": "yes",
+      "name": "Salma Hotel",
+      "tourism": "hotel",
+      "type": "multipolygon",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 188761382,
+    "category": "hotel",
+    "name": "Lieugne Hotel",
+    "address": null,
+    "phone": "696580967",
+    "latitude": 3.9055708,
+    "longitude": 11.5333982,
+    "tags": {
+      "@id": "way/188761382",
+      "building": "public",
+      "contact:phone": "696580967",
+      "name": "Lieugne Hotel",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 191641753,
+    "category": "hotel",
+    "name": "Hôtel Tehasselois",
+    "address": null,
+    "phone": null,
+    "latitude": 3.9452989,
+    "longitude": 11.5132328,
+    "tags": {
+      "@id": "way/191641753",
+      "building": "public",
+      "name": "Hôtel Tehasselois",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 191647994,
+    "category": "hotel",
+    "name": "Melrose Place Hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.9421209,
+    "longitude": 11.5190042,
+    "tags": {
+      "@id": "way/191647994",
+      "building": "public",
+      "name": "Melrose Place Hôtel",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 191994420,
+    "category": "hotel",
+    "name": "HOTEL LE MAKOMBE",
+    "address": null,
+    "phone": "674743999",
+    "latitude": 3.9190818,
+    "longitude": 11.5296684,
+    "tags": {
+      "@id": "way/191994420",
+      "addr:postcode": "5413",
+      "building": "public",
+      "contact:email": "makombe@groupetchoquessi.com",
+      "contact:phone": "674743999",
+      "contact:website": "www.groupetchoquessi.com",
+      "name": "HOTEL LE MAKOMBE",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 191994770,
+    "category": "hotel",
+    "name": "Hôtel Saphir",
+    "address": null,
+    "phone": null,
+    "latitude": 3.9196402,
+    "longitude": 11.5308459,
+    "tags": {
+      "@id": "way/191994770",
+      "building": "public",
+      "name": "Hôtel Saphir",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192007841,
+    "category": "hotel",
+    "name": "Hôtel Mont Fébé",
+    "address": null,
+    "phone": null,
+    "latitude": 3.9125171,
+    "longitude": 11.4958763,
+    "tags": {
+      "@id": "way/192007841",
+      "atm": "yes",
+      "building": "yes",
+      "building:levels": "9",
+      "name": "Hôtel Mont Fébé",
+      "stars": "3",
+      "tourism": "hotel",
+      "wikidata": "Q130632712",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192012194,
+    "category": "hotel",
+    "name": "Motel Lady Ange",
+    "address": null,
+    "phone": null,
+    "latitude": 3.9137181,
+    "longitude": 11.5443261,
+    "tags": {
+      "@id": "way/192012194",
+      "building": "yes",
+      "name": "Motel Lady Ange",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192687278,
+    "category": "hotel",
+    "name": "HOTEL LE PARADIS",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8988518,
+    "longitude": 11.5442208,
+    "tags": {
+      "@id": "way/192687278",
+      "building": "yes",
+      "name": "HOTEL LE PARADIS",
+      "source": "sobzeros",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192687917,
+    "category": "hotel",
+    "name": "Hotel Michaus",
+    "address": null,
+    "phone": "+23722 01 05 23",
+    "latitude": 3.8951579,
+    "longitude": 11.5441503,
+    "tags": {
+      "@id": "way/192687917",
+      "building": "yes",
+      "email": "michaushotel@yahoo.fr",
+      "name": "Hotel Michaus",
+      "phone": "+23722 01 05 23",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192688461,
+    "category": "hotel",
+    "name": "Hotel La Roche",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8952119,
+    "longitude": 11.5485739,
+    "tags": {
+      "@id": "way/192688461",
+      "building": "yes",
+      "name": "Hotel La Roche",
+      "rooms": "18",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192694608,
+    "category": "hotel",
+    "name": "Hotel Le Lys",
+    "address": null,
+    "phone": null,
+    "latitude": 3.9003753,
+    "longitude": 11.5588195,
+    "tags": {
+      "@id": "way/192694608",
+      "building": "public",
+      "name": "Hotel Le Lys",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192696124,
+    "category": "hotel",
+    "name": "Masque Hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8972986,
+    "longitude": 11.5239838,
+    "tags": {
+      "@id": "way/192696124",
+      "building": "public",
+      "name": "Masque Hôtel",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192736776,
+    "category": "hotel",
+    "name": "HOTEL BELLEVUE",
+    "address": null,
+    "phone": "242808319",
+    "latitude": 3.8915506,
+    "longitude": 11.4929859,
+    "tags": {
+      "@id": "way/192736776",
+      "addr:postcode": "4636 yde",
+      "building": "yes",
+      "contact:phone": "242808319",
+      "name": "HOTEL BELLEVUE",
+      "source": "sobzeros",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192737325,
+    "category": "hotel",
+    "name": "Menom Hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8893815,
+    "longitude": 11.470244,
+    "tags": {
+      "@id": "way/192737325",
+      "building": "yes",
+      "name": "Menom Hôtel",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192738573,
+    "category": "hotel",
+    "name": "Panthere Hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8920105,
+    "longitude": 11.4924943,
+    "tags": {
+      "@id": "way/192738573",
+      "building": "yes",
+      "name": "Panthere Hôtel",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192776457,
+    "category": "hotel",
+    "name": "TSEP Hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8858466,
+    "longitude": 11.4998558,
+    "tags": {
+      "@id": "way/192776457",
+      "building": "yes",
+      "name": "TSEP Hôtel",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192777268,
+    "category": "hotel",
+    "name": "Hôtel Aurelia Palace",
+    "address": null,
+    "phone": "222204059",
+    "latitude": 3.8857801,
+    "longitude": 11.5156802,
+    "tags": {
+      "@id": "way/192777268",
+      "addr:postcode": "35105 yde",
+      "building": "yes",
+      "contact:phone": "222204059",
+      "name": "Hôtel Aurelia Palace",
+      "source": "sobzeros",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192777452,
+    "category": "hotel",
+    "name": "Hôtel Doussie",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8800957,
+    "longitude": 11.4915225,
+    "tags": {
+      "@id": "way/192777452",
+      "building": "yes",
+      "name": "Hôtel Doussie",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192786683,
+    "category": "hotel",
+    "name": "Hôtel Las Vegas",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8806995,
+    "longitude": 11.525388,
+    "tags": {
+      "@id": "way/192786683",
+      "building": "public",
+      "name": "Hôtel Las Vegas",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192810108,
+    "category": "hotel",
+    "name": "Hôtel la Fleur",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8723389,
+    "longitude": 11.4806267,
+    "tags": {
+      "@id": "way/192810108",
+      "building": "yes",
+      "name": "Hôtel la Fleur",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192810636,
+    "category": "hotel",
+    "name": "Hôtel Cité Verte",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8738546,
+    "longitude": 11.4905493,
+    "tags": {
+      "@id": "way/192810636",
+      "building": "yes",
+      "name": "Hôtel Cité Verte",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192811803,
+    "category": "hotel",
+    "name": "SOMATEL",
+    "address": null,
+    "phone": "222209536",
+    "latitude": 3.8763329,
+    "longitude": 11.511468,
+    "tags": {
+      "@id": "way/192811803",
+      "addr:postcode": "4252 Ydï¿½",
+      "building": "yes",
+      "contact:phone": "222209536",
+      "name": "SOMATEL",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192814078,
+    "category": "hotel",
+    "name": "Auberge Essos",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8739136,
+    "longitude": 11.5434364,
+    "tags": {
+      "@id": "way/192814078",
+      "building": "yes",
+      "name": "Auberge Essos",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192814979,
+    "category": "hotel",
+    "name": "Hôtel Magny",
+    "address": null,
+    "phone": null,
+    "latitude": 3.87359,
+    "longitude": 11.5373105,
+    "tags": {
+      "@id": "way/192814979",
+      "building": "public",
+      "name": "Hôtel Magny",
+      "note:nombre de chambres": "22",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "stars": "1",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192815379,
+    "category": "hotel",
+    "name": "Hôtel Résidence La Grace",
+    "address": null,
+    "phone": "222239860",
+    "latitude": 3.8790006,
+    "longitude": 11.547708,
+    "tags": {
+      "@id": "way/192815379",
+      "addr:postcode": "12340 Ydï¿½",
+      "building": "public",
+      "contact:fax": "222226760",
+      "contact:phone": "222239860",
+      "contact:website": "www.leshotelsresidencence.com",
+      "name": "Hôtel Résidence La Grace",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192816343,
+    "category": "hotel",
+    "name": "Auberge Essos",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8740602,
+    "longitude": 11.5416299,
+    "tags": {
+      "@id": "way/192816343",
+      "building": "yes",
+      "name": "Auberge Essos",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192816749,
+    "category": "hotel",
+    "name": "Hôtel Oasis",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8788786,
+    "longitude": 11.5491498,
+    "tags": {
+      "@id": "way/192816749",
+      "building": "yes",
+      "name": "Hôtel Oasis",
+      "rooms": "17",
+      "rooms:suites": "5",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "1",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192817529,
+    "category": "hotel",
+    "name": "Résidence Hotelière Papyrus",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8770405,
+    "longitude": 11.5438043,
+    "tags": {
+      "@id": "way/192817529",
+      "building": "public",
+      "name": "Résidence Hotelière Papyrus",
+      "note:nombre de chambres": "14",
+      "note:nombre de d'appartements": "3",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "2",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192817588,
+    "category": "hotel",
+    "name": "Hôtel Jouvence 2000",
+    "address": null,
+    "phone": "22 23 02 59",
+    "latitude": 3.8760544,
+    "longitude": 11.5309055,
+    "tags": {
+      "@id": "way/192817588",
+      "building": "yes",
+      "internet_access": "wlan",
+      "internet_access:fee": "no",
+      "name": "Hôtel Jouvence 2000",
+      "phone": "22 23 02 59",
+      "rooms": "42",
+      "rooms:suites": "3",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "2",
+      "tourism": "hotel",
+      "website": "http://www.hoteljouvence.com/",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192817715,
+    "category": "hotel",
+    "name": "Auberge Essos",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8748605,
+    "longitude": 11.5468423,
+    "tags": {
+      "@id": "way/192817715",
+      "building": "yes",
+      "name": "Auberge Essos",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192819676,
+    "category": "hotel",
+    "name": "Auberge Le Marseillais",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8710574,
+    "longitude": 11.5358044,
+    "tags": {
+      "@id": "way/192819676",
+      "building": "yes",
+      "name": "Auberge Le Marseillais",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192819820,
+    "category": "hotel",
+    "name": "Hôtel De Flandre",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8687932,
+    "longitude": 11.4958054,
+    "tags": {
+      "@id": "way/192819820",
+      "building": "yes",
+      "name": "Hôtel De Flandre",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192820027,
+    "category": "hotel",
+    "name": "Hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8687981,
+    "longitude": 11.5278442,
+    "tags": {
+      "@id": "way/192820027",
+      "building": "public",
+      "name": "Hôtel",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192820891,
+    "category": "hotel",
+    "name": "Noka Hotel",
+    "address": null,
+    "phone": "673216179",
+    "latitude": 3.8707227,
+    "longitude": 11.492625,
+    "tags": {
+      "@id": "way/192820891",
+      "addr:postcode": "11100 Ydï¿½",
+      "building": "yes",
+      "contact:phone": "673216179",
+      "name": "Noka Hotel",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192820997,
+    "category": "hotel",
+    "name": "Hôtel Feuguiff",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8670952,
+    "longitude": 11.4960839,
+    "tags": {
+      "@id": "way/192820997",
+      "building": "yes",
+      "name": "Hôtel Feuguiff",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192825990,
+    "category": "hotel",
+    "name": "Complexe Madison",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8700341,
+    "longitude": 11.5438315,
+    "tags": {
+      "@id": "way/192825990",
+      "building": "public",
+      "name": "Complexe Madison",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192829927,
+    "category": "hotel",
+    "name": "Hôtel Printyva",
+    "address": null,
+    "phone": "22064400 / 94168938",
+    "latitude": 3.8683173,
+    "longitude": 11.5486195,
+    "tags": {
+      "@id": "way/192829927",
+      "building": "yes",
+      "name": "Hôtel Printyva",
+      "opening_hours": "24/7",
+      "phone": "22064400 / 94168938",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "1",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192830355,
+    "category": "hotel",
+    "name": "dort",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8698854,
+    "longitude": 11.501504,
+    "tags": {
+      "@id": "way/192830355",
+      "building": "yes",
+      "name": "dort",
+      "source": "sobzeros",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192831072,
+    "category": "hotel",
+    "name": "Hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8716479,
+    "longitude": 11.5343221,
+    "tags": {
+      "@id": "way/192831072",
+      "building": "public",
+      "name": "Hôtel",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192831290,
+    "category": "hotel",
+    "name": "Hôtel Terminus",
+    "address": "Rue 1.319",
+    "phone": null,
+    "latitude": 3.867476,
+    "longitude": 11.5489761,
+    "tags": {
+      "@id": "way/192831290",
+      "addr:city": "Yaoundé",
+      "addr:country": "CM",
+      "addr:street": "Rue 1.319",
+      "building": "public",
+      "name": "Hôtel Terminus",
+      "opening_hours": "24/7",
+      "ref": "BP 4336 YDE",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "2",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192837930,
+    "category": "hotel",
+    "name": "Central Hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8595282,
+    "longitude": 11.5185731,
+    "tags": {
+      "@id": "way/192837930",
+      "building": "hotel",
+      "capacity": "22",
+      "name": "Central Hotel",
+      "stars": "3",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192838868,
+    "category": "hotel",
+    "name": "Merina Hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8609071,
+    "longitude": 11.5224901,
+    "tags": {
+      "@id": "way/192838868",
+      "building": "yes",
+      "name": "Merina Hotel",
+      "source": "sobzeros",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192839332,
+    "category": "hotel",
+    "name": "Appart hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8633811,
+    "longitude": 11.500262,
+    "tags": {
+      "@id": "way/192839332",
+      "building": "yes",
+      "name": "Appart hôtel",
+      "source": "sobzeros",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192840097,
+    "category": "hotel",
+    "name": "Hotel Sinaha",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8632062,
+    "longitude": 11.5003845,
+    "tags": {
+      "@id": "way/192840097",
+      "building": "yes",
+      "name": "Hotel Sinaha",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hostel",
+      "wheelchair": "no",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192840405,
+    "category": "hotel",
+    "name": "Appart",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8635042,
+    "longitude": 11.5003829,
+    "tags": {
+      "@id": "way/192840405",
+      "building": "yes",
+      "name": "Appart",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192841591,
+    "category": "hotel",
+    "name": "ORLY Hôtel",
+    "address": null,
+    "phone": "77612774",
+    "latitude": 3.8578177,
+    "longitude": 11.5429789,
+    "tags": {
+      "@id": "way/192841591",
+      "name": "ORLY Hôtel",
+      "opening_hours": "24/7",
+      "phone": "77612774",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "1",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192842236,
+    "category": "hotel",
+    "name": "Hôtel Manga",
+    "address": null,
+    "phone": "22177819",
+    "latitude": 3.8582609,
+    "longitude": 11.5492236,
+    "tags": {
+      "@id": "way/192842236",
+      "building": "public",
+      "name": "Hôtel Manga",
+      "opening_hours": "24/7",
+      "phone": "22177819",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "1",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192842563,
+    "category": "hotel",
+    "name": "Hôtel Venus",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8601671,
+    "longitude": 11.5354523,
+    "tags": {
+      "@id": "way/192842563",
+      "building": "yes",
+      "name": "Hôtel Venus",
+      "opening_hours": "24/7",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192843851,
+    "category": "hotel",
+    "name": "Hôtel Palace",
+    "address": null,
+    "phone": "22237681",
+    "latitude": 3.8643707,
+    "longitude": 11.5484101,
+    "tags": {
+      "@id": "way/192843851",
+      "building": "yes",
+      "name": "Hôtel Palace",
+      "opening_hours": "24/7",
+      "phone": "22237681",
+      "ref": "BP 7273 YDE",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "1",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192843951,
+    "category": "hotel",
+    "name": "Exotic Hill",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8550743,
+    "longitude": 11.4903892,
+    "tags": {
+      "@id": "way/192843951",
+      "building": "yes",
+      "name": "Exotic Hill",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192844490,
+    "category": "hotel",
+    "name": "Chat Blanc",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8513954,
+    "longitude": 11.487896,
+    "tags": {
+      "@id": "way/192844490",
+      "building": "yes",
+      "capacity": "18",
+      "check_date": "2024-12-08",
+      "name": "Chat Blanc",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "start_date": "2006",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192844896,
+    "category": "hotel",
+    "name": "Le Samaritain",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8537436,
+    "longitude": 11.4476312,
+    "tags": {
+      "@id": "way/192844896",
+      "building": "yes",
+      "name": "Le Samaritain",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192846405,
+    "category": "hotel",
+    "name": "Dolcena Palace Hôtel",
+    "address": null,
+    "phone": "22229419",
+    "latitude": 3.8626174,
+    "longitude": 11.5537012,
+    "tags": {
+      "@id": "way/192846405",
+      "building": "public",
+      "name": "Dolcena Palace Hôtel",
+      "opening_hours": "24/7",
+      "phone": "22229419",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "3",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192847230,
+    "category": "hotel",
+    "name": "GIC Tourisme",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8590226,
+    "longitude": 11.5465446,
+    "tags": {
+      "@id": "way/192847230",
+      "building": "public",
+      "name": "GIC Tourisme",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192847660,
+    "category": "hotel",
+    "name": "La fierte",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8640682,
+    "longitude": 11.5487078,
+    "tags": {
+      "@id": "way/192847660",
+      "building": "yes",
+      "name": "La fierte",
+      "opening_hours": "24/7",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192847968,
+    "category": "hotel",
+    "name": "HOTEL WAMNDON",
+    "address": null,
+    "phone": "670835007/699760780",
+    "latitude": 3.8540663,
+    "longitude": 11.4930432,
+    "tags": {
+      "@id": "way/192847968",
+      "building": "yes",
+      "contact:phone": "670835007/699760780",
+      "name": "HOTEL WAMNDON",
+      "source": "sobzeros",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192848999,
+    "category": "hotel",
+    "name": "Dany Motel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8561981,
+    "longitude": 11.4904962,
+    "tags": {
+      "@id": "way/192848999",
+      "building": "yes",
+      "capacity": "15",
+      "name": "Dany Motel",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "1",
+      "start_date": "1993",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192849613,
+    "category": "hotel",
+    "name": "Grand Canari",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8552969,
+    "longitude": 11.4886212,
+    "tags": {
+      "@id": "way/192849613",
+      "building": "yes",
+      "capacity": "22",
+      "name": "Grand Canari",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "start_date": "2007",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192850788,
+    "category": "hotel",
+    "name": "R. st sebastien",
+    "address": null,
+    "phone": "22193823",
+    "latitude": 3.8570426,
+    "longitude": 11.5354402,
+    "tags": {
+      "@id": "way/192850788",
+      "building": "yes",
+      "name": "R. st sebastien",
+      "opening_hours": "24/7",
+      "phone": "22193823",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192851126,
+    "category": "hotel",
+    "name": "Grand",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8551923,
+    "longitude": 11.5179163,
+    "tags": {
+      "@id": "way/192851126",
+      "building": "yes",
+      "name": "Grand",
+      "source": "sobzeros",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192851175,
+    "category": "hotel",
+    "name": "PRESTIGE HOTEL Olï¿½zoa",
+    "address": "Avenue Charles Atangana",
+    "phone": "222226055",
+    "latitude": 3.8553203,
+    "longitude": 11.5203775,
+    "tags": {
+      "@id": "way/192851175",
+      "addr:postcode": "2697",
+      "addr:street": "Avenue Charles Atangana",
+      "building": "hotel",
+      "building:levels": "3",
+      "capacity": "30",
+      "contact:email": "infosprestigehotel@yahoo.fr",
+      "contact:fax": "22226040",
+      "contact:phone": "222226055",
+      "name": "PRESTIGE HOTEL Olï¿½zoa",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192851295,
+    "category": "hotel",
+    "name": "Fraicheur Hôtel",
+    "address": null,
+    "phone": "22228005",
+    "latitude": 3.8540591,
+    "longitude": 11.5233462,
+    "tags": {
+      "@id": "way/192851295",
+      "building": "yes",
+      "name": "Fraicheur Hôtel",
+      "opening_hours": "24/7",
+      "phone": "22228005",
+      "ref": "BP 4707 YDE",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192852855,
+    "category": "hotel",
+    "name": "Hôtel Delta",
+    "address": null,
+    "phone": "22304488",
+    "latitude": 3.853084,
+    "longitude": 11.5355158,
+    "tags": {
+      "@id": "way/192852855",
+      "building": "yes",
+      "name": "Hôtel Delta",
+      "opening_hours": "24/7",
+      "phone": "22304488",
+      "ref": "BP 4336 YDE",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "1",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192854381,
+    "category": "hotel",
+    "name": "Hôtel les Ancêtres",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8563149,
+    "longitude": 11.5043369,
+    "tags": {
+      "@id": "way/192854381",
+      "building": "commercial",
+      "name": "Hôtel les Ancêtres",
+      "source": "sobzeros",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192854426,
+    "category": "hotel",
+    "name": "Résidence Chef NKONDENGUI",
+    "address": null,
+    "phone": null,
+    "latitude": 3.852674,
+    "longitude": 11.5310955,
+    "tags": {
+      "@id": "way/192854426",
+      "building": "public",
+      "name": "Résidence Chef NKONDENGUI",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192854687,
+    "category": "hotel",
+    "name": "Auberge de la Paix",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8566421,
+    "longitude": 11.5224538,
+    "tags": {
+      "@id": "way/192854687",
+      "building": "yes",
+      "name": "Auberge de la Paix",
+      "opening_hours": "24/7",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192861473,
+    "category": "hotel",
+    "name": "Auberge",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8412977,
+    "longitude": 11.4818673,
+    "tags": {
+      "@id": "way/192861473",
+      "building": "yes",
+      "name": "Auberge",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192865269,
+    "category": "hotel",
+    "name": "Ciraton Hôtel",
+    "address": null,
+    "phone": "22125848",
+    "latitude": 3.8477771,
+    "longitude": 11.5545795,
+    "tags": {
+      "@id": "way/192865269",
+      "building": "public",
+      "name": "Ciraton Hôtel",
+      "opening_hours": "24/7",
+      "phone": "22125848",
+      "ref": "BP 16091 YDE",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "1",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192866365,
+    "category": "hotel",
+    "name": "Prestige Hotel Plus",
+    "address": "Yaounde",
+    "phone": "222318960",
+    "latitude": 3.8490288,
+    "longitude": 11.4860122,
+    "tags": {
+      "@id": "way/192866365",
+      "addr:city": "Yaounde",
+      "addr:country": "CM",
+      "addr:postcode": "B.P. 2697",
+      "building": "public",
+      "contact:phone": "222318960",
+      "name": "Prestige Hotel Plus",
+      "source": "sobzeros",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192867411,
+    "category": "hotel",
+    "name": "MOAN NNAM",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8488305,
+    "longitude": 11.518927,
+    "tags": {
+      "@id": "way/192867411",
+      "building": "yes",
+      "name": "MOAN NNAM",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192867508,
+    "category": "hotel",
+    "name": "La Baleine",
+    "address": null,
+    "phone": "22102336",
+    "latitude": 3.843887,
+    "longitude": 11.5403784,
+    "tags": {
+      "@id": "way/192867508",
+      "building": "yes",
+      "name": "La Baleine",
+      "opening_hours": "24/7",
+      "phone": "22102336",
+      "ref": "BP 15149 YDE",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192868616,
+    "category": "hotel",
+    "name": "Hôtel Le Motan",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8500285,
+    "longitude": 11.5540413,
+    "tags": {
+      "@id": "way/192868616",
+      "building": "public",
+      "name": "Hôtel Le Motan",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192869267,
+    "category": "hotel",
+    "name": "Motel El Dorado de Nkomo",
+    "address": null,
+    "phone": null,
+    "latitude": 3.84695,
+    "longitude": 11.5543522,
+    "tags": {
+      "@id": "way/192869267",
+      "building": "yes",
+      "name": "Motel El Dorado de Nkomo",
+      "opening_hours": "24/7",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192873028,
+    "category": "hotel",
+    "name": "Hôtel Mandannou",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8542894,
+    "longitude": 11.5489936,
+    "tags": {
+      "@id": "way/192873028",
+      "building": "public",
+      "name": "Hôtel Mandannou",
+      "opening_hours": "24/7",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "1",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192878671,
+    "category": "hotel",
+    "name": "Yata Hôtel",
+    "address": null,
+    "phone": "99356996",
+    "latitude": 3.8571098,
+    "longitude": 11.555918,
+    "tags": {
+      "@id": "way/192878671",
+      "building": "public",
+      "name": "Yata Hôtel",
+      "opening_hours": "24/7",
+      "phone": "99356996",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "2",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192879408,
+    "category": "hotel",
+    "name": "Motel le pacifique",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8432856,
+    "longitude": 11.5443051,
+    "tags": {
+      "@id": "way/192879408",
+      "building": "yes",
+      "ele": "773",
+      "name": "Motel le pacifique",
+      "source": "sobzeros",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192879436,
+    "category": "hotel",
+    "name": "Hôtel Le fibi",
+    "address": null,
+    "phone": "22302538",
+    "latitude": 3.8571109,
+    "longitude": 11.5484145,
+    "tags": {
+      "@id": "way/192879436",
+      "building": "public",
+      "name": "Hôtel Le fibi",
+      "opening_hours": "24/7",
+      "phone": "22302538",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "2",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192879598,
+    "category": "hotel",
+    "name": "Lem's",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8447117,
+    "longitude": 11.4925035,
+    "tags": {
+      "@id": "way/192879598",
+      "building": "yes",
+      "name": "Lem's",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192880240,
+    "category": "hotel",
+    "name": "HOTEL GUIDO PALACE",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8493586,
+    "longitude": 11.495385,
+    "tags": {
+      "@id": "way/192880240",
+      "building": "yes",
+      "name": "HOTEL GUIDO PALACE",
+      "source": "sobzeros",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192880353,
+    "category": "hotel",
+    "name": "MICAH HOTEL",
+    "address": null,
+    "phone": "674516470/242893636",
+    "latitude": 3.849079,
+    "longitude": 11.4956722,
+    "tags": {
+      "@id": "way/192880353",
+      "building": "yes",
+      "contact:email": "bieloge@yahoo.fr",
+      "contact:phone": "674516470/242893636",
+      "name": "MICAH HOTEL",
+      "source": "sobzeros",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 192881471,
+    "category": "hotel",
+    "name": "Roi David",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8456064,
+    "longitude": 11.4930851,
+    "tags": {
+      "@id": "way/192881471",
+      "building": "public",
+      "name": "Roi David",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193504517,
+    "category": "hotel",
+    "name": "Motel Le Relais",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8396521,
+    "longitude": 11.4982765,
+    "tags": {
+      "@id": "way/193504517",
+      "building": "public",
+      "capacity": "14",
+      "name": "Motel Le Relais",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193504971,
+    "category": "hotel",
+    "name": "HOPITAL MARIE WYSS",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8389547,
+    "longitude": 11.4973382,
+    "tags": {
+      "@id": "way/193504971",
+      "building": "yes",
+      "name": "HOPITAL MARIE WYSS",
+      "source": "sobzeros",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193507157,
+    "category": "hotel",
+    "name": "Motel de Dakar",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8380193,
+    "longitude": 11.5117344,
+    "tags": {
+      "@id": "way/193507157",
+      "building": "yes",
+      "capacity": "8",
+      "name": "Motel de Dakar",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "1",
+      "start_date": "1995",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193508192,
+    "category": "hotel",
+    "name": "Hôtel Séjour des Princes",
+    "address": null,
+    "phone": "22023629",
+    "latitude": 3.8421356,
+    "longitude": 11.5503124,
+    "tags": {
+      "@id": "way/193508192",
+      "building": "public",
+      "name": "Hôtel Séjour des Princes",
+      "opening_hours": "24/7",
+      "phone": "22023629",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "1",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193511344,
+    "category": "hotel",
+    "name": "Résidence des Palmiers de NKOMO",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8365408,
+    "longitude": 11.5507401,
+    "tags": {
+      "@id": "way/193511344",
+      "building": "public",
+      "name": "Résidence des Palmiers de NKOMO",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193522176,
+    "category": "hotel",
+    "name": "Auberge Green Vallée Resort",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8257566,
+    "longitude": 11.4891257,
+    "tags": {
+      "@id": "way/193522176",
+      "building": "yes",
+      "name": "Auberge Green Vallée Resort",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193522363,
+    "category": "hotel",
+    "name": "Sam Efoulan",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8256397,
+    "longitude": 11.5076567,
+    "tags": {
+      "@id": "way/193522363",
+      "building": "yes",
+      "name": "Sam Efoulan",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193524039,
+    "category": "hotel",
+    "name": "Auberge Prestige",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8255219,
+    "longitude": 11.5013388,
+    "tags": {
+      "@id": "way/193524039",
+      "building": "yes",
+      "capacity": "8",
+      "name": "Auberge Prestige",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "start_date": "2010",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193525607,
+    "category": "hotel",
+    "name": "Espace Touristique TOYOU Motel",
+    "address": null,
+    "phone": "22304070",
+    "latitude": 3.8319209,
+    "longitude": 11.5430381,
+    "tags": {
+      "@id": "way/193525607",
+      "building": "yes",
+      "name": "Espace Touristique TOYOU Motel",
+      "opening_hours": "24/7",
+      "phone": "22304070",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193525734,
+    "category": "hotel",
+    "name": "Auberge La Banquise",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8352709,
+    "longitude": 11.508197,
+    "tags": {
+      "@id": "way/193525734",
+      "building": "yes",
+      "capacity": "8",
+      "name": "Auberge La Banquise",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "start_date": "2003",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193525877,
+    "category": "hotel",
+    "name": "Safari Hotel Nsam",
+    "address": null,
+    "phone": null,
+    "latitude": 3.830925,
+    "longitude": 11.5102801,
+    "tags": {
+      "@id": "way/193525877",
+      "building": "public",
+      "name": "Safari Hotel Nsam",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "1",
+      "start_date": "2007",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193526414,
+    "category": "hotel",
+    "name": "Alice Hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.835592,
+    "longitude": 11.5040565,
+    "tags": {
+      "@id": "way/193526414",
+      "building": "yes",
+      "capacity": "15",
+      "name": "Alice Hotel",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "start_date": "2007",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193526554,
+    "category": "hotel",
+    "name": "Auberge d'EKIÉ",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8332349,
+    "longitude": 11.5418582,
+    "tags": {
+      "@id": "way/193526554",
+      "building": "yes",
+      "name": "Auberge d'EKIÉ",
+      "opening_hours": "24/7",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193526990,
+    "category": "hotel",
+    "name": "Motel Saint hubert",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8324048,
+    "longitude": 11.5400285,
+    "tags": {
+      "@id": "way/193526990",
+      "building": "yes",
+      "check_date": "2025-01-12",
+      "name": "Motel Saint hubert",
+      "opening_hours": "24/7",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193528246,
+    "category": "hotel",
+    "name": "Donalson",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8265184,
+    "longitude": 11.4781339,
+    "tags": {
+      "@id": "way/193528246",
+      "building": "yes",
+      "name": "Donalson",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193533569,
+    "category": "hotel",
+    "name": "HOHEL RAM",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8278683,
+    "longitude": 11.5370581,
+    "tags": {
+      "@id": "way/193533569",
+      "building": "yes",
+      "name": "HOHEL RAM",
+      "source": "sobzeros",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193533996,
+    "category": "hotel",
+    "name": "Motel Les Papillons",
+    "address": null,
+    "phone": "22302648",
+    "latitude": 3.822943,
+    "longitude": 11.531595,
+    "tags": {
+      "@id": "way/193533996",
+      "building": "yes",
+      "name": "Motel Les Papillons",
+      "opening_hours": "24/7",
+      "phone": "22302648",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193542829,
+    "category": "hotel",
+    "name": "Hôtel Ngon Etenga",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8204508,
+    "longitude": 11.4901076,
+    "tags": {
+      "@id": "way/193542829",
+      "building": "public",
+      "capacity": "15",
+      "name": "Hôtel Ngon Etenga",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "start_date": "2008",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193543088,
+    "category": "hotel",
+    "name": "Motel Jardin des Cygnes",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8211256,
+    "longitude": 11.4991092,
+    "tags": {
+      "@id": "way/193543088",
+      "building": "yes",
+      "capacity": "8",
+      "name": "Motel Jardin des Cygnes",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "start_date": "2000",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193543133,
+    "category": "hotel",
+    "name": "Le Jardin de Céline",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8142714,
+    "longitude": 11.4919243,
+    "tags": {
+      "@id": "way/193543133",
+      "building": "yes",
+      "capacity": "32",
+      "name": "Le Jardin de Céline",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "2",
+      "start_date": "2001",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193552708,
+    "category": "hotel",
+    "name": "MOTEL",
+    "address": null,
+    "phone": "677562165",
+    "latitude": 3.8069295,
+    "longitude": 11.523681,
+    "tags": {
+      "@id": "way/193552708",
+      "building": "yes",
+      "contact:phone": "677562165",
+      "name": "MOTEL",
+      "source": "sobzeros",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193552927,
+    "category": "hotel",
+    "name": "Hôtel Happy",
+    "address": null,
+    "phone": "77700641",
+    "latitude": 3.8118593,
+    "longitude": 11.5294909,
+    "tags": {
+      "@id": "way/193552927",
+      "building": "yes",
+      "name": "Hôtel Happy",
+      "opening_hours": "06:00-00:00",
+      "phone": "77700641",
+      "ref": "BP 1220 YDE",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "2",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193557686,
+    "category": "hotel",
+    "name": "Auberge Les Roses",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8201515,
+    "longitude": 11.5333789,
+    "tags": {
+      "@id": "way/193557686",
+      "building": "yes",
+      "name": "Auberge Les Roses",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193558062,
+    "category": "hotel",
+    "name": "Auberge Relais",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8172612,
+    "longitude": 11.5261455,
+    "tags": {
+      "@id": "way/193558062",
+      "building": "yes",
+      "name": "Auberge Relais",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193559880,
+    "category": "hotel",
+    "name": "Satellite Hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8190035,
+    "longitude": 11.5069066,
+    "tags": {
+      "@id": "way/193559880",
+      "building": "yes",
+      "capacity": "16",
+      "name": "Satellite Hotel",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "start_date": "1998",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193559912,
+    "category": "hotel",
+    "name": "Hôtel Beau Lieu",
+    "address": null,
+    "phone": "242645853",
+    "latitude": 3.8211948,
+    "longitude": 11.5075798,
+    "tags": {
+      "@id": "way/193559912",
+      "building": "yes",
+      "capacity": "22",
+      "contact:phone": "242645853",
+      "name": "Hôtel Beau Lieu",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "start_date": "2010",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193566000,
+    "category": "hotel",
+    "name": "ASTA",
+    "address": null,
+    "phone": null,
+    "latitude": 3.7959289,
+    "longitude": 11.4930252,
+    "tags": {
+      "@id": "way/193566000",
+      "building": "yes",
+      "name": "ASTA",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193572333,
+    "category": "hotel",
+    "name": "Hôtel Ascot",
+    "address": null,
+    "phone": "677570088 / 222066017",
+    "latitude": 3.8002373,
+    "longitude": 11.5216297,
+    "tags": {
+      "@id": "way/193572333",
+      "building": "yes",
+      "contact:phone": "677570088 / 222066017",
+      "name": "Hôtel Ascot",
+      "opening_hours": "24/7",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193572475,
+    "category": "hotel",
+    "name": "Résidence Italia",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8027892,
+    "longitude": 11.5241551,
+    "tags": {
+      "@id": "way/193572475",
+      "building": "yes",
+      "name": "Résidence Italia",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193577522,
+    "category": "hotel",
+    "name": "Nature",
+    "address": null,
+    "phone": "96441179",
+    "latitude": 3.7967713,
+    "longitude": 11.5173119,
+    "tags": {
+      "@id": "way/193577522",
+      "building": "yes",
+      "name": "Nature",
+      "opening_hours": "24/7",
+      "phone": "96441179",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193579153,
+    "category": "hotel",
+    "name": "Auberge Bleue ODZA",
+    "address": null,
+    "phone": "22302246",
+    "latitude": 3.7994966,
+    "longitude": 11.5275127,
+    "tags": {
+      "@id": "way/193579153",
+      "building": "public",
+      "name": "Auberge Bleue ODZA",
+      "opening_hours": "24/7",
+      "phone": "22302246",
+      "ref": "BP 4249 YDE",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193961531,
+    "category": "hotel",
+    "name": "Hôtel JC",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8919222,
+    "longitude": 11.5125468,
+    "tags": {
+      "@id": "way/193961531",
+      "building": "yes",
+      "internet_access": "yes",
+      "name": "Hôtel JC",
+      "source": "msfsurvey",
+      "tourism": "hotel",
+      "website": "http://www.hoteljcprestige.cm/",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 193962575,
+    "category": "hotel",
+    "name": "Indra Hôtel",
+    "address": null,
+    "phone": "222205375",
+    "latitude": 3.8917572,
+    "longitude": 11.5114729,
+    "tags": {
+      "@id": "way/193962575",
+      "addr:postcode": "11231 yde",
+      "building": "yes",
+      "contact:fax": "22205376",
+      "contact:phone": "222205375",
+      "name": "Indra Hôtel",
+      "source": "sobzeros",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 204121305,
+    "category": "hotel",
+    "name": "Central Casa",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8617798,
+    "longitude": 11.5691335,
+    "tags": {
+      "@id": "way/204121305",
+      "building": "public",
+      "name": "Central Casa",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 210970203,
+    "category": "hotel",
+    "name": "CALOMBA",
+    "address": null,
+    "phone": null,
+    "latitude": 3.7852695,
+    "longitude": 11.4021348,
+    "tags": {
+      "@id": "way/210970203",
+      "addr:contact": "670665791",
+      "building": "hotel",
+      "name": "CALOMBA",
+      "source": "Bing",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 217002804,
+    "category": "hotel",
+    "name": "Kingdom",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8320695,
+    "longitude": 11.4889007,
+    "tags": {
+      "@id": "way/217002804",
+      "building": "yes",
+      "name": "Kingdom",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 217003437,
+    "category": "hotel",
+    "name": "Cristal",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8318716,
+    "longitude": 11.4800032,
+    "tags": {
+      "@id": "way/217003437",
+      "building": "yes",
+      "name": "Cristal",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 217006562,
+    "category": "hotel",
+    "name": "Auberge Zenithe",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8317746,
+    "longitude": 11.4928952,
+    "tags": {
+      "@id": "way/217006562",
+      "building": "yes",
+      "capacity": "10",
+      "name": "Auberge Zenithe",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "start_date": "2010",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 217006738,
+    "category": "hotel",
+    "name": "Universal",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8312534,
+    "longitude": 11.4890391,
+    "tags": {
+      "@id": "way/217006738",
+      "building": "yes",
+      "name": "Universal",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 218540579,
+    "category": "hotel",
+    "name": "Hôtel Zoé Motel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8569817,
+    "longitude": 11.5226213,
+    "tags": {
+      "@id": "way/218540579",
+      "name": "Hôtel Zoé Motel",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 221349468,
+    "category": "hotel",
+    "name": "Printemps",
+    "address": null,
+    "phone": "22667268",
+    "latitude": 3.8427225,
+    "longitude": 11.5390812,
+    "tags": {
+      "@id": "way/221349468",
+      "building": "yes",
+      "name": "Printemps",
+      "opening_hours": "24/7",
+      "phone": "22667268",
+      "ref": "BP 600 YDE",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "1",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 292327491,
+    "category": "hotel",
+    "name": "Saint Philomenia Student Hostel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.9669608,
+    "longitude": 11.5963823,
+    "tags": {
+      "@id": "way/292327491",
+      "name": "Saint Philomenia Student Hostel",
+      "source": "Survey TSF Cameroun 2014",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 292896731,
+    "category": "hotel",
+    "name": "Pat-Lane Hostel",
+    "address": null,
+    "phone": "99 07 09 29",
+    "latitude": 3.9810753,
+    "longitude": 11.6001384,
+    "tags": {
+      "@id": "way/292896731",
+      "building": "hotel",
+      "name": "Pat-Lane Hostel",
+      "phone": "99 07 09 29",
+      "source": "Survey TSF Cameroun 2014",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 410014233,
+    "category": "hotel",
+    "name": "Liza Hotel",
+    "address": null,
+    "phone": "670000014",
+    "latitude": 3.8010508,
+    "longitude": 11.5238727,
+    "tags": {
+      "@id": "way/410014233",
+      "contact:email": "reservationhotel.liza@yahoo.com",
+      "contact:phone": "670000014",
+      "name": "Liza Hotel",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 410014238,
+    "category": "hotel",
+    "name": "MOTEL COMPLEXE DECOR",
+    "address": null,
+    "phone": "677766450",
+    "latitude": 3.801912,
+    "longitude": 11.5291938,
+    "tags": {
+      "@id": "way/410014238",
+      "contact:phone": "677766450",
+      "name": "MOTEL COMPLEXE DECOR",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 410036314,
+    "category": "hotel",
+    "name": "Xaviera Hotel",
+    "address": null,
+    "phone": "694668487",
+    "latitude": 3.8168353,
+    "longitude": 11.5277267,
+    "tags": {
+      "@id": "way/410036314",
+      "contact:email": "contact@xavierahotel.com",
+      "contact:phone": "694668487",
+      "contact:website": "www.xavierahotel.com",
+      "name": "Xaviera Hotel",
+      "opening_hours": "24/7",
+      "stars": "3",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 410036592,
+    "category": "hotel",
+    "name": "Hôtel Copacabana",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8204623,
+    "longitude": 11.5326633,
+    "tags": {
+      "@id": "way/410036592",
+      "name": "Hôtel Copacabana",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 410036783,
+    "category": "hotel",
+    "name": "Luxtral Hôtel",
+    "address": null,
+    "phone": "242304624",
+    "latitude": 3.8241826,
+    "longitude": 11.5357967,
+    "tags": {
+      "@id": "way/410036783",
+      "contact:email": "info@luxtral-hotel.com",
+      "contact:fax": "222304624",
+      "contact:phone": "651809021",
+      "internet_access": "wlan",
+      "name": "Luxtral Hôtel",
+      "opening_hours": "24/7",
+      "phone": "242304624",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "3",
+      "tourism": "hotel",
+      "website": "http://www.luxtral-hotel.com",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 410050533,
+    "category": "hotel",
+    "name": "Felicia Hotel",
+    "address": null,
+    "phone": "222304375",
+    "latitude": 3.8446676,
+    "longitude": 11.5180596,
+    "tags": {
+      "@id": "way/410050533",
+      "building": "yes",
+      "contact:email": "feliciahotel@yahoo.fr",
+      "contact:phone": "222304375",
+      "name": "Felicia Hotel",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 410056143,
+    "category": "hotel",
+    "name": "Kamthe Hôtel",
+    "address": null,
+    "phone": "222315569",
+    "latitude": 3.8310904,
+    "longitude": 11.4703378,
+    "tags": {
+      "@id": "way/410056143",
+      "addr:postcode": "8389 Ydï¿½",
+      "building": "yes",
+      "contact:email": "kamthehotel@yahoo.fr",
+      "contact:fax": "222 31 55 69",
+      "contact:phone": "222315569",
+      "contact:website": "www.kamthehotel.com",
+      "name": "Kamthe Hôtel",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 410064971,
+    "category": "hotel",
+    "name": "SOMATEL HOTEL Biyem-assi",
+    "address": null,
+    "phone": "222319103",
+    "latitude": 3.8434619,
+    "longitude": 11.485406,
+    "tags": {
+      "@id": "way/410064971",
+      "contact:email": "somatelbiyemassi@yahoo.fr",
+      "contact:phone": "222319103",
+      "name": "SOMATEL HOTEL Biyem-assi",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 410244113,
+    "category": "hotel",
+    "name": "Djeuga Appart",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8637478,
+    "longitude": 11.5190023,
+    "tags": {
+      "@id": "way/410244113",
+      "building": "yes",
+      "building:levels": "14",
+      "name": "Djeuga Appart",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 410262480,
+    "category": "hotel",
+    "name": "LA CAVE SIMSON HOTEL",
+    "address": null,
+    "phone": "222227574",
+    "latitude": 3.8705227,
+    "longitude": 11.4827555,
+    "tags": {
+      "@id": "way/410262480",
+      "addr:postcode": "15139 yde",
+      "building": "yes",
+      "contact:phone": "222227574",
+      "name": "LA CAVE SIMSON HOTEL",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 410284987,
+    "category": "hotel",
+    "name": "Parfait Hotel",
+    "address": null,
+    "phone": "242626209",
+    "latitude": 3.8769606,
+    "longitude": 11.4966705,
+    "tags": {
+      "@id": "way/410284987",
+      "building": "yes",
+      "contact:phone": "242626209",
+      "name": "Parfait Hotel",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 410295522,
+    "category": "hotel",
+    "name": "DOLCENA PALACE",
+    "address": null,
+    "phone": null,
+    "latitude": 3.862463,
+    "longitude": 11.5540553,
+    "tags": {
+      "@id": "way/410295522",
+      "name": "DOLCENA PALACE",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 410301789,
+    "category": "hotel",
+    "name": "Best Hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8673974,
+    "longitude": 11.5307923,
+    "tags": {
+      "@id": "way/410301789",
+      "building": "yes",
+      "name": "Best Hotel",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 410320502,
+    "category": "hotel",
+    "name": "KITIOS HOTEL LODGE",
+    "address": null,
+    "phone": "680191066",
+    "latitude": 3.8842485,
+    "longitude": 11.556909,
+    "tags": {
+      "@id": "way/410320502",
+      "addr:postcode": "4684 Ydï¿½",
+      "building": "yes",
+      "contact:phone": "680191066",
+      "name": "KITIOS HOTEL LODGE",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 410453039,
+    "category": "hotel",
+    "name": "HOTEL LE PACHA",
+    "address": null,
+    "phone": "699643994",
+    "latitude": 3.881934,
+    "longitude": 11.4922899,
+    "tags": {
+      "@id": "way/410453039",
+      "building": "yes",
+      "contact:phone": "699643994",
+      "name": "HOTEL LE PACHA",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 410477046,
+    "category": "hotel",
+    "name": "Congress Hôtel",
+    "address": null,
+    "phone": "222219084;242180050;657239041;6838952",
+    "latitude": 3.8956157,
+    "longitude": 11.497121,
+    "tags": {
+      "@id": "way/410477046",
+      "name": "Congress Hôtel",
+      "phone": "222219084;242180050;657239041;6838952",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 410506579,
+    "category": "hotel",
+    "name": "TROPICAL HOTEL",
+    "address": null,
+    "phone": "677249526",
+    "latitude": 3.877791,
+    "longitude": 11.5101233,
+    "tags": {
+      "@id": "way/410506579",
+      "addr:postcode": "2406 Ydï¿½",
+      "building": "yes",
+      "contact:email": "tropicalhotel2002",
+      "contact:fax": "222210062",
+      "contact:phone": "677249526",
+      "name": "TROPICAL HOTEL",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 410517366,
+    "category": "hotel",
+    "name": "Hôtel Franco",
+    "address": null,
+    "phone": "222201311",
+    "latitude": 3.8820843,
+    "longitude": 11.5192404,
+    "tags": {
+      "@id": "way/410517366",
+      "addr:postcode": "336",
+      "contact:email": "contact@hotelfranco.com",
+      "contact:fax": "222201307/222201308",
+      "contact:phone": "222201311",
+      "contact:website": "www.hotelfranco.com",
+      "name": "Hôtel Franco",
+      "tourism": "hostel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 410579801,
+    "category": "hotel",
+    "name": "Hôtel Les Platanes",
+    "address": null,
+    "phone": null,
+    "latitude": 3.9187196,
+    "longitude": 11.5206067,
+    "tags": {
+      "@id": "way/410579801",
+      "building": "yes",
+      "name": "Hôtel Les Platanes",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 437144086,
+    "category": "hotel",
+    "name": "Polyva",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8454415,
+    "longitude": 11.4928857,
+    "tags": {
+      "@id": "way/437144086",
+      "building": "yes",
+      "name": "Polyva",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 450119914,
+    "category": "hotel",
+    "name": "HOST Hôtel",
+    "address": null,
+    "phone": "+237 695029203",
+    "latitude": 3.8580379,
+    "longitude": 11.5996617,
+    "tags": {
+      "@id": "way/450119914",
+      "email": "hosthotel@yahoo.fr",
+      "name": "HOST Hôtel",
+      "phone": "+237 695029203",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 480987166,
+    "category": "hotel",
+    "name": "Le refuge",
+    "address": null,
+    "phone": null,
+    "latitude": 3.853641,
+    "longitude": 11.5366139,
+    "tags": {
+      "@id": "way/480987166",
+      "building": "yes",
+      "name": "Le refuge",
+      "tourism": "motel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 516388571,
+    "category": "hotel",
+    "name": "Dajoll hôtel",
+    "address": null,
+    "phone": "698545454 / 682323232",
+    "latitude": 3.794876,
+    "longitude": 11.4017742,
+    "tags": {
+      "@id": "way/516388571",
+      "addr:postcode": "92 Mbankomo",
+      "contact:email": "reservation@dajoll-mbankomo.com",
+      "contact:phone": "698545454 / 682323232",
+      "contact:website": "www.dajoll-mbankomo.com",
+      "name": "Dajoll hôtel",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 585637443,
+    "category": "hotel",
+    "name": "Hôtel du Lac",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8398301,
+    "longitude": 11.492551,
+    "tags": {
+      "@id": "way/585637443",
+      "building": "yes",
+      "name": "Hôtel du Lac",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 651312212,
+    "category": "hotel",
+    "name": "Le Monarque",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8106909,
+    "longitude": 11.5224889,
+    "tags": {
+      "@id": "way/651312212",
+      "name": "Le Monarque",
+      "tourism": "hotel",
+      "website": "http://hotellemonarque.cm/",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 977964700,
+    "category": "hotel",
+    "name": "Relaxe Palace Hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 4.0215628,
+    "longitude": 11.5571386,
+    "tags": {
+      "@id": "way/977964700",
+      "check_date": "2026-02-14",
+      "contact:facebook": "relaxepalacehotel",
+      "email": "infos@relaxepalacehotel.com",
+      "internet_access": "wlan",
+      "level": "2",
+      "name": "Relaxe Palace Hôtel",
+      "self_service": "partially",
+      "tourism": "hotel",
+      "website": "https://www.relaxepalacehotel.com",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 1067289820,
+    "category": "hotel",
+    "name": "Auberge(CADO) d'Okola",
+    "address": null,
+    "phone": null,
+    "latitude": 4.0220533,
+    "longitude": 11.3808712,
+    "tags": {
+      "@id": "node/1067289820",
+      "name": "Auberge(CADO) d'Okola",
+      "tourism": "motel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 1067289863,
+    "category": "hotel",
+    "name": "Okols Palace",
+    "address": null,
+    "phone": null,
+    "latitude": 4.0216074,
+    "longitude": 11.3821235,
+    "tags": {
+      "@id": "node/1067289863",
+      "name": "Okols Palace",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 1217707933,
+    "category": "hotel",
+    "name": "United Hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.7864619,
+    "longitude": 11.4028336,
+    "tags": {
+      "@id": "way/1217707933",
+      "name": "United Hotel",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 1311786178,
+    "category": "hotel",
+    "name": "COFE Hôtel",
+    "address": "Yaoundé",
+    "phone": "686058982",
+    "latitude": 3.8465204,
+    "longitude": 11.497896,
+    "tags": {
+      "@id": "way/1311786178",
+      "addr:city": "Yaoundé",
+      "addr:place": "Obili",
+      "air_conditioning": "yes",
+      "branch": "COFE Hôtel",
+      "brand": "COFE Hôtel",
+      "building": "yes",
+      "building:levels": "5",
+      "email": "contact@cofehotel.com",
+      "fax": "686058982",
+      "internet_access": "yes",
+      "internet_access:fee": "no",
+      "internet_access:ssid": "COFE HOTEL",
+      "layer": "-1",
+      "mobile": "686058982",
+      "name": "COFE Hôtel",
+      "official_name": "COFE Hôtel",
+      "opening_hours": "24/7",
+      "payment:cash": "yes",
+      "payment:coins": "yes",
+      "payment:credit_cards": "yes",
+      "payment:mastercard": "yes",
+      "phone": "686058982",
+      "reservation": "yes",
+      "rooms": "35",
+      "short_name": "COFE Hôtel",
+      "smoking": "outside",
+      "stars": "3",
+      "tourism": "hotel",
+      "website": "https://cofehotel.com/",
+      "wheelchair": "yes",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 1331616117,
+    "category": "hotel",
+    "name": "Riad Prince Louis Residence;Riad Prince Louis",
+    "address": "1 Rue 1.083",
+    "phone": "+237 672 750 332",
+    "latitude": 3.8640386,
+    "longitude": 11.5256339,
+    "tags": {
+      "@id": "way/1331616117",
+      "addr:city": "Yaoundé I",
+      "addr:housenumber": "1",
+      "addr:street": "Rue 1.083",
+      "air_conditioning": "yes",
+      "contact:facebook": "https://web.facebook.com/profile.php?id=100093882512228",
+      "email": "info@riadprincelouis.com",
+      "guest_house": "apartment",
+      "internet_access": "wlan",
+      "internet_access:fee": "customers",
+      "landuse": "residential",
+      "name": "Riad Prince Louis Residence;Riad Prince Louis",
+      "operator": "Riad Prince Louis",
+      "phone": "+237 672 750 332",
+      "residential": "apartments",
+      "rooms": "10",
+      "tourism": "guest_house",
+      "website": "https://www.riadprincelouis.com",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 1365229875,
+    "category": "hotel",
+    "name": "La Sltio",
+    "address": null,
+    "phone": null,
+    "latitude": 4.0327066,
+    "longitude": 11.5538793,
+    "tags": {
+      "@id": "node/1365229875",
+      "name": "La Sltio",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "way",
+    "osm_id": 1445803087,
+    "category": "hotel",
+    "name": "Hotel La Roche",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8952819,
+    "longitude": 11.5486733,
+    "tags": {
+      "@id": "way/1445803087",
+      "building": "yes",
+      "name": "Hotel La Roche",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "hotel",
+      "@geometry": "center"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 1993239381,
+    "category": "hotel",
+    "name": "Capitol",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8672474,
+    "longitude": 11.5200843,
+    "tags": {
+      "@id": "node/1993239381",
+      "name": "Capitol",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 2032605116,
+    "category": "hotel",
+    "name": "Le Phenix",
+    "address": null,
+    "phone": null,
+    "latitude": 3.886919,
+    "longitude": 11.5487672,
+    "tags": {
+      "@id": "node/2032605116",
+      "name": "Le Phenix",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 2033513997,
+    "category": "hotel",
+    "name": "Motel Le Marseillais Plus",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8752239,
+    "longitude": 11.5410823,
+    "tags": {
+      "@id": "node/2033513997",
+      "name": "Motel Le Marseillais Plus",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "motel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 2033515661,
+    "category": "hotel",
+    "name": "Motel La Griffe",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8753482,
+    "longitude": 11.5414693,
+    "tags": {
+      "@id": "node/2033515661",
+      "name": "Motel La Griffe",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "motel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 2276771598,
+    "category": "hotel",
+    "name": "Tou'Ngou Hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8827963,
+    "longitude": 11.5231957,
+    "tags": {
+      "@id": "node/2276771598",
+      "air_conditioning": "yes",
+      "building:levels": "3",
+      "check_date": "2023-12-20",
+      "internet_access": "wlan",
+      "internet_access:fee": "no",
+      "name": "Tou'Ngou Hotel",
+      "source": "survey",
+      "source:date": "2013-03",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 2296069665,
+    "category": "hotel",
+    "name": "Hotel Maurinah Prestige",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8544623,
+    "longitude": 11.5036136,
+    "tags": {
+      "@id": "node/2296069665",
+      "name": "Hotel Maurinah Prestige",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 2315963521,
+    "category": "hotel",
+    "name": "Auberge",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8634214,
+    "longitude": 11.5280487,
+    "tags": {
+      "@id": "node/2315963521",
+      "name": "Auberge",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "motel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 2315963522,
+    "category": "hotel",
+    "name": "Hotel Planete",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8683296,
+    "longitude": 11.5317453,
+    "tags": {
+      "@id": "node/2315963522",
+      "name": "Hotel Planete",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 3614970069,
+    "category": "hotel",
+    "name": "Hôtel Royal",
+    "address": "Rue Marie Goker",
+    "phone": null,
+    "latitude": 3.8678233,
+    "longitude": 11.5190155,
+    "tags": {
+      "@id": "node/3614970069",
+      "addr:street": "Rue Marie Goker",
+      "check_date": "2026-03-25",
+      "name": "Hôtel Royal",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 4178557491,
+    "category": "hotel",
+    "name": "Priscilla Manor, Bastos",
+    "address": null,
+    "phone": null,
+    "latitude": 3.893757,
+    "longitude": 11.5135062,
+    "tags": {
+      "@id": "node/4178557491",
+      "name": "Priscilla Manor, Bastos",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 4323035407,
+    "category": "hotel",
+    "name": "My House, Nkolanga",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8212624,
+    "longitude": 11.558835,
+    "tags": {
+      "@id": "node/4323035407",
+      "name": "My House, Nkolanga",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 4347378591,
+    "category": "hotel",
+    "name": "Immeuble Marguerita",
+    "address": null,
+    "phone": "+237 696493282",
+    "latitude": 3.8021264,
+    "longitude": 11.523587,
+    "tags": {
+      "@id": "node/4347378591",
+      "addr:postcode": "3188",
+      "name": "Immeuble Marguerita",
+      "phone": "+237 696493282",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 4362727876,
+    "category": "hotel",
+    "name": "yeyap hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8705113,
+    "longitude": 11.502436,
+    "tags": {
+      "@id": "node/4362727876",
+      "name": "yeyap hotel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 4470744389,
+    "category": "hotel",
+    "name": "ma maison",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8248853,
+    "longitude": 11.4745767,
+    "tags": {
+      "@id": "node/4470744389",
+      "name": "ma maison",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 4500589704,
+    "category": "hotel",
+    "name": "Français",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8538172,
+    "longitude": 11.5008572,
+    "tags": {
+      "@id": "node/4500589704",
+      "name": "Français",
+      "name:en": "Français",
+      "name:fr": "Maison paulo",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 4510360307,
+    "category": "hotel",
+    "name": "Auberge Red Ligth Lem",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8450365,
+    "longitude": 11.493013,
+    "tags": {
+      "@id": "node/4510360307",
+      "name": "Auberge Red Ligth Lem",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 4524288792,
+    "category": "hotel",
+    "name": "TOKAM CARINE",
+    "address": null,
+    "phone": "699452307",
+    "latitude": 3.82728,
+    "longitude": 11.4894572,
+    "tags": {
+      "@id": "node/4524288792",
+      "name": "TOKAM CARINE",
+      "name:fr": "TOKAM CARINE",
+      "phone": "699452307",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 4524301089,
+    "category": "hotel",
+    "name": "Aubin Tokam",
+    "address": "Avenue d'Etoug-Ebé",
+    "phone": "677021607",
+    "latitude": 3.8363904,
+    "longitude": 11.4736707,
+    "tags": {
+      "@id": "node/4524301089",
+      "addr:street": "Avenue d'Etoug-Ebé",
+      "email": "briceaubin@yahoo.fr",
+      "name": "Aubin Tokam",
+      "phone": "677021607",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 4524316290,
+    "category": "hotel",
+    "name": "Tsamo Simplice",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8288626,
+    "longitude": 11.4722531,
+    "tags": {
+      "@id": "node/4524316290",
+      "name": "Tsamo Simplice",
+      "name:fr": "Tsamo Simplice",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 4555768241,
+    "category": "hotel",
+    "name": "Immeuble HAPPY",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8118662,
+    "longitude": 11.5294507,
+    "tags": {
+      "@id": "node/4555768241",
+      "name": "Immeuble HAPPY",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 4579391792,
+    "category": "hotel",
+    "name": "le lion d'or / le limouzi",
+    "address": "Rue 1.258",
+    "phone": null,
+    "latitude": 3.8686527,
+    "longitude": 11.5277352,
+    "tags": {
+      "@id": "node/4579391792",
+      "addr:street": "Rue 1.258",
+      "check_date": "2026-03-22",
+      "name": "le lion d'or / le limouzi",
+      "name:fr": "le lion d'or / le limouzi",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 4594312602,
+    "category": "hotel",
+    "name": "Résidence Mairama",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8102157,
+    "longitude": 11.5722245,
+    "tags": {
+      "@id": "node/4594312602",
+      "name": "Résidence Mairama",
+      "name:fr": "Résidence Mairama",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 4615786890,
+    "category": "hotel",
+    "name": "Touna Jeanne Home",
+    "address": "entree quartier anglo",
+    "phone": null,
+    "latitude": 3.928783,
+    "longitude": 11.5163286,
+    "tags": {
+      "@id": "node/4615786890",
+      "addr:street": "entree quartier anglo",
+      "name": "Touna Jeanne Home",
+      "name:en": "Touna Jeanne Home",
+      "name:fr": "Domicile Touna Jeanne",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 4722481192,
+    "category": "hotel",
+    "name": "Mbah's Residence",
+    "address": "Nkozoa",
+    "phone": "677860926",
+    "latitude": 3.9717984,
+    "longitude": 11.5470281,
+    "tags": {
+      "@id": "node/4722481192",
+      "addr:street": "Nkozoa",
+      "email": "cedricmbah2@gmail.com",
+      "name": "Mbah's Residence",
+      "name:en": "Mbah's Residence",
+      "name:fr": "Mbah's Residence",
+      "operator": "James Mbah",
+      "phone": "677860926",
+      "tourism": "hostel",
+      "website": "https://www.studhomes.com/"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 4722649989,
+    "category": "hotel",
+    "name": "Mbah's residence",
+    "address": null,
+    "phone": null,
+    "latitude": 3.9731943,
+    "longitude": 11.5480747,
+    "tags": {
+      "@id": "node/4722649989",
+      "name": "Mbah's residence",
+      "name:en": "Mbah's residence",
+      "name:fr": "Mbah's residence",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 4740211421,
+    "category": "hotel",
+    "name": "papi et mami",
+    "address": null,
+    "phone": null,
+    "latitude": 3.895034,
+    "longitude": 11.5157446,
+    "tags": {
+      "@id": "node/4740211421",
+      "name": "papi et mami",
+      "name:fr": "papi et mami",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 4752179721,
+    "category": "hotel",
+    "name": "Maison YDE",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8269996,
+    "longitude": 11.5039672,
+    "tags": {
+      "@id": "node/4752179721",
+      "name": "Maison YDE",
+      "name:fr": "Maison YDE",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 4778356623,
+    "category": "hotel",
+    "name": "Foyer International E.P.C.",
+    "address": null,
+    "phone": "99852376",
+    "latitude": 3.8800096,
+    "longitude": 11.5225096,
+    "tags": {
+      "@id": "node/4778356623",
+      "name": "Foyer International E.P.C.",
+      "name:fr": "Foyer International E.P.C.",
+      "phone": "99852376",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 4825018022,
+    "category": "hotel",
+    "name": "odza",
+    "address": null,
+    "phone": null,
+    "latitude": 3.7636073,
+    "longitude": 11.5481749,
+    "tags": {
+      "@id": "node/4825018022",
+      "name": "odza",
+      "name:fr": "odza",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 4825165223,
+    "category": "hotel",
+    "name": "odza hermine à vendre",
+    "address": null,
+    "phone": null,
+    "latitude": 3.7718472,
+    "longitude": 11.5562275,
+    "tags": {
+      "@id": "node/4825165223",
+      "name": "odza hermine à vendre",
+      "name:fr": "odza hermine à vendre",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 4891747021,
+    "category": "hotel",
+    "name": "Le best hotel",
+    "address": null,
+    "phone": "237243633895",
+    "latitude": 3.8673962,
+    "longitude": 11.5308102,
+    "tags": {
+      "@id": "node/4891747021",
+      "addr:postcode": "237",
+      "email": "lebesthotel@gmail.com",
+      "internet_access": "wlan",
+      "name": "Le best hotel",
+      "name:en": "Le best hotel",
+      "name:fr": "Le best hotel",
+      "opening_hours": "24/7",
+      "phone": "237243633895",
+      "tourism": "hotel",
+      "website": "https://www.lebesthotel.com/"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 5020213524,
+    "category": "hotel",
+    "name": "Qnet Office",
+    "address": null,
+    "phone": null,
+    "latitude": 3.841487,
+    "longitude": 11.4972369,
+    "tags": {
+      "@id": "node/5020213524",
+      "name": "Qnet Office",
+      "name:en": "Qnet Office",
+      "name:fr": "Bureau QNET",
+      "opening_hours": "24/7",
+      "tourism": "guest_house",
+      "website": "https://www.qnet.net/"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 5143122922,
+    "category": "hotel",
+    "name": "mayland housse",
+    "address": "mosquée",
+    "phone": null,
+    "latitude": 3.7900446,
+    "longitude": 11.5341924,
+    "tags": {
+      "@id": "node/5143122922",
+      "addr:street": "mosquée",
+      "internet_access": "wlan",
+      "name": "mayland housse",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 5399362527,
+    "category": "hotel",
+    "name": "Hôtel du Plateau",
+    "address": "Rue Jean Abanda",
+    "phone": null,
+    "latitude": 3.8789897,
+    "longitude": 11.5489583,
+    "tags": {
+      "@id": "node/5399362527",
+      "addr:street": "Rue Jean Abanda",
+      "name": "Hôtel du Plateau",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 5476922121,
+    "category": "hotel",
+    "name": "chez soi",
+    "address": "131 rue 7769 mendong",
+    "phone": "666690037",
+    "latitude": 3.837732,
+    "longitude": 11.4724351,
+    "tags": {
+      "@id": "node/5476922121",
+      "addr:housenumber": "131",
+      "addr:postcode": "7769",
+      "addr:street": "rue 7769 mendong",
+      "email": "stevydol@gmail.com",
+      "internet_access": "wlan",
+      "name": "chez soi",
+      "name:en": "at home",
+      "opening_hours": "24/7",
+      "operator": "Steve",
+      "phone": "666690037",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 5531649021,
+    "category": "hotel",
+    "name": "Immeuble bazor & fils",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8456103,
+    "longitude": 11.468874,
+    "tags": {
+      "@id": "node/5531649021",
+      "name": "Immeuble bazor & fils",
+      "name:en": "Français",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 5532018221,
+    "category": "hotel",
+    "name": "Barrière en pierre",
+    "address": null,
+    "phone": null,
+    "latitude": 3.9105867,
+    "longitude": 11.5467908,
+    "tags": {
+      "@id": "node/5532018221",
+      "name": "Barrière en pierre",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 5650207971,
+    "category": "hotel",
+    "name": "Auberge",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8272409,
+    "longitude": 11.5169472,
+    "tags": {
+      "@id": "node/5650207971",
+      "name": "Auberge",
+      "tourism": "hostel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 5650207972,
+    "category": "hotel",
+    "name": "Le Chat blanc",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8924678,
+    "longitude": 11.5474514,
+    "tags": {
+      "@id": "node/5650207972",
+      "name": "Le Chat blanc",
+      "tourism": "motel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 5650210704,
+    "category": "hotel",
+    "name": "Auberge grd mvan",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8275745,
+    "longitude": 11.5176172,
+    "tags": {
+      "@id": "node/5650210704",
+      "name": "Auberge grd mvan",
+      "tourism": "motel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 5650210743,
+    "category": "hotel",
+    "name": "Motel mocus",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8840527,
+    "longitude": 11.5200501,
+    "tags": {
+      "@id": "node/5650210743",
+      "name": "Motel mocus",
+      "name:fr": "MOCCHUS ET MORPHEE ( motel-snack)",
+      "tourism": "motel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 5650210744,
+    "category": "hotel",
+    "name": "Motel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8272319,
+    "longitude": 11.5166752,
+    "tags": {
+      "@id": "node/5650210744",
+      "name": "Motel",
+      "name:fr": "Motel beau lieu",
+      "tourism": "hostel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 5774565831,
+    "category": "hotel",
+    "name": "Etôk Kôss",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8089691,
+    "longitude": 11.4693544,
+    "tags": {
+      "@id": "node/5774565831",
+      "building": "yes",
+      "name": "Etôk Kôss",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 5776915764,
+    "category": "hotel",
+    "name": "La Résidence",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8636532,
+    "longitude": 11.4992154,
+    "tags": {
+      "@id": "node/5776915764",
+      "internet_access": "yes",
+      "name": "La Résidence",
+      "opening_hours": "Mo-Su 07:00-23:00",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 5776915769,
+    "category": "hotel",
+    "name": "Hôtel Sinahi",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8631614,
+    "longitude": 11.5004774,
+    "tags": {
+      "@id": "node/5776915769",
+      "name": "Hôtel Sinahi",
+      "source": "sobzeros",
+      "tourism": "hotel",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 5777138818,
+    "category": "hotel",
+    "name": "Hotel Le Printania",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8565527,
+    "longitude": 11.4910273,
+    "tags": {
+      "@id": "node/5777138818",
+      "capacity": "38",
+      "name": "Hotel Le Printania",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "1",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6042813031,
+    "category": "hotel",
+    "name": "Dakotel Palace",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8834997,
+    "longitude": 11.4922905,
+    "tags": {
+      "@id": "node/6042813031",
+      "name": "Dakotel Palace",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6067029950,
+    "category": "hotel",
+    "name": "Ideal Hotel",
+    "address": null,
+    "phone": "22209852",
+    "latitude": 3.8850695,
+    "longitude": 11.5191034,
+    "tags": {
+      "@id": "node/6067029950",
+      "name": "Ideal Hotel",
+      "phone": "22209852",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6130727590,
+    "category": "hotel",
+    "name": "résidence cana malins",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8307485,
+    "longitude": 11.4783881,
+    "tags": {
+      "@id": "node/6130727590",
+      "name": "résidence cana malins",
+      "name:fr": "résidence Canaanland",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6306003428,
+    "category": "hotel",
+    "name": "Hôtel des Députés",
+    "address": null,
+    "phone": "222231555",
+    "latitude": 3.8654454,
+    "longitude": 11.5122182,
+    "tags": {
+      "@id": "node/6306003428",
+      "capacity": "145",
+      "contact:email": "hotel.deputes@yahoo.fr",
+      "contact:fax": "222232435",
+      "contact:phone": "222231555",
+      "contact:website": "http://www.hoteldesdeputes.com",
+      "name": "Hôtel des Députés",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "3",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6308029350,
+    "category": "hotel",
+    "name": "Djeuga Palace",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8713623,
+    "longitude": 11.5156674,
+    "tags": {
+      "@id": "node/6308029350",
+      "name": "Djeuga Palace",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6308029352,
+    "category": "hotel",
+    "name": "La Falaise",
+    "address": "Rue du Maréchal Foch",
+    "phone": "+237 222 22 06 16",
+    "latitude": 3.8705916,
+    "longitude": 11.5154153,
+    "tags": {
+      "@id": "node/6308029352",
+      "addr:postcode": "1430 Yaoundé",
+      "addr:street": "Rue du Maréchal Foch",
+      "contact:phone": "222222061",
+      "contact:website": "www.lafalaisehotels.com",
+      "name": "La Falaise",
+      "phone": "+237 222 22 06 16",
+      "tourism": "hotel",
+      "website": "http://www.lafalaisehotels.com"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6308170737,
+    "category": "hotel",
+    "name": "Hôtel Indépendance",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8748693,
+    "longitude": 11.5182035,
+    "tags": {
+      "@id": "node/6308170737",
+      "check_date": "2026-03-25",
+      "name": "Hôtel Indépendance",
+      "source": "sobzeros",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6308327459,
+    "category": "hotel",
+    "name": "Hôtel Merina",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8645784,
+    "longitude": 11.519098,
+    "tags": {
+      "@id": "node/6308327459",
+      "name": "Hôtel Merina",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6308327479,
+    "category": "hotel",
+    "name": "Jully Hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8700363,
+    "longitude": 11.520486,
+    "tags": {
+      "@id": "node/6308327479",
+      "name": "Jully Hotel",
+      "source": "sobzeros",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6310400752,
+    "category": "hotel",
+    "name": "Jully Guest House",
+    "address": "Rue Frédéric Foe",
+    "phone": "222224061",
+    "latitude": 3.8716875,
+    "longitude": 11.5207314,
+    "tags": {
+      "@id": "node/6310400752",
+      "addr:postcode": "34457",
+      "addr:street": "Rue Frédéric Foe",
+      "check_date": "2026-03-25",
+      "email": "jullyguest@yahoo.fr",
+      "internet_access": "wlan",
+      "name": "Jully Guest House",
+      "opening_hours": "24/7",
+      "phone": "222224061",
+      "source": "sobzeros",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6310597692,
+    "category": "hotel",
+    "name": "Tango Hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8728476,
+    "longitude": 11.524964,
+    "tags": {
+      "@id": "node/6310597692",
+      "check_date": "2026-03-25",
+      "name": "Tango Hôtel",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6310626510,
+    "category": "hotel",
+    "name": "Hôtel Grand Moulin",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8752922,
+    "longitude": 11.5247628,
+    "tags": {
+      "@id": "node/6310626510",
+      "name": "Hôtel Grand Moulin",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6310626530,
+    "category": "hotel",
+    "name": "Girafe Hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8741241,
+    "longitude": 11.5257767,
+    "tags": {
+      "@id": "node/6310626530",
+      "name": "Girafe Hôtel",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6310626531,
+    "category": "hotel",
+    "name": "Girafe Hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8742197,
+    "longitude": 11.5262675,
+    "tags": {
+      "@id": "node/6310626531",
+      "check_date": "2026-03-25",
+      "name": "Girafe Hôtel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6310651172,
+    "category": "hotel",
+    "name": "Hôtel de la Gare",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8679771,
+    "longitude": 11.5265022,
+    "tags": {
+      "@id": "node/6310651172",
+      "name": "Hôtel de la Gare",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6310721514,
+    "category": "hotel",
+    "name": "Hilton Yaoundé",
+    "address": "Boulevard du 20 Mai 1972",
+    "phone": "+237 6 50 56 55 96",
+    "latitude": 3.8645784,
+    "longitude": 11.5156674,
+    "tags": {
+      "@id": "node/6310721514",
+      "addr:city": "Yaoundé",
+      "addr:street": "Boulevard du 20 Mai 1972",
+      "brand": "Hilton",
+      "brand:fr": "Hilton",
+      "brand:wikidata": "Q598884",
+      "brand:wikipedia": "fr:Hilton Hotels & Resorts",
+      "contact:facebook": "http://www.facebook.com/HiltonYaounde",
+      "contact:instagram": "https://www.instagram.com/hiltonyaounde/",
+      "contact:linkedin": "https://www.linkedin.com/company/hilton-yaounde",
+      "email": "reservations.yaounde@hilton.com",
+      "name": "Hilton Yaoundé",
+      "name:fr": "Hilton Yaoundé",
+      "operator": "Hilton",
+      "operator:fr": "Hilton",
+      "operator:wikidata": "Q598884",
+      "operator:wikipedia": "fr:Hilton Hotels & Resorts",
+      "phone": "+237 6 50 56 55 96",
+      "rooms": "248",
+      "smoking": "yes",
+      "stars": "5",
+      "tourism": "hotel",
+      "website": "https://www.hilton.com/en/hotels/yaohitw-hilton-yaounde/",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6311081079,
+    "category": "hotel",
+    "name": "Hôtel Clamantis",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8849849,
+    "longitude": 11.5193407,
+    "tags": {
+      "@id": "node/6311081079",
+      "addr:postcode": "7115",
+      "contact:email": "hotelclamantis@yahoo.fr",
+      "contact:fax": "222005399/222009221",
+      "name": "Hôtel Clamantis",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6315935664,
+    "category": "hotel",
+    "name": "Hôtel Yahoot",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8801466,
+    "longitude": 11.5182464,
+    "tags": {
+      "@id": "node/6315935664",
+      "check_date": "2023-12-09",
+      "name": "Hôtel Yahoot",
+      "source": "sobzeros",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6316081615,
+    "category": "hotel",
+    "name": "Florencia Hotel",
+    "address": null,
+    "phone": "222218922",
+    "latitude": 3.8804597,
+    "longitude": 11.5068591,
+    "tags": {
+      "@id": "node/6316081615",
+      "contact:phone": "222218922",
+      "name": "Florencia Hotel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6316081616,
+    "category": "hotel",
+    "name": "Hôtel Les Princes",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8813254,
+    "longitude": 11.5024281,
+    "tags": {
+      "@id": "node/6316081616",
+      "name": "Hôtel Les Princes",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6316081617,
+    "category": "hotel",
+    "name": "Hôtel Relais",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8819315,
+    "longitude": 11.5028545,
+    "tags": {
+      "@id": "node/6316081617",
+      "name": "Hôtel Relais",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6316081619,
+    "category": "hotel",
+    "name": "GAMO hôtel",
+    "address": "Rue 2.038",
+    "phone": null,
+    "latitude": 3.8845366,
+    "longitude": 11.5018916,
+    "tags": {
+      "@id": "node/6316081619",
+      "addr:street": "Rue 2.038",
+      "name": "GAMO hôtel",
+      "source": "sobzeros",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6337753924,
+    "category": "hotel",
+    "name": "Meumi Palace",
+    "address": null,
+    "phone": null,
+    "latitude": 3.892264,
+    "longitude": 11.5130446,
+    "tags": {
+      "@id": "node/6337753924",
+      "check_date": "2026-01-12",
+      "name": "Meumi Palace",
+      "source": "sobzeros",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6337774069,
+    "category": "hotel",
+    "name": "Hôtel Laginaque",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8936251,
+    "longitude": 11.5119331,
+    "tags": {
+      "@id": "node/6337774069",
+      "name": "Hôtel Laginaque",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6337780957,
+    "category": "hotel",
+    "name": "Hôtel le Diplomate",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8958167,
+    "longitude": 11.5068906,
+    "tags": {
+      "@id": "node/6337780957",
+      "FONCTION": "Hôtel",
+      "fid": "388",
+      "name": "Hôtel le Diplomate",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6337789128,
+    "category": "hotel",
+    "name": "Hôtel Azur",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8975568,
+    "longitude": 11.5076309,
+    "tags": {
+      "@id": "node/6337789128",
+      "FONCTION": "Hôtel",
+      "fid": "286",
+      "name": "Hôtel Azur",
+      "source": "PFE(IT3) ENSTP Yaoundé - 2010",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6337796757,
+    "category": "hotel",
+    "name": "Hotel le bon séjour",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8832548,
+    "longitude": 11.5131247,
+    "tags": {
+      "@id": "node/6337796757",
+      "FONCTION": "Hôtel",
+      "fid": "228",
+      "name": "Hotel le bon séjour",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6337800124,
+    "category": "hotel",
+    "name": "Hôtel La Couronne",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8844101,
+    "longitude": 11.5140025,
+    "tags": {
+      "@id": "node/6337800124",
+      "fid": "235",
+      "name": "Hôtel La Couronne",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6467961393,
+    "category": "hotel",
+    "name": "Barbara & Lennart",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8881347,
+    "longitude": 11.504962,
+    "tags": {
+      "@id": "node/6467961393",
+      "name": "Barbara & Lennart",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6538568085,
+    "category": "hotel",
+    "name": "Bouns hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8673193,
+    "longitude": 11.5175663,
+    "tags": {
+      "@id": "node/6538568085",
+      "alt_name": "Boun's",
+      "amenity": "restaurant",
+      "name": "Bouns hotel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 6771703645,
+    "category": "hotel",
+    "name": "Hôtel Positif",
+    "address": null,
+    "phone": "+237 6 73 35 72 08; +237 6 59 47 75 96",
+    "latitude": 3.8667809,
+    "longitude": 11.4961892,
+    "tags": {
+      "@id": "node/6771703645",
+      "check_date": "2024-01-05",
+      "name": "Hôtel Positif",
+      "phone": "+237 6 73 35 72 08; +237 6 59 47 75 96",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7131347179,
+    "category": "hotel",
+    "name": "safari",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8696661,
+    "longitude": 11.5026084,
+    "tags": {
+      "@id": "node/7131347179",
+      "name": "safari",
+      "tourism": "motel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7145883354,
+    "category": "hotel",
+    "name": "République Hôtel",
+    "address": null,
+    "phone": "(+237) 222133977",
+    "latitude": 3.8710118,
+    "longitude": 11.5338575,
+    "tags": {
+      "@id": "node/7145883354",
+      "contact:phone": "(+237) 222133977",
+      "name": "République Hôtel",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7148255205,
+    "category": "hotel",
+    "name": "Sifis Hebergement",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8881921,
+    "longitude": 11.5413952,
+    "tags": {
+      "@id": "node/7148255205",
+      "name": "Sifis Hebergement",
+      "tourism": "hostel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7148255414,
+    "category": "hotel",
+    "name": "La Cachette",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8977361,
+    "longitude": 11.5694565,
+    "tags": {
+      "@id": "node/7148255414",
+      "name": "La Cachette",
+      "tourism": "hostel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7162120542,
+    "category": "hotel",
+    "name": "Elle Cabana",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8931093,
+    "longitude": 11.4553747,
+    "tags": {
+      "@id": "node/7162120542",
+      "name": "Elle Cabana",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7162129861,
+    "category": "hotel",
+    "name": "Km Hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.895327,
+    "longitude": 11.4560708,
+    "tags": {
+      "@id": "node/7162129861",
+      "name": "Km Hôtel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7162130138,
+    "category": "hotel",
+    "name": "Mo'o Sa'a Palace",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8718554,
+    "longitude": 11.4740181,
+    "tags": {
+      "@id": "node/7162130138",
+      "name": "Mo'o Sa'a Palace",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7162138641,
+    "category": "hotel",
+    "name": "Hôtel La Fleur",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8723612,
+    "longitude": 11.4807015,
+    "tags": {
+      "@id": "node/7162138641",
+      "name": "Hôtel La Fleur",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7162138646,
+    "category": "hotel",
+    "name": "Hôtel Bome",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8547423,
+    "longitude": 11.4508049,
+    "tags": {
+      "@id": "node/7162138646",
+      "name": "Hôtel Bome",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7162149837,
+    "category": "hotel",
+    "name": "Belvic",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8931401,
+    "longitude": 11.455366,
+    "tags": {
+      "@id": "node/7162149837",
+      "contact:email": "belvichotel@yahoo.com",
+      "name": "Belvic",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7162157735,
+    "category": "hotel",
+    "name": "Petit Coin De Plaisir",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8751724,
+    "longitude": 11.4751661,
+    "tags": {
+      "@id": "node/7162157735",
+      "name": "Petit Coin De Plaisir",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7162157811,
+    "category": "hotel",
+    "name": "Cmr Intr'l Hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8701046,
+    "longitude": 11.44972,
+    "tags": {
+      "@id": "node/7162157811",
+      "name": "Cmr Intr'l Hotel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7162162760,
+    "category": "hotel",
+    "name": "Elle Cabana",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8842994,
+    "longitude": 11.4535082,
+    "tags": {
+      "@id": "node/7162162760",
+      "name": "Elle Cabana",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7162481930,
+    "category": "hotel",
+    "name": "Les 3 Clés",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8852525,
+    "longitude": 11.4643333,
+    "tags": {
+      "@id": "node/7162481930",
+      "name": "Les 3 Clés",
+      "tourism": "motel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7162495819,
+    "category": "hotel",
+    "name": "La Rive",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8750774,
+    "longitude": 11.4641053,
+    "tags": {
+      "@id": "node/7162495819",
+      "name": "La Rive",
+      "tourism": "motel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7162495828,
+    "category": "hotel",
+    "name": "Séduction Motel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8751012,
+    "longitude": 11.446329,
+    "tags": {
+      "@id": "node/7162495828",
+      "name": "Séduction Motel",
+      "tourism": "motel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7162505230,
+    "category": "hotel",
+    "name": "La Papillote",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8892826,
+    "longitude": 11.4533054,
+    "tags": {
+      "@id": "node/7162505230",
+      "name": "La Papillote",
+      "tourism": "motel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7178909385,
+    "category": "hotel",
+    "name": "5 étoiles house",
+    "address": "Rue 4.413",
+    "phone": null,
+    "latitude": 3.8408454,
+    "longitude": 11.5929911,
+    "tags": {
+      "@id": "node/7178909385",
+      "addr:street": "Rue 4.413",
+      "name": "5 étoiles house",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181642953,
+    "category": "hotel",
+    "name": "Hôtel Le Paradis",
+    "address": null,
+    "phone": null,
+    "latitude": 3.898489,
+    "longitude": 11.5442302,
+    "tags": {
+      "@id": "node/7181642953",
+      "name": "Hôtel Le Paradis",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181643351,
+    "category": "hotel",
+    "name": "Hotêl Intel International",
+    "address": null,
+    "phone": null,
+    "latitude": 3.9010702,
+    "longitude": 11.5452167,
+    "tags": {
+      "@id": "node/7181643351",
+      "name": "Hotêl Intel International",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181643352,
+    "category": "hotel",
+    "name": "Graces Hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.9001223,
+    "longitude": 11.5469075,
+    "tags": {
+      "@id": "node/7181643352",
+      "name": "Graces Hotel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181651729,
+    "category": "hotel",
+    "name": "Hôtel Mansel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8824618,
+    "longitude": 11.5343208,
+    "tags": {
+      "@id": "node/7181651729",
+      "name": "Hôtel Mansel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181653261,
+    "category": "hotel",
+    "name": "Complexe De La Capitale",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8799195,
+    "longitude": 11.534024,
+    "tags": {
+      "@id": "node/7181653261",
+      "name": "Complexe De La Capitale",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181653262,
+    "category": "hotel",
+    "name": "Hotel Meli Melo Sarl",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8798946,
+    "longitude": 11.5336528,
+    "tags": {
+      "@id": "node/7181653262",
+      "name": "Hotel Meli Melo Sarl",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181655129,
+    "category": "hotel",
+    "name": "Hôtel Jardin D'eden",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8991485,
+    "longitude": 11.5459992,
+    "tags": {
+      "@id": "node/7181655129",
+      "name": "Hôtel Jardin D'eden",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181671369,
+    "category": "hotel",
+    "name": "Ndiadji Hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8793745,
+    "longitude": 11.5347334,
+    "tags": {
+      "@id": "node/7181671369",
+      "name": "Ndiadji Hôtel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181680280,
+    "category": "hotel",
+    "name": "Nostra Venusa Sarl Motel Salvador",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8845865,
+    "longitude": 11.5355121,
+    "tags": {
+      "@id": "node/7181680280",
+      "name": "Nostra Venusa Sarl Motel Salvador",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181699571,
+    "category": "hotel",
+    "name": "Olympic Hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8765252,
+    "longitude": 11.5452562,
+    "tags": {
+      "@id": "node/7181699571",
+      "name": "Olympic Hotel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181721038,
+    "category": "hotel",
+    "name": "Jeunesse Hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8746487,
+    "longitude": 11.5436512,
+    "tags": {
+      "@id": "node/7181721038",
+      "name": "Jeunesse Hôtel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181721039,
+    "category": "hotel",
+    "name": "Travel Lodges",
+    "address": null,
+    "phone": "(+237) 690745313",
+    "latitude": 3.8748374,
+    "longitude": 11.5429289,
+    "tags": {
+      "@id": "node/7181721039",
+      "contact:phone": "(+237) 690745313",
+      "name": "Travel Lodges",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181721374,
+    "category": "hotel",
+    "name": "Matonsi Hôtel",
+    "address": null,
+    "phone": "(+237) 222223689",
+    "latitude": 3.8772149,
+    "longitude": 11.5478258,
+    "tags": {
+      "@id": "node/7181721374",
+      "contact:phone": "(+237) 222223689",
+      "name": "Matonsi Hôtel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181722385,
+    "category": "hotel",
+    "name": "Le Papyrus",
+    "address": null,
+    "phone": "(+237) 222227169",
+    "latitude": 3.8771933,
+    "longitude": 11.5439995,
+    "tags": {
+      "@id": "node/7181722385",
+      "contact:phone": "(+237) 222227169",
+      "name": "Le Papyrus",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181722386,
+    "category": "hotel",
+    "name": "Montadieu",
+    "address": null,
+    "phone": "(+237) 652569528",
+    "latitude": 3.8779193,
+    "longitude": 11.5448299,
+    "tags": {
+      "@id": "node/7181722386",
+      "contact:phone": "(+237) 652569528",
+      "name": "Montadieu",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181722387,
+    "category": "hotel",
+    "name": "Résidence Manlõn",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8781059,
+    "longitude": 11.5445856,
+    "tags": {
+      "@id": "node/7181722387",
+      "name": "Résidence Manlõn",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181722388,
+    "category": "hotel",
+    "name": "Luxxor Hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8769515,
+    "longitude": 11.5435327,
+    "tags": {
+      "@id": "node/7181722388",
+      "name": "Luxxor Hôtel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181744122,
+    "category": "hotel",
+    "name": "Appartements Victoire",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8734236,
+    "longitude": 11.541569,
+    "tags": {
+      "@id": "node/7181744122",
+      "name": "Appartements Victoire",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181753490,
+    "category": "hotel",
+    "name": "Badenk",
+    "address": null,
+    "phone": "(+237) 672240892",
+    "latitude": 3.8725667,
+    "longitude": 11.537842,
+    "tags": {
+      "@id": "node/7181753490",
+      "addr:postcode": "Bp. 709 yaoundé",
+      "contact:phone": "(+237) 672240892",
+      "name": "Badenk",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181753491,
+    "category": "hotel",
+    "name": "Maguy",
+    "address": null,
+    "phone": "(+237) 22228688",
+    "latitude": 3.8737132,
+    "longitude": 11.5371692,
+    "tags": {
+      "@id": "node/7181753491",
+      "addr:postcode": "Bp.1853",
+      "contact:phone": "(+237) 22228688",
+      "name": "Maguy",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181762635,
+    "category": "hotel",
+    "name": "La Life",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8699742,
+    "longitude": 11.5328374,
+    "tags": {
+      "@id": "node/7181762635",
+      "name": "La Life",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181762636,
+    "category": "hotel",
+    "name": "Washington Hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8717202,
+    "longitude": 11.5342785,
+    "tags": {
+      "@id": "node/7181762636",
+      "name": "Washington Hôtel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181762637,
+    "category": "hotel",
+    "name": "République Hôtel",
+    "address": null,
+    "phone": "(+237) 222133977",
+    "latitude": 3.8710299,
+    "longitude": 11.5337143,
+    "tags": {
+      "@id": "node/7181762637",
+      "contact:phone": "(+237) 222133977",
+      "name": "République Hôtel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7181762638,
+    "category": "hotel",
+    "name": "Hôtel De L'avenir",
+    "address": null,
+    "phone": "(+237) 67424046",
+    "latitude": 3.8773246,
+    "longitude": 11.5481302,
+    "tags": {
+      "@id": "node/7181762638",
+      "addr:postcode": "Bp:3108",
+      "contact:phone": "(+237) 67424046",
+      "name": "Hôtel De L'avenir",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7191216882,
+    "category": "hotel",
+    "name": "Motel Quart De Tour",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8850152,
+    "longitude": 11.5514822,
+    "tags": {
+      "@id": "node/7191216882",
+      "name": "Motel Quart De Tour",
+      "opening_hours": "true",
+      "tourism": "motel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7191216883,
+    "category": "hotel",
+    "name": "Motel Rosa Blanca",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8840042,
+    "longitude": 11.5529586,
+    "tags": {
+      "@id": "node/7191216883",
+      "name": "Motel Rosa Blanca",
+      "tourism": "motel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7191223832,
+    "category": "hotel",
+    "name": "Motel Jakarta City",
+    "address": null,
+    "phone": "(+237) 650586915",
+    "latitude": 3.9005566,
+    "longitude": 11.5687215,
+    "tags": {
+      "@id": "node/7191223832",
+      "contact:phone": "(+237) 650586915",
+      "name": "Motel Jakarta City",
+      "tourism": "motel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7191225350,
+    "category": "hotel",
+    "name": "Motel La Griffe",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8754941,
+    "longitude": 11.5417763,
+    "tags": {
+      "@id": "node/7191225350",
+      "name": "Motel La Griffe",
+      "tourism": "motel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7191225351,
+    "category": "hotel",
+    "name": "Le Marseillais",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8752839,
+    "longitude": 11.5411478,
+    "tags": {
+      "@id": "node/7191225351",
+      "name": "Le Marseillais",
+      "tourism": "motel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7191228540,
+    "category": "hotel",
+    "name": "Le Baroko Vip",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8995959,
+    "longitude": 11.5513814,
+    "tags": {
+      "@id": "node/7191228540",
+      "name": "Le Baroko Vip",
+      "tourism": "motel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7191260347,
+    "category": "hotel",
+    "name": "Le Métro",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8721531,
+    "longitude": 11.5380223,
+    "tags": {
+      "@id": "node/7191260347",
+      "name": "Le Métro",
+      "tourism": "motel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7191268854,
+    "category": "hotel",
+    "name": "Motel Chat Blanc",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8921439,
+    "longitude": 11.5472149,
+    "tags": {
+      "@id": "node/7191268854",
+      "name": "Motel Chat Blanc",
+      "tourism": "motel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7191273311,
+    "category": "hotel",
+    "name": "Motel Cousin Castor",
+    "address": null,
+    "phone": null,
+    "latitude": 3.869552,
+    "longitude": 11.5310714,
+    "tags": {
+      "@id": "node/7191273311",
+      "name": "Motel Cousin Castor",
+      "tourism": "motel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7192964946,
+    "category": "hotel",
+    "name": "Taf Sport",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8898648,
+    "longitude": 11.5354926,
+    "tags": {
+      "@id": "node/7192964946",
+      "name": "Taf Sport",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7192969414,
+    "category": "hotel",
+    "name": "Felidac Hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8790045,
+    "longitude": 11.5406683,
+    "tags": {
+      "@id": "node/7192969414",
+      "name": "Felidac Hotel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7192992511,
+    "category": "hotel",
+    "name": "Hôtel La Renardière",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8877462,
+    "longitude": 11.5466208,
+    "tags": {
+      "@id": "node/7192992511",
+      "name": "Hôtel La Renardière",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7193000727,
+    "category": "hotel",
+    "name": "Michou Hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8955157,
+    "longitude": 11.5441337,
+    "tags": {
+      "@id": "node/7193000727",
+      "name": "Michou Hôtel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7193001111,
+    "category": "hotel",
+    "name": "Mfandena",
+    "address": null,
+    "phone": null,
+    "latitude": 3.888608,
+    "longitude": 11.537109,
+    "tags": {
+      "@id": "node/7193001111",
+      "name": "Mfandena",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7193030669,
+    "category": "hotel",
+    "name": "Hotel Blanco",
+    "address": null,
+    "phone": null,
+    "latitude": 3.9085993,
+    "longitude": 11.5409057,
+    "tags": {
+      "@id": "node/7193030669",
+      "addr:postcode": "BP4112 yaounde-cameroun",
+      "name": "Hotel Blanco",
+      "note:nombre de chambres": "16",
+      "number_of_apartments": "4",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "1",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7193040053,
+    "category": "hotel",
+    "name": "Maison D'hôte Clin D'oeil",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8821208,
+    "longitude": 11.5477617,
+    "tags": {
+      "@id": "node/7193040053",
+      "name": "Maison D'hôte Clin D'oeil",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7193048413,
+    "category": "hotel",
+    "name": "Segmad Hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.9093949,
+    "longitude": 11.5399059,
+    "tags": {
+      "@id": "node/7193048413",
+      "contact:website": "www.segmadhotel.com",
+      "name": "Segmad Hôtel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7193052519,
+    "category": "hotel",
+    "name": "Hotel Misa",
+    "address": null,
+    "phone": null,
+    "latitude": 3.9088177,
+    "longitude": 11.5638531,
+    "tags": {
+      "@id": "node/7193052519",
+      "name": "Hotel Misa",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7193079368,
+    "category": "hotel",
+    "name": "Hotel Miradir Sarl",
+    "address": null,
+    "phone": "(+237) 22226648/",
+    "latitude": 3.862052,
+    "longitude": 11.5248005,
+    "tags": {
+      "@id": "node/7193079368",
+      "addr:postcode": "BP: 12811 YAOUNDE",
+      "contact:phone": "(+237) 22226648/",
+      "name": "Hotel Miradir Sarl",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7193085259,
+    "category": "hotel",
+    "name": "Hôtel Jouvence 2000",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8758337,
+    "longitude": 11.5308395,
+    "tags": {
+      "@id": "node/7193085259",
+      "name": "Hôtel Jouvence 2000",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7193086295,
+    "category": "hotel",
+    "name": "Hôtel les Pyramides",
+    "address": null,
+    "phone": "(+237) 222 22 34 91",
+    "latitude": 3.8800007,
+    "longitude": 11.5539117,
+    "tags": {
+      "@id": "node/7193086295",
+      "addr:postcode": "BP 367",
+      "contact:phone": "(+237) 222 22 34 91",
+      "name": "Hôtel les Pyramides",
+      "note:nombre de chambres": "22",
+      "source": "survey:PFE(IT3) ENSTP Yaounde 2010",
+      "stars": "1",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7193087518,
+    "category": "hotel",
+    "name": "Hôtel Succès Plus",
+    "address": null,
+    "phone": "(+237) 222225634",
+    "latitude": 3.8631531,
+    "longitude": 11.5280971,
+    "tags": {
+      "@id": "node/7193087518",
+      "contact:phone": "(+237) 222225634",
+      "name": "Hôtel Succès Plus",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7193092766,
+    "category": "hotel",
+    "name": "Hôtel Jouvence International",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8713812,
+    "longitude": 11.5283382,
+    "tags": {
+      "@id": "node/7193092766",
+      "check_date": "2026-03-22",
+      "name": "Hôtel Jouvence International",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7249769387,
+    "category": "hotel",
+    "name": "Santa Belle",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8544534,
+    "longitude": 11.4902221,
+    "tags": {
+      "@id": "node/7249769387",
+      "name": "Santa Belle",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7902231386,
+    "category": "hotel",
+    "name": "Maison de Sephora",
+    "address": null,
+    "phone": null,
+    "latitude": 3.7819688,
+    "longitude": 11.5187006,
+    "tags": {
+      "@id": "node/7902231386",
+      "name": "Maison de Sephora",
+      "name:en": "Sephora's House",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7902231485,
+    "category": "hotel",
+    "name": "Maison de Sephora",
+    "address": null,
+    "phone": null,
+    "latitude": 3.7293842,
+    "longitude": 11.5380932,
+    "tags": {
+      "@id": "node/7902231485",
+      "name": "Maison de Sephora",
+      "name:en": "Sephora's House",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 7902231486,
+    "category": "hotel",
+    "name": "Maison de Sephora",
+    "address": null,
+    "phone": null,
+    "latitude": 3.7755376,
+    "longitude": 11.5185565,
+    "tags": {
+      "@id": "node/7902231486",
+      "name": "Maison de Sephora",
+      "name:en": "Sephora's House",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 8132406618,
+    "category": "hotel",
+    "name": "Nguela",
+    "address": "Rue Bounoungou Mbono",
+    "phone": null,
+    "latitude": 3.8891161,
+    "longitude": 11.5176779,
+    "tags": {
+      "@id": "node/8132406618",
+      "addr:street": "Rue Bounoungou Mbono",
+      "internet_access": "wlan",
+      "name": "Nguela",
+      "name:en": "Guela",
+      "opening_hours": "24/7",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 8194659121,
+    "category": "hotel",
+    "name": "Kenny's Great House",
+    "address": null,
+    "phone": "+237697213030",
+    "latitude": 3.8969628,
+    "longitude": 11.512544,
+    "tags": {
+      "@id": "node/8194659121",
+      "amenity": "restaurant",
+      "name": "Kenny's Great House",
+      "phone": "+237697213030",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 8212709818,
+    "category": "hotel",
+    "name": "Home La Sapinière",
+    "address": "Rue Ntonga Pie",
+    "phone": null,
+    "latitude": 3.9835008,
+    "longitude": 11.5938893,
+    "tags": {
+      "@id": "node/8212709818",
+      "addr:street": "Rue Ntonga Pie",
+      "name": "Home La Sapinière",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 8595806225,
+    "category": "hotel",
+    "name": "Hotel la Solution de Mfomakap",
+    "address": "Yaounde - Obala",
+    "phone": "+237696513078",
+    "latitude": 4.0325427,
+    "longitude": 11.5537916,
+    "tags": {
+      "@id": "node/8595806225",
+      "addr:street": "Yaounde - Obala",
+      "name": "Hotel la Solution de Mfomakap",
+      "name:en": "Hotel la Solution of Mfomakap",
+      "operator": "MESSI TSALA",
+      "phone": "+237696513078",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 9049183570,
+    "category": "hotel",
+    "name": "Arenah Hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.953114,
+    "longitude": 11.5283601,
+    "tags": {
+      "@id": "node/9049183570",
+      "name": "Arenah Hôtel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 9111649017,
+    "category": "hotel",
+    "name": "Summit palace",
+    "address": null,
+    "phone": null,
+    "latitude": 3.9090127,
+    "longitude": 11.526819,
+    "tags": {
+      "@id": "node/9111649017",
+      "name": "Summit palace",
+      "stars": "3",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 9463019417,
+    "category": "hotel",
+    "name": "Maison Armando Éleveur",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8966692,
+    "longitude": 11.5640447,
+    "tags": {
+      "@id": "node/9463019417",
+      "name": "Maison Armando Éleveur",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 9464121518,
+    "category": "hotel",
+    "name": "Visite",
+    "address": null,
+    "phone": null,
+    "latitude": 3.9283403,
+    "longitude": 11.5260111,
+    "tags": {
+      "@id": "node/9464121518",
+      "name": "Visite",
+      "name:fr": "Visite appartement",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 9465485918,
+    "category": "hotel",
+    "name": "Visites Ngousso Olembe Maison",
+    "address": null,
+    "phone": null,
+    "latitude": 3.9327523,
+    "longitude": 11.5415892,
+    "tags": {
+      "@id": "node/9465485918",
+      "name": "Visites Ngousso Olembe Maison",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 9494868409,
+    "category": "hotel",
+    "name": "Star Land",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8942593,
+    "longitude": 11.5134234,
+    "tags": {
+      "@id": "node/9494868409",
+      "name": "Star Land",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 9825652774,
+    "category": "hotel",
+    "name": "MEUMI Hôtel",
+    "address": null,
+    "phone": "+237694565184",
+    "latitude": 3.8891702,
+    "longitude": 11.5196787,
+    "tags": {
+      "@id": "node/9825652774",
+      "name": "MEUMI Hôtel",
+      "phone": "+237694565184",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 10029724175,
+    "category": "hotel",
+    "name": "Welcome Garden’s Hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.9722515,
+    "longitude": 11.5977846,
+    "tags": {
+      "@id": "node/10029724175",
+      "name": "Welcome Garden’s Hotel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 10171194518,
+    "category": "hotel",
+    "name": "Hotel Kamthe",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8311285,
+    "longitude": 11.470322,
+    "tags": {
+      "@id": "node/10171194518",
+      "name": "Hotel Kamthe",
+      "survey:date": "2022-11-08",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 10225296117,
+    "category": "hotel",
+    "name": "Immeuble MAJA",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8406501,
+    "longitude": 11.4779096,
+    "tags": {
+      "@id": "node/10225296117",
+      "name": "Immeuble MAJA",
+      "survey:date": "2022-11-29",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 10225353817,
+    "category": "hotel",
+    "name": "Pascalia Hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8428262,
+    "longitude": 11.4765344,
+    "tags": {
+      "@id": "node/10225353817",
+      "name": "Pascalia Hôtel",
+      "survey:date": "2022-11-29",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 11007426705,
+    "category": "hotel",
+    "name": "Montreal Hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8832331,
+    "longitude": 11.5190378,
+    "tags": {
+      "@id": "node/11007426705",
+      "name": "Montreal Hotel",
+      "survey:date": "2023-04-10",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 11178388337,
+    "category": "hotel",
+    "name": "Juracel Lodge Hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8520891,
+    "longitude": 11.5268564,
+    "tags": {
+      "@id": "node/11178388337",
+      "name": "Juracel Lodge Hotel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 11399989829,
+    "category": "hotel",
+    "name": "IRIS Hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.7959088,
+    "longitude": 11.5199973,
+    "tags": {
+      "@id": "node/11399989829",
+      "name": "IRIS Hotel",
+      "survey:date": "2023-08-09",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 11401041302,
+    "category": "hotel",
+    "name": "United Hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8741627,
+    "longitude": 11.5155389,
+    "tags": {
+      "@id": "node/11401041302",
+      "bar": "yes",
+      "building:levels": "8",
+      "check_date": "2024-06-03",
+      "internet_access": "wlan",
+      "internet_access:fee": "customers",
+      "name": "United Hotel",
+      "reservation": "yes",
+      "source": "survey",
+      "stars": "4",
+      "tourism": "hotel",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 11536870670,
+    "category": "hotel",
+    "name": "Village Virginie FOUE",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8893603,
+    "longitude": 11.3573867,
+    "tags": {
+      "@id": "node/11536870670",
+      "name": "Village Virginie FOUE",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 11536870671,
+    "category": "hotel",
+    "name": "chez DADA",
+    "address": null,
+    "phone": "699145494",
+    "latitude": 3.8754505,
+    "longitude": 11.5047443,
+    "tags": {
+      "@id": "node/11536870671",
+      "name": "chez DADA",
+      "phone": "699145494",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 11536877972,
+    "category": "hotel",
+    "name": "Sanda Oumarou Ibrahim OSI",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8893994,
+    "longitude": 11.5120336,
+    "tags": {
+      "@id": "node/11536877972",
+      "name": "Sanda Oumarou Ibrahim OSI",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 11662217169,
+    "category": "hotel",
+    "name": "suita hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8923583,
+    "longitude": 11.5123297,
+    "tags": {
+      "@id": "node/11662217169",
+      "name": "suita hotel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 11727093169,
+    "category": "hotel",
+    "name": "Maison Moussa Kadjoum",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8320689,
+    "longitude": 11.483936,
+    "tags": {
+      "@id": "node/11727093169",
+      "name": "Maison Moussa Kadjoum",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 11752403458,
+    "category": "hotel",
+    "name": "Heaven",
+    "address": null,
+    "phone": null,
+    "latitude": 3.862479,
+    "longitude": 11.5038349,
+    "tags": {
+      "@id": "node/11752403458",
+      "description": "#SGRAD",
+      "name": "Heaven",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 11752405033,
+    "category": "hotel",
+    "name": "Sinaha",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8623967,
+    "longitude": 11.5038565,
+    "tags": {
+      "@id": "node/11752405033",
+      "description": "#SGRAD",
+      "name": "Sinaha",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 11752420631,
+    "category": "hotel",
+    "name": "Sims appart hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8623556,
+    "longitude": 11.5038344,
+    "tags": {
+      "@id": "node/11752420631",
+      "description": "#SGRAD",
+      "name": "Sims appart hôtel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 11752432069,
+    "category": "hotel",
+    "name": "Nk",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8634609,
+    "longitude": 11.4993003,
+    "tags": {
+      "@id": "node/11752432069",
+      "description": "#SGRAD",
+      "name": "Nk",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 12155545232,
+    "category": "hotel",
+    "name": "CTR Bastos",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8984334,
+    "longitude": 11.5111244,
+    "tags": {
+      "@id": "node/12155545232",
+      "name": "CTR Bastos",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 12278946349,
+    "category": "hotel",
+    "name": "Hotel le Kremlin",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8287313,
+    "longitude": 11.4798029,
+    "tags": {
+      "@id": "node/12278946349",
+      "name": "Hotel le Kremlin",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 12311707116,
+    "category": "hotel",
+    "name": "Lagon Club et Affaires",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8998114,
+    "longitude": 11.507653,
+    "tags": {
+      "@id": "node/12311707116",
+      "name": "Lagon Club et Affaires",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 12441688001,
+    "category": "hotel",
+    "name": "Fido Hôtel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8254662,
+    "longitude": 11.5060763,
+    "tags": {
+      "@id": "node/12441688001",
+      "name": "Fido Hôtel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 12546718180,
+    "category": "hotel",
+    "name": "Hôtel Freesia",
+    "address": null,
+    "phone": "222230704",
+    "latitude": 3.8839261,
+    "longitude": 11.550395,
+    "tags": {
+      "@id": "node/12546718180",
+      "name": "Hôtel Freesia",
+      "phone": "222230704",
+      "tourism": "hotel",
+      "website": "https://www.hotelfreesia.com/"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 12718930820,
+    "category": "hotel",
+    "name": "Centre pastoral d'Okola",
+    "address": null,
+    "phone": null,
+    "latitude": 4.0210483,
+    "longitude": 11.3854946,
+    "tags": {
+      "@id": "node/12718930820",
+      "name": "Centre pastoral d'Okola",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 13076227607,
+    "category": "hotel",
+    "name": "Hôtel le Flamboyant",
+    "address": null,
+    "phone": null,
+    "latitude": 3.801362,
+    "longitude": 11.524627,
+    "tags": {
+      "@id": "node/13076227607",
+      "name": "Hôtel le Flamboyant",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 13628665162,
+    "category": "hotel",
+    "name": "Albatros Premium",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8560954,
+    "longitude": 11.5222311,
+    "tags": {
+      "@id": "node/13628665162",
+      "name": "Albatros Premium",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 13747726143,
+    "category": "hotel",
+    "name": "Menat Hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.90376,
+    "longitude": 11.5339203,
+    "tags": {
+      "@id": "node/13747726143",
+      "name": "Menat Hotel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 13763670506,
+    "category": "hotel",
+    "name": "Lynna Hotel",
+    "address": null,
+    "phone": null,
+    "latitude": 3.7400425,
+    "longitude": 11.5331726,
+    "tags": {
+      "@id": "node/13763670506",
+      "name": "Lynna Hotel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 13785295012,
+    "category": "hotel",
+    "name": "Park Center Complex",
+    "address": null,
+    "phone": null,
+    "latitude": 3.7997131,
+    "longitude": 11.50472,
+    "tags": {
+      "@id": "node/13785295012",
+      "name": "Park Center Complex",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 14058627021,
+    "category": "hotel",
+    "name": "Massa Residence Meublé",
+    "address": null,
+    "phone": "+237676961949",
+    "latitude": 3.9259065,
+    "longitude": 11.5607553,
+    "tags": {
+      "@id": "node/14058627021",
+      "email": "massaresidence13@gmail.com",
+      "internet_access": "yes",
+      "internet_access:fee": "no",
+      "name": "Massa Residence Meublé",
+      "phone": "+237676961949",
+      "rooms": "13",
+      "tourism": "hotel",
+      "website": "www.massaresidence.com"
+    }
+  },
+  {
+    "osm_type": "node",
+    "osm_id": 14058627022,
+    "category": "hotel",
+    "name": "Massa Residence Meublé Yaounde",
+    "address": null,
+    "phone": null,
+    "latitude": 3.9262156,
+    "longitude": 11.5607779,
+    "tags": {
+      "@id": "node/14058627022",
+      "email": "massaresidence13@gmail.com",
+      "internet_access:fee": "no",
+      "name": "Massa Residence Meublé Yaounde",
+      "rooms": "13",
+      "tourism": "hotel",
+      "website": "www.massaresidence.com"
+    }
+  }
+]

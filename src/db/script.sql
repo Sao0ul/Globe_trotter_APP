@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS sites (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     title VARCHAR(255) NOT NULL,
     description TEXT,
+    bon_a_savoir TEXT,
     location VARCHAR(255) NOT NULL,
     author VARCHAR(100) NOT NULL DEFAULT 'anonyme',
     image_url VARCHAR(500),
@@ -121,6 +122,10 @@ CREATE TABLE IF NOT EXISTS lieux_touristiques (
     longitude DOUBLE PRECISION NOT NULL,
     address VARCHAR(255),
     phone VARCHAR(255),
+    description TEXT,
+    bon_a_savoir TEXT,
+    image_url VARCHAR(500),
+    video_url VARCHAR(500),
     geom GEOMETRY(Point, 4326),
 
     -- Référence OSM composite : les ID OSM ne sont uniques que

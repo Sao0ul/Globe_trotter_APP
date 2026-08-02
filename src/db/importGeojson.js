@@ -3,6 +3,7 @@ require('dotenv').config({ path: require('path').join(__dirname, '../../.env') }
 const fs = require('fs');
 const path = require('path');
 const pool = require('./pool');
+const { determineCategory } = require('./osmTagMapping');
 
 
 // ==========================================================
@@ -14,62 +15,6 @@ const pool = require('./pool');
 //pour run
 // docker compose exec api node src / db / importGeojson.js src / db /export.geojson 
 
-
-function determineCategory(tags) {
-
-    // Hôtels et hébergements
-    if (
-        tags.tourism === 'hotel' ||
-        tags.tourism === 'guest_house' ||
-        tags.tourism === 'hostel' ||
-        tags.tourism === 'motel'
-    ) {
-        return 'hotel';
-    }
-
-    // Restaurants, cafés et fast-foods
-    if (
-        tags.amenity === 'restaurant' ||
-        tags.amenity === 'cafe' ||
-        tags.amenity === 'fast_food'
-    ) {
-        return 'restaurant';
-    }
-
-    // Hôpitaux
-    if (tags.amenity === 'hospital') {
-        return 'hopital';
-    }
-
-    // Cliniques, médecins et dentistes
-    if (
-        tags.amenity === 'clinic' ||
-        tags.amenity === 'doctors' ||
-        tags.amenity === 'dentist'
-    ) {
-        return 'clinique';
-    }
-
-    // Pharmacies
-    if (tags.amenity === 'pharmacy') {
-        return 'pharmacie';
-    }
-
-    // Attractions et lieux touristiques
-    if (
-        tags.tourism === 'attraction' ||
-        tags.tourism === 'museum' ||
-        tags.tourism === 'gallery' ||
-        tags.tourism === 'zoo' ||
-        tags.tourism === 'theme_park' ||
-        tags.historic
-    ) {
-        return 'site_touristique';
-    }
-
-    // Tag non reconnu : le lieu sera ignoré
-    return null;
-}
 
 
 // ==========================================================

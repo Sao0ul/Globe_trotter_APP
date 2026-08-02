@@ -168,7 +168,9 @@ function toFrontendSite(row) {
     id: row.id,
     titre: row.title,
     description: row.description,
+    bonASavoir: row.bon_a_savoir,
     localisation: row.location,
+    media,
 
     categorie:
       CATEGORY_EN_TO_FR[row.category] || row.category,
@@ -265,6 +267,7 @@ const createSiteHandler = asyncHandler(async (req, res) => {
     localisation,
     categorie,
     description,
+    bonASavoir,
     imageUrl,
     difficulte,
     dangerosite,
@@ -329,6 +332,7 @@ const createSiteHandler = asyncHandler(async (req, res) => {
     id: crypto.randomUUID(),
     title: titre,
     description: description || '',
+    bonASavoir: bonASavoir || null,
     location: localisation,
     category:
       CATEGORY_FR_TO_EN[categorie] || 'other',
