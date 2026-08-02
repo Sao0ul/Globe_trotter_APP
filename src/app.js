@@ -8,6 +8,7 @@ const errorHandler = require('./middlewares/errorHandler');
 const authRoutes = require('./routes/authRoutes');
 const sitesRoutes = require('./routes/sitesRoutes');
 const userRoutes = require('./routes/userRoutes');
+const itineraireRoutes = require('./routes/itineraireRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -27,7 +28,7 @@ app.get('/health', (req, res) => {
 app.use('/api/sites', sitesRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
-
+app.use('/api/itineraire', itineraireRoutes);
 // doit rester le DERNIER app.use : capture les erreurs de toutes les routes ci-dessus
 app.use(errorHandler);
 

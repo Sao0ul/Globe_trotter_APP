@@ -29,6 +29,7 @@ function mapUserRow(user) {
 }
 
 // Cherche un utilisateur par email — utilisé pour login et éviter les doublons à l'inscription
+// Find a user by email to support login and duplicate prevention at registration.
 async function findByEmail(email) {
   const { rows } = await pool.query(
     'SELECT * FROM users WHERE email = $1 LIMIT 1',
@@ -47,7 +48,7 @@ async function findById(id) {
   return rows[0] ? mapUserRow(rows[0]) : null;
 }
 
-// Cherche un utilisateur par son token de vérification — utilisé lors du clic sur le lien de confirmation
+// Find a user by verification token used by the confirmation link workflow.
 async function findByVerificationToken(token) {
   const { rows } = await pool.query(
     'SELECT * FROM users WHERE verification_token = $1 LIMIT 1',
@@ -57,12 +58,12 @@ async function findByVerificationToken(token) {
   return rows[0] ? mapUserRow(rows[0]) : null;
 }
 
-// Crée un nouvel utilisateur, non vérifié par défaut, avec un token de confirmation
+// Create a new user and return the public payload expected by the controller.
 async function createUser({ id, email, passwordHash, username, verificationToken, preferences }) {
   const { rows } = await pool.query(
     `INSERT INTO users (id, email, password_hash, username, preferences, is_verified, verification_token)
      VALUES ($1, $2, $3, $4, $5, FALSE, $6)
-     RETURNING *`,
+     RETURNING id, email, username, is_verified AS "isVerified", created_at AS "createdAt", preferences`,
     [
      id,
      email,
@@ -85,15 +86,15 @@ async function createUser({ id, email, passwordHash, username, verificationToken
   };
 }
 
-// Marque le compte comme vérifié et supprime le token (usage unique)
+// Mark the account as verified and clear the one-time token.
 async function verifyUser(token) {
   const { rowCount } = await pool.query(
-    `UPDATE users SET is_verified = TRUE, verification_token = NULL
+    `UPDATE users
+     SET is_verified = TRUE, verification_token = NULL
      WHERE verification_token = $1`,
     [token]
   );
 
-  // rowCount > 0 confirme qu'un compte correspondait bien à ce token
   return rowCount > 0;
 }
 

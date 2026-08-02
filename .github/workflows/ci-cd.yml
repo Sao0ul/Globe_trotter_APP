@@ -23,7 +23,7 @@ jobs:
           cat <<EOF > .env
           DB_HOST=db
           DB_PORT=5432
-          DB_NAME=globetrotter_app
+          DB_NAME=GlobeTrotterAPP_DB
           DB_USER=test_user
           DB_PASSWORD=test_pass
           PEXELS_API_KEY=mock_key
@@ -54,19 +54,13 @@ jobs:
 
       # ⚙️ ÉTAPE 2 : Préparation de l'environnement pour l'intégration
       #
-      # CORRECTIF : on démarre UNIQUEMENT le service "db" ici, pas toute la
-      # stack. Avant, "docker compose up -d --build" démarrait l'API en même
-      # temps que la DB — or script.sql fait un DROP DATABASE + CREATE DATABASE
-      # juste après. Si l'API avait déjà ouvert des connexions à ce moment-là,
-      # le DROP les invalidait en plein vol, ce qui pouvait faire planter l'API
-      # silencieusement et faire échouer "Wait for API" pour une mauvaise raison
-      # (l'API crashée, pas juste "pas encore prête").
-      # En ne démarrant que "db" ici, on garantit que le schéma est appliqué
-      # AVANT que l'API existe et ne se connecte.
+      # On démarre uniquement le service "db" ici, puis on attend sa santé
+      # avant de lancer l'API. Cela évite une race condition au boot de la
+      # stack pendant l'initialisation de la base PostgreSQL.
       - name: Build and start database container
         run: docker compose up -d --build db
 
-      # Attend que PostgreSQL accepte réellement les connexions
+      # Attend que PostgreSQL accepte réellement les connexions.
       - name: Wait for PostgreSQL
         run: |
           set -a
@@ -80,16 +74,6 @@ jobs:
               sleep 2
             done
           '
-
-      # Applique le schéma sur la base fraîchement créée.
-      # L'API ne démarre qu'une fois cette étape terminée pour éviter
-      # toute connexion prématurée sur une base encore incomplète.
-      - name: Apply database schema
-        run: |
-          set -a
-          source .env
-          set +a
-          docker compose exec -T db psql -U "$DB_USER" -d "$DB_NAME" -f ./src/db/script.sql
 
       # CORRECTIF : l'API est démarrée seulement maintenant, une fois le
       # schéma en place. Elle peut ouvrir ses connexions au pool en sachant

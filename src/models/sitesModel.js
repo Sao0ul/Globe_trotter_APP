@@ -57,17 +57,17 @@ function buildSiteFilterQuery({ search, category, preference } = {}) {
     params.push(`%${preference}%`, `%${preference}%`);
   }
 
-  return {
-    conditions,
-    params,
-  };
+  return { conditions, params };
 }
 
 function buildPaginatedQuery(baseQuery, { page = 1, limit = 20, params = [] } = {}) {
-  const offset = (page - 1) * limit;
+  const normalizedPage = Number(page) || 1;
+  const normalizedLimit = Number(limit) || 20;
+  const offset = (normalizedPage - 1) * normalizedLimit;
+
   return {
     query: `${baseQuery} ORDER BY s.created_at DESC LIMIT $${params.length + 1} OFFSET $${params.length + 2}`,
-    params: [...params, limit, offset],
+    params: [...params, normalizedLimit, offset],
   };
 }
 
@@ -118,8 +118,9 @@ async function persistSiteMedia(client, siteId, mediaEntries) {
 
 // userId : peut être null si l'auteur n'est pas identifié (ex: import externe),
 // mais devrait normalement toujours venir de req.user.id côté controller.
-// Génération d'un id si aucun n'est fourni et validations minimales pour éviter
-// les erreurs d'insertion liées aux champs NOT NULL de la base de données.
+//
+// NOUVEAU (branche geolocalisation) : latitude, longitude, videoUrl ajoutés.
+// ⚠️ Nécessite une migration de schema.sql — voir plus bas.
 async function createSite({
   id,
   title,
@@ -128,6 +129,9 @@ async function createSite({
   category,
   author,
   imageUrl,
+  videoUrl,
+  latitude,
+  longitude,
   difficulty,
   dangerosity,
   price,
@@ -135,14 +139,9 @@ async function createSite({
   media = [],
 }) {
   const client = await pool.connect();
-
-  // Générer un UUID côté application si l'appelant n'en fournit pas.
   const siteId = id || randomUUID();
 
-  // Validation minimale : s'assurer des champs requis par la table `sites`.
   if (!title || !location) {
-    // Message d'erreur en anglais pour être cohérent dans les erreurs levées,
-    // mais le commentaire explique en français.
     throw new Error('Missing required fields: title and location are required.');
   }
 
@@ -151,8 +150,8 @@ async function createSite({
 
     const { rows } = await client.query(
      `INSERT INTO sites
-       (id, title, description, location, category, author, image_url, difficulty, dangerosity, price, user_id)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+       (id, title, description, location, category, author, image_url, video_url, latitude, longitude, difficulty, dangerosity, price, user_id)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
        ON CONFLICT (id) DO UPDATE SET
          title = EXCLUDED.title,
          description = EXCLUDED.description,
@@ -160,15 +159,17 @@ async function createSite({
          category = EXCLUDED.category,
          author = EXCLUDED.author,
          image_url = EXCLUDED.image_url,
+         video_url = EXCLUDED.video_url,
+         latitude = EXCLUDED.latitude,
+         longitude = EXCLUDED.longitude,
          difficulty = EXCLUDED.difficulty,
          dangerosity = EXCLUDED.dangerosity,
          price = EXCLUDED.price,
          user_id = EXCLUDED.user_id
        RETURNING *`,
-     [siteId, title, description, location, category, author, imageUrl, difficulty, dangerosity, price, userId]
+     [siteId, title, description, location, category, author, imageUrl, videoUrl, latitude, longitude, difficulty, dangerosity, price, userId]
     );
 
-    // Utiliser l'identifiant retourné (ou celui généré) pour persister les médias.
     await persistSiteMedia(client, rows[0] ? rows[0].id : siteId, media);
     await client.query('COMMIT');
 
@@ -183,19 +184,12 @@ async function createSite({
 
 async function addRating(siteId, rating) {
   const site = await getSiteById(siteId);
-  if (!site) {
-    return null;
-  }
+  if (!site) return null;
 
-  await pool.query(
-    'INSERT INTO ratings (site_id, rating) VALUES ($1, $2)',
-    [siteId, rating]
-  );
-
+  await pool.query('INSERT INTO ratings (site_id, rating) VALUES ($1, $2)', [siteId, rating]);
   return getSiteById(siteId);
 }
 
-// Recherche par préférence (catégorie ou localisation), même pagination que getAllSites
 async function getSiteByPreference(preference, { page = 1, limit = 20 } = {}) {
   return querySites({ preference, page, limit });
 }

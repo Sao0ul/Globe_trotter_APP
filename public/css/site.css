@@ -1170,3 +1170,281 @@ button {
     min-width: 100%;
   }
 }
+
+/* ================= DETAIL / ITINERARY PAGES ================= */
+
+.page-shell {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(244, 200, 104, 0.3), transparent 16%),
+    linear-gradient(135deg, #f7f6ef, #eef5f0 75%);
+}
+
+.page-frame {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.compact-frame {
+  padding-top: 40px;
+}
+
+.detail-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.detail-title-wrap {
+  flex: 1;
+}
+
+.detail-title-wrap h1 {
+  margin: 4px 0 0;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--forest-deep);
+}
+
+.detail-grid,
+.itinerary-layout {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 18px;
+}
+
+.detail-card {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(22, 51, 43, 0.08);
+  box-shadow: var(--shadow);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.detail-media-card,
+.detail-info-card {
+  min-height: 100%;
+}
+
+.detail-video-frame {
+  border-radius: 16px;
+  overflow: hidden;
+  background: #1e2e2b;
+  margin-bottom: 12px;
+}
+
+.detail-video-frame video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  background: #000;
+}
+
+.detail-video-meta,
+.detail-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.detail-location,
+.detail-tag,
+.detail-category,
+.detail-stat-label {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.detail-category {
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.detail-description {
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+.detail-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.detail-stats div {
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(22, 51, 43, 0.04);
+}
+
+.detail-stats strong {
+  display: block;
+  margin-top: 6px;
+  color: var(--forest-deep);
+}
+
+.detail-facts {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--ink);
+  display: grid;
+  gap: 8px;
+}
+
+.info-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(244, 200, 104, 0.25);
+  color: var(--forest-deep);
+  font-size: 0.76rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.map-preview,
+.route-map {
+  position: relative;
+  min-height: 300px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(22, 51, 43, 0.1);
+  background: linear-gradient(180deg, #eff8f5, #f8fbf9);
+}
+
+.map-grid,
+.route-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(22, 51, 43, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(22, 51, 43, 0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.map-marker {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 8px 15px rgba(22, 51, 43, 0.22);
+}
+
+.map-marker::after {
+  content: attr(data-label);
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -110%);
+  background: rgba(22, 51, 43, 0.88);
+  color: white;
+  font-size: 0.7rem;
+  padding: 4px 7px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.map-marker-site {
+  left: 70%;
+  top: 48%;
+  background: #f4c868;
+}
+
+.map-marker-restaurant {
+  left: 30%;
+  top: 66%;
+  background: #d97c45;
+}
+
+.map-marker-hotel {
+  left: 60%;
+  top: 20%;
+  background: #5f8af6;
+}
+
+.map-marker-hospital {
+  left: 78%;
+  top: 72%;
+  background: #d44b64;
+}
+
+.map-marker-transport {
+  left: 24%;
+  top: 18%;
+  background: #2f8b7d;
+}
+
+.detail-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  padding-top: 14px;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.legend-site { background: #f4c868; }
+.legend-restaurant { background: #d97c45; }
+.legend-hotel { background: #5f8af6; }
+.legend-hospital { background: #d44b64; }
+.legend-transport { background: #2f8b7d; }
+
+.route-summary {
+  margin: 0 0 14px;
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+.btn-back {
+  min-width: fit-content;
+}
+
+.placeholder-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(22, 51, 43, 0.08);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  padding: 26px;
+  color: var(--ink);
+}
+
+.card {
+  cursor: pointer;
+}
+
+@media (max-width: 920px) {
+  .detail-grid,
+  .itinerary-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-topbar {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 620px) {
+  .detail-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .page-frame {
+    padding: 14px;
+  }
+}
