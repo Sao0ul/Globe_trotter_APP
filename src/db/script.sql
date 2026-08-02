@@ -70,6 +70,9 @@ CREATE TABLE IF NOT EXISTS sites (
     CONSTRAINT sites_osm_uniq UNIQUE (osm_type, osm_id)
 );
 
+ALTER TABLE IF EXISTS sites
+    ADD COLUMN IF NOT EXISTS bon_a_savoir TEXT;
+
 -- ============================================================
 -- SITE_MEDIA — galerie associée à un site (plusieurs images/vidéos,
 -- avec légende et ordre d'affichage). C'est ICI que doit vivre le
@@ -137,6 +140,12 @@ CREATE TABLE IF NOT EXISTS lieux_touristiques (
 
     CONSTRAINT lieux_touristiques_osm_uniq UNIQUE (osm_type, osm_id)
 );
+
+ALTER TABLE IF EXISTS lieux_touristiques
+    ADD COLUMN IF NOT EXISTS description TEXT,
+    ADD COLUMN IF NOT EXISTS bon_a_savoir TEXT,
+    ADD COLUMN IF NOT EXISTS image_url VARCHAR(500),
+    ADD COLUMN IF NOT EXISTS video_url VARCHAR(500);
 
 -- ============================================================
 -- INDEX
