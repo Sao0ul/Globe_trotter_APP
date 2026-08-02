@@ -16,7 +16,7 @@ services:
   # sans toucher à la base Aiven de production. Inactive par défaut.
   # Pour la lancer : docker compose --profile local-db up
   db:
-    profiles: ["local-db"]
+    #profiles: ["local-db"]
     image: postgis/postgis:17-3.5
     restart: unless-stopped
     environment:

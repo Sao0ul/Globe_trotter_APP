@@ -7,7 +7,7 @@ const schemaSql = fs.readFileSync(schemaPath, 'utf8');
 
 async function bootstrapDatabase() {
   await pool.query(schemaSql);
-  console.log('[db:bootstrap] PostgreSQL schema applied successfully.');
+  console.log('[db:bootstrap] PostgreSQL script applied successfully.');
 }
 
 bootstrapDatabase()
