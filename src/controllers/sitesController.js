@@ -382,23 +382,7 @@ const rateSite = asyncHandler(async (req, res) => {
 // Récupérer un site précis.
 // ==========================================================
 
-const getSiteDetail = asyncHandler(async (req, res) => {
-  const {
-    id,
-  } = req.params;
 
-  const site = await getSiteById(id);
-
-  if (!site) {
-    return res.status(404).json({
-      error: 'site introuvable',
-    });
-  }
-
-  res.json(
-    toFrontendSite(site)
-  );
-});
 
 
 // ==========================================================
