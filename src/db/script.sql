@@ -71,7 +71,9 @@ CREATE TABLE IF NOT EXISTS sites (
 );
 
 ALTER TABLE IF EXISTS sites
-    ADD COLUMN IF NOT EXISTS bon_a_savoir TEXT;
+    ADD COLUMN IF NOT EXISTS bon_a_savoir TEXT,
+    ADD COLUMN IF NOT EXISTS image_url VARCHAR(500),
+    ADD COLUMN IF NOT EXISTS video_url VARCHAR(500);
 
 -- ============================================================
 -- SITE_MEDIA — galerie associée à un site (plusieurs images/vidéos,
