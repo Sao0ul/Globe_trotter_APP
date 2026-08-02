@@ -1,4 +1,4 @@
-require('dotenv').config({ path: require('path').join(__dirname, '../../.env') });
+require('dotenv').config({ path: require('path').join(__dirname, '../../../.env') });
 
 const fs = require('fs');
 const path = require('path');
@@ -13,6 +13,8 @@ const {
     extractCoordinates,
 } = require('./importGeojson');
 
+// mapTagsToSiteCategory n'est pas exporté par importGeojson.js (il ne gère
+// que lieux_touristiques) — on la garde donc définie ici, localement.
 function mapTagsToSiteCategory(tags) {
     if (tags.historic) return 'culture';
     if (tags.tourism === 'museum' || tags.tourism === 'gallery') return 'culture';
@@ -23,14 +25,7 @@ function mapTagsToSiteCategory(tags) {
     return 'other';
 }
 
-// Fallback quand OSM n'a pas d'adresse : sites.location est NOT NULL.
-// Limitation connue — une vraie reverse-géocodage (ex: Nominatim) pourrait
-// remplacer ce fallback générique plus tard.
-function resolveLocation(address) {
-    return address || 'Yaoundé, Cameroun';
-}
-
-async function seedSitesFromGeojson(filePath) {
+async function importSitesFromGeojson(filePath) {
     const absolutePath = path.resolve(filePath);
 
     if (!fs.existsSync(absolutePath)) {
@@ -43,13 +38,22 @@ async function seedSitesFromGeojson(filePath) {
         throw new Error('The file is not a valid GeoJSON FeatureCollection.');
     }
 
-    const counters = { inserted: 0, skippedNotTouristSite: 0, skippedNoName: 0, skippedNoGeometry: 0, skippedNoOsmId: 0, errors: 0 };
+    const counters = {
+        inserted: 0,
+        skippedNotTouristSite: 0,
+        skippedNoName: 0,
+        skippedNoGeometry: 0,
+        skippedNoOsmId: 0,
+        errors: 0,
+    };
 
     for (const feature of geojson.features) {
         try {
             const tags = feature.properties || {};
 
-            // On ne garde que ce qui deviendrait 'site_touristique' dans lieux_touristiques
+            // On ne garde que ce qui serait classé 'site_touristique'
+            // dans lieux_touristiques — hôtels/restos/santé restent
+            // réservés à l'API itinéraire, jamais à /api/sites.
             if (determineCategory(tags) !== 'site_touristique') {
                 counters.skippedNotTouristSite++;
                 continue;
@@ -74,28 +78,32 @@ async function seedSitesFromGeojson(filePath) {
             }
 
             const category = mapTagsToSiteCategory(tags);
-            const location = resolveLocation(extractAddress(tags));
+            const location = extractAddress(tags) || 'Yaoundé, Cameroun';
 
             await pool.query(
                 `
                 INSERT INTO sites
-                    (id, title, description, location, category, author, image_url, difficulty, dangerosity, price, user_id, osm_type, osm_id)
+                    (id, title, description, location, category, author,
+                     image_url, difficulty, dangerosity, price, user_id,
+                     latitude, longitude, osm_type, osm_id)
                 VALUES
-                    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+                    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
                 ON CONFLICT (osm_type, osm_id) DO NOTHING
                 `,
                 [
                     crypto.randomUUID(),
                     name,
-                    null,               // description : rien de fiable côté OSM, à enrichir plus tard
+                    null,                 // description : rien de fiable côté OSM
                     location,
                     category,
-                    'OpenStreetMap',    // author : indique clairement la provenance auto
-                    null,               // image_url : à remplir via le picker Pexels, séparément
-                    null,               // difficulty : pas d'équivalent OSM
-                    null,               // dangerosity : pas d'équivalent OSM
-                    null,               // price : pas d'équivalent OSM
-                    null,               // user_id : aucun utilisateur associé
+                    'OpenStreetMap',
+                    null,                 // image_url : rempli séparément (fillMissingSiteImages.js)
+                    null,
+                    null,
+                    null,
+                    null,
+                    coordinates.latitude,  // <- corrige l'oubli : coordonnées enfin stockées
+                    coordinates.longitude,
                     osmReference.osmType,
                     osmReference.osmId,
                 ]
@@ -104,7 +112,7 @@ async function seedSitesFromGeojson(filePath) {
             counters.inserted++;
         } catch (error) {
             counters.errors++;
-            console.error('Error seeding feature:', error.message);
+            console.error('Error importing site:', error.message);
         }
     }
 
@@ -114,15 +122,15 @@ async function seedSitesFromGeojson(filePath) {
 async function main() {
     const filePath = process.argv[2];
     if (!filePath) {
-        console.error('Usage: node seedSitesFromGeojson.js path/to/export.geojson');
+        console.error('Usage: node importSitesFromGeojson.js path/to/export.geojson');
         process.exit(1);
     }
 
     try {
-        console.log(`Seeding sites from ${filePath}...`);
-        const counters = await seedSitesFromGeojson(filePath);
+        console.log(`Importing sites from ${filePath}...`);
+        const counters = await importSitesFromGeojson(filePath);
 
-        console.log('\nSeed completed:');
+        console.log('\nImport completed:');
         console.log(`  Inserted: ${counters.inserted}`);
         console.log(`  Skipped (not a tourist site): ${counters.skippedNotTouristSite}`);
         console.log(`  Skipped (no name): ${counters.skippedNoName}`);
@@ -134,7 +142,11 @@ async function main() {
     }
 }
 
-main().catch((error) => {
-    console.error('Seed error:', error.message);
-    process.exit(1);
-});
+if (require.main === module) {
+    main().catch((error) => {
+        console.error('Import error:', error.message);
+        process.exit(1);
+    });
+}
+
+module.exports = { importSitesFromGeojson };

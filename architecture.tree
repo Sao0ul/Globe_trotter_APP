@@ -56,6 +56,7 @@
 │   │   │   ├── .brand-name
 │   │   │   ├── .brand-tag
 │   │   │   ├── .brand-word
+│   │   │   ├── .btn-back
 │   │   │   ├── .btn-ghost
 │   │   │   ├── .btn-solid
 │   │   │   ├── .card
@@ -78,6 +79,24 @@
 │   │   │   ├── .chip-icon-nature
 │   │   │   ├── .chip-icon-tous
 │   │   │   ├── .close-btn
+│   │   │   ├── .compact-frame
+│   │   │   ├── .detail-card
+│   │   │   ├── .detail-card-head
+│   │   │   ├── .detail-category
+│   │   │   ├── .detail-description
+│   │   │   ├── .detail-facts
+│   │   │   ├── .detail-grid
+│   │   │   ├── .detail-info-card
+│   │   │   ├── .detail-legend
+│   │   │   ├── .detail-location
+│   │   │   ├── .detail-media-card
+│   │   │   ├── .detail-stat-label
+│   │   │   ├── .detail-stats
+│   │   │   ├── .detail-tag
+│   │   │   ├── .detail-title-wrap
+│   │   │   ├── .detail-topbar
+│   │   │   ├── .detail-video-frame
+│   │   │   ├── .detail-video-meta
 │   │   │   ├── .eyebrow
 │   │   │   ├── .filters
 │   │   │   ├── .filters-panel
@@ -93,12 +112,28 @@
 │   │   │   ├── .greeting-name
 │   │   │   ├── .greeting-text
 │   │   │   ├── .grid
+│   │   │   ├── .info-pill
 │   │   │   ├── .is-active
 │   │   │   ├── .is-open
+│   │   │   ├── .itinerary-layout
 │   │   │   ├── .lang-pill
 │   │   │   ├── .language-switcher
 │   │   │   ├── .language-switcher-thumb
+│   │   │   ├── .legend-dot
+│   │   │   ├── .legend-hospital
+│   │   │   ├── .legend-hotel
+│   │   │   ├── .legend-restaurant
+│   │   │   ├── .legend-site
+│   │   │   ├── .legend-transport
 │   │   │   ├── .main
+│   │   │   ├── .map-grid
+│   │   │   ├── .map-marker
+│   │   │   ├── .map-marker-hospital
+│   │   │   ├── .map-marker-hotel
+│   │   │   ├── .map-marker-restaurant
+│   │   │   ├── .map-marker-site
+│   │   │   ├── .map-marker-transport
+│   │   │   ├── .map-preview
 │   │   │   ├── .menu-toggle
 │   │   │   ├── .nav-collapse
 │   │   │   ├── .nav-hint
@@ -106,8 +141,14 @@
 │   │   │   ├── .nav-label
 │   │   │   ├── .nav-logout
 │   │   │   ├── .overlay
+│   │   │   ├── .page-frame
 │   │   │   ├── .page-header
+│   │   │   ├── .page-shell
+│   │   │   ├── .placeholder-card
 │   │   │   ├── .rating
+│   │   │   ├── .route-grid
+│   │   │   ├── .route-map
+│   │   │   ├── .route-summary
 │   │   │   ├── .search-explorer
 │   │   │   ├── .search-icon
 │   │   │   ├── .search-wrap
@@ -128,11 +169,15 @@
 │   │   │   ├── a
 │   │   │   ├── actions
 │   │   │   ├── active
+│   │   │   ├── after
 │   │   │   ├── aria-expanded
 │   │   │   ├── author
+│   │   │   ├── back
 │   │   │   ├── body
 │   │   │   ├── btn
 │   │   │   ├── button
+│   │   │   ├── card
+│   │   │   ├── card-head
 │   │   │   ├── category
 │   │   │   ├── close
 │   │   │   ├── collapse
@@ -141,8 +186,11 @@
 │   │   │   ├── data-language
 │   │   │   ├── data-level
 │   │   │   ├── desc
+│   │   │   ├── description
 │   │   │   ├── difficile
 │   │   │   ├── difficulte
+│   │   │   ├── div
+│   │   │   ├── dot
 │   │   │   ├── elevee
 │   │   │   ├── em
 │   │   │   ├── empty
@@ -151,6 +199,7 @@
 │   │   │   ├── explorer
 │   │   │   ├── explorer-walk
 │   │   │   ├── facile
+│   │   │   ├── facts
 │   │   │   ├── fade-in
 │   │   │   ├── faible
 │   │   │   ├── focus
@@ -158,8 +207,10 @@
 │   │   │   ├── focus-within
 │   │   │   ├── foot
 │   │   │   ├── form
+│   │   │   ├── frame
 │   │   │   ├── ghost
 │   │   │   ├── greeting
+│   │   │   ├── grid
 │   │   │   ├── h1
 │   │   │   ├── h2
 │   │   │   ├── header
@@ -167,6 +218,8 @@
 │   │   │   ├── hello
 │   │   │   ├── hidden
 │   │   │   ├── hint
+│   │   │   ├── hospital
+│   │   │   ├── hotel
 │   │   │   ├── hover
 │   │   │   ├── html
 │   │   │   ├── icon
@@ -178,14 +231,25 @@
 │   │   │   ├── icon-tilt
 │   │   │   ├── icon-tous
 │   │   │   ├── img
+│   │   │   ├── info-card
 │   │   │   ├── input
 │   │   │   ├── item
 │   │   │   ├── label
+│   │   │   ├── layout
+│   │   │   ├── legend
 │   │   │   ├── location
 │   │   │   ├── logout
+│   │   │   ├── map
 │   │   │   ├── mark
+│   │   │   ├── marker
+│   │   │   ├── marker-hospital
+│   │   │   ├── marker-hotel
+│   │   │   ├── marker-restaurant
+│   │   │   ├── marker-site
+│   │   │   ├── marker-transport
 │   │   │   ├── max-width
 │   │   │   ├── media
+│   │   │   ├── media-card
 │   │   │   ├── modere
 │   │   │   ├── moderee
 │   │   │   ├── name
@@ -199,17 +263,25 @@
 │   │   │   ├── pill
 │   │   │   ├── placeholder
 │   │   │   ├── prefers-reduced-motion
+│   │   │   ├── preview
 │   │   │   ├── prix
 │   │   │   ├── reduce
+│   │   │   ├── restaurant
 │   │   │   ├── root
 │   │   │   ├── row
 │   │   │   ├── row-3
 │   │   │   ├── scrim
 │   │   │   ├── section-label
 │   │   │   ├── select
+│   │   │   ├── shell
+│   │   │   ├── site
 │   │   │   ├── solid
 │   │   │   ├── span
 │   │   │   ├── spin
+│   │   │   ├── stat-label
+│   │   │   ├── stats
+│   │   │   ├── strong
+│   │   │   ├── summary
 │   │   │   ├── svg
 │   │   │   ├── switcher
 │   │   │   ├── switcher-thumb
@@ -218,10 +290,16 @@
 │   │   │   ├── text
 │   │   │   ├── textarea
 │   │   │   ├── title
+│   │   │   ├── title-wrap
 │   │   │   ├── toggle
 │   │   │   ├── toggle-icon
 │   │   │   ├── toggle-icon-badge
+│   │   │   ├── topbar
+│   │   │   ├── transport
 │   │   │   ├── true
+│   │   │   ├── video
+│   │   │   ├── video-frame
+│   │   │   ├── video-meta
 │   │   │   ├── word
 │   │   │   ├── wrap
 │   │   └── style.css
@@ -299,6 +377,31 @@
 │   │   ├── itineraireMap.js
 │   │   │   ├── function chargerItineraire(depart, arrivee)
 │   │   │   ├── function afficherLegende()
+│   │   ├── itinerary.js
+│   │   │   ├── function buildPoiMarkers()
+│   │   │   ├── function setRouteSummary(startLabel, endLabel)
+│   │   │   ├── function drawMarkers()
+│   │   │   ├── function drawRoute()
+│   │   │   ├── function loadSite()
+│   │   │   ├── function controlX(start.x + selectedSite.x) / 2;
+  const controlY = Math.min(start.y, selectedSite.y) - 70;
+  routePath.setAttribute('d', `M ${start.x} ${start.y} Q ${controlX} ${controlY} ${selectedSite.x} ${selectedSite.y}`);
+  drawMarkers();
+  setRouteSummary('votre position', fallbackSite.titre);
+}
+
+async function loadSite() {
+  const params = new URLSearchParams(window.location.search);
+  const siteId = params.get('siteId');
+
+  try {
+    const response = await fetch('/api/sites?page=1&limit=100');
+    if (!response.ok) {
+      throw new Error('Unable to load site list');
+    }
+
+    const data = await response.json();
+    const site = (data.sites || []).find((entry)
 │   │   ├── models.js
 │   │   │   ├── class AppModel
 │   │   │   │   ├── isAuthenticated()
@@ -315,6 +418,11 @@
 │   │   │   ├── function ouvrirFermerPreferences()
 │   │   │   ├── function fermerPreferences()
 │   │   │   ├── function mettreAJourTexteDeclencheur()
+│   │   ├── site-detail.js
+│   │   │   ├── function moneyLabel(value)
+│   │   │   ├── function setCardContent(site)
+│   │   │   ├── function loadSiteDetail()
+│   │   │   ├── function site(data.sites || []).find((entry)
 │   │   └── sites.js
 │   │       ├── function compterColonnesVisibles()
 │   │       ├── function calculerLimiteParPage()
@@ -387,6 +495,22 @@
 │   │   │       │           └── a
 │   │   │       ├── script
 │   │   │       └── script
+│   ├── infos.html
+│   │   ├── html
+│   │   │   ├── head
+│   │   │   │   ├── meta
+│   │   │   │   ├── meta
+│   │   │   │   ├── title
+│   │   │   │   └── link
+│   │   │   └── body.page-shell
+│   │   │       └── div.page-frame.compact-frame
+│   │   │           ├── header.detail-topbar
+│   │   │           │   ├── a.btn-ghost.btn-back
+│   │   │           │   └── div.detail-title-wrap
+│   │   │           │       ├── span.eyebrow
+│   │   │           │       └── h1
+│   │   │           └── main.placeholder-card
+│   │   │               └── p
 │   ├── itineraires.html
 │   │   ├── html
 │   │   │   ├── head
@@ -395,6 +519,89 @@
 │   │   │   └── body
 │   │   │       ├── div#map
 │   │   │       └── div#legende
+│   ├── itinerary.html
+│   │   ├── html
+│   │   │   ├── head
+│   │   │   │   ├── meta
+│   │   │   │   ├── meta
+│   │   │   │   ├── title
+│   │   │   │   ├── link
+│   │   │   │   ├── link
+│   │   │   │   ├── link
+│   │   │   │   └── link
+│   │   │   └── body.page-shell
+│   │   │       ├── div.page-frame.itinerary-frame
+│   │   │       │   ├── header.detail-topbar
+│   │   │       │   │   ├── a.btn-ghost.btn-back
+│   │   │       │   │   ├── div.detail-title-wrap
+│   │   │       │   │   │   ├── span.eyebrow
+│   │   │       │   │   │   └── h1#itineraryTitle
+│   │   │       │   │   └── button#useCurrentLocationBtn.btn-solid
+│   │   │       │   └── main.itinerary-layout
+│   │   │       │       ├── section.detail-card.itinerary-map-card
+│   │   │       │       │   ├── div.detail-card-head
+│   │   │       │       │   │   ├── h2
+│   │   │       │       │   │   └── span.detail-tag
+│   │   │       │       │   ├── div#routeMap.route-map
+│   │   │       │       │   │   └── svg#routeSvg
+│   │   │       │       │   │       ├── defs
+│   │   │       │       │   │       │   └── lineargradient#routeGradient
+│   │   │       │       │   │       │       ├── stop
+│   │   │       │       │   │       │       └── stop
+│   │   │       │       │   │       ├── rect
+│   │   │       │       │   │       ├── g.route-grid
+│   │   │       │       │   │       ├── path#routePath
+│   │   │       │       │   │       └── g#routeMarkers
+│   │   │       │       │   └── div.detail-legend
+│   │   │       │       │       ├── span
+│   │   │       │       │       │   └── i.legend-dot.legend-site
+│   │   │       │       │       ├── span
+│   │   │       │       │       │   └── i.legend-dot.legend-restaurant
+│   │   │       │       │       ├── span
+│   │   │       │       │       │   └── i.legend-dot.legend-hotel
+│   │   │       │       │       ├── span
+│   │   │       │       │       │   └── i.legend-dot.legend-hospital
+│   │   │       │       │       └── span
+│   │   │       │       │           └── i.legend-dot.legend-transport
+│   │   │       │       └── aside.detail-card.itinerary-side-card
+│   │   │       │           ├── div.detail-card-head
+│   │   │       │           │   └── h2
+│   │   │       │           ├── p#routeSummary.route-summary
+│   │   │       │           └── ul#poiList.detail-facts
+│   │   │       ├── script
+│   │   │       └── script
+│   ├── messages.html
+│   │   ├── html
+│   │   │   ├── head
+│   │   │   │   ├── meta
+│   │   │   │   ├── meta
+│   │   │   │   ├── title
+│   │   │   │   └── link
+│   │   │   └── body.page-shell
+│   │   │       └── div.page-frame.compact-frame
+│   │   │           ├── header.detail-topbar
+│   │   │           │   ├── a.btn-ghost.btn-back
+│   │   │           │   └── div.detail-title-wrap
+│   │   │           │       ├── span.eyebrow
+│   │   │           │       └── h1
+│   │   │           └── main.placeholder-card
+│   │   │               └── p
+│   ├── profile.html
+│   │   ├── html
+│   │   │   ├── head
+│   │   │   │   ├── meta
+│   │   │   │   ├── meta
+│   │   │   │   ├── title
+│   │   │   │   └── link
+│   │   │   └── body.page-shell
+│   │   │       └── div.page-frame.compact-frame
+│   │   │           ├── header.detail-topbar
+│   │   │           │   ├── a.btn-ghost.btn-back
+│   │   │           │   └── div.detail-title-wrap
+│   │   │           │       ├── span.eyebrow
+│   │   │           │       └── h1
+│   │   │           └── main.placeholder-card
+│   │   │               └── p
 │   ├── register.html
 │   │   ├── html
 │   │   │   ├── head
@@ -477,6 +684,73 @@
 │   │   │       │       └── p.register
 │   │   │       │           ├── span
 │   │   │       │           └── a
+│   │   │       ├── script
+│   │   │       └── script
+│   ├── site-detail.html
+│   │   ├── html
+│   │   │   ├── head
+│   │   │   │   ├── meta
+│   │   │   │   ├── meta
+│   │   │   │   ├── title
+│   │   │   │   ├── link
+│   │   │   │   ├── link
+│   │   │   │   ├── link
+│   │   │   │   └── link
+│   │   │   └── body.page-shell
+│   │   │       ├── div.page-frame
+│   │   │       │   ├── header.detail-topbar
+│   │   │       │   │   ├── a.btn-ghost.btn-back
+│   │   │       │   │   ├── div.detail-title-wrap
+│   │   │       │   │   │   ├── span.eyebrow
+│   │   │       │   │   │   └── h1#siteTitle
+│   │   │       │   │   └── button#openItineraryBtn.btn-solid
+│   │   │       │   └── main.detail-grid
+│   │   │       │       ├── section.detail-card.detail-media-card
+│   │   │       │       │   ├── div.detail-video-frame
+│   │   │       │       │   │   └── video#siteVideo
+│   │   │       │       │   │       └── source
+│   │   │       │       │   └── div.detail-video-meta
+│   │   │       │       │       ├── span.chip.chip-active
+│   │   │       │       │       └── span#siteLocation.detail-location
+│   │   │       │       ├── section.detail-card.detail-info-card
+│   │   │       │       │   ├── div.detail-hero
+│   │   │       │       │   │   ├── p#siteCategory.detail-category
+│   │   │       │       │   │   └── p#siteDescription.detail-description
+│   │   │       │       │   ├── div.detail-stats
+│   │   │       │       │   │   ├── div
+│   │   │       │       │   │   │   ├── span.detail-stat-label
+│   │   │       │       │   │   │   └── strong#siteDifficulty
+│   │   │       │       │   │   ├── div
+│   │   │       │       │   │   │   ├── span.detail-stat-label
+│   │   │       │       │   │   │   └── strong#siteDanger
+│   │   │       │       │   │   └── div
+│   │   │       │       │   │       ├── span.detail-stat-label
+│   │   │       │       │   │       └── strong#sitePrice
+│   │   │       │       │   └── div.detail-info-list
+│   │   │       │       │       ├── div.info-pill
+│   │   │       │       │       └── ul#siteFacts.detail-facts
+│   │   │       │       └── section.detail-card.detail-map-card
+│   │   │       │           ├── div.detail-card-head
+│   │   │       │           │   ├── h2
+│   │   │       │           │   └── span.detail-tag
+│   │   │       │           ├── div#miniMap.map-preview
+│   │   │       │           │   ├── div.map-grid
+│   │   │       │           │   ├── div.map-marker.map-marker-site
+│   │   │       │           │   ├── div.map-marker.map-marker-hotel
+│   │   │       │           │   ├── div.map-marker.map-marker-restaurant
+│   │   │       │           │   ├── div.map-marker.map-marker-hospital
+│   │   │       │           │   └── div.map-marker.map-marker-transport
+│   │   │       │           └── div.detail-legend
+│   │   │       │               ├── span
+│   │   │       │               │   └── i.legend-dot.legend-site
+│   │   │       │               ├── span
+│   │   │       │               │   └── i.legend-dot.legend-restaurant
+│   │   │       │               ├── span
+│   │   │       │               │   └── i.legend-dot.legend-hotel
+│   │   │       │               ├── span
+│   │   │       │               │   └── i.legend-dot.legend-hospital
+│   │   │       │               └── span
+│   │   │       │                   └── i.legend-dot.legend-transport
 │   │   │       ├── script
 │   │   │       └── script
 │   └── sites.html
@@ -704,12 +978,44 @@
 │   │   │   ├── function resolvePoint(value)
 │   │   ├── sitesController.js
 │   │   │   ├── function findImageForSite(title, location)
+│   │   │   ├── function findCoordinatesForLocation(location)
 │   │   │   ├── function toFrontendSite(row)
+│   │   │   ├── function normalizedMedia(Array.isArray(media) ? media : [...imageMedia, ...videoMedia])
+    .map((entry, index)
 │   │   └── userController.js
 │   │       ├── function preferences(()
 │   ├── db/
+│   │   ├── seed/
+│   │   │   ├── generated/
+│   │   │   │   ├── site-001/
+│   │   │   │   │   └── site.json
+│   │   │   │   ├── site-002/
+│   │   │   │   │   └── site.json
+│   │   │   │   └── .gitkeep
+│   │   │   ├── site-manifests/
+│   │   │   │   ├── site-001.json
+│   │   │   │   └── site-002.json
+│   │   │   └── seed-sites.js
+│   │   │       ├── function listManifestFiles()
+│   │   │       ├── function buildSitePayload(manifest)
+│   │   │       ├── function writePerSiteManifest(siteFileName, manifest)
+│   │   │       ├── function seedSites()
 │   │   ├── architecture.tree
+│   │   ├── bootstrap.js
+│   │   │   ├── function bootstrapDatabase()
+│   │   ├── config.js
+│   │   │   ├── function toNumber(value, fallback)
+│   │   │   ├── function getDatabaseConfig()
 │   │   ├── export.geojson
+│   │   ├── fillMissingSiteImages.js
+│   │   │   ├── function attendre(ms)
+│   │   │   ├── function chercherImagePexels(query)
+│   │   │   ├── function telechargerImage(url)
+│   │   │   ├── function ouvrirImage(fichier)
+│   │   │   ├── function demander(question)
+│   │   │   ├── function choisirImage(imageAuto)
+│   │   │   ├── function fillMissingSiteImages()
+│   │   │   ├── function main()
 │   │   ├── importGeojson.js
 │   │   │   ├── function determineCategory(tags)
 │   │   │   ├── function extractOsmReference(feature)
@@ -722,7 +1028,13 @@
 │   │   │   ├── function main()
 │   │   │   ├── class AND
 │   │   ├── pool.js
-│   │   └── script.sql
+│   │   ├── schema.sql
+│   │   ├── script.sql
+│   │   └── seedSitesFromGeojson.js
+│   │       ├── function mapTagsToSiteCategory(tags)
+│   │       ├── function resolveLocation(address)
+│   │       ├── function seedSitesFromGeojson(filePath)
+│   │       ├── function main()
 │   ├── middlewares/
 │   │   ├── asyncHandler.js
 │   │   │   ├── function asyncHandler(fn)
@@ -734,8 +1046,14 @@
 │   │   ├── lieuxModel.js
 │   │   │   ├── function getLieuxPresDuTrajet(coordonnees, rayonMetres = 5000, categories = null)
 │   │   ├── sitesModel.js
+│   │   │   ├── function buildSiteBaseQuery()
+│   │   │   ├── function normalizeMediaPayload(media = [])
+│   │   │   ├── function buildSiteFilterQuery({ search, category, preference } = {})
+│   │   │   ├── function buildPaginatedQuery(baseQuery, { page = 1, limit = 20, params = [] } = {})
+│   │   │   ├── function querySites({ search, category, preference, page = 1, limit = 20 } = {})
 │   │   │   ├── function getAllSites({ search, category, page = 1, limit = 20 } = {})
 │   │   │   ├── function getSiteById(id)
+│   │   │   ├── function persistSiteMedia(client, siteId, mediaEntries)
 │   │   │   ├── function createSite({
   id,
   title,
@@ -744,14 +1062,67 @@
   category,
   author,
   imageUrl,
+  videoUrl,
+  latitude,
+  longitude,
   difficulty,
   dangerosity,
   price,
   userId = null,
+  media = [],
 })
 │   │   │   ├── function addRating(siteId, rating)
 │   │   │   ├── function getSiteByPreference(preference, { page = 1, limit = 20 } = {})
+│   │   │   ├── function offset(normalizedPage - 1) * normalizedLimit;
+
+  return {
+    query: `${baseQuery} ORDER BY s.created_at DESC LIMIT $${params.length + 1} OFFSET $${params.length + 2}`,
+    params: [...params, normalizedLimit, offset],
+  };
+}
+
+async function querySites({ search, category, preference, page = 1, limit = 20 } = {}) {
+  let query = buildSiteBaseQuery();
+  const { conditions, params } = buildSiteFilterQuery({ search, category, preference });
+
+  if (conditions.length) {
+    query += ` WHERE ${conditions.join(' AND ')}`;
+  }
+
+  query += ' GROUP BY s.id';
+
+  const paginatedQuery = buildPaginatedQuery(query, { page, limit, params });
+  const { rows } = await pool.query(paginatedQuery.query, paginatedQuery.params);
+
+  return rows;
+}
+
+async function getAllSites({ search, category, page = 1, limit = 20 } = {}) {
+  return querySites({ search, category, page, limit });
+}
+
+async function getSiteById(id) {
+  const { rows } = await pool.query(
+    `${buildSiteBaseQuery()} WHERE s.id = $1 GROUP BY s.id`,
+    [id]
+  );
+
+  return rows[0] || null;
+}
+
+async function persistSiteMedia(client, siteId, mediaEntries) {
+  const normalizedMedia = normalizeMediaPayload(mediaEntries);
+
+  await client.query('DELETE FROM site_media WHERE site_id = $1', [siteId]);
+
+  if (!normalizedMedia.length) {
+    return;
+  }
+
+  await Promise.all(normalizedMedia.map((entry)
 │   │   └── usersModel.js
+│   │       ├── function normalizePreferences(preferences)
+│   │       ├── function mapUserRow(user)
 │   │       ├── function findByEmail(email)
 │   │       ├── function findById(id)
 │   │       ├── function findByVerificationToken(token)
@@ -790,4 +1161,5 @@
 ├── main.py
 ├── package-lock.json
 ├── package.json
-└── README.md
+├── README.md
+└── RUNNING.md

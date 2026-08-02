@@ -1,22 +1,3 @@
-// Import du fichier GeoJSON exporté depuis Overpass Turbo vers la table
-// lieux_touristiques (PostgreSQL + PostGIS).
-//
-// Usage :
-//   node importGeojson.js chemin/vers/export.geojson
-//
-// Le script est idempotent :
-// - un même objet OSM ne crée pas de doublon ;
-// - les données existantes sont mises à jour ;
-// - les objets node, way et relation sont correctement distingués.
-//
-// Le GeoJSON doit provenir d'une requête Overpass utilisant :
-//   out center tags;
-//
-// PRÉREQUIS SCHÉMA : la table lieux_touristiques doit avoir une colonne
-// osm_type et une contrainte UNIQUE (osm_type, osm_id). Voir la migration
-// dans script.sql — sans ça, l'INSERT échoue avec "column osm_type does
-// not exist".
-
 require('dotenv').config({ path: require('path').join(__dirname, '../../.env') });
 
 const fs = require('fs');
