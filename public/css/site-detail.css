@@ -77,3 +77,18 @@
     padding: 14px;
   }
 }
+
+/* Centrer la carte sous les deux premières cartes (garder son ordre mais la centrer) */
+.detail-map-card {
+  grid-column: 1 / -1; /* occupe toute la largeur du grid */
+  justify-self: center;
+  max-width: 880px; /* largeur maximale pour garder un bon rendu */
+  margin: 0 auto;
+}
+
+/* Rendre la carte plus visible sur écrans étroits */
+@media (max-width: 980px) {
+  .detail-map-card {
+    max-width: 100%;
+  }
+}

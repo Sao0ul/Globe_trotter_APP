@@ -562,7 +562,7 @@ function parseExternalVideo(url) {
 
   // YouTube
   const ytPatterns = [
-    /(?:youtube\.com\/(?:watch\?.*v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/, // common
+    /(?:youtube\.com\/(?:watch\?.*v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/, // includes /shorts/
     /[?&]v=([A-Za-z0-9_-]{11})/, // query v=
   ];
   for (const re of ytPatterns) {
