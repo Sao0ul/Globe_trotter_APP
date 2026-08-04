@@ -906,6 +906,43 @@ function setCardContent(site) {
 // Chargement principal de la page
 // ==========================================================
 
+
+
+/**
+ * Charge les lieux à proximité via l'API et les affiche sur la mini-carte.
+ */
+async function loadNearbyPlaces(lat, lng) {
+  if (!miniMapInstance) return;
+
+  let data;
+  try {
+    const response = await fetch(
+      `/api/itineraire/proximite?lat=${lat}&lng=${lng}&rayon=1500`
+    );
+    if (!response.ok) throw new Error(`Statut ${response.status}`);
+    data = await response.json();
+  } catch (error) {
+    console.error('Impossible de charger les lieux à proximité :', error);
+    return;
+  }
+
+  (data.lieux || []).forEach((lieu) => {
+    const color = CATEGORY_COLORS[lieu.category] || '#5B6960';
+
+    L.circleMarker([lieu.latitude, lieu.longitude], {
+      radius: 6,
+      color: '#FFFDF8',
+      fillColor: color,
+      fillOpacity: 0.9,
+      weight: 1.5,
+    })
+      .addTo(miniMapInstance)
+      .bindPopup(`<strong>${lieu.name}</strong><br>${lieu.address || ''}`);
+  });
+}
+
+
+
 /**
  * Charge les informations du site sélectionné.
  */
@@ -1097,6 +1134,11 @@ function initMiniMap(lat, lng) {
   const mapContainer = document.getElementById('miniMap');
   if (!mapContainer || typeof L === 'undefined') return;
 
+  if (mapContainer._leaflet_id) {
+    return;
+  }
+
+
   // Le <div class="map-grid"> décoratif n'a plus d'utilité une fois
   // qu'une vraie carte Leaflet occupe le conteneur.
   mapContainer.querySelector('.map-grid')?.remove();
@@ -1128,35 +1170,10 @@ function initMiniMap(lat, lng) {
     .bindPopup(currentSite.titre || 'Ce site');
 }
 
-/**
- * Charge les lieux à proximité via l'API et les affiche sur la mini-carte.
- */
-async function loadNearbyPlaces(lat, lng) {
-  if (!miniMapInstance) return;
 
-  let data;
-  try {
-    const response = await fetch(
-      `/api/itineraire/proximite?lat=${lat}&lng=${lng}&rayon=1500`
-    );
-    if (!response.ok) throw new Error(`Statut ${response.status}`);
-    data = await response.json();
-  } catch (error) {
-    console.error('Impossible de charger les lieux à proximité :', error);
-    return;
+window.addEventListener('pageshow', (event) => {
+  if (event.persisted && miniMapInstance) {
+    miniMapInstance.invalidateSize();
   }
+});
 
-  (data.lieux || []).forEach((lieu) => {
-    const color = CATEGORY_COLORS[lieu.category] || '#5B6960';
-
-    L.circleMarker([lieu.latitude, lieu.longitude], {
-      radius: 6,
-      color: '#FFFDF8',
-      fillColor: color,
-      fillOpacity: 0.9,
-      weight: 1.5,
-    })
-      .addTo(miniMapInstance)
-      .bindPopup(`<strong>${lieu.name}</strong><br>${lieu.address || ''}`);
-  });
-}
