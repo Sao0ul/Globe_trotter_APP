@@ -1,19 +1,6 @@
 const asyncHandler = require('../middlewares/asyncHandler');
-const { getLieuxPresDuTrajet } = require('../models/lieuxModel');
+const { getLieuxPresDuTrajet, getLieuxPresDuPoint } = require('../models/lieuxModel');
 
-// ==========================================================
-// Liste fermée de points de départ/arrivée. Un géocodage en texte libre
-// nécessiterait une API payante (ou un vrai géocodeur auto-hébergé, hors
-// scope pour l'instant) — on reste sur des points connus à l'avance.
-//
-// ⚠️ Seul "centre_ville" est vérifié. Les autres coordonnées sont des
-// approximations à confirmer via Nominatim avant mise en production :
-//
-//   curl "https://nominatim.openstreetmap.org/search?q=Bastos,Yaound%C3%A9,Cameroun&format=json&limit=1" \
-//        -H "User-Agent: GlobeTrotterApp/1.0"
-//
-// (Nominatim exige un User-Agent et limite à 1 requête/seconde en usage public.)
-// ==========================================================
 
 
 
@@ -115,4 +102,23 @@ const getItineraire = asyncHandler(async (req, res) => {
     });
 });
 
-module.exports = { getItineraire, getPointsDisponibles };
+
+
+// GET /api/itineraire/proximite?lat=...&lng=...&rayon=...
+const getLieuxProches = asyncHandler(async (req, res) => {
+    const { lat, lng, rayon } = req.query;
+    const latNum = Number(lat);
+    const lngNum = Number(lng);
+
+    if (!Number.isFinite(latNum) || !Number.isFinite(lngNum)) {
+        return res.status(400).json({ error: 'lat et lng sont requis et doivent être numériques' });
+    }
+
+    const rayonMetres = rayon ? Number(rayon) : 1500;
+    const lieux = await getLieuxPresDuPoint(latNum, lngNum, rayonMetres);
+
+    res.json({ lieux });
+});
+
+
+module.exports = { getItineraire, getPointsDisponibles, getLieuxProches };

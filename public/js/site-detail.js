@@ -620,42 +620,42 @@ function bindVideoControls() {
       // Ce clic est un geste utilisateur — comportement différencié selon le type de vidéo.
       hideVideoOverlay();
 
-          if (externalProvider && externalProviderId) {
-            // Charger l'iframe du provider à la demande (lazy load)
+      if (externalProvider && externalProviderId) {
+        // Charger l'iframe du provider à la demande (lazy load)
         if (videoContainer) {
           videoContainer.innerHTML = '';
           const iframe = document.createElement('iframe');
-              let src = '';
+          let src = '';
 
-              if (externalProvider === 'youtube') {
-                src = `https://www.youtube.com/embed/${externalProviderId}?autoplay=1&rel=0&modestbranding=1`;
-              } else if (externalProvider === 'vimeo') {
-                src = `https://player.vimeo.com/video/${externalProviderId}?autoplay=1&title=0&byline=0&portrait=0`;
-              } else if (externalProvider === 'tiktok') {
-                src = `https://www.tiktok.com/embed/v2/${externalProviderId}`;
-              }
-
-              iframe.src = src;
-              iframe.width = '100%';
-              iframe.height = '100%';
-              iframe.style.border = '0';
-              iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-              iframe.setAttribute('allowfullscreen', '');
-              videoContainer.appendChild(iframe);
-              videoContainer.setAttribute('aria-hidden', 'false');
-            }
-
-            // S'assurer que le lecteur natif est caché
-            if (videoElement) {
-              videoElement.pause();
-              videoElement.hidden = true;
-            }
-
-            // Le contrôle unmute n'est pas pertinent pour iframe
-            hideUnmuteControl();
-
-            return;
+          if (externalProvider === 'youtube') {
+            src = `https://www.youtube.com/embed/${externalProviderId}?autoplay=1&rel=0&modestbranding=1`;
+          } else if (externalProvider === 'vimeo') {
+            src = `https://player.vimeo.com/video/${externalProviderId}?autoplay=1&title=0&byline=0&portrait=0`;
+          } else if (externalProvider === 'tiktok') {
+            src = `https://www.tiktok.com/embed/v2/${externalProviderId}`;
           }
+
+          iframe.src = src;
+          iframe.width = '100%';
+          iframe.height = '100%';
+          iframe.style.border = '0';
+          iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+          iframe.setAttribute('allowfullscreen', '');
+          videoContainer.appendChild(iframe);
+          videoContainer.setAttribute('aria-hidden', 'false');
+        }
+
+        // S'assurer que le lecteur natif est caché
+        if (videoElement) {
+          videoElement.pause();
+          videoElement.hidden = true;
+        }
+
+        // Le contrôle unmute n'est pas pertinent pour iframe
+        hideUnmuteControl();
+
+        return;
+      }
 
       // Fallback : tenter la lecture du lecteur HTML5
       try {
@@ -910,13 +910,12 @@ function setCardContent(site) {
  * Charge les informations du site sélectionné.
  */
 async function loadSiteDetail() {
-  const params = new URLSearchParams(
-    window.location.search
-  );
-
+  const params = new URLSearchParams(window.location.search);
   const siteId = params.get('id');
 
-  // Aucun identifiant dans l'URL.
+  // Aucun identifiant dans l'URL : on affiche la fiche de secours,
+  // qui n'a jamais de coordonnées valides (fallbackSite.latitude = null),
+  // donc pas de mini-carte ni de lieux à proximité à charger dans ce cas.
   if (!siteId) {
     currentSite = { ...fallbackSite };
     siteCoordinates = null;
@@ -934,16 +933,13 @@ async function loadSiteDetail() {
 
     // Enregistre les coordonnées uniquement si elles
     // respectent les limites géographiques.
-    if (
-      areValidCoordinates(
-        site.latitude,
-        site.longitude
-      )
-    ) {
-      siteCoordinates = {
-        lat: site.latitude,
-        lng: site.longitude,
-      };
+    if (areValidCoordinates(site.latitude, site.longitude)) {
+      siteCoordinates = { lat: site.latitude, lng: site.longitude };
+
+      // La mini-carte et les lieux à proximité n'ont de sens
+      // que si on a de vraies coordonnées pour ce site.
+      initMiniMap(site.latitude, site.longitude);
+      loadNearbyPlaces(site.latitude, site.longitude);
     } else {
       siteCoordinates = null;
     }
@@ -1072,4 +1068,95 @@ if (document.readyState === 'loading') {
   );
 } else {
   initializePage();
+}
+
+
+
+
+// ==========================================================
+// MINI-CARTE (Leaflet) — site + lieux à proximité
+// ==========================================================
+
+let miniMapInstance = null;
+
+// Couleurs alignées sur la palette du projet (voir site.css :root)
+const CATEGORY_COLORS = {
+  site_touristique: '#E3A93A', // --gold
+  restaurant: '#B8452F',       // --clay
+  hotel: '#4FA3C4',
+  hopital: '#D64545',
+  clinique: '#D64545',         // regroupé avec hôpital, pas de puce dédiée pour l'instant
+  pharmacie: '#D64545',
+};
+
+/**
+ * Initialise la mini-carte centrée sur le site, avec son marqueur.
+ * Ne fait rien si les coordonnées sont invalides (site sans lat/lng en base).
+ */
+function initMiniMap(lat, lng) {
+  const mapContainer = document.getElementById('miniMap');
+  if (!mapContainer || typeof L === 'undefined') return;
+
+  // Le <div class="map-grid"> décoratif n'a plus d'utilité une fois
+  // qu'une vraie carte Leaflet occupe le conteneur.
+  mapContainer.querySelector('.map-grid')?.remove();
+
+  // Si la page recharge un autre site (navigation sans rechargement complet),
+  // on détruit l'ancienne instance avant d'en recréer une.
+  if (miniMapInstance) {
+    miniMapInstance.remove();
+    miniMapInstance = null;
+  }
+
+  miniMapInstance = L.map(mapContainer, {
+    zoomControl: false,
+    attributionControl: false,
+  }).setView([lat, lng], 15);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+  }).addTo(miniMapInstance);
+
+  L.circleMarker([lat, lng], {
+    radius: 8,
+    color: '#16332B',
+    fillColor: CATEGORY_COLORS.site_touristique,
+    fillOpacity: 1,
+    weight: 2,
+  })
+    .addTo(miniMapInstance)
+    .bindPopup(currentSite.titre || 'Ce site');
+}
+
+/**
+ * Charge les lieux à proximité via l'API et les affiche sur la mini-carte.
+ */
+async function loadNearbyPlaces(lat, lng) {
+  if (!miniMapInstance) return;
+
+  let data;
+  try {
+    const response = await fetch(
+      `/api/itineraire/proximite?lat=${lat}&lng=${lng}&rayon=1500`
+    );
+    if (!response.ok) throw new Error(`Statut ${response.status}`);
+    data = await response.json();
+  } catch (error) {
+    console.error('Impossible de charger les lieux à proximité :', error);
+    return;
+  }
+
+  (data.lieux || []).forEach((lieu) => {
+    const color = CATEGORY_COLORS[lieu.category] || '#5B6960';
+
+    L.circleMarker([lieu.latitude, lieu.longitude], {
+      radius: 6,
+      color: '#FFFDF8',
+      fillColor: color,
+      fillOpacity: 0.9,
+      weight: 1.5,
+    })
+      .addTo(miniMapInstance)
+      .bindPopup(`<strong>${lieu.name}</strong><br>${lieu.address || ''}`);
+  });
 }

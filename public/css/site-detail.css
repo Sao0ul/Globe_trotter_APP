@@ -357,6 +357,19 @@
   background: #22c55e;
 }
 
+
+.map-preview {
+  position: relative;
+  height: 320px;
+  border-radius: var(--radius, 14px);
+  overflow: hidden;
+}
+
+
+
+
+
+
 /* ================= Responsive ================= */
 @media (max-width: 980px) {
   .detail-grid {

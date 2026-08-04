@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Itinéraire complet</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -31,18 +32,6 @@
                     <span class="detail-tag">Cliquez sur la carte pour choisir un point</span>
                 </div>
                 <div id="routeMap" class="route-map" role="img" aria-label="Carte de l'itinéraire">
-                    <svg id="routeSvg" viewBox="0 0 800 460" preserveAspectRatio="none">
-                        <defs>
-                            <linearGradient id="routeGradient" x1="0%" x2="100%" y1="0%" y2="0%">
-                                <stop offset="0%" stop-color="#f4c868" />
-                                <stop offset="100%" stop-color="#1f6f68" />
-                            </linearGradient>
-                        </defs>
-                        <rect x="0" y="0" width="800" height="460" fill="#eff8f5" />
-                        <g class="route-grid"></g>
-                        <path id="routePath" d="" fill="none" stroke="url(#routeGradient)" stroke-width="6" stroke-linecap="round" stroke-dasharray="10 10" />
-                        <g id="routeMarkers"></g>
-                    </svg>
                 </div>
 
                 <div class="detail-legend">
@@ -64,6 +53,7 @@
         </main>
     </div>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="js/i18n.js"></script>
     <script src="js/itinerary.js"></script>
 </body>
