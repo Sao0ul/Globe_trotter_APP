@@ -1059,6 +1059,14 @@ function initializePage() {
     stopGeolocationWatch
   );
 
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+      hideVideoOverlay();
+      hideUnmuteControl();
+      loadSiteDetail();
+    }
+  });
+
   startGeolocationWatch();
   loadSiteDetail();
 }

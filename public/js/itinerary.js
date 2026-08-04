@@ -74,6 +74,13 @@ async function loadSite() {
   const params = new URLSearchParams(window.location.search);
   const siteId = params.get('siteId');
 
+  const backLink = document.getElementById('backToSiteDetail');
+  if (backLink) {
+    backLink.href = siteId
+      ? `site-detail.html?id=${encodeURIComponent(siteId)}`
+      : 'site-detail.html';
+  }
+
   try {
     const response = await fetch('/api/sites?page=1&limit=100');
     if (!response.ok) {
