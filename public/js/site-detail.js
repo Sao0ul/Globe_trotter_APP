@@ -1134,10 +1134,10 @@ function initMiniMap(lat, lng) {
   const mapContainer = document.getElementById('miniMap');
   if (!mapContainer || typeof L === 'undefined') return;
 
-  if (mapContainer._leaflet_id) {
-    return;
+  if (miniMapInstance) {
+    miniMapInstance.remove();
+    miniMapInstance = null;
   }
-
 
   // Le <div class="map-grid"> décoratif n'a plus d'utilité une fois
   // qu'une vraie carte Leaflet occupe le conteneur.
@@ -1171,9 +1171,16 @@ function initMiniMap(lat, lng) {
 }
 
 
-window.addEventListener('pageshow', (event) => {
-  if (event.persisted && miniMapInstance) {
-    miniMapInstance.invalidateSize();
+
+window.addEventListener("pageshow", async (event) => {
+  if (event.persisted) {
+    console.log("Retour depuis le cache");
+
+    await loadSiteDetail();
+
+    if (miniMapInstance) {
+      miniMapInstance.invalidateSize();
+    }
   }
 });
 
