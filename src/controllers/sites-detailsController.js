@@ -1,37 +1,25 @@
-// ==========================================================
-// Contrôleur chargé de traiter les requêtes HTTP liées
-// aux détails d'un site.
-//
-// Le contrôleur reçoit la requête, vérifie les paramètres,
-// appelle le modèle, puis renvoie une réponse JSON.
-// ==========================================================
-
 const {
     getVideoBySiteId,
 } = require('../models/sites-detailsModel');
 
+
 /**
- * Vérifie qu'une valeur correspond à un identifiant entier positif.
+ * Vérifie qu'une valeur correspond à un UUID valide (v4 ou générique).
  *
- * Cette fonction est adaptée si la colonne "id" de la table sites
- * est de type INTEGER ou SERIAL.
+ * Adapté au type UUID utilisé par la colonne "id" de la table sites
+ * (UUID PRIMARY KEY DEFAULT gen_random_uuid()).
  *
  * @param {string} value - Valeur reçue dans l'URL.
- * @returns {number|null}
+ * @returns {string|null}
  */
 function parseSiteId(value) {
-    // On refuse les valeurs comme "12abc".
-    if (!/^\d+$/.test(value)) {
+    const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+    if (typeof value !== 'string' || !uuidPattern.test(value)) {
         return null;
     }
 
-    const id = Number(value);
-
-    if (!Number.isSafeInteger(id) || id <= 0) {
-        return null;
-    }
-
-    return id;
+    return value;
 }
 
 /**
