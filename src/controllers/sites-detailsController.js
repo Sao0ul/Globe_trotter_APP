@@ -1,7 +1,5 @@
-const {
-    getVideoBySiteId,
-} = require('../models/sites-detailsModel');
 
+const { getVideoBySiteId, getSiteDetailsById } = require('../models/sites-detailsModel');
 
 /**
  * Vérifie qu'une valeur correspond à un UUID valide (v4 ou générique).
@@ -80,6 +78,29 @@ async function getSiteVideo(req, res) {
     }
 }
 
+
+async function getSiteDetails(req, res) {
+    const siteId = parseSiteId(req.params.id);
+
+    if (siteId === null) {
+        return res.status(400).json({ error: 'Identifiant du site invalide.' });
+    }
+
+    try {
+        const site = await getSiteDetailsById(siteId);
+
+        if (!site) {
+            return res.status(404).json({ error: 'Site introuvable.' });
+        }
+
+        return res.status(200).json(site);
+    } catch (error) {
+        console.error('Erreur lors de la récupération du site :', error);
+        return res.status(500).json({ error: 'Une erreur interne est survenue.' });
+    }
+}
+
 module.exports = {
     getSiteVideo,
+    getSiteDetails,
 };

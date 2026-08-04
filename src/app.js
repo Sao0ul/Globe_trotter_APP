@@ -25,7 +25,7 @@ app.use(express.static('public')); // servir du contenu statique
 // health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'UP' });
-});
+}); 
 
 app.use('/api/sites', sitesRoutes);
 app.use('/api/sites/details', sitedetailsRoutes);

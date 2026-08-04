@@ -37,6 +37,21 @@ async function getVideoBySiteId(id) {
     return rows[0] || null;
 }
 
+async function getSiteDetailsById(id) {
+  const query = `
+    SELECT
+      id, title, description, bon_a_savoir, location, category,
+      author, image_url, video_url, difficulty, dangerosity,
+      price, latitude, longitude
+    FROM sites
+    WHERE id = $1
+  `;
+
+  const { rows } = await pool.query(query, [id]);
+  return rows[0] || null;
+}
+
 module.exports = {
-    getVideoBySiteId,
+  getVideoBySiteId,
+  getSiteDetailsById,
 };
