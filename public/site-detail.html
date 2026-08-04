@@ -11,6 +11,7 @@
         href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Work+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/site-detail.css">
 </head>
 
 <body class="page-shell">
@@ -31,6 +32,17 @@
                         <source id="videoSource" src="" type="video/mp4">
                         Votre navigateur ne supporte pas la vidéo.
                     </video>
+
+                    <!-- Container for alternate video types (YouTube iframe / thumbnail) -->
+                    <div id="videoContainer" class="video-container" aria-hidden="true"></div>
+
+                    <!-- Overlay shown when autoplay is blocked or to present unmute control -->
+                    <div id="videoOverlay" class="video-overlay" aria-hidden="true">
+                        <button id="playPreviewBtn" class="btn-ghost">Cliquer pour lancer la vidéo</button>
+                    </div>
+
+                    <!-- Unmute control (visible when playback is active but muted) -->
+                    <button id="unmuteBtn" class="btn-solid video-unmute" aria-pressed="false" hidden>Activer le son</button>
                 </div>
                 <div class="detail-video-meta">
                     <span class="chip chip-active">Vidéo d'aperçu</span>

@@ -22,6 +22,16 @@
 
 const videoElement = document.getElementById('siteVideo');
 const videoSourceElement = document.getElementById('videoSource');
+// Container for alternate (embed) content and thumbnail
+const videoContainer = document.getElementById('videoContainer');
+// Overlay / controls for autoplay fallback
+const videoOverlay = document.getElementById('videoOverlay');
+const playPreviewBtn = document.getElementById('playPreviewBtn');
+const unmuteBtn = document.getElementById('unmuteBtn');
+
+// Flags for external/embed videos
+let externalProvider = null; // 'youtube' | 'vimeo' | 'tiktok' | null
+let externalProviderId = null;
 
 const titleElement = document.getElementById('siteTitle');
 const categoryElement = document.getElementById('siteCategory');
@@ -436,6 +446,65 @@ async function loadSiteVideo(siteId) {
     return;
   }
 
+  // Detecter un lien externe (YouTube, Vimeo, TikTok, ...)
+  const parsed = parseExternalVideo(String(data.video_url));
+
+  if (parsed) {
+    externalProvider = parsed.provider;
+    externalProviderId = parsed.id;
+
+    // Mode embed externe : on affiche une miniature (si possible) et on charge l'iframe uniquement au clic.
+    // Masque le lecteur <video> natif
+    if (videoElement) {
+      videoElement.pause();
+      videoElement.hidden = true;
+      videoSourceElement.removeAttribute('src');
+      videoSourceElement.removeAttribute('type');
+      videoElement.load();
+    }
+
+    // Prépare la miniature (soit fournie par l'API, soit prise depuis le provider quand possible)
+    let thumbUrl = data.image_url || '';
+    if (!thumbUrl) {
+      if (externalProvider === 'youtube') {
+        thumbUrl = `https://img.youtube.com/vi/${externalProviderId}/hqdefault.jpg`;
+      } else if (externalProvider === 'vimeo') {
+        // Vimeo thumbnails require an API call; fallback to empty and rely on data.image_url
+        thumbUrl = '';
+      } else if (externalProvider === 'tiktok') {
+        // TikTok doesn't expose a simple static thumbnail URL reliably; rely on data.image_url or placeholder
+        thumbUrl = '';
+      }
+    }
+
+    if (videoContainer) {
+      if (thumbUrl) {
+        videoContainer.innerHTML = `<img id="externalThumb" src="${thumbUrl}" alt="Aperçu vidéo" style="width:100%;height:auto;display:block;">`;
+      } else {
+        // Placeholder visual if no thumbnail available
+        videoContainer.innerHTML = `<div style="width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;background:#000;color:#fff">Aperçu vidéo</div>`;
+      }
+      videoContainer.setAttribute('aria-hidden', 'false');
+    }
+
+    // Affiche l'overlay d'invite au clic pour charger l'iframe
+    showVideoOverlay();
+
+    // On cache le contrôle unmute (non applicable pour iframe)
+    hideUnmuteControl();
+
+    return;
+  }
+
+  // Sinon, comportement précédent : lecteur HTML5 pour fichiers directs
+  externalProvider = null;
+  externalProviderId = null;
+
+  if (videoContainer) {
+    videoContainer.innerHTML = '';
+    videoContainer.setAttribute('aria-hidden', 'true');
+  }
+
   videoElement.hidden = false;
 
   videoSourceElement.src = data.video_url;
@@ -449,6 +518,174 @@ async function loadSiteVideo(siteId) {
 
   // Recharge le lecteur après modification de la source.
   videoElement.load();
+
+  // Tentative d'autoplay muet — les navigateurs autorisent souvent l'autoplay si la vidéo est muette.
+  // Si l'autoplay est bloqué, on affiche un overlay qui invite l'utilisateur à cliquer pour lancer la vidéo.
+  try {
+    videoElement.muted = true;
+    // Assure que l'attribut autoplay est présent pour certains navigateurs/implémentations.
+    videoElement.autoplay = true;
+
+    const playPromise = videoElement.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch((err) => {
+        // Autoplay bloqué — afficher overlay invitant l'utilisateur à cliquer.
+        console.warn('Autoplay muet bloqué :', err);
+        showVideoOverlay();
+      }).then(() => {
+        // Si la lecture démarre en muet, afficher le bouton unmute.
+        if (!videoElement.paused) {
+          showUnmuteControl();
+        }
+      });
+    } else {
+      // Si play() ne renvoie pas une promesse (anciennes implémentations), on vérifie l'état.
+      setTimeout(() => {
+        if (videoElement.paused) {
+          showVideoOverlay();
+        } else {
+          showUnmuteControl();
+        }
+      }, 250);
+    }
+  } catch (err) {
+    console.warn('Erreur lors de la tentative d\'autoplay :', err);
+    showVideoOverlay();
+  }
+}
+
+
+// Helper pour détecter un fournisseur externe et extraire un identifiant
+function parseExternalVideo(url) {
+  // Normalize
+  const u = String(url).trim();
+
+  // YouTube
+  const ytPatterns = [
+    /(?:youtube\.com\/(?:watch\?.*v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/, // common
+    /[?&]v=([A-Za-z0-9_-]{11})/, // query v=
+  ];
+  for (const re of ytPatterns) {
+    const m = u.match(re);
+    if (m && m[1]) return { provider: 'youtube', id: m[1] };
+  }
+
+  // Vimeo (numeric id)
+  const mVimeo = u.match(/vimeo\.com\/(?:.*\/)?(\d+)/);
+  if (mVimeo && mVimeo[1]) return { provider: 'vimeo', id: mVimeo[1] };
+
+  // TikTok: https://www.tiktok.com/@user/video/1234567890123456789
+  const mTiktok = u.match(/tiktok\.com\/(?:@[^/]+\/video\/|embed(?:\/v2)?\/)(\d+)/);
+  if (mTiktok && mTiktok[1]) return { provider: 'tiktok', id: mTiktok[1] };
+
+  return null;
+}
+
+// ==========================================================
+// Contrôles d'autoplay / overlay
+// ==========================================================
+
+function showVideoOverlay() {
+  if (videoOverlay) {
+    videoOverlay.style.display = 'flex';
+    videoOverlay.setAttribute('aria-hidden', 'false');
+  }
+}
+
+function hideVideoOverlay() {
+  if (videoOverlay) {
+    videoOverlay.style.display = 'none';
+    videoOverlay.setAttribute('aria-hidden', 'true');
+  }
+}
+
+function showUnmuteControl() {
+  if (unmuteBtn) {
+    unmuteBtn.hidden = false;
+    unmuteBtn.setAttribute('aria-pressed', String(!videoElement.muted));
+  }
+}
+
+function hideUnmuteControl() {
+  if (unmuteBtn) {
+    unmuteBtn.hidden = true;
+    unmuteBtn.setAttribute('aria-pressed', 'false');
+  }
+}
+
+// Installer handlers sur les boutons overlay/unmute (si présents)
+function bindVideoControls() {
+  if (playPreviewBtn) {
+    playPreviewBtn.addEventListener('click', async (evt) => {
+      // Ce clic est un geste utilisateur — comportement différencié selon le type de vidéo.
+      hideVideoOverlay();
+
+          if (externalProvider && externalProviderId) {
+            // Charger l'iframe du provider à la demande (lazy load)
+        if (videoContainer) {
+          videoContainer.innerHTML = '';
+          const iframe = document.createElement('iframe');
+              let src = '';
+
+              if (externalProvider === 'youtube') {
+                src = `https://www.youtube.com/embed/${externalProviderId}?autoplay=1&rel=0&modestbranding=1`;
+              } else if (externalProvider === 'vimeo') {
+                src = `https://player.vimeo.com/video/${externalProviderId}?autoplay=1&title=0&byline=0&portrait=0`;
+              } else if (externalProvider === 'tiktok') {
+                src = `https://www.tiktok.com/embed/v2/${externalProviderId}`;
+              }
+
+              iframe.src = src;
+              iframe.width = '100%';
+              iframe.height = '100%';
+              iframe.style.border = '0';
+              iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+              iframe.setAttribute('allowfullscreen', '');
+              videoContainer.appendChild(iframe);
+              videoContainer.setAttribute('aria-hidden', 'false');
+            }
+
+            // S'assurer que le lecteur natif est caché
+            if (videoElement) {
+              videoElement.pause();
+              videoElement.hidden = true;
+            }
+
+            // Le contrôle unmute n'est pas pertinent pour iframe
+            hideUnmuteControl();
+
+            return;
+          }
+
+      // Fallback : tenter la lecture du lecteur HTML5
+      try {
+        videoElement.muted = false;
+        await videoElement.play();
+        showUnmuteControl();
+      } catch (err) {
+        console.warn('Lecture après clic utilisateur échouée, tentative muette :', err);
+        try {
+          videoElement.muted = true;
+          await videoElement.play();
+          showUnmuteControl();
+        } catch (err2) {
+          console.error('Impossible de démarrer la vidéo :', err2);
+          // Laisser l'overlay caché — l'utilisateur peut utiliser les contrôles natifs.
+        }
+      }
+    });
+  }
+
+  if (unmuteBtn) {
+    unmuteBtn.addEventListener('click', () => {
+      if (!videoElement) return;
+      // bascule muet
+      const willBeMuted = !videoElement.muted;
+      videoElement.muted = willBeMuted;
+      unmuteBtn.textContent = willBeMuted ? 'Activer le son' : 'Couper le son';
+      unmuteBtn.setAttribute('aria-pressed', String(!willBeMuted));
+    });
+  }
 }
 
 
@@ -805,6 +1042,16 @@ function initializePage() {
     console.warn(
       'Le bouton #openItineraryBtn est introuvable.'
     );
+  }
+
+  // Préparer l'état des contrôles vidéo
+  try {
+    hideVideoOverlay();
+    hideUnmuteControl();
+    bindVideoControls();
+  } catch (e) {
+    // Ne pas bloquer l'initialisation si les éléments manquent
+    console.warn('Contrôles vidéo non disponibles :', e);
   }
 
   window.addEventListener(

@@ -1,0 +1,79 @@
+/* CSS spécifique pour la page de détail de site
+ * Format aligné sur css/site.css : racine de variables, sections claires,
+ * et une variable --detail-bg-image facile à remplacer pour changer le fond.
+ */
+
+:root {
+  /* Image de fond par défaut pour la page détail (modifiable) */
+  --detail-bg-image: url("https://images.pexels.com/photos/17290983/pexels-photo-17290983.jpeg");
+
+  /* Palette locale (hérite de site.css mais permet overrides sur la page) */
+  --detail-overlay: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5));
+}
+
+/* ================= Base & layout pour la page détail ================= */
+.page-shell {
+  min-height: 100vh;
+  background: var(--detail-bg-image) center center/cover no-repeat fixed;
+}
+
+.page-frame {
+  background: rgba(255,255,255,0.92);
+  margin: 24px auto;
+  max-width: 1280px;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 14px 40px rgba(22,51,43,0.12);
+}
+
+/* ================= Sections ================= */
+.detail-topbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 6px 14px;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 18px;
+  margin-top: 10px;
+}
+
+.detail-card {
+  background: transparent; /* la page-frame gère le fond */
+  border: none;
+  padding: 18px;
+}
+
+/* ================= Vidéo / iframe container ================= */
+.video-container img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.video-container iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  aspect-ratio: 16 / 9;
+}
+
+/* Overlay and controls are present in site.css but keep small useful overrides */
+.video-overlay {
+  border-radius: 12px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 980px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+  .page-frame {
+    margin: 12px;
+    padding: 14px;
+  }
+}
