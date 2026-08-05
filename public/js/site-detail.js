@@ -1152,14 +1152,17 @@ function initMiniMap(lat, lng) {
 
 
 
-window.addEventListener("pageshow", async (event) => {
-  if (event.persisted) {
-    console.log("Retour depuis le cache");
+// Se déclenche à chaque affichage de la page — y compris un retour bfcache,
+// dont le comportement varie selon les navigateurs. On ne se fie plus
+// uniquement à event.persisted : on réinitialise systématiquement.
+window.addEventListener("pageshow", async () => {
+  await loadSiteDetail();
 
-    await loadSiteDetail();
-
+  // Laisse le temps au conteneur de reprendre ses dimensions finales
+  // avant de dire à Leaflet de recalculer sa taille.
+  setTimeout(() => {
     if (miniMapInstance) {
       miniMapInstance.invalidateSize();
     }
-  }
+  }, 100);
 });

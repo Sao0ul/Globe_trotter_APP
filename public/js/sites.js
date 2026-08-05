@@ -197,6 +197,9 @@ function moyenneNote(site) {
 
 // -------------------- Affichage des cartes --------------------
 
+// Garde trace des cartes déjà rendues pour ne jamais les reconstruire inutilement
+let idsDejaAffiches = new Set();
+
 function afficherSites() {
   const sitesFiltres = tousLesSites.filter(correspondAuxFiltres);
 
@@ -206,61 +209,70 @@ function afficherSites() {
   }
   afficherEtat("grid");
 
-  sitesGrid.innerHTML = "";
+  // Si un filtre/recherche a changé, on ne peut pas se contenter d'ajouter :
+  // l'ensemble affiché doit être recalculé entièrement.
+  const idsAttendus = new Set(sitesFiltres.map((s) => s.id));
+  const rebuildComplet = ![...idsDejaAffiches].every((id) => idsAttendus.has(id));
+
+  if (rebuildComplet) {
+    sitesGrid.innerHTML = "";
+    idsDejaAffiches = new Set();
+  }
 
   sitesFiltres.forEach((site, index) => {
+    // Ne recrée pas une carte déjà présente dans le DOM
+    if (idsDejaAffiches.has(site.id)) return;
+
     const node = cardTemplate.content.cloneNode(true);
-  const card = node.querySelector(".card");
+    const card = node.querySelector(".card");
 
-  const img = node.querySelector(".card-media img");
-  img.src = site.imageUrl || "https://placehold.co/400x300/16332B/F4C868?text=Cameroun+Visit";
-  img.alt = `Image de ${site.titre}`;
+    const img = node.querySelector(".card-media img");
+    img.src = site.imageUrl || "https://placehold.co/400x300/16332B/F4C868?text=Cameroun+Visit";
+    img.alt = `Image de ${site.titre}`;
 
-  node.querySelector(".card-number").textContent =
-    "N°" + String(site.id ?? index + 1).padStart(3, "0");
-  node.querySelector(".card-category").textContent =
-    window.i18n.t(`categories.${site.categorie}`) || site.categorie || "—";
-  node.querySelector(".card-title").textContent = site.titre;
-  node.querySelector(".card-location span").textContent = site.localisation;
-  node.querySelector(".card-desc").textContent = site.description || "";
-  node.querySelector(".rating-value").textContent = moyenneNote(site).toFixed(1);
-  node.querySelector(".card-author").textContent =
-    site.auteur ? `${window.i18n.t("site.authorPrefix")} ${site.auteur}` : "";
+    node.querySelector(".card-number").textContent =
+      "N°" + String(site.id ?? index + 1).padStart(3, "0");
+    node.querySelector(".card-category").textContent =
+      window.i18n.t(`categories.${site.categorie}`) || site.categorie || "—";
+    node.querySelector(".card-title").textContent = site.titre;
+    node.querySelector(".card-location span").textContent = site.localisation;
+    node.querySelector(".card-desc").textContent = site.description || "";
+    node.querySelector(".rating-value").textContent = moyenneNote(site).toFixed(1);
+    node.querySelector(".card-author").textContent =
+      site.auteur ? `${window.i18n.t("site.authorPrefix")} ${site.auteur}` : "";
 
-  const tagDifficulte = node.querySelector(".tag-difficulte");
-  if (site.difficulte) {
-    tagDifficulte.dataset.level = site.difficulte;
-    tagDifficulte.textContent = window.i18n.t(`difficulty.${site.difficulte}`) || site.difficulte;
-  }
-
-  const tagDanger = node.querySelector(".tag-danger");
-  if (site.dangerosite) {
-    tagDanger.dataset.level = site.dangerosite;
-    tagDanger.textContent = window.i18n.t(`danger.${site.dangerosite}`) || site.dangerosite;
-  }
-
-  const tagPrix = node.querySelector(".tag-prix");
-  if (site.prix !== undefined && site.prix !== null && site.prix !== "") {
-    const locale = window.i18n.language === "en" ? "en-US" : "fr-FR";
-    tagPrix.textContent = `${Number(site.prix).toLocaleString(locale)} FCFA`;
-  }
-
-  card.addEventListener("click", (event) => {
-    if (event.target.closest(".rating")) {
-      return;
+    const tagDifficulte = node.querySelector(".tag-difficulte");
+    if (site.difficulte) {
+      tagDifficulte.dataset.level = site.difficulte;
+      tagDifficulte.textContent = window.i18n.t(`difficulty.${site.difficulte}`) || site.difficulte;
     }
-    window.location.href = `site-detail.html?id=${encodeURIComponent(site.id)}`;
-  });
 
-  node.querySelector(".rating").addEventListener("click", (event) => {
-    event.stopPropagation();
-    noterSite(site.id);
-  });
+    const tagDanger = node.querySelector(".tag-danger");
+    if (site.dangerosite) {
+      tagDanger.dataset.level = site.dangerosite;
+      tagDanger.textContent = window.i18n.t(`danger.${site.dangerosite}`) || site.dangerosite;
+    }
 
-  sitesGrid.appendChild(node);
+    const tagPrix = node.querySelector(".tag-prix");
+    if (site.prix !== undefined && site.prix !== null && site.prix !== "") {
+      const locale = window.i18n.language === "en" ? "en-US" : "fr-FR";
+      tagPrix.textContent = `${Number(site.prix).toLocaleString(locale)} FCFA`;
+    }
+
+    card.addEventListener("click", (event) => {
+      if (event.target.closest(".rating")) return;
+      window.location.href = `site-detail.html?id=${encodeURIComponent(site.id)}`;
+    });
+
+    node.querySelector(".rating").addEventListener("click", (event) => {
+      event.stopPropagation();
+      noterSite(site.id);
+    });
+
+    sitesGrid.appendChild(node);
+    idsDejaAffiches.add(site.id);
   });
 }
-
 // -------------------- Notation --------------------
 
 async function noterSite(siteId) {
