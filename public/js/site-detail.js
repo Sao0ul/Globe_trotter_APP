@@ -936,15 +936,7 @@ async function loadNearbyPlaces(lat, lng) {
   }
 
   (data.lieux || []).forEach((lieu) => {
-    const color = CATEGORY_COLORS[lieu.category] || '#5B6960';
-
-    L.circleMarker([lieu.latitude, lieu.longitude], {
-      radius: 6,
-      color: '#FFFDF8',
-      fillColor: color,
-      fillOpacity: 0.9,
-      weight: 1.5,
-    })
+    L.marker([lieu.latitude, lieu.longitude], { icon: creerIconeCarte(lieu.category) })
       .addTo(miniMapInstance)
       .bindPopup(`<strong>${lieu.name}</strong><br>${lieu.address || ''}`);
   });
@@ -1125,16 +1117,6 @@ if (document.readyState === 'loading') {
 
 let miniMapInstance = null;
 
-// Couleurs alignées sur la palette du projet (voir site.css :root)
-const CATEGORY_COLORS = {
-  site_touristique: '#E3A93A', // --gold
-  restaurant: '#B8452F',       // --clay
-  hotel: '#4FA3C4',
-  hopital: '#D64545',
-  clinique: '#D64545',         // regroupé avec hôpital, pas de puce dédiée pour l'instant
-  pharmacie: '#D64545',
-};
-
 /**
  * Initialise la mini-carte centrée sur le site, avec son marqueur.
  * Ne fait rien si les coordonnées sont invalides (site sans lat/lng en base).
@@ -1143,6 +1125,8 @@ function initMiniMap(lat, lng) {
   const mapContainer = document.getElementById('miniMap');
   if (!mapContainer || typeof L === 'undefined') return;
 
+  // Si la page recharge un autre site (navigation sans rechargement complet),
+  // on détruit l'ancienne instance avant d'en recréer une.
   if (miniMapInstance) {
     miniMapInstance.remove();
     miniMapInstance = null;
@@ -1151,13 +1135,6 @@ function initMiniMap(lat, lng) {
   // Le <div class="map-grid"> décoratif n'a plus d'utilité une fois
   // qu'une vraie carte Leaflet occupe le conteneur.
   mapContainer.querySelector('.map-grid')?.remove();
-
-  // Si la page recharge un autre site (navigation sans rechargement complet),
-  // on détruit l'ancienne instance avant d'en recréer une.
-  if (miniMapInstance) {
-    miniMapInstance.remove();
-    miniMapInstance = null;
-  }
 
   miniMapInstance = L.map(mapContainer, {
     zoomControl: false,
@@ -1168,13 +1145,7 @@ function initMiniMap(lat, lng) {
     maxZoom: 19,
   }).addTo(miniMapInstance);
 
-  L.circleMarker([lat, lng], {
-    radius: 8,
-    color: '#16332B',
-    fillColor: CATEGORY_COLORS.site_touristique,
-    fillOpacity: 1,
-    weight: 2,
-  })
+  L.marker([lat, lng], { icon: creerIconeCarte('destination') })
     .addTo(miniMapInstance)
     .bindPopup(currentSite.titre || 'Ce site');
 }
@@ -1192,4 +1163,3 @@ window.addEventListener("pageshow", async (event) => {
     }
   }
 });
-

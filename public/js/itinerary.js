@@ -12,6 +12,16 @@ const useCurrentLocationButton = document.getElementById('useCurrentLocationBtn'
 const itineraryTitle = document.getElementById('itineraryTitle');
 const legendContainer = document.querySelector('.detail-legend');
 
+// Éléments du panneau "Obtenir l'itinéraire"
+const departInput = document.getElementById('departInput');
+const arriveeInput = document.getElementById('arriveeInput');
+const swapDirectionsBtn = document.getElementById('swapDirectionsBtn');
+const closeDirectionsPanel = document.getElementById('closeDirectionsPanel');
+const directionsPanel = document.getElementById('directionsPanel');
+const modeDriveBtn = document.getElementById('modeDriveBtn');
+const modeWalkBtn = document.getElementById('modeWalkBtn');
+const modeBikeBtn = document.getElementById('modeBikeBtn');
+
 // ⚠️ À confirmer : préfixe exact sous lequel itineraireRoutes.js est monté
 // dans app.js. J'assume '/api/itineraire'.
 const ITINERAIRE_API_BASE = '/api/itineraire';
@@ -23,17 +33,20 @@ const fallbackSite = {
   longitude: null,
 };
 
+// Couleurs alignées EXACTEMENT sur --pin-color dans css/map-markers.css,
+// pour que la légende corresponde vraiment aux pins affichés sur la carte.
 const COULEURS_CATEGORIE = {
-  hotel: '#3b82f6',
-  restaurant: '#f97316',
-  hopital: '#ef4444',
-  clinique: '#ec4899',
-  pharmacie: '#22c55e',
-  site_touristique: '#a855f7',
+  hotel: '#4FA3C4',
+  restaurant: '#B8452F',
+  hopital: '#D64545',
+  clinique: '#D64545',
+  pharmacie: '#D64545',
+  site_touristique: '#C98A2E',
 };
 
-const COULEUR_DEPART = '#1f6f68';
-const COULEUR_DESTINATION = '#ef4444';
+const COULEUR_DEPART = '#4285F4';       // identique à .map-pin--user
+const COULEUR_DESTINATION = '#E3A93A';  // identique à .map-pin--destination
+const COULEUR_TRAJET = '#E3A93A';
 
 // ==========================================================
 // Carte Leaflet
@@ -54,15 +67,6 @@ let originPoint = null; // { lat, lng }
 let destinationPoint = null; // { lat, lng }
 let destinationLabel = fallbackSite.titre;
 
-function buildColoredIcon(color) {
-  return L.divIcon({
-    className: '',
-    html: `<span style="display:block;width:16px;height:16px;border-radius:50%;background:${color};border:2px solid #fff;box-shadow:0 0 4px rgba(0,0,0,0.4);"></span>`,
-    iconSize: [16, 16],
-    iconAnchor: [8, 8],
-  });
-}
-
 function placeDestinationMarker(lat, lng, label) {
   destinationPoint = { lat, lng };
   destinationLabel = label || destinationLabel;
@@ -71,11 +75,15 @@ function placeDestinationMarker(lat, lng, label) {
     destinationMarker.setLatLng([lat, lng]);
   } else {
     destinationMarker = L.marker([lat, lng], {
-      icon: buildColoredIcon(COULEUR_DESTINATION),
+      icon: creerIconeCarte('destination'),
     }).addTo(map);
   }
 
   destinationMarker.bindPopup(`Destination : ${destinationLabel}`);
+
+  if (arriveeInput) {
+    arriveeInput.value = destinationLabel;
+  }
 }
 
 function placeOriginMarker(lat, lng) {
@@ -83,21 +91,29 @@ function placeOriginMarker(lat, lng) {
 
   if (originMarker) {
     originMarker.setLatLng([lat, lng]);
-    return;
+  } else {
+    originMarker = L.marker([lat, lng], {
+      icon: creerIconeUtilisateur(),
+      draggable: true,
+    }).addTo(map);
+
+    originMarker.bindPopup('Votre point de départ (déplaçable)');
+
+    originMarker.on('dragend', () => {
+      const { lat: newLat, lng: newLng } = originMarker.getLatLng();
+      originPoint = { lat: newLat, lng: newLng };
+      updateDepartLabel(`${newLat.toFixed(4)}, ${newLng.toFixed(4)}`);
+      calculerItineraire();
+    });
   }
 
-  originMarker = L.marker([lat, lng], {
-    icon: buildColoredIcon(COULEUR_DEPART),
-    draggable: true,
-  }).addTo(map);
+  updateDepartLabel(`${lat.toFixed(4)}, ${lng.toFixed(4)}`);
+}
 
-  originMarker.bindPopup('Votre point de départ (déplaçable)');
-
-  originMarker.on('dragend', () => {
-    const { lat: newLat, lng: newLng } = originMarker.getLatLng();
-    originPoint = { lat: newLat, lng: newLng };
-    calculerItineraire();
-  });
+function updateDepartLabel(label) {
+  if (departInput) {
+    departInput.value = label;
+  }
 }
 
 function buildLegend() {
@@ -182,7 +198,7 @@ async function calculerItineraire() {
 
     // Le tracé (GeoJSON LineString) vient d'OSRM, via le backend.
     routeLayer = L.geoJSON(data.trajet, {
-      style: { color: '#3b82f6', weight: 5 },
+      style: { color: COULEUR_TRAJET, weight: 5, opacity: 0.85 },
     }).addTo(map);
 
     map.fitBounds(routeLayer.getBounds(), { padding: [40, 40] });
@@ -190,15 +206,7 @@ async function calculerItineraire() {
     poiLayer.clearLayers();
 
     (data.lieux || []).forEach((lieu) => {
-      const couleur = COULEURS_CATEGORIE[lieu.category] || '#94a3b8';
-
-      L.circleMarker([lieu.latitude, lieu.longitude], {
-        radius: 7,
-        fillColor: couleur,
-        color: '#fff',
-        weight: 2,
-        fillOpacity: 0.9,
-      })
+      L.marker([lieu.latitude, lieu.longitude], { icon: creerIconeCarte(lieu.category) })
         .bindPopup(`<strong>${lieu.name}</strong><br/>${lieu.category}`)
         .addTo(poiLayer);
     });
@@ -280,6 +288,53 @@ async function initDestination() {
 }
 
 // ==========================================================
+// Panneau "Obtenir l'itinéraire"
+// ==========================================================
+
+// Désactive l'autocomplétion du navigateur — évite qu'un vieux texte tapé
+// une fois (ex. "fougerolle") ne revienne s'afficher dans un champ readonly/vide.
+[departInput, arriveeInput].forEach((input) => {
+  if (input) input.setAttribute('autocomplete', 'off');
+});
+
+if (closeDirectionsPanel && directionsPanel) {
+  closeDirectionsPanel.addEventListener('click', () => {
+    directionsPanel.style.display = 'none';
+  });
+}
+
+// Les profils "Marche" et "Vélo" ne sont pas disponibles : le serveur OSRM
+// public utilisé par le backend (router.project-osrm.org) ne sert que le
+// profil voiture. Les boutons restent visibles mais inertes pour l'instant.
+if (modeWalkBtn) {
+  modeWalkBtn.addEventListener('click', () => {
+    setRouteSummary('Le mode Marche arrive bientôt — seul le mode Voiture est disponible pour le moment.');
+  });
+}
+if (modeBikeBtn) {
+  modeBikeBtn.addEventListener('click', () => {
+    setRouteSummary('Le mode Vélo arrive bientôt — seul le mode Voiture est disponible pour le moment.');
+  });
+}
+
+if (swapDirectionsBtn) {
+  swapDirectionsBtn.addEventListener('click', () => {
+    if (!originPoint || !destinationPoint) {
+      return;
+    }
+
+    const nouveauDepart = destinationPoint;
+    const nouvelleDestination = originPoint;
+    const nouveauLabelDestination = departInput?.value || 'Point choisi';
+
+    placeOriginMarker(nouveauDepart.lat, nouveauDepart.lng);
+    placeDestinationMarker(nouvelleDestination.lat, nouvelleDestination.lng, nouveauLabelDestination);
+
+    calculerItineraire();
+  });
+}
+
+// ==========================================================
 // Interactions utilisateur
 // ==========================================================
 
@@ -300,6 +355,7 @@ if (useCurrentLocationButton) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         placeOriginMarker(position.coords.latitude, position.coords.longitude);
+        updateDepartLabel('Ma position');
         map.setView([position.coords.latitude, position.coords.longitude], 13);
         calculerItineraire();
       },

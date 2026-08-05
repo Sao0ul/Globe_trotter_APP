@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <link rel="icon" type="image/png" href="assets/images/logoLogin.png" />
     <title data-i18n="login.title">Discover Cameroon</title>
-
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Itinéraire complet</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -15,6 +15,7 @@
         href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Work+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/map-markers.css">
     <link rel="stylesheet" href="css/itinerary.css">
 </head>
 
@@ -36,6 +37,76 @@
                     <span class="detail-tag">Cliquez sur la carte pour choisir un point</span>
                 </div>
                 <div id="routeMap" class="route-map" role="img" aria-label="Carte de l'itinéraire">
+                <!-- À placer À L'INTÉRIEUR de <div id="routeMap">, avant que Leaflet n'y injecte la carte —
+                     Leaflet ajoute ses propres enfants sans toucher aux tiens, donc ce panneau restera au-dessus. -->
+                
+                <div class="directions-panel" id="directionsPanel">
+                    <button class="directions-close-btn" id="closeDirectionsPanel" aria-label="Fermer">
+                        <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
+                            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </button>
+                
+                    <div class="directions-panel-head">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M9 20l-5-2V5l5 2m0 13l6-2m-6 2V7m6 11l5 2V7l-5-2m0 13V5m0 0L9 7" stroke="currentColor"
+                                stroke-width="1.6" stroke-linejoin="round" />
+                        </svg>
+                        <span>Obtenir l'itinéraire</span>
+                    </div>
+                
+                    <div class="directions-row">
+                        <div style="flex:1">
+                            <div class="directions-field">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6" />
+                                </svg>
+                                <input type="text" id="departInput" placeholder="Point de départ">
+                            </div>
+                            <div class="directions-field">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 21s7-6.5 7-11.5A7 7 0 105 9.5C5 14.5 12 21 12 21z" stroke="currentColor"
+                                        stroke-width="1.6" />
+                                </svg>
+                                <input type="text" id="arriveeInput" placeholder="Destination" readonly>
+                            </div>
+                        </div>
+                        <button class="directions-swap-btn" id="swapDirectionsBtn" aria-label="Inverser départ et arrivée">
+                            <svg viewBox="0 0 24 24" fill="none" width="15" height="15">
+                                <path d="M7 4v13M7 17l-3-3M7 17l3-3M17 20V7M17 7l3 3M17 7l-3 3" stroke="currentColor" stroke-width="1.8"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                    </div>
+                
+                    <div class="directions-modes">
+                        <button class="directions-mode-btn is-active" id="modeDriveBtn" data-mode="driving">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path
+                                    d="M5 11l1.5-4.5A2 2 0 018.4 5h7.2a2 2 0 011.9 1.5L19 11m-14 0h14m-14 0v6a1 1 0 001 1h1a1 1 0 001-1v-1h8v1a1 1 0 001 1h1a1 1 0 001-1v-6"
+                                    stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+                            </svg>
+                            Voiture
+                        </button>
+                        <button class="directions-mode-btn is-unavailable" id="modeWalkBtn" data-mode="foot" title="Bientôt disponible">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <circle cx="13" cy="4" r="2" stroke="currentColor" stroke-width="1.6" />
+                                <path d="M10 22l1.5-6L9 14l1-5 4-2 3 3-1 5 3 2-1 5" stroke="currentColor" stroke-width="1.6"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            Marche
+                        </button>
+                        <button class="directions-mode-btn is-unavailable" id="modeBikeBtn" data-mode="bike" title="Bientôt disponible">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <circle cx="6" cy="17" r="3" stroke="currentColor" stroke-width="1.6" />
+                                <circle cx="18" cy="17" r="3" stroke="currentColor" stroke-width="1.6" />
+                                <path d="M6 17l4-8h5l3 8M10 9H8m4 0l3 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            Vélo
+                        </button>
+                    </div>
+                </div>
                 </div>
 
                 <div class="detail-legend">
@@ -60,6 +131,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="js/i18n.js"></script>
     <script src="js/itinerary.js"></script>
+    <script src="js/mapIcons.js"></script>
 </body>
 
 </html>

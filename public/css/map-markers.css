@@ -1,0 +1,306 @@
+/* ============================================================
+   MARQUEURS DE CARTE — pins façon Google Maps, en pur CSS
+   ============================================================
+   Structure attendue en JS (voir creerIconeCarte()) :
+
+   <div class="map-pin map-pin--restaurant">
+     <span class="map-pin-glyph"></span>
+   </div>
+
+   La forme de la goutte est dessinée en CSS (aucune image requise).
+   Chaque catégorie ne définit que 2 variables :
+     --pin-color     : couleur de fond de la goutte
+     --pin-icon-url  : l'image affichée à l'intérieur (remplaçable
+                        par tes propres icônes/images à tout moment,
+                        sans toucher au JS)
+   ============================================================ */
+
+/* Neutralise le style par défaut que Leaflet applique à .leaflet-div-icon
+   (fond blanc + bordure) — sinon il entre en conflit avec notre pin custom. */
+.leaflet-div-icon {
+    background: transparent;
+    border: none;
+}
+
+.map-pin {
+    position: relative;
+    width: 30px;
+    height: 42px;
+}
+
+.map-pin::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    background: var(--pin-color, var(--forest-deep));
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    border: 2px solid #FFFDF8;
+    box-shadow: 0 3px 8px rgba(22, 51, 43, 0.4);
+}
+
+.map-pin-glyph {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 16px;
+    height: 16px;
+    transform: translate(-50%, -50%);
+    background-image: var(--pin-icon-url);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1;
+}
+
+/* Icônes par défaut, en SVG inline — remplace juste --pin-icon-url
+   par url('/assets/icons/ton-icone.png') pour utiliser tes propres images,
+   la taille/le centrage restent corrects automatiquement. */
+
+.map-pin--destination {
+    --pin-color: #E3A93A;
+    --pin-icon-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.3l7.1-.7z' fill='white'/%3E%3C/svg%3E");
+}
+
+.map-pin--restaurant {
+    --pin-color: #B8452F;
+    --pin-icon-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 2v8a2 2 0 002 2v10h2V12a2 2 0 002-2V2H6zM17 2c-1.5 0-3 2-3 5v4a2 2 0 001 1.7V22h2V12.7A2 2 0 0019 11V2z' fill='white'/%3E%3C/svg%3E");
+}
+
+.map-pin--hotel {
+    --pin-color: #4FA3C4;
+    --pin-icon-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 18v-7a2 2 0 012-2h4a2 2 0 012 2v1h2v-1a2 2 0 012-2h4a2 2 0 012 2v7h-2v-2H5v2H3z' fill='white'/%3E%3C/svg%3E");
+}
+
+.map-pin--hopital,
+.map-pin--clinique {
+    --pin-color: #D64545;
+    --pin-icon-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 2h4v8h8v4h-8v8h-4v-8H2v-4h8z' fill='white'/%3E%3C/svg%3E");
+}
+
+.map-pin--pharmacie {
+    --pin-color: #D64545;
+    --pin-icon-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 2h4v8h8v4h-8v8h-4v-8H2v-4h8z' fill='white'/%3E%3C/svg%3E");
+}
+
+.map-pin--transport {
+    --pin-color: #2F8B7D;
+    --pin-icon-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 6a2 2 0 012-2h12a2 2 0 012 2v9a1 1 0 01-1 1h-1a2 2 0 11-4 0H10a2 2 0 11-4 0H5a1 1 0 01-1-1V6z' fill='white'/%3E%3C/svg%3E");
+}
+
+/* Autres sites touristiques trouvés à proximité (catégorie réelle en base :
+   lieux_touristiques.category = 'site_touristique') — distinct du pin
+   "destination" ci-dessus, qui représente le site actuellement consulté. */
+.map-pin--site_touristique {
+    --pin-color: #C98A2E;
+    --pin-icon-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.3l7.1-.7z' fill='white'/%3E%3C/svg%3E");
+}
+
+/* Position de l'utilisateur : point qui pulse, convention universelle des apps de carte */
+.map-pin--user {
+    width: 20px;
+    height: 20px;
+}
+
+.map-pin--user::before {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    transform: none;
+    background: #4285F4;
+    border: 3px solid #FFFDF8;
+    box-shadow: 0 0 0 4px rgba(66, 133, 244, 0.3);
+    animation: pulse-user-pin 2s ease-in-out infinite;
+}
+
+.map-pin--user .map-pin-glyph {
+    display: none;
+}
+
+@keyframes pulse-user-pin {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 4px rgba(66, 133, 244, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 0 9px rgba(66, 133, 244, 0.12);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .map-pin--user::before {
+        animation: none;
+    }
+}
+
+/* ============================================================
+   PANNEAU "OBTENIR L'ITINÉRAIRE" — flottant sur la carte
+   ============================================================ */
+
+.directions-panel {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    z-index: 500;
+    /* au-dessus des tuiles Leaflet (z-index max ~400) */
+    background: rgba(22, 51, 43, 0.88);
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 18px;
+    color: var(--ink-inverse);
+    box-shadow: 0 20px 45px -12px rgba(22, 51, 43, 0.5);
+    max-width: 480px;
+}
+
+.directions-panel-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+.directions-panel-head svg {
+    width: 18px;
+    height: 18px;
+    color: var(--gold);
+}
+
+.directions-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+}
+
+.directions-field input,
+.directions-field select {
+    flex: 1;
+    border: none;
+    background: none;
+    outline: none;
+    color: var(--ink-inverse);
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+}
+
+.directions-field input::placeholder {
+    color: #9DB5AA;
+}
+
+.directions-field svg {
+    width: 16px;
+    height: 16px;
+    color: #9DB5AA;
+    flex-shrink: 0;
+}
+
+.directions-swap-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--ink-inverse);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.directions-swap-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.directions-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.directions-modes {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.directions-mode-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 10px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #CBDCD1;
+    font-size: 0.82rem;
+    font-weight: 500;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.directions-mode-btn svg {
+    width: 15px;
+    height: 15px;
+}
+
+.directions-mode-btn:hover {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.directions-mode-btn.is-active {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--forest-deep);
+}
+
+/* Modes non disponibles côté backend pour le moment (OSRM public = voiture uniquement) */
+.directions-mode-btn.is-unavailable {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.directions-mode-btn.is-unavailable:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.directions-close-btn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--ink-inverse);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.directions-close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 640px) {
+    .directions-panel {
+        left: 10px;
+        right: 10px;
+        top: 10px;
+        padding: 14px;
+    }
+}
