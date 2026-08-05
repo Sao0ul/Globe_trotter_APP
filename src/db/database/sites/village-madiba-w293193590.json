@@ -1,7 +1,7 @@
 {
   "osm_type": "way",
   "osm_id": 293193590,
-  "category": "culture",
+  "category": "beach",
   "name": "Village Madiba",
   "address": null,
   "phone": "+237699912623",
@@ -11,7 +11,7 @@
   "bonASavoir": "video par la.reinedesbonsplans(tiktok)",
   "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnkHxAAc12jhUcoPlsfdvilg09AJVcNVGEg4GKQkiQE2qeFfd122GkS5nS&s=10",
   "videoUrl": "https://www.tiktok.com/@la.reinedesbonsplans/video/7648598158691405063?is_from_webapp=1&sender_device=pc",
-  "price": 2000,
+  "price": 4500,
   "dangerosity": "low",
   "difficulty": "easy"
 }
