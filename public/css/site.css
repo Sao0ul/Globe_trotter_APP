@@ -704,13 +704,20 @@ button {
 .card-media {
   position: relative;
   aspect-ratio: 4 / 3;
+  min-height: 220px;
+  overflow: hidden;
   background: linear-gradient(155deg, var(--forest-mid), var(--forest-deep));
 }
 
 .card-media img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
+  min-width: 100%;
+  min-height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
 }
 

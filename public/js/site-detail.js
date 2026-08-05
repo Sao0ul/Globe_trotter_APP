@@ -394,8 +394,17 @@ function clearSiteVideo() {
   // Recharge le lecteur pour supprimer l'ancienne ressource.
   videoElement.load();
 
-  // Le poster reste affichable, mais le lecteur est masqué.
-  videoElement.hidden = true;
+  // Si une image de poster est disponible, on la laisse s'afficher.
+  // Le champ #siteVideo servira ainsi de bloc visuel lorsque seul
+  // l'image du lieu est disponible et qu'il n'y a pas de vidéo.
+  videoElement.hidden = !videoElement.poster;
+
+  if (videoContainer) {
+    videoContainer.innerHTML = '';
+    videoContainer.setAttribute('aria-hidden', 'true');
+  }
+
+  hideVideoOverlay();
 }
 
 /**
