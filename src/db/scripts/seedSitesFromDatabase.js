@@ -35,6 +35,9 @@ function normalizeSiteEntry(entry) {
     longitude: entry.longitude,
     osm_type: entry.osm_type,
     osm_id: entry.osm_id,
+    price: entry.price || null,
+    dangerosity: entry.dangerosity || null,
+    difficulty: entry.difficulty || null,
   };
 }
 
@@ -61,25 +64,44 @@ async function seedSitesFromDatabase() {
 
     await pool.query(
       `
-      INSERT INTO sites (
-        id, title, description, bon_a_savoir, location, category,
-        author, image_url, video_url, latitude, longitude,
-        osm_type, osm_id
-      )
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
-      ON CONFLICT (osm_type, osm_id)
-      DO UPDATE SET
-        title = EXCLUDED.title,
-        description = EXCLUDED.description,
-        bon_a_savoir = EXCLUDED.bon_a_savoir,
-        location = EXCLUDED.location,
-        category = EXCLUDED.category,
-        author = EXCLUDED.author,
-        image_url = EXCLUDED.image_url,
-        video_url = EXCLUDED.video_url,
-        latitude = EXCLUDED.latitude,
-        longitude = EXCLUDED.longitude
-      `,
+  INSERT INTO sites (
+    id,
+    title,
+    description,
+    bon_a_savoir,
+    location,
+    category,
+    author,
+    image_url,
+    video_url,
+    latitude,
+    longitude,
+    osm_type,
+    osm_id,
+    price,
+    dangerosity,
+    difficulty
+  )
+  VALUES (
+    $1, $2, $3, $4, $5, $6, $7, $8,
+    $9, $10, $11, $12, $13, $14, $15, $16
+  )
+  ON CONFLICT (osm_type, osm_id)
+  DO UPDATE SET
+    title = EXCLUDED.title,
+    description = EXCLUDED.description,
+    bon_a_savoir = EXCLUDED.bon_a_savoir,
+    location = EXCLUDED.location,
+    category = EXCLUDED.category,
+    author = EXCLUDED.author,
+    image_url = EXCLUDED.image_url,
+    video_url = EXCLUDED.video_url,
+    latitude = EXCLUDED.latitude,
+    longitude = EXCLUDED.longitude,
+    price = EXCLUDED.price,
+    dangerosity = EXCLUDED.dangerosity,
+    difficulty = EXCLUDED.difficulty
+  `,
       [
         site.id,
         site.name,
@@ -94,6 +116,9 @@ async function seedSitesFromDatabase() {
         site.longitude,
         site.osm_type,
         site.osm_id,
+        site.price,
+        site.dangerosity,
+        site.difficulty
       ]
     );
 

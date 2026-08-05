@@ -1,14 +1,17 @@
 {
   "osm_type": "way",
   "osm_id": 293193590,
-  "category": "other",
+  "category": "culture",
   "name": "Village Madiba",
   "address": null,
   "phone": "+237699912623",
   "latitude": 3.9460631,
   "longitude": 11.5677218,
-  "description": "",
+  "description": "a beautiful place to visit in Douala, Cameroon. It is a cultural village that showcases the rich heritage and traditions of the local communities. Visitors can explore traditional architecture, enjoy cultural performances, and learn about the history and customs of the region.",
   "bonASavoir": "video par la.reinedesbonsplans(tiktok)",
   "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnkHxAAc12jhUcoPlsfdvilg09AJVcNVGEg4GKQkiQE2qeFfd122GkS5nS&s=10",
-  "videoUrl": "https://www.tiktok.com/@la.reinedesbonsplans/video/7648598158691405063?is_from_webapp=1&sender_device=pc"
+  "videoUrl": "https://www.tiktok.com/@la.reinedesbonsplans/video/7648598158691405063?is_from_webapp=1&sender_device=pc",
+  "price": 2000,
+  "dangerosity": "low",
+  "difficulty": "easy"
 }
