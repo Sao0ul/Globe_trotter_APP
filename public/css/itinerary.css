@@ -1,0 +1,57 @@
+.itinerary-layout {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 18px;
+}
+
+.detail-facts {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--ink);
+  display: grid;
+  gap: 8px;
+}
+
+.route-map {
+  position: relative;
+  min-height: 300px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(22, 51, 43, 0.1);
+  background: linear-gradient(180deg, #eff8f5, #f8fbf9);
+}
+
+.detail-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  padding-top: 14px;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.legend-site { background: #f4c868; }
+.legend-restaurant { background: #d97c45; }
+.legend-hotel { background: #5f8af6; }
+.legend-hospital { background: #d44b64; }
+.legend-transport { background: #2f8b7d; }
+
+.route-summary {
+  margin: 0 0 14px;
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+@media (max-width: 920px) {
+  .itinerary-layout {
+    grid-template-columns: 1fr;
+  }
+}
