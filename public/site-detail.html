@@ -21,6 +21,7 @@
             <a class="btn-ghost btn-back" href="sites.html">← Retour</a>
             <div class="detail-title-wrap">
                 <h1 id="siteTitle">Chargement du lieu…</h1>
+                <p id="siteLocation" class="videoBy">—</p>
             </div>
             <div class="detail-topbar-actions">
                 <button class="btn-solid" id="openItineraryBtn">Lancer l'itinéraire</button>
@@ -53,17 +54,17 @@
 
                 <!-- Chips flottants façon carrousel, posés directement sur la vidéo -->
                 <div class="detail-hero-chips">
-                    <span class="chip chip-active">Vidéo d'aperçu</span>
-                    <span id="siteLocation" class="chip chip-ghost">Localisation en cours…</span>
+                    <span class="videoBy">Vidéo d'aperçu</span>
                 </div>
             </div>
         </section>
 
         <!-- ================= Citation éditoriale (générée depuis le bon à savoir) ================= -->
-        <section class="detail-quote-band">
-            <p id="siteCategory" class="detail-category-line">Catégorie</p>
-            <p id="siteQuote" class="detail-quote">Chargement…</p>
-            <p id="siteVideoCredit" class="detail-quote-credit"></p>
+        <!-- TODO : section prévue pour une citation générée dynamiquement depuis
+             "bon à savoir" — vide pour l'instant, à confirmer si elle est encore
+             prévue avant de la remplir ou de la retirer. -->
+        <section class="space">
+
         </section>
 
         <!-- ================= Grille de cartes ================= -->
@@ -75,6 +76,10 @@
                 <ul id="siteFacts" class="detail-facts"></ul>
 
                 <div class="detail-stats detail-stats-divider">
+                    <div>
+                        <span class="detail-stat-label">Catégorie</span>
+                        <strong id="siteCategory">—</strong>
+                    </div>
                     <div>
                         <span class="detail-stat-label">Difficulté</span>
                         <strong id="siteDifficulty">—</strong>

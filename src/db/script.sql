@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS sites (
             'nature', 'culture', 'adventure',
             'relaxation', 'mountain', 'beach', 'other'
         )),
-    price INTEGER,
+    price INTEGER DEFAULT 0 CHECK (price >= 0),
     user_id UUID,
 
     -- Coordonnées : indispensables pour calculer un itinéraire entre

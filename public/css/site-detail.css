@@ -222,17 +222,6 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, .3);
 }
 
-/* Chips flottants en verre, posés directement sur la vidéo
- * (écho aux points/flèches d'un carrousel plein cadre). */
-.detail-hero-chips {
-  position: absolute;
-  left: 18px;
-  bottom: 18px;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
 
 .chip {
   display: inline-flex;
@@ -455,6 +444,20 @@
   margin: 14px 0 0;
   font-size: 12px;
   font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--detail-muted);
+}
+.space{
+  padding: 15px 0;
+}
+
+
+.videoBy {
+  font-size: 12px;
+  font-weight: 600;
+  position: absolute;
+  z-index: 2;
   letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--detail-muted);
