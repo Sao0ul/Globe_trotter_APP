@@ -28,6 +28,8 @@ const videoContainer = document.getElementById('videoContainer');
 const videoOverlay = document.getElementById('videoOverlay');
 const playPreviewBtn = document.getElementById('playPreviewBtn');
 const unmuteBtn = document.getElementById('unmuteBtn');
+const quoteElement = document.getElementById('siteQuote');
+const videoCreditElement = document.getElementById('siteVideoCredit');
 
 // Flags for external/embed videos
 let externalProvider = null; // 'youtube' | 'vimeo' | 'tiktok' | null
@@ -237,6 +239,8 @@ function mapSiteResponse(raw) {
       raw.localisation ||
       raw.location ||
       fallbackSite.localisation,
+
+    videoCredit: raw.videoPar || raw.video_par || '',
 
     categorie:
       raw.categorie ||
@@ -841,75 +845,49 @@ function updateLocationDisplay() {
  *
  * @param {object} site
  */
+function buildQuote(site) {
+  const source = site.bonASavoir || site.description || '';
+  if (!source) {
+    return 'Un lieu à découvrir.';
+  }
+
+  // Première phrase, tronquée proprement si trop longue.
+  const firstSentence = source.split(/(?<=[.!?])\s/)[0] || source;
+  return firstSentence.length > 140 ? `${firstSentence.slice(0, 137)}…` : firstSentence;
+}
+
 function setCardContent(site) {
-  videoElement.poster =
-    site.imageUrl ||
-    fallbackSite.imageUrl;
+  videoElement.poster = site.imageUrl || fallbackSite.imageUrl;
+  titleElement.textContent = site.titre || fallbackSite.titre;
+  categoryElement.textContent = site.categorie || fallbackSite.categorie;
+  descriptionElement.textContent = site.description || fallbackSite.description;
 
-  titleElement.textContent =
-    site.titre ||
-    fallbackSite.titre;
+  // Ne plus masquer l'absence de donnée réelle derrière les valeurs de secours.
+  difficultyElement.textContent = site.difficulte || '—';
+  dangerElement.textContent = site.dangerosite || '—';
+  priceElement.textContent = site.prix != null ? moneyLabel(site.prix) : 'Non communiqué';
 
-  categoryElement.textContent =
-    site.categorie ||
-    fallbackSite.categorie;
-
-  descriptionElement.textContent =
-    site.description ||
-    fallbackSite.description;
-
-  difficultyElement.textContent =
-    site.difficulte ||
-    fallbackSite.difficulte;
-
-  dangerElement.textContent =
-    site.dangerosite ||
-    fallbackSite.dangerosite;
-
-  priceElement.textContent = moneyLabel(
-    site.prix ?? fallbackSite.prix
-  );
+  if (quoteElement) {
+    quoteElement.textContent = buildQuote(site);
+  }
+  if (videoCreditElement) {
+    videoCreditElement.textContent = site.videoCredit ? `Vidéo : ${site.videoCredit}` : '';
+  }
 
   updateLocationDisplay();
 
-  const facts = [];
-
-  if (site.bonASavoir) {
-    facts.push(`ℹ️ ${site.bonASavoir}`);
-  }
-
-  facts.push(
-    `📍 ${site.localisation ||
-    fallbackSite.localisation
-    }`
-  );
-
-  facts.push(
-    `🧭 Catégorie : ${site.categorie ||
-    fallbackSite.categorie
-    }`
-  );
-
-  facts.push(
-    `⚠️ Difficulté : ${site.difficulte ||
-    fallbackSite.difficulte
-    }`
-  );
-
-  facts.push(
-    '🏥 Services : hôpitaux, restaurants et moyens de transport disponibles à proximité du site.'
-  );
-
-  // Nettoie la liste avant d'ajouter les nouvelles valeurs.
   factsElement.replaceChildren();
 
-  facts.forEach((fact) => {
+  if (site.bonASavoir) {
     const item = document.createElement('li');
-    item.textContent = fact;
+    item.textContent = site.bonASavoir;
     factsElement.appendChild(item);
-  });
+  } else {
+    const empty = document.createElement('li');
+    empty.textContent = 'Aucune information complémentaire renseignée pour le moment.';
+    factsElement.appendChild(empty);
+  }
 }
-
 
 // ==========================================================
 // Chargement principal de la page

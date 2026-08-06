@@ -39,7 +39,8 @@ CREATE TABLE IF NOT EXISTS sites (
     location VARCHAR(255) NOT NULL,
     author VARCHAR(100) NOT NULL DEFAULT 'anonyme',
     image_url VARCHAR(500),
-    video_url VARCHAR(500),
+    video_url VARCHAR(500) DEFAULT NULL,
+    video_par VARCHAR(100),
     difficulty VARCHAR(20)
         CHECK (difficulty IN ('easy', 'moderate', 'difficult')),
     dangerosity VARCHAR(20)

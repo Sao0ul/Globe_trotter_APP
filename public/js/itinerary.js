@@ -22,18 +22,13 @@ const directionsPanel = document.getElementById('directionsPanel');
 const modeDriveBtn = document.getElementById('modeDriveBtn');
 const modeWalkBtn = document.getElementById('modeWalkBtn');
 const modeBikeBtn = document.getElementById('modeBikeBtn');
-
-// ⚠️ À confirmer : préfixe exact sous lequel itineraireRoutes.js est monté
-// dans app.js. J'assume '/api/itineraire'.
 const ITINERAIRE_API_BASE = '/api/itineraire';
-
 const fallbackSite = {
   id: null,
   titre: 'Centre touristique de Kribi',
   latitude: null,
   longitude: null,
 };
-
 const openDirectionsBtn = document.getElementById('openDirectionsBtn');
 
 if (openDirectionsBtn) {

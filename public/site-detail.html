@@ -20,44 +20,61 @@
         <header class="detail-topbar">
             <a class="btn-ghost btn-back" href="sites.html">← Retour</a>
             <div class="detail-title-wrap">
-                <span class="eyebrow">Cameroun Visit</span>
                 <h1 id="siteTitle">Chargement du lieu…</h1>
             </div>
-            <button class="btn-solid" id="openItineraryBtn">Lancer l'itinéraire</button>
+            <div class="detail-topbar-actions">
+                <button class="btn-solid" id="openItineraryBtn">Lancer l'itinéraire</button>
+                <button class="btn-ghost btn-3d" id="launch3dBtn" type="button" disabled
+                    title="Vue 3D — bientôt disponible (MapLibre GL JS)">
+                    Vue 3D <span class="btn-soon">Bientôt</span>
+                </button>
+            </div>
         </header>
 
-        <main class="detail-grid">
-            <section class="detail-card detail-media-card">
-                <div class="detail-video-frame">
-                    <video id="siteVideo" controls poster="">
-                        <source id="videoSource" src="" type="video/mp4">
-                        Votre navigateur ne supporte pas la vidéo.
-                    </video>
+        <!-- ================= Hero vidéo plein cadre ================= -->
+        <section class="detail-hero-frame">
+            <div class="detail-video-frame">
+                <video id="siteVideo" controls poster="">
+                    <source id="videoSource" src="" type="video/mp4">
+                    Votre navigateur ne supporte pas la vidéo.
+                </video>
 
-                    <!-- Container for alternate video types (YouTube iframe / thumbnail) -->
-                    <div id="videoContainer" class="video-container" aria-hidden="true"></div>
+                <!-- Container for alternate video types (YouTube iframe / thumbnail) -->
+                <div id="videoContainer" class="video-container" aria-hidden="true"></div>
 
-                    <!-- Overlay shown when autoplay is blocked or to present unmute control -->
-                    <div id="videoOverlay" class="video-overlay" aria-hidden="true">
-                        <button id="playPreviewBtn" class="btn-ghost">Cliquer pour lancer la vidéo</button>
-                    </div>
-
-                    <!-- Unmute control (visible when playback is active but muted) -->
-                    <button id="unmuteBtn" class="btn-solid video-unmute" aria-pressed="false" hidden>Activer le son</button>
+                <!-- Overlay shown when autoplay is blocked or to present unmute control -->
+                <div id="videoOverlay" class="video-overlay" aria-hidden="true">
+                    <button id="playPreviewBtn" class="btn-ghost">Cliquer pour lancer la vidéo</button>
                 </div>
-                <div class="detail-video-meta">
+
+                <!-- Unmute control (visible when playback is active but muted) -->
+                <button id="unmuteBtn" class="btn-solid video-unmute" aria-pressed="false" hidden>Activer le
+                    son</button>
+
+                <!-- Chips flottants façon carrousel, posés directement sur la vidéo -->
+                <div class="detail-hero-chips">
                     <span class="chip chip-active">Vidéo d'aperçu</span>
-                    <span id="siteLocation" class="detail-location">Localisation en cours…</span>
+                    <span id="siteLocation" class="chip chip-ghost">Localisation en cours…</span>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section class="detail-card detail-info-card">
-                <div class="detail-hero">
-                    <p id="siteCategory" class="detail-category">Catégorie</p>
-                    <p id="siteDescription" class="detail-description">Description du lieu en cours de chargement.</p>
+        <!-- ================= Citation éditoriale (générée depuis le bon à savoir) ================= -->
+        <section class="detail-quote-band">
+            <p id="siteCategory" class="detail-category-line">Catégorie</p>
+            <p id="siteQuote" class="detail-quote">Chargement…</p>
+            <p id="siteVideoCredit" class="detail-quote-credit"></p>
+        </section>
+
+        <!-- ================= Grille de cartes ================= -->
+        <main class="detail-card-grid">
+            <section class="detail-card">
+                <div class="detail-card-head">
+                    <span class="card-eyebrow">Bon à savoir</span>
                 </div>
+                <ul id="siteFacts" class="detail-facts"></ul>
 
-                <div class="detail-stats">
+                <div class="detail-stats detail-stats-divider">
                     <div>
                         <span class="detail-stat-label">Difficulté</span>
                         <strong id="siteDifficulty">—</strong>
@@ -71,28 +88,24 @@
                         <strong id="sitePrice">—</strong>
                     </div>
                 </div>
+            </section>
 
-                <div class="detail-info-list">
-                    <div class="info-pill">Bon à savoir avant d'aller</div>
-                    <ul id="siteFacts" class="detail-facts"></ul>
+            <section class="detail-card">
+                <div class="detail-card-head">
+                    <span class="card-eyebrow">Description</span>
                 </div>
+                <p id="siteDescription" class="detail-description">Description du lieu en cours de chargement.</p>
             </section>
 
             <section class="detail-card detail-map-card">
                 <div class="detail-card-head">
-                    <h2>Carte de navigation</h2>
+                    <span class="card-eyebrow">Carte de navigation</span>
                     <span class="detail-tag">Vue locale</span>
                 </div>
-                <div id="miniMap" class="map-preview" aria-label="Carte de localisation du site">
-                    <div class="map-grid"></div>
-                </div>
-                <div class="detail-legend">
-                    <span><i class="legend-dot legend-site"></i>Destination</span>
-                    <span><i class="legend-dot legend-restaurant"></i>Restaurant</span>
-                    <span><i class="legend-dot legend-hotel"></i>Hôtel</span>
-                    <span><i class="legend-dot legend-hospital"></i>Hôpital</span>
-                    <span><i class="legend-dot legend-transport"></i>Transport</span>
-                </div>
+                <!-- Rempli par Leaflet (voir initMiniMap() dans site-detail.js) -->
+                <div id="miniMap" class="map-preview" aria-label="Carte de localisation du site"></div>
+                <!-- Rempli dynamiquement par buildMiniMapLegend() dans site-detail.js -->
+                <div class="detail-legend"></div>
             </section>
         </main>
     </div>

@@ -42,7 +42,7 @@ async function getSiteDetailsById(id) {
     SELECT
       id, title, description, bon_a_savoir, location, category,
       author, image_url, video_url, difficulty, dangerosity,
-      price, latitude, longitude
+      price, latitude, longitude, video_par
     FROM sites
     WHERE id = $1
   `;

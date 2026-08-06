@@ -31,6 +31,7 @@ function normalizeSiteEntry(entry) {
     imageUrl: entry.imageUrl || null,
     // Seuls les sites touristiques ont une vidéo (cf. décision du 2026-08-02).
     videoUrl: entry.videoUrl || null,
+    video_par: entry.videoPar || null,
     latitude: entry.latitude,
     longitude: entry.longitude,
     osm_type: entry.osm_type,
@@ -80,11 +81,12 @@ async function seedSitesFromDatabase() {
     osm_id,
     price,
     dangerosity,
+    video_par,
     difficulty
   )
   VALUES (
     $1, $2, $3, $4, $5, $6, $7, $8,
-    $9, $10, $11, $12, $13, $14, $15, $16
+    $9, $10, $11, $12, $13, $14, $15, $16, $17
   )
   ON CONFLICT (osm_type, osm_id)
   DO UPDATE SET
@@ -100,6 +102,7 @@ async function seedSitesFromDatabase() {
     longitude = EXCLUDED.longitude,
     price = EXCLUDED.price,
     dangerosity = EXCLUDED.dangerosity,
+    video_par = EXCLUDED.video_par,
     difficulty = EXCLUDED.difficulty
   `,
       [
@@ -118,6 +121,7 @@ async function seedSitesFromDatabase() {
         site.osm_id,
         site.price,
         site.dangerosity,
+        site.video_par,
         site.difficulty
       ]
     );
