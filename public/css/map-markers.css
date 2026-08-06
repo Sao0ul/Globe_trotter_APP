@@ -145,7 +145,7 @@
 .directions-panel {
     position: absolute;
     top: 16px;
-    left: 16px;
+    left: 10%;
     right: 16px;
     z-index: 500;
     /* au-dessus des tuiles Leaflet (z-index max ~400) */

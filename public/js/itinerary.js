@@ -7,10 +7,11 @@
 // qu'afficher ce que l'API renvoie.
 
 const routeSummary = document.getElementById('routeSummary');
-const poiList = document.getElementById('poiList');
 const useCurrentLocationButton = document.getElementById('useCurrentLocationBtn');
 const itineraryTitle = document.getElementById('itineraryTitle');
-const legendContainer = document.querySelector('.detail-legend');
+const legendContainer =
+  document.querySelector('.detail-legend-float') ||
+  document.querySelector('.detail-legend');
 
 // Éléments du panneau "Obtenir l'itinéraire"
 const departInput = document.getElementById('departInput');
@@ -33,6 +34,14 @@ const fallbackSite = {
   longitude: null,
 };
 
+const openDirectionsBtn = document.getElementById('openDirectionsBtn');
+
+if (openDirectionsBtn) {
+  openDirectionsBtn.addEventListener('click', () => {
+    directionsPanel.style.display = 'block';
+  });
+}
+
 // Couleurs alignées EXACTEMENT sur --pin-color dans css/map-markers.css,
 // pour que la légende corresponde vraiment aux pins affichés sur la carte.
 const COULEURS_CATEGORIE = {
@@ -53,6 +62,19 @@ const COULEUR_TRAJET = '#E3A93A';
 // ==========================================================
 
 const map = L.map('routeMap').setView([3.8667, 11.5174], 13); // centre Yaoundé par défaut
+
+// Empêche les clics à l'intérieur du panneau (inputs, boutons, select)
+// de remonter jusqu'à la carte et d'être traités comme un clic sur
+// la carte elle-même (ce qui plaçait un marqueur + écrasait departInput
+// avec des coordonnées à chaque clic dans le panneau).
+if (directionsPanel) {
+  L.DomEvent.disableClickPropagation(directionsPanel);
+  L.DomEvent.disableScrollPropagation(directionsPanel);
+}
+
+
+
+
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap contributors',
@@ -118,23 +140,100 @@ function updateDepartLabel(label) {
 
 function buildLegend() {
   if (!legendContainer) {
+    console.warn('Légende introuvable');
     return;
   }
 
   legendContainer.innerHTML = '';
 
   const entries = [
-    { label: 'Votre position', color: COULEUR_DEPART },
-    { label: 'Destination', color: COULEUR_DESTINATION },
-    ...Object.entries(COULEURS_CATEGORIE).map(([category, color]) => ({ label: category, color })),
+    {
+      label: 'Votre position',
+      color: COULEUR_DEPART,
+      category: null,
+      static: true
+    },
+
+    {
+      label: 'Destination',
+      color: COULEUR_DESTINATION,
+      category: null,
+      static: true
+    },
+
+    ...Object.entries(COULEURS_CATEGORIE).map(
+      ([category, color]) => ({
+        label: category,
+        color,
+        category,
+        static: false
+      })
+    )
   ];
 
-  entries.forEach(({ label, color }) => {
-    const item = document.createElement('span');
-    item.innerHTML = `<i class="legend-dot" style="background:${color}"></i>${label}`;
+  entries.forEach(({ label, color, category, static: isStatic }) => {
+
+    const item = document.createElement('button');
+    item.type = 'button';
+    item.className = 'legend-item';
+    if (category) {
+      item.dataset.category = category;
+    }
+    item.innerHTML = `
+      <span
+        class="legend-dot"
+        style="background:${color}"
+      ></span>
+
+      <span class="legend-label">
+        ${formaterNomCategorie(label)}
+      </span>
+    `;
+
+    if (!isStatic) {
+
+      item.title =
+        'Double-cliquez pour afficher uniquement cette catégorie';
+
+      item.addEventListener('click', (event) => {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (categorieActive === category) {
+          afficherTousLesMarqueurs();
+        } else {
+          filtrerMarqueursParCategorie(category);
+        }
+      });
+
+    } else {
+
+      item.classList.add('legend-item--static');
+      item.disabled = true;
+    }
+
     legendContainer.appendChild(item);
   });
+
+  mettreAJourEtatLegende();
 }
+
+
+function formaterNomCategorie(category) {
+  const noms = {
+    hotel: 'Hôtels',
+    restaurant: 'Restaurants',
+    hopital: 'Hôpitaux',
+    clinique: 'Cliniques',
+    pharmacie: 'Pharmacies',
+    site_touristique: 'Sites touristiques'
+  };
+
+  return noms[category] || category;
+}
+
+
 
 function setRouteSummary(text) {
   if (routeSummary) {
@@ -142,25 +241,15 @@ function setRouteSummary(text) {
   }
 }
 
-function renderPoiList(lieux) {
-  if (!poiList) {
-    return;
-  }
 
-  poiList.innerHTML = '';
 
-  if (!lieux.length) {
-    const empty = document.createElement('li');
-    empty.textContent = "Aucun point d'intérêt trouvé le long de ce trajet.";
-    poiList.appendChild(empty);
-    return;
-  }
+//resume flotant seulement quand le trajet est calcule 
+function afficherResume(data) {
+  const container = document.getElementById('routeSummaryFloat');
+  const texte = document.getElementById('routeSummary');
 
-  lieux.forEach((lieu) => {
-    const item = document.createElement('li');
-    item.textContent = `${lieu.name} — ${lieu.category}`;
-    poiList.appendChild(item);
-  });
+  texte.textContent = `${data.depart} → ${data.arrivee} · ${data.distanceKm} km · ${data.dureeMin} min`;
+  container.hidden = false;
 }
 
 // ==========================================================
@@ -206,8 +295,21 @@ async function calculerItineraire() {
     poiLayer.clearLayers();
 
     (data.lieux || []).forEach((lieu) => {
-      L.marker([lieu.latitude, lieu.longitude], { icon: creerIconeCarte(lieu.category) })
-        .bindPopup(`<strong>${lieu.name}</strong><br/>${lieu.category}`)
+      const marker = L.marker(
+        [lieu.latitude, lieu.longitude],
+        {
+          icon: creerIconeCarte(lieu.category),
+          poiCategory: lieu.category
+        }
+      );
+      marker
+        .bindPopup(`
+      <span class="popup-category">
+        ${formaterNomCategorie(lieu.category)}
+      </span>
+      <span class="popup-title">${lieu.name}</span>
+      ${lieu.address ? `<div>${lieu.address}</div>` : ''}
+    `)
         .addTo(poiLayer);
     });
 
@@ -216,7 +318,6 @@ async function calculerItineraire() {
       } lieu(x) trouvé(s) à proximité.`
     );
 
-    renderPoiList(data.lieux || []);
   } catch (error) {
     console.error('Erreur lors du calcul de l’itinéraire :', error);
     setRouteSummary("Le service d'itinéraire est momentanément indisponible.");
@@ -366,11 +467,72 @@ if (useCurrentLocationButton) {
     );
   });
 }
+if (routeLayer) {
+  map.fitBounds(routeLayer.getBounds(), {
+    paddingTopLeft: [340, 100],
+    paddingBottomRight: [40, 140]
+  });
+}
 
 
 // ==========================================================
+// FILTRE DES PINS PAR CATÉGORIE
+// ==========================================================
+
+let categorieActive = null;
+
+function filtrerMarqueursParCategorie(category) {
+  categorieActive = category;
+
+  poiLayer.eachLayer((marker) => {
+    const markerCategory = marker.options.poiCategory;
+
+    if (!category || markerCategory === category) {
+      marker.setOpacity(1);
+    } else {
+      marker.setOpacity(0);
+    }
+  });
+
+  mettreAJourEtatLegende();
+}
+
+function afficherTousLesMarqueurs() {
+  categorieActive = null;
+
+  poiLayer.eachLayer((marker) => {
+    marker.setOpacity(1);
+  });
+
+  mettreAJourEtatLegende();
+}
+
+function mettreAJourEtatLegende() {
+  if (!legendContainer) {
+    return;
+  }
+
+  legendContainer
+    .querySelectorAll('.legend-item')
+    .forEach((item) => {
+
+      const category = item.dataset.category;
+
+      item.classList.toggle(
+        'is-active',
+        categorieActive === category
+      );
+
+      item.classList.toggle(
+        'is-dimmed',
+        categorieActive !== null &&
+        categorieActive !== category &&
+        category !== undefined
+      );
+    });
+}
+
 // Initialisation
-// ==========================================================
-
 buildLegend();
 initDestination();
+
