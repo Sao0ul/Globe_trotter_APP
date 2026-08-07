@@ -1,6 +1,11 @@
 const pool = require('../db/pool');
 const { randomUUID } = require('crypto');
 
+// Format UUID standard (v1-v5) — évite d'envoyer une chaîne invalide à PostgreSQL,
+// qui lève une erreur (500) au lieu de simplement ne rien trouver comme le faisait MySQL.
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+
 function buildSiteBaseQuery() {
   return `
     SELECT
@@ -92,6 +97,11 @@ async function getAllSites({ search, category, page = 1, limit = 20 } = {}) {
 }
 
 async function getSiteById(id) {
+
+  if (!UUID_REGEX.test(id)) {
+    return null; // même comportement qu'un ID valide mais introuvable → 404 côté controller
+  }
+  
   const { rows } = await pool.query(
     `${buildSiteBaseQuery()} WHERE s.id = $1 GROUP BY s.id`,
     [id]
