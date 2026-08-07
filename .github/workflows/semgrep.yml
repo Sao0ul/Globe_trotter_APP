@@ -10,5 +10,4 @@
       --config=auto \
       --exclude=node_modules \
       --exclude=.env \
-      --error \
-      /src
+      --error
