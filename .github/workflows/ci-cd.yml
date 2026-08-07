@@ -1,5 +1,7 @@
+```yaml
 name: Docker CI/CD Pipeline
 
+# Lance le pipeline sur push et pull request vers main
 on:
   push:
     branches:
@@ -9,15 +11,22 @@ on:
       - main
 
 jobs:
+
+  # ==========================================================
+  # TESTS, BUILD ET INTÉGRATION
+  # ==========================================================
   run-tests:
     name: Build, Lint & Test
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
     steps:
+
+      # Récupère le code du dépôt
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Crée les variables utilisées par Docker Compose
       - name: Create test .env
         run: |
           cat <<EOF > .env
@@ -30,109 +39,175 @@ jobs:
           JWT_SECRET=test_secret_key_for_ci
           EOF
 
+      # Vérifie que Docker est disponible
       - name: Verify Docker installation
         run: |
           docker --version
           docker compose version
 
+      # Installe Node.js 20
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm #save time by putting node_modules in cache
+          cache: npm
 
+      # Installe les dépendances
       - name: Install dependencies
         run: npm ci
 
+      # Analyse statique du code
       - name: Run ESLint (Static Analysis)
         run: npm run lint
 
-      # ==========================================================
-      # 🧪 ÉTAPE 1 — TESTS UNITAIRES
-      # S'exécutent directement sur le code brut, sans Docker,
-      # sans base de données : rapides, isolés, aucune dépendance externe.
-      # ==========================================================
-      - name: "🧪 Run Unit Tests"
+      # ========================================================
+      # TESTS UNITAIRES
+      # ========================================================
+
+      # Tests sans Docker ni base de données
+      - name: Run Unit Tests
         run: npm run test:unit
 
-      # ==========================================================
-      # ⚙️ PRÉPARATION DE L'ENVIRONNEMENT D'INTÉGRATION
-      # ==========================================================
+      # ========================================================
+      # BASE DE DONNÉES
+      # ========================================================
 
-      # On démarre uniquement le service "db" ici, puis on attend sa santé
-      # avant d'appliquer le schéma et de lancer l'API. Évite une race
-      # condition au boot de la stack pendant l'initialisation de PostgreSQL.
+      # Démarre uniquement PostgreSQL
       - name: Build and start database container
         run: docker compose up -d --build db
 
-      # Attend que PostgreSQL accepte réellement les connexions.
+      # Attend que PostgreSQL soit réellement prêt
       - name: Wait for PostgreSQL
         run: |
-          set -a #make sure env vars are exported for docker compose exec
-          source .env #read env vars from .env file
-          set +a #desactivate export of env vars 
-          timeout 180 bash -c '
-            until docker compose exec -T db \
-              psql -U "$DB_USER" -d "$DB_NAME" -c "SELECT 1;" >/dev/null 2>&1
-            do
-              echo "En attente de PostgreSQL..."
-              sleep 2
-            done
-          '
-
-      # Applique le schéma (tables users, sites, ratings...) sur la base
-      # fraîchement créée par le conteneur — sans ça, l'API et les tests
-      # d'intégration échoueront dès la première requête (table inexistante).
-      - name: Apply database schema
-        run: |
-          set -a #make sure env vars are exported for docker compose exec
+          set -a
           source .env
           set +a
-          docker compose exec -T db psql -U "$DB_USER" -d "$DB_NAME" < ./src/db/script.sql
 
-      # L'API est démarrée seulement maintenant, une fois le schéma en
-      # place : elle peut ouvrir ses connexions au pool en sachant que
-      # les tables existent déjà.
+          echo "Waiting for PostgreSQL..."
+
+          for i in {1..60}; do
+            if docker compose exec -T db \
+              pg_isready \
+              -U "$DB_USER" \
+              -d "$DB_NAME" > /dev/null 2>&1; then
+
+              echo "PostgreSQL is ready!"
+              break
+            fi
+
+            echo "PostgreSQL not ready yet... attempt $i/60"
+            sleep 2
+          done
+
+          # Vérifie que PostgreSQL accepte vraiment une requête
+          echo "Checking PostgreSQL connection..."
+
+          if ! docker compose exec -T db \
+            psql \
+            -U "$DB_USER" \
+            -d "$DB_NAME" \
+            -c "SELECT 1;" > /dev/null; then
+
+            echo "PostgreSQL failed to become ready."
+
+            echo "===== CONTAINER STATUS ====="
+            docker compose ps
+
+            echo "===== DATABASE LOGS ====="
+            docker compose logs --no-color db
+
+            exit 1
+          fi
+
+          echo "PostgreSQL connection successful."
+
+      # Applique le schéma SQL
+      - name: Apply database schema
+        run: |
+          set -a
+          source .env
+          set +a
+
+          echo "Applying database schema..."
+
+          docker compose exec -T db \
+            psql \
+            -v ON_ERROR_STOP=1 \
+            -U "$DB_USER" \
+            -d "$DB_NAME" \
+            < ./src/db/script.sql
+
+      # ========================================================
+      # API
+      # ========================================================
+
+      # Démarre l'API après la préparation de la DB
       - name: Build and start API container
         run: docker compose up -d --build api
 
-      # Attend que l'API réponde sur sa route de health check (/health,
-      # définie dans src/app.js).
+      # Attend que l'API réponde
       - name: Wait for API
         run: |
-          timeout 180 bash -c '
-            until curl -fs http://localhost:3000/health >/dev/null
-            do
-              echo "En attente de l'\''API..."
-              sleep 3
-            done
-          '
+          echo "Waiting for API..."
 
+          for i in {1..60}; do
+            if curl -fs http://localhost:3000/health > /dev/null 2>&1; then
+              echo "API is ready!"
+              break
+            fi
+
+            echo "API not ready yet... attempt $i/60"
+            sleep 3
+          done
+
+          # Échec si l'API ne répond toujours pas
+          if ! curl -fs http://localhost:3000/health > /dev/null 2>&1; then
+            echo "API failed to become ready."
+            docker compose logs --no-color api
+            exit 1
+          fi
+
+      # Affiche les conteneurs actifs
       - name: Show running containers
         run: docker compose ps
 
-      # ==========================================================
-      # 🧪 ÉTAPE 2 — TESTS D'INTÉGRATION
-      # S'exécutent à l'intérieur du conteneur "api", avec un accès réel
-      # à la base PostgreSQL déjà peuplée du schéma appliqué plus haut.
-      # ==========================================================
-      - name: "🧪 Run Integration Tests"
+      # ========================================================
+      # TESTS D'INTÉGRATION
+      # ========================================================
+
+      # Lance les tests dans le conteneur API
+      - name: Run Integration Tests
         run: docker compose exec -T api npm run test:integration
 
+      # Affiche les logs si une étape échoue
       - name: Display container logs on failure
         if: failure()
         run: docker compose logs --no-color
 
+      # Nettoie les conteneurs même après un échec
       - name: Stop and remove containers
         if: always()
         run: docker compose down -v
 
+
+  # ==========================================================
+  # DÉPLOIEMENT RENDER
+  # ==========================================================
   deploy:
+
     name: Deploy to Render
+
+    # Le déploiement attend que les tests passent
     needs: [run-tests]
+
+    # Déploie uniquement après un push sur main
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
     runs-on: ubuntu-latest
 
     steps:
+
+      # Déclenche le déploiement Render
       - name: Trigger deployment
         run: curl -fsS "${{ secrets.RENDER_DEPLOY_HOOK }}"
+```
