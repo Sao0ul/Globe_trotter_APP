@@ -6,7 +6,7 @@
     docker run --rm \
       -v "${{ github.workspace }}:/src" \
       semgrep/semgrep:latest \
-      scan \
+      semgrep scan \
       --config=auto \
       --exclude=node_modules \
       --exclude=.env \
