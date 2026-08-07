@@ -1,0 +1,18 @@
+{
+  "osm_type": "way",
+  "osm_id": 207493773,
+  "category": "nature",
+  "name": "Jardin Zoo-Botanique de Mvog-Betsi",
+  "address": null,
+  "phone": null,
+  "latitude": 3.8648949,
+  "longitude": 11.4871888,
+  "description": "A botanical garden and zoo located in Yaoundé, Cameroon, offering a diverse range of flora and fauna.",
+  "bonASavoir": "to visit the zoo as a foreigner you will pay more(1000-2000 XAF) and have to bring a identification piece(passport or ID card) and the entrance fee is 2000 XAF for foreigners and 1000 XAF for nationals",
+  "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGx_MV1wcCfsqrxahsHfbK4JxqJ0bMMESiK6LUIoA_xrgrBkncUY8UmSX8&s=10",
+  "videoUrl": "https://youtu.be/Adm_JNkkG0w?si=EtywFFmrZeQA8rT9",
+  "video_par": "VOICE CAMEROON TV(youtube)",
+  "price": 500,
+  "dangerosity": "low",
+  "difficulty": "easy"
+}

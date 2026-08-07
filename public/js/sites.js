@@ -125,7 +125,11 @@ async function chargerSites(reinitialiser = true) {
 
   let response;
   try {
-    response = await fetch(`/api/sites?page=${pageActuelle}&limit=${limit}`, {
+    const searchParam = rechercheActuelle.trim()
+      ? `&search=${encodeURIComponent(rechercheActuelle.trim())}`
+      : "";
+
+    response = await fetch(`/api/sites?page=${pageActuelle}&limit=${limit}${searchParam}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
   } catch {
@@ -197,6 +201,9 @@ function moyenneNote(site) {
 
 // -------------------- Affichage des cartes --------------------
 
+// Garde trace des cartes déjà rendues pour ne jamais les reconstruire inutilement
+let idsDejaAffiches = new Set();
+
 function afficherSites() {
   const sitesFiltres = tousLesSites.filter(correspondAuxFiltres);
 
@@ -206,10 +213,22 @@ function afficherSites() {
   }
   afficherEtat("grid");
 
-  sitesGrid.innerHTML = "";
+  // Si un filtre/recherche a changé, on ne peut pas se contenter d'ajouter :
+  // l'ensemble affiché doit être recalculé entièrement.
+  const idsAttendus = new Set(sitesFiltres.map((s) => s.id));
+  const rebuildComplet = ![...idsDejaAffiches].every((id) => idsAttendus.has(id));
+
+  if (rebuildComplet) {
+    sitesGrid.innerHTML = "";
+    idsDejaAffiches = new Set();
+  }
 
   sitesFiltres.forEach((site, index) => {
+    // Ne recrée pas une carte déjà présente dans le DOM
+    if (idsDejaAffiches.has(site.id)) return;
+
     const node = cardTemplate.content.cloneNode(true);
+    const card = node.querySelector(".card");
 
     const img = node.querySelector(".card-media img");
     img.src = site.imageUrl || "https://placehold.co/400x300/16332B/F4C868?text=Cameroun+Visit";
@@ -244,12 +263,20 @@ function afficherSites() {
       tagPrix.textContent = `${Number(site.prix).toLocaleString(locale)} FCFA`;
     }
 
-    node.querySelector(".rating").addEventListener("click", () => noterSite(site.id));
+    card.addEventListener("click", (event) => {
+      if (event.target.closest(".rating")) return;
+      window.location.href = `site-detail.html?id=${encodeURIComponent(site.id)}`;
+    });
+
+    node.querySelector(".rating").addEventListener("click", (event) => {
+      event.stopPropagation();
+      noterSite(site.id);
+    });
 
     sitesGrid.appendChild(node);
+    idsDejaAffiches.add(site.id);
   });
 }
-
 // -------------------- Notation --------------------
 
 async function noterSite(siteId) {
@@ -305,11 +332,18 @@ document.addEventListener("click", () => {
   fermerMenuFiltre();
 });
 
+// Attend 350ms après la dernière frappe avant d'interroger le backend,
+// pour ne pas envoyer une requête à chaque lettre tapée.
+let rechercheTimeout;
+
 searchInput.addEventListener("input", (event) => {
   rechercheActuelle = event.target.value;
-  afficherSites();
-});
 
+  clearTimeout(rechercheTimeout);
+  rechercheTimeout = setTimeout(() => {
+    chargerSites(true); // relance depuis la page 1, avec le nouveau terme de recherche
+  }, 350);
+});
 // -------------------- Panneau "Proposer un site" --------------------
 
 function ouvrirPanneauAjout() {

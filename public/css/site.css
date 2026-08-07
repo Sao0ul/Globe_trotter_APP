@@ -5,7 +5,7 @@
   --sand: #F7F2E7;
   --card: #FFFDF8;
   --card-line: #E9E0CB;
-  --gold: #E3A93A;
+  --gold: #E3A93A; 
   --gold-soft: #F4C868;
   --clay: #B8452F;
   --ink: #1C2620;
@@ -704,13 +704,20 @@ button {
 .card-media {
   position: relative;
   aspect-ratio: 4 / 3;
+  min-height: 220px;
+  overflow: hidden;
   background: linear-gradient(155deg, var(--forest-mid), var(--forest-deep));
 }
 
 .card-media img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
+  min-width: 100%;
+  min-height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
 }
 
@@ -1168,5 +1175,228 @@ button {
 
   .filters-panel {
     min-width: 100%;
+  }
+}
+
+/* ================= DETAIL / ITINERARY PAGES ================= */
+
+.page-shell {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(244, 200, 104, 0.3), transparent 16%),
+    linear-gradient(135deg, #f7f6ef, #eef5f0 75%);
+}
+
+.page-frame {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.compact-frame {
+  padding-top: 40px;
+}
+
+.detail-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.detail-title-wrap {
+  flex: 1;
+}
+
+.detail-title-wrap h1 {
+  margin: 4px 0 0;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--forest-deep);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 18px;
+}
+
+.detail-card {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(22, 51, 43, 0.08);
+  box-shadow: var(--shadow);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.detail-media-card,
+.detail-info-card {
+  min-height: 100%;
+}
+
+.detail-video-frame {
+  border-radius: 16px;
+  overflow: hidden;
+  background: #1e2e2b;
+  margin-bottom: 12px;
+}
+
+.detail-video-frame video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  background: #000;
+}
+
+.detail-video-meta,
+.detail-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.detail-location,
+.detail-tag,
+.detail-category,
+.detail-stat-label {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.detail-category {
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.detail-description {
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+.detail-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.detail-stats div {
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(22, 51, 43, 0.04);
+}
+
+.detail-stats strong {
+  display: block;
+  margin-top: 6px;
+  color: var(--forest-deep);
+}
+
+
+.info-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(244, 200, 104, 0.25);
+  color: var(--forest-deep);
+  font-size: 0.76rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.map-preview {
+  position: relative;
+  min-height: 300px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(22, 51, 43, 0.1);
+  background: linear-gradient(180deg, #eff8f5, #f8fbf9);
+}
+
+.map-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(22, 51, 43, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(22, 51, 43, 0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+
+
+/* ================= VIDEO OVERLAY & CONTROLS ================= */
+
+.video-overlay {
+ position: absolute;
+ inset: 0;
+ display: none; /* shown when needed */
+ align-items: center;
+ justify-content: center;
+ background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.45));
+ z-index: 2;
+}
+
+.video-overlay .btn-ghost {
+ background: rgba(255,255,255,0.95);
+ color: var(--forest-deep);
+ padding: 12px 18px;
+ border-radius: 999px;
+ box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+ font-weight: 700;
+}
+
+.video-unmute {
+ position: absolute;
+ right: 12px;
+ bottom: 12px;
+ z-index: 3;
+ padding: 9px 14px;
+ border-radius: 999px;
+ font-weight: 700;
+}
+
+/* Ensure the .detail-video-frame is position:relative so overlay works */
+.detail-video-frame { position: relative; }
+
+
+.btn-back {
+  min-width: fit-content;
+}
+
+.placeholder-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(22, 51, 43, 0.08);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  padding: 26px;
+  color: var(--ink);
+}
+
+.card {
+  cursor: pointer;
+}
+
+@media (max-width: 920px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-topbar {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 620px) {
+  .detail-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .page-frame {
+    padding: 14px;
   }
 }

@@ -1,0 +1,23 @@
+{
+  "site": {
+    "id": "7f6fe4ce-90be-4f0a-9fb6-1a3b4b184b4e",
+    "title": "Chutes de la Lobé",
+    "location": "Kribi",
+    "category": "nature",
+    "imageUrl": "https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  "media": [
+    {
+      "type": "image",
+      "url": "https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "label": "vue panoramique",
+      "position": 0
+    },
+    {
+      "type": "video",
+      "url": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "label": "courte vidéo de présentation",
+      "position": 1
+    }
+  ]
+}

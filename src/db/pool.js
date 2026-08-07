@@ -1,13 +1,15 @@
-const mysql = require('mysql2/promise');
+const { Pool } = require('pg');
+const { getDatabaseConfig } = require('./config');
 
-const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  waitForConnections: true,
-  connectionLimit: 10,
-});
+// Toute la logique de connexion (host/port séparés OU DATABASE_URL,
+// activation SSL pour Aiven/Render) vit dans config.js — pool.js
+// ne fait plus que l'utiliser, au lieu de relire process.env en double
+// et d'ignorer SSL comme c'était le cas avant.
+const pool = new Pool(getDatabaseConfig());
+
+async function closePool() {
+    await pool.end();
+}
 
 module.exports = pool;
+module.exports.closePool = closePool;

@@ -19,8 +19,15 @@
     "start": "node src/app.js",
     "test": "jest",
     "lint": "eslint .",
-    "test:unit": "jest tests/unit",
-    "test:integration": "jest tests/integration"
+    "test:unit": "jest src/tests/unit",
+    "test:integration": "jest src/tests/integration",
+    "db:bootstrap": "node src/db/bootstrap.js",
+    "db:seed-sites": "node src/db/seed/seed-sites.js",
+    "db:extract": "node src/db/scripts/extractCategoriesFromGeojson.js",
+    "db:seed-sites-db": "node src/db/scripts/seedSitesFromDatabase.js",
+    "db:seed-lieux-db": "node src/db/scripts/seedLieuxFromDatabase.js",
+    "db:seed-db": "npm run db:bootstrap && npm run db:seed-sites-db && npm run db:seed-lieux-db",
+    "db:seed": "npm run db:bootstrap && npm run db:seed-sites"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
@@ -28,7 +35,7 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
-    "mysql2": "^3.23.1"
+    "pg": "^8.22.0"
   },
   "devDependencies": {
     "eslint": "^10.8.0",

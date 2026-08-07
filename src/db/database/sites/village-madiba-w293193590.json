@@ -1,0 +1,18 @@
+{
+  "osm_type": "way",
+  "osm_id": 293193590,
+  "category": "adventure",
+  "name": "Village Madiba",
+  "address": null,
+  "phone": "+237699912623",
+  "latitude": 3.9460631,
+  "longitude": 11.5677218,
+  "description": "a beautiful place to visit in Douala, Cameroon. It is a cultural village that showcases the rich heritage and traditions of the local communities. Visitors can explore traditional architecture, enjoy cultural performances, and learn about the history and customs of the region.",
+  "bonASavoir": "popular for its cultural events and traditional cuisine, making it a must-visit destination for tourists seeking an authentic experience in Cameroon but be careful of the local wildlife and follow safety guidelines when exploring the area.",
+  "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnkHxAAc12jhUcoPlsfdvilg09AJVcNVGEg4GKQkiQE2qeFfd122GkS5nS&s=10",
+  "videoUrl": "https://youtube.com/shorts/YehSjPcHnZM?si=s_KeMjvcNtNKpMgS",
+  "video_par": "envadrouille (youtube)",
+  "price": 1500,
+  "dangerosity": "low",
+  "difficulty": "easy"
+}
