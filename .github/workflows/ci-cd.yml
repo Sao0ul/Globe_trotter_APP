@@ -39,7 +39,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          cache: npm #save time by putting node_modules in cache
 
       - name: Install dependencies
         run: npm ci
@@ -68,9 +68,9 @@ jobs:
       # Attend que PostgreSQL accepte réellement les connexions.
       - name: Wait for PostgreSQL
         run: |
-          set -a
-          source .env
-          set +a
+          set -a #make sure env vars are exported for docker compose exec
+          source .env #read env vars from .env file
+          set +a #desactivate export of env vars 
           timeout 180 bash -c '
             until docker compose exec -T db \
               psql -U "$DB_USER" -d "$DB_NAME" -c "SELECT 1;" >/dev/null 2>&1
@@ -85,7 +85,7 @@ jobs:
       # d'intégration échoueront dès la première requête (table inexistante).
       - name: Apply database schema
         run: |
-          set -a
+          set -a #make sure env vars are exported for docker compose exec
           source .env
           set +a
           docker compose exec -T db psql -U "$DB_USER" -d "$DB_NAME" < ./src/db/script.sql

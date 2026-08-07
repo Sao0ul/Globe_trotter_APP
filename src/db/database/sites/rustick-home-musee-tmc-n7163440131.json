@@ -1,7 +1,6 @@
 {
   "osm_type": "node",
   "osm_id": 7163440131,
-  "category": "culture",
   "name": "Rustick-home Musée Tmc",
   "address": null,
   "phone": "(+237) 675924304 / 2229144",
@@ -9,6 +8,9 @@
   "longitude": 11.4830667,
   "description": "",
   "bonASavoir": "",
-  "imageUrl": "",
-  "videoUrl": ""
+  "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Yaound%C3%A9_Sports_Palace_2014_%2802%29.JPG/960px-Yaound%C3%A9_Sports_Palace_2014_%2802%29.JPG.webp",
+  "videoUrl": "",
+  "price": 0,
+  "dangerosity": "low",
+  "difficulty": "easy"
 }

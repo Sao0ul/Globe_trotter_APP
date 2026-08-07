@@ -21,7 +21,7 @@ function getDatabaseConfig() {
   };
 
   const sslConfig = {};
-  const caPath = process.env.DB_SSL_CA;
+  const caPath = process.env.DB_SSL_CA; 
 
   if (caPath) {
     const resolvedCaPath = caPath.replace(/^\.\\/, '').replace(/^\.\//, '');

@@ -1,0 +1,19 @@
+{
+    "osm_type": "node",
+    "osm_id": 2292001970,
+    "category": "autre",
+    "name": "Monument J'aime mon pays",
+    "address": null,
+    "phone": null,
+    "latitude":3.866327962388629,
+    "longitude":11.515321450894996,
+    "description": "a monument in the city of Yaoundé, Cameroon, dedicated to the love of one's country. It serves as a symbol of patriotism and national pride, encouraging citizens to cherish and uphold the values of their nation.",
+    "bonASavoir": "sometime the entrance fee is free, but it is advisable to check in advance. Visitors should also be aware of the local customs and regulations when visiting the monument, and respect the site's significance as a place of national pride.",
+    "imageUrl": "https://images.pexels.com/photos/17290975/pexels-photo-17290975/free-photo-of-cars-on-roundabout-in-yaounde.jpeg?auto=compress&w=1260&h=750&dpr=2",
+    "videoUrl": "https://youtu.be/lAAiNporlFg?si=PLvE9BqXuCEH6tRt",
+    "video_par": "infos 237 news(youtube)",
+    "price": 0,
+    "dangerosity": "low",
+    "difficulty": "easy"
+
+}
