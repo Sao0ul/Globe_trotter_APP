@@ -187,6 +187,17 @@ jobs:
         if: always()
         run: docker compose down -v
 
+  semgrep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker pull semgrep/semgrep:latest
+      - run: |
+          docker run --rm \
+            -v "${{ github.workspace }}:/src" \
+            semgrep/semgrep:latest \
+            scan --config=auto --exclude=node_modules --exclude=.env --error /src
+
   # DÉPLOIEMENT RENDER
   deploy:
     name: Deploy to Render
