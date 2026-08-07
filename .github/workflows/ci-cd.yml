@@ -1,4 +1,3 @@
-```yaml
 name: Docker CI/CD Pipeline
 
 # Lance le pipeline sur push et pull request vers main
