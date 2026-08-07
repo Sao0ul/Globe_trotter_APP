@@ -871,7 +871,9 @@ function setCardContent(site) {
     quoteElement.textContent = buildQuote(site);
   }
   if (videoCreditElement) {
-    videoCreditElement.textContent = site.videoCredit ? `Vidéo : ${site.videoCredit}` : '';
+    videoCreditElement.textContent = site.videoCredit
+      ? `Vidéo par : ${site.videoCredit}`
+      : 'Aucune source vidéo renseignée';
   }
 
   updateLocationDisplay();
