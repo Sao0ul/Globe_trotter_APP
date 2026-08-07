@@ -88,13 +88,24 @@ async function createUser({ id, email, passwordHash, username, verificationToken
 
 // Mark the account as verified and clear the one-time token.
 async function verifyUser(token) {
+  // Vérifie que le token respecte le format UUID
+  const uuidRegex =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+  // Token malformé = token invalide
+  if (!uuidRegex.test(token)) {
+    return false;
+  }
+
   const { rowCount } = await pool.query(
     `UPDATE users
-     SET is_verified = TRUE, verification_token = NULL
+     SET is_verified = TRUE,
+  verification_token = NULL
      WHERE verification_token = $1`,
     [token]
   );
 
+  // Aucun utilisateur trouvé = token invalide ou déjà utilisé
   return rowCount > 0;
 }
 
