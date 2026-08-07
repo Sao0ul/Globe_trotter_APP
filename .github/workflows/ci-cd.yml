@@ -47,16 +47,21 @@ jobs:
       - name: Run ESLint (Static Analysis)
         run: npm run lint
 
-      # 🧪 ÉTAPE 1 : Tests unitaires (s'exécutent directement en local sur le code
-      # brut, sans Docker — rapides, aucune dépendance externe nécessaire)
-      - name: Run Unit Tests
+      # ==========================================================
+      # 🧪 ÉTAPE 1 — TESTS UNITAIRES
+      # S'exécutent directement sur le code brut, sans Docker,
+      # sans base de données : rapides, isolés, aucune dépendance externe.
+      # ==========================================================
+      - name: "🧪 Run Unit Tests"
         run: npm run test:unit
 
-      # ⚙️ ÉTAPE 2 : Préparation de l'environnement pour l'intégration
-      #
+      # ==========================================================
+      # ⚙️ PRÉPARATION DE L'ENVIRONNEMENT D'INTÉGRATION
+      # ==========================================================
+
       # On démarre uniquement le service "db" ici, puis on attend sa santé
-      # avant de lancer l'API. Cela évite une race condition au boot de la
-      # stack pendant l'initialisation de la base PostgreSQL.
+      # avant d'appliquer le schéma et de lancer l'API. Évite une race
+      # condition au boot de la stack pendant l'initialisation de PostgreSQL.
       - name: Build and start database container
         run: docker compose up -d --build db
 
@@ -75,20 +80,24 @@ jobs:
             done
           '
 
-      # CORRECTIF : l'API est démarrée seulement maintenant, une fois le
-      # schéma en place. Elle peut ouvrir ses connexions au pool en sachant
-      # que les tables existent déjà.
+      # Applique le schéma (tables users, sites, ratings...) sur la base
+      # fraîchement créée par le conteneur — sans ça, l'API et les tests
+      # d'intégration échoueront dès la première requête (table inexistante).
+      - name: Apply database schema
+        run: |
+          set -a
+          source .env
+          set +a
+          docker compose exec -T db psql -U "$DB_USER" -d "$DB_NAME" < ./src/db/script.sql
+
+      # L'API est démarrée seulement maintenant, une fois le schéma en
+      # place : elle peut ouvrir ses connexions au pool en sachant que
+      # les tables existent déjà.
       - name: Build and start API container
         run: docker compose up -d --build api
 
-      # Attend que l'API réponde sur sa route de health check.
-      #
-      # ⚠️ À VÉRIFIER : cette route doit correspondre EXACTEMENT à celle
-      # définie dans src/app.js. Le projet a discuté à la fois de "/health"
-      # et "/api/health" à différents moments — confirme laquelle est
-      # réellement montée avant de faire confiance à ce curl. Si les deux
-      # ne correspondent pas, cette étape échouera systématiquement en
-      # timeout après 180s, sans message d'erreur clair sur la vraie cause.
+      # Attend que l'API réponde sur sa route de health check (/health,
+      # définie dans src/app.js).
       - name: Wait for API
         run: |
           timeout 180 bash -c '
@@ -102,10 +111,12 @@ jobs:
       - name: Show running containers
         run: docker compose ps
 
-      # 🧪 ÉTAPE 3 : Tests d'intégration (s'exécutent à l'intérieur du
-      # conteneur "api", donc avec un accès réel à la DB déjà peuplée du
-      # schéma appliqué plus haut)
-      - name: Run Integration Tests
+      # ==========================================================
+      # 🧪 ÉTAPE 2 — TESTS D'INTÉGRATION
+      # S'exécutent à l'intérieur du conteneur "api", avec un accès réel
+      # à la base PostgreSQL déjà peuplée du schéma appliqué plus haut.
+      # ==========================================================
+      - name: "🧪 Run Integration Tests"
         run: docker compose exec -T api npm run test:integration
 
       - name: Display container logs on failure
