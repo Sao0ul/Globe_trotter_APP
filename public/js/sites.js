@@ -125,7 +125,11 @@ async function chargerSites(reinitialiser = true) {
 
   let response;
   try {
-    response = await fetch(`/api/sites?page=${pageActuelle}&limit=${limit}`, {
+    const searchParam = rechercheActuelle.trim()
+      ? `&search=${encodeURIComponent(rechercheActuelle.trim())}`
+      : "";
+
+    response = await fetch(`/api/sites?page=${pageActuelle}&limit=${limit}${searchParam}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
   } catch {
@@ -328,11 +332,18 @@ document.addEventListener("click", () => {
   fermerMenuFiltre();
 });
 
+// Attend 350ms après la dernière frappe avant d'interroger le backend,
+// pour ne pas envoyer une requête à chaque lettre tapée.
+let rechercheTimeout;
+
 searchInput.addEventListener("input", (event) => {
   rechercheActuelle = event.target.value;
-  afficherSites();
-});
 
+  clearTimeout(rechercheTimeout);
+  rechercheTimeout = setTimeout(() => {
+    chargerSites(true); // relance depuis la page 1, avec le nouveau terme de recherche
+  }, 350);
+});
 // -------------------- Panneau "Proposer un site" --------------------
 
 function ouvrirPanneauAjout() {
