@@ -476,23 +476,15 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-
   border: 1px solid rgba(22, 51, 43, 0.08);
-
   border-radius: 999px;
-
   padding: 7px 11px;
-
   background: rgba(255, 255, 255, 0.9);
-
   color: var(--ink, #16332b);
-
   font-family: inherit;
   font-size: 11px;
   font-weight: 600;
-
   cursor: pointer;
-
   transition:
     transform .2s ease,
     background .2s ease,
@@ -505,9 +497,7 @@
 
 .legend-item:not(:disabled):hover {
   transform: translateY(-2px);
-
   background: #ffffff;
-
   box-shadow:
     0 5px 14px rgba(22, 51, 43, 0.12);
 }
@@ -518,11 +508,8 @@
 .legend-dot {
   width: 10px;
   height: 10px;
-
   flex: 0 0 10px;
-
   border-radius: 50%;
-
   box-shadow:
     0 0 0 2px #fff,
     0 1px 4px rgba(0, 0, 0, .2);
@@ -533,11 +520,8 @@
 
 .legend-item.is-active {
   background: var(--forest-deep, #16332b);
-
   color: #fff;
-
   border-color: var(--forest-deep, #16332b);
-
   box-shadow:
     0 5px 15px rgba(22, 51, 43, .25);
 }
