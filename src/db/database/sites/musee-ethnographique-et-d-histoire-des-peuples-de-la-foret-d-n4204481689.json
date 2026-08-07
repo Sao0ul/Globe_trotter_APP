@@ -7,8 +7,12 @@
   "phone": "+237 6 99 59 17 57",
   "latitude": 3.8712749,
   "longitude": 11.5236132,
-  "description": "",
-  "bonASavoir": "",
+  "description": "It presents the traditions, crafts, and lifestyles of forest communities such as the Baka, Beti, and Maka through ritual objects and reconstructions.",
+  "bonASavoir": "At the Musée Ethnographique des Peuples de la Fôret in Yaoundé, admission costs 10,000 XAF for foreign visitors and 5,000 XAF for national citizens/residents",
   "imageUrl": "https://d2kihw5e8drjh5.cloudfront.net/eyJidWNrZXQiOiJ1dGEtaW1hZ2VzIiwia2V5IjoicGxhY2VfaW1nL21fV2hiejNLVExLSnU3b2kzdUk1ckEiLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjY0MCwiaGVpZ2h0Ijo2NDAsImZpdCI6Imluc2lkZSJ9LCJyb3RhdGUiOm51bGwsInRvRm9ybWF0IjogIndlYnAifX0=",
-  "videoUrl": "https://www.tiktok.com/@ardson01/video/7494683547966475525?is_from_webapp=1&sender_device=pc"
+  "videoUrl": "https://www.tiktok.com/@ardson01/video/7494683547966475525?is_from_webapp=1&sender_device=pc",
+  "video_par": "ardson01 (tiktok)",
+  "price": 10000,
+  "dangerosity": "low",
+  "difficulty": "easy"
 }

@@ -5,10 +5,14 @@
   "name": "Réunification monument",
   "address": null,
   "phone": null,
-  "latitude": 3.8526969,
-  "longitude": 11.5131796,
-  "description": "",
-  "bonASavoir": "",
-  "imageUrl": "",
-  "videoUrl": ""
+  "latitude": 3.852562614485689,
+  "longitude": 11.513448879730916,
+  "video_par": "@Findme_house(youtube)",
+  "description": "close at some time but open from 8am to 5pm payable que en cash",
+  "bonASavoir": "lieu connu par l'adresse 13 place de la reunification 11003 yaounde 3 cameroun",
+  "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnu2C0tU8K6nXo97Vj89IpMWzfGROWG29I1dQS9c7NnconGBRhazEkLEo5UUchU1zLPaOY9sOrUPAzXljS2OaD81SPSadFhdCK0iuxq3UvrlX1W_erK6yPRqdjscmtA-CWhLCOi=s1360-w1360-h1020-rw",
+  "videoUrl": "https://youtube.com/shorts/0Uvr0Ubsoms?si=_pOcfR-KVGTG6_yT",
+  "price": 1500,
+  "dangerosity": "low",
+  "difficulty": "easy"
 }

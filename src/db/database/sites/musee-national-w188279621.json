@@ -7,8 +7,12 @@
   "phone": null,
   "latitude": 3.8604695,
   "longitude": 11.5155616,
-  "description": "",
-  "bonASavoir": "",
-  "imageUrl": "",
-  "videoUrl": ""
+  "description": "a museum where tourists can learn about the history of Cameroon and its culture, it is a place where you can find a lot of artifacts and traditional items from different regions of the country",
+  "bonASavoir": "the price is 5000fcfa for adults and 2500fcfa for children, the museum is open from 9am to 5pm every day except on Mondays and can change depending if you're a foreigner",
+  "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-PErmCE83LKlz08xUJVXNbmsAMM51LfMjdUkAClMCWatvuYojFJU-VyQ&s=10",
+  "videoUrl": "https://youtu.be/2Avvt1ILF9o?si=gSrDlW-CK8GSotNI",
+  "video_par": "Byga Emperor Offishal (youtube)",
+  "price": 5000,
+  "dangerosity": "low",
+  "difficulty": "easy"
 }

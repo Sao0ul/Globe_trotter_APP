@@ -7,8 +7,12 @@
   "phone": null,
   "latitude": 3.8728224,
   "longitude": 11.5175033,
-  "description": "",
-  "bonASavoir": "",
-  "imageUrl": "",
-  "videoUrl": ""
+  "description": "The Independence Square monument in Yaoundé is the major architectural symbol commemorating Cameroon's sovereignty, acquired on January 1, 1960. Located in the heart of the Hippodrome district, near the City Hall, it was at this precise spot that the Prime Minister at the time, Ahmadou Ahidjo, officially proclaimed independence.",
+  "bonASavoir": "it's a place that attract visitors so malicious people, beggars and scammers can be there, so be careful and don't go alone",
+  "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Monument_place_de_l%27ind%C3%A9pendance_Yaound%C3%A9.jpg/960px-Monument_place_de_l%27ind%C3%A9pendance_Yaound%C3%A9.jpg",
+  "videoUrl": "https://youtu.be/_cpcSI7WPsk?si=PzMeDCRaZur67FJ6",
+  "video_par": "malivid(youtube)",
+  "price": 0,
+  "dangerosity": "low",
+  "difficulty": "easy"
 }

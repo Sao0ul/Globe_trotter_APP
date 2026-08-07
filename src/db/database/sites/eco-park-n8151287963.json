@@ -1,14 +1,18 @@
 {
   "osm_type": "node",
   "osm_id": 8151287963,
-  "category": "adventure",
+  "category": "nature",
   "name": "Eco Park",
   "address": null,
   "phone": "+237691715533",
   "latitude": 3.7866385,
   "longitude": 11.4876249,
-  "description": "",
-  "bonASavoir": "",
-  "imageUrl": "",
-  "videoUrl": ""
+  "description": " is a lush, 20-hectare recreation and eco-tourism site located in the Ahala neighborhood in the southern suburbs of Yaoundé, Cameroon. It blends nature, local wildlife, and leisure, serving as a peaceful green escape for families, tourists, and nature lovers right outside the bustling capital.",
+  "bonASavoir": "The entry fee for EcoPark Yaoundé starts at 500 FCFA for adults and 250 FCFA for children under 5 years old.Swimming Pool Access: 2,500 FCFA for adults and 1,500 FCFA for children.Pirogue (Boat Ride): 1,000 FCFA per person.Hotel Lodging: Rooms at the on-site hotel start at 35,000 FCFA per",
+  "imageUrl": "https://d2kihw5e8drjh5.cloudfront.net/eyJidWNrZXQiOiJ1dGEtaW1hZ2VzIiwia2V5IjoicGxhY2VfaW1nLzIyMDMwNGI1NGFlNTQxZmFhMjFiMjQ5NWM4ODk0N2E2IiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo2NDAsImhlaWdodCI6NjQwLCJmaXQiOiJpbnNpZGUifSwicm90YXRlIjpudWxsLCJ0b0Zvcm1hdCI6ICJ3ZWJwIn19",
+  "videoUrl": "https://youtu.be/1B0KgVt8n5E?si=IymjpU42kt1-ZBg9",
+  "video_par": "kimyb (youtube)",
+  "price": 500,
+  "dangerosity": "low",
+  "difficulty": "easy"
 }
