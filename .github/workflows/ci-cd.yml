@@ -136,9 +136,9 @@ jobs:
             -d "$DB_NAME" \
             < ./src/db/script.sql
 
-      # ========================================================
+      
       # API
-      # ========================================================
+    
 
       # Démarre l'API après la préparation de la DB
       - name: Build and start API container
@@ -170,10 +170,9 @@ jobs:
       - name: Show running containers
         run: docker compose ps
 
-      # ========================================================
-      # TESTS D'INTÉGRATION
-      # ========================================================
 
+      # TESTS D'INTÉGRATION
+  
       # Lance les tests dans le conteneur API
       - name: Run Integration Tests
         run: docker compose exec -T api npm run test:integration
@@ -188,24 +187,26 @@ jobs:
         if: always()
         run: docker compose down -v
 
+  semgrep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker pull semgrep/semgrep:latest
+      - run: |
+          docker run --rm \
+            -v "${{ github.workspace }}:/src" \
+            semgrep/semgrep:latest \
+            scan --config=auto --exclude=node_modules --exclude=.env --error /src
 
-  # ==========================================================
   # DÉPLOIEMENT RENDER
-  # ==========================================================
   deploy:
-
     name: Deploy to Render
-
     # Le déploiement attend que les tests passent
     needs: [run-tests]
-
     # Déploie uniquement après un push sur main
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-
     runs-on: ubuntu-latest
-
     steps:
-
       # Déclenche le déploiement Render
       - name: Trigger deployment
         run: curl -fsS "${{ secrets.RENDER_DEPLOY_HOOK }}"

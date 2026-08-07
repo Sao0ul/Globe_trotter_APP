@@ -16,7 +16,6 @@ function getDatabaseConfig() {
         user: process.env.DB_USER || 'postgres',
         password: process.env.DB_PASSWORD || 'postgres',
         database: process.env.DB_NAME || 'globetrotter_app',
-
         max: 10,
         idleTimeoutMillis: 30000,
         connectionTimeoutMillis: 5000,
@@ -24,29 +23,30 @@ function getDatabaseConfig() {
 
     let sslConfig = {};
 
-    if (process.env.DB_SSL_CA) {
-        const caPath = path.resolve(
-            process.cwd(),
-            process.env.DB_SSL_CA
-        );
+    // SSL uniquement si explicitement demandé (prod / Aiven)
+    if (process.env.DB_SSL === 'true') {
+        if (process.env.DB_SSL_CA) {
+            const caPath = path.resolve(process.cwd(), process.env.DB_SSL_CA);
 
-        if (!fs.existsSync(caPath)) {
-            throw new Error(`Certificat SSL introuvable : ${caPath}`);
+            if (!fs.existsSync(caPath)) {
+                throw new Error(`Certificat SSL introuvable : ${caPath}`);
+            }
+
+            sslConfig = {
+                ssl: {
+                    rejectUnauthorized: true,
+                    ca: fs.readFileSync(caPath, 'utf8'),
+                },
+            };
+        } else {
+            sslConfig = {
+                ssl: {
+                    rejectUnauthorized: false,
+                },
+            };
         }
-
-        sslConfig = {
-            ssl: {
-                rejectUnauthorized: true,
-                ca: fs.readFileSync(caPath, 'utf8'),
-            },
-        };
-    } else {
-        sslConfig = {
-            ssl: {
-                rejectUnauthorized: false,
-            },
-        };
     }
+    // sinon: pas de sslConfig du tout -> connexion en clair, adaptée au local
 
     if (process.env.DATABASE_URL) {
         return {
