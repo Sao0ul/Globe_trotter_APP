@@ -1,3 +1,4 @@
+const fs = require('fs');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -19,16 +20,35 @@ function getDatabaseConfig() {
     connectionTimeoutMillis: 5000,
   };
 
+  const sslConfig = {};
+  const caPath = process.env.DB_SSL_CA;
+
+  if (caPath) {
+    const resolvedCaPath = caPath.replace(/^\.\\/, '').replace(/^\.\//, '');
+    const absoluteCaPath = require('path').resolve(__dirname, '..', resolvedCaPath);
+
+    if (fs.existsSync(absoluteCaPath)) {
+      sslConfig.ssl = {
+        rejectUnauthorized: true,
+        ca: fs.readFileSync(absoluteCaPath, 'utf8'),
+      };
+    }
+  }
+
   if (process.env.DATABASE_URL) {
     return {
       connectionString: process.env.DATABASE_URL,
+      ...sslConfig,
       max: sharedConfig.max,
       idleTimeoutMillis: sharedConfig.idleTimeoutMillis,
       connectionTimeoutMillis: sharedConfig.connectionTimeoutMillis,
     };
   }
 
-  return sharedConfig;
+  return {
+    ...sharedConfig,
+    ...sslConfig,
+  };
 }
 
 module.exports = { getDatabaseConfig };

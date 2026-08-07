@@ -31,7 +31,7 @@ function normalizeSiteEntry(entry) {
     imageUrl: entry.imageUrl || null,
     // Seuls les sites touristiques ont une vidéo (cf. décision du 2026-08-02).
     videoUrl: entry.videoUrl || null,
-    video_par: entry.videoPar || null,
+    video_par: entry.video_par || entry.videoPar || null,
     latitude: entry.latitude,
     longitude: entry.longitude,
     osm_type: entry.osm_type,

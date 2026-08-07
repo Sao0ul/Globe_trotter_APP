@@ -29,7 +29,7 @@ const videoOverlay = document.getElementById('videoOverlay');
 const playPreviewBtn = document.getElementById('playPreviewBtn');
 const unmuteBtn = document.getElementById('unmuteBtn');
 const quoteElement = document.getElementById('siteQuote');
-const videoCreditElement = document.getElementById('siteVideoCredit');
+const videoParElement = document.getElementById('siteVideoCredit');
 
 // Flags for external/embed videos
 let externalProvider = null; // 'youtube' | 'vimeo' | 'tiktok' | null
@@ -72,6 +72,7 @@ const fallbackSite = {
     'https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=800',
 
   videoUrl: '',
+  video_par: '',
   difficulte: 'Facile',
   dangerosite: 'Faible',
   prix: 12000,
@@ -240,7 +241,7 @@ function mapSiteResponse(raw) {
       raw.location ||
       fallbackSite.localisation,
 
-    videoCredit: raw.videoPar || raw.video_par || '',
+    video_par: raw.video_par || raw.videoPar || '',
 
     categorie:
       raw.categorie ||
@@ -870,9 +871,9 @@ function setCardContent(site) {
   if (quoteElement) {
     quoteElement.textContent = buildQuote(site);
   }
-  if (videoCreditElement) {
-    videoCreditElement.textContent = site.videoCredit
-      ? `Vidéo par : ${site.videoCredit}`
+  if (videoParElement) {
+    videoParElement.textContent = site.video_par
+      ? `Vidéo par : ${site.video_par}`
       : 'Aucune source vidéo renseignée';
   }
 
