@@ -1,15 +1,5 @@
-/* CSS spécifique pour la page de détail de site
- *
- * Direction : palette ancrée dans le sujet (Cameroun) plutôt que
- * générique — vert forêt profond + rouge latérite (la terre des routes
- * camerounaises) en accent signature, fond crème chaud, touche d'or
- * réservée aux petits détails (guillemets, filets).
- */
 
 :root {
-  /* Remplace par ton image : soit un chemin local depuis public/
-   * (ex. url("assets/images/site-detail-bg.jpg")),
-   * soit une URL complète (ex. url("https://exemple.com/photo.jpg")). */
   --detail-bg-image: url("../assets/images/logojLogin.png");
   --detail-overlay: linear-gradient(rgba(16, 28, 22, 0.35), rgba(16, 28, 22, 0.55));
 
