@@ -1,25 +1,3 @@
-// ==========================================================
-// FICHE DÉTAILLÉE D'UN SITE TOURISTIQUE
-// ==========================================================
-//
-// Ce script :
-// 1. récupère l'identifiant du site dans l'URL ;
-// 2. charge les informations détaillées du site ;
-// 3. charge séparément sa vidéo ;
-// 4. affiche les informations dans la page ;
-// 5. suit la position de l'utilisateur ;
-// 6. calcule la distance entre l'utilisateur et le site ;
-// 7. prépare l'ouverture de la page d'itinéraire.
-//
-// Exemple d'URL :
-// site-details.html?id=12
-// ==========================================================
-
-
-// ==========================================================
-// Récupération des éléments HTML
-// ==========================================================
-
 const videoElement = document.getElementById('siteVideo');
 const videoSourceElement = document.getElementById('videoSource');
 // Container for alternate (embed) content and thumbnail
