@@ -1,9 +1,49 @@
+
+beforeEach(() => {
+    // On remplace le fetch global pour éviter qu'il n'aille sur Internet
+    global.fetch = jest.fn().mockImplementation((url) => {
+        // Si le code appelle Nominatim (OpenStreetMap)
+        if (url.includes('nominatim.openstreetmap.org')) {
+            return Promise.resolve({
+                ok: true,
+                json: () => Promise.resolve([
+                    { lat: "3.8480", lon: "11.5021" } // Coordonnées fictives (ex: Yaoundé)
+                ]),
+            });
+        }
+
+        // Si le code appelle Pexels (pour l'image automatique)
+        if (url.includes('api.pexels.com')) {
+            return Promise.resolve({
+                ok: true,
+                json: () => Promise.resolve({
+                    photos: [{ src: { large: 'https://pexels.com' } }]
+                }),
+            });
+        }
+
+        // Par défaut pour le reste
+        return Promise.resolve({ ok: true, json: () => Promise.resolve({}) });
+    });
+});
+
+
 const request = require('supertest');
 const app = require('../../app');
 const pool = require('../../db/pool');
 
 const VALID_PASSWORD = 'MotDePasse123!';
 let authToken;
+
+
+// src/tests/integration/moyenne.test.js
+
+afterEach(() => {
+    // On nettoie le mock après chaque test pour ne pas perturber d'autres fichiers
+    jest.restoreAllMocks();
+});
+
+
 
 function extractToken(confirmationLink) {
     return confirmationLink.split('/').pop();

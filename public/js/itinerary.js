@@ -7,7 +7,7 @@
 // qu'afficher ce que l'API renvoie.
 
 const routeSummary = document.getElementById('routeSummary');
-const useCurrentLocationButton = document.getElementById('useCurrentLocationBtn');
+const yangoBouton = document.getElementById('yangoBouton');
 const itineraryTitle = document.getElementById('itineraryTitle');
 const legendContainer =
   document.querySelector('.detail-legend-float') ||
@@ -484,35 +484,10 @@ map.on('click', (event) => {
   calculerItineraire();
 });
 
-if (useCurrentLocationButton) {
-  useCurrentLocationButton.addEventListener('click', () => {
-    if (destinationPoint) {
-      map.flyTo([destinationPoint.lat, destinationPoint.lng], 13, { duration: 1 });
-      setRouteSummary(`Carte recentrée sur ${destinationLabel}.`);
-      return;
-    }
-
-    if (!navigator.geolocation) {
-      setRouteSummary('Aucune destination disponible pour recentrer la carte.');
-      return;
-    }
-
-    setRouteSummary('Récupération de votre position…');
-
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        placeOriginMarker(position.coords.latitude, position.coords.longitude);
-        updateDepartLabel('Ma position');
-        map.flyTo([position.coords.latitude, position.coords.longitude], 13, { duration: 1 });
-        calculerItineraire();
-      },
-      () => {
-        setRouteSummary('Localisation refusée — cliquez sur la carte pour choisir un point de départ.');
-      },
-      { enableHighAccuracy: true, timeout: 10000 }
-    );
-  });
+if (yangoBouton) {
+  yangoBouton.addEventListener('click', ouvrirYango);
 }
+
 if (routeLayer) {
   map.fitBounds(routeLayer.getBounds(), {
     paddingTopLeft: [340, 100],
@@ -577,6 +552,33 @@ function mettreAJourEtatLegende() {
       );
     });
 }
+
+const REF_SITE = 'camerounvisit'; // lettres uniquement, pas d'accent/espace
+
+function buildYangoLink(origin, destination) {
+  const fallback = encodeURIComponent(
+    `https://yango.com/en_int/order/?gfrom=${destination.lng},${destination.lat}` +
+    `&gto=${origin.lng},${origin.lat}&ref=${REF_SITE}`
+  );
+
+  return (
+    `https://yango.go.link/route?start-lat=${origin.lat}&start-lon=${origin.lng}` +
+    `&end-lat=${destination.lat}&end-lon=${destination.lng}` +
+    `&ref=${REF_SITE}&adj_t=vokme8e_nd9s9z9&lang=fr&adj_deeplink_js=1` +
+    `&adj_fallback=${fallback}`
+  );
+}
+
+function ouvrirYango() {
+  if (!originPoint || !destinationPoint) {
+    setRouteSummary('Placez un point de départ avant de commander un taxi.');
+    return;
+  }
+
+  window.open(buildYangoLink(originPoint, destinationPoint), '_blank');
+}
+
+
 
 // Initialisation
 buildLegend();
