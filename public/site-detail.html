@@ -4,32 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Site détail</title>
-
     <link rel="icon" type="image/png" href="assets/images/logoLogin.png">
-
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Work+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-
     <link rel="stylesheet" href="css/site-detail.css">
     <link rel="stylesheet" href="css/map-markers.css">
 </head>
 
 <body class="page-shell">
-
     <header class="detail-topbar">
-
         <a class="btn-ghost btn-back" href="sites.html">
-            ← Retour
+            ← back
         </a>
-
         <div class="detail-title">
             <h1 id="siteTitle">Chargement du lieu…</h1>
             <p id="siteLocation">—</p>
@@ -50,7 +41,6 @@
             </button>
 
         </div>
-
     </header>
 
     <main>
@@ -88,16 +78,11 @@
 
         <!-- ================= Contenu ================= -->
         <section class="detail-content">
-
             <!-- Bon à savoir -->
             <section class="detail-card">
-
                 <h2>Bon à savoir</h2>
-
                 <ul id="siteFacts"></ul>
-
                 <div class="detail-stats">
-
                     <div>
                         <span>Catégorie</span>
                         <strong id="siteCategory">—</strong>
@@ -119,7 +104,6 @@
                     </div>
 
                 </div>
-
             </section>
 
             <!-- Description -->
@@ -147,7 +131,6 @@
                 <div class="detail-legend"></div>
 
             </section>
-
         </section>
 
     </main>
@@ -158,5 +141,4 @@
     <script src="js/site-detail.js"></script>
 
 </body>
-
 </html>
