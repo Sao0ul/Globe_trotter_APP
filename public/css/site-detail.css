@@ -4,12 +4,14 @@
 
 :root {
   --detail-bg: #f4f7f5;
-  --detail-surface: #ffffff;
+  --detail-surface: #f8fcfb;
   --detail-ink: #16332b;
-  --detail-muted: #6b7d78;
+  --detail-muted: #1b1b1b;
   --detail-soft: #edf3f0;
+
   --detail-primary: #3b82f6;
   --detail-primary-dark: #2563eb;
+
   --detail-border: rgba(22, 51, 43, 0.10);
 
   --detail-radius: 18px;
@@ -43,9 +45,16 @@ html {
 body {
   margin: 0;
   padding: 0;
+
   background: var(--detail-bg);
   color: var(--detail-ink);
+
   font-family: "Work Sans", sans-serif;
+  background-image: url("../assets/images/site-detailBG.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
   overflow-x: hidden;
 }
 
@@ -74,8 +83,11 @@ iframe {
 
 .page-shell {
   position: relative;
+
   width: min(1180px, calc(100% - 40px));
+
   margin: 0 auto;
+
   padding: 0 0 50px;
 }
 
@@ -87,46 +99,43 @@ main {
 /* ============================================================
    4. HEADER
    ============================================================ */
+
+/*
+   IMPORTANT :
+
+   Le header n'est PLUS superposé à la vidéo.
+
+   Cela laisse toute la surface de la vidéo libre pour :
+   - volume YouTube
+   - paramètres
+   - plein écran
+   - barre de progression
+   - autres contrôles
 */
 
-.detail-hero {
-  position: relative;
-  width: 100%;
-}
-
 .detail-topbar {
-  position: absolute;
+  position: relative;
 
-  /* distance depuis le haut de la vidéo */
-  top: 18px;
-
-  left: 50%;
-  transform: translateX(-50%);
-
-  z-index: 100;
-
-  width: calc(100% - 36px);
+  width: 100%;
 
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+
+  grid-template-columns:
+    auto minmax(0, 1fr) auto;
 
   align-items: center;
 
   gap: 18px;
 
-  padding: 10px 14px;
+  padding: 12px 0 10px;
 
-  pointer-events: none;
+  z-index: 20;
 
   background: transparent;
-}
 
-/* Seuls les vrais éléments du header sont cliquables */
-.detail-topbar>*,
-.detail-topbar a,
-.detail-topbar button {
   pointer-events: auto;
 }
+
 
 /* Bouton retour */
 
@@ -139,6 +148,7 @@ main {
 
 .detail-title {
   min-width: 0;
+
   text-align: center;
 }
 
@@ -168,6 +178,7 @@ main {
   color: var(--detail-muted);
 
   font-size: 13px;
+
   line-height: 1.3;
 }
 
@@ -178,6 +189,7 @@ main {
   display: flex;
 
   align-items: center;
+
   justify-content: flex-end;
 
   gap: 8px;
@@ -190,64 +202,153 @@ main {
    5. BOUTONS
    ============================================================ */
 
-.btn-ghost,
-.btn-solid {
+.btn-ghost {
+  position: relative;
+
   min-height: 40px;
   padding: 9px 14px;
-  border-radius: 5px;
-  border: 1px solid var(--detail-border);
+
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.82);
+
+  color: var(--detail-ink);
+  text-decoration: none;
+
+  box-shadow:
+    0 3px 0 rgba(190, 200, 197, 0.9),
+    0 7px 14px rgba(22, 51, 43, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+
+.btn-ghost:hover {
+  transform: translateY(-2px);
+
+  background: rgba(255, 255, 255, 0.95);
+
+  box-shadow:
+    0 5px 0 rgba(190, 200, 197, 0.9),
+    0 11px 20px rgba(22, 51, 43, 0.13),
+    inset 0 1px 0 #ffffff;
+}
+
+
+.btn-ghost:active {
+  transform: translateY(2px);
+
+  box-shadow:
+    0 1px 0 rgba(190, 200, 197, 0.9),
+    0 3px 7px rgba(22, 51, 43, 0.10),
+    inset 0 2px 3px rgba(0, 0, 0, 0.08);
+}
+
+
+
+/*btn-solid*/
+.btn-solid {
+  position: relative;
+
+  min-height: 40px;
+  padding: 9px 14px;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 7px;
-  text-decoration: none;
+
+  background: linear-gradient(145deg,
+        #99d85e,
+        #c92525);
+
+  color: #080808;
+
   cursor: pointer;
   white-space: nowrap;
+
+  /* profondeur */
+  box-shadow:
+    0 4px 0 #1749a5,
+    0 7px 12px rgba(37, 99, 235, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(245, 11, 11, 0.12);
+
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease,
-    opacity 0.2s ease;
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
 }
 
-.btn-ghost {
-  background: #ffffff;
-  color: var(--detail-ink);
+
+/* lumière sur le haut du bouton */
+.btn-solid::before {
+  content: "";
+
+  position: absolute;
+
+  top: 1px;
+  left: 10px;
+  right: 10px;
+
+  height: 35%;
+
+  border-radius: 6px;
+
+  background: linear-gradient(to bottom,
+      rgba(255, 255, 255, 0.18),
+      rgba(255, 255, 255, 0));
+
+  pointer-events: none;
 }
 
-.btn-solid {
-  background: linear-gradient(135deg,
-      var(--detail-primary),
-      var(--detail-primary-dark));
-  color: #ffffff;
-  border-color: transparent;
-  box-shadow:
-    0 7px 18px rgba(59, 130, 246, 0.20);
-}
 
-.btn-ghost:hover,
+/* hover : le bouton remonte légèrement */
 .btn-solid:hover {
-  transform: translateY(-1px);
-}
+  transform: translateY(-2px);
 
-.btn-ghost:hover {
-  background: var(--detail-soft);
-}
-
-.btn-solid:hover {
   box-shadow:
-    0 10px 24px rgba(59, 130, 246, 0.28);
+    0 6px 0 #1749a5,
+    0 12px 20px rgba(37, 99, 235, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.12);
 }
+
+
+/* clic : le bouton s'enfonce */
+.btn-solid:active {
+  transform: translateY(3px);
+
+  box-shadow:
+    0 1px 0 #1749a5,
+    0 3px 7px rgba(37, 99, 235, 0.22),
+    inset 0 2px 3px rgba(0, 0, 0, 0.16);
+}
+
 
 .btn-ghost:focus-visible,
 .btn-solid:focus-visible {
   outline: 3px solid rgba(59, 130, 246, 0.25);
+
   outline-offset: 3px;
 }
 
 .btn-3d:disabled {
   opacity: 0.55;
+
   cursor: not-allowed;
+
   transform: none;
 }
 
@@ -263,22 +364,104 @@ main {
 
 
 /* ============================================================
+   5.1 ICÔNE LOCALISATION
+   ============================================================ */
+
+/*
+   Ton HTML possède déjà :
+
+   <span class="pin-wrap">
+       <span class="pin-shape"></span>
+   </span>
+
+   On transforme donc simplement ces éléments
+   en véritable icône "pin de localisation".
+*/
+
+.pin-wrap {
+  position: relative;
+
+  width: 18px;
+  height: 21px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+}
+
+
+/* Corps du pin */
+
+.pin-shape {
+  position: relative;
+
+  width: 15px;
+  height: 15px;
+
+  border-radius: 50% 50% 50% 0;
+
+  background: #ffffff;
+
+  transform: rotate(-45deg);
+
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.18);
+}
+
+
+/* Petit point au centre */
+
+.pin-shape::after {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: var(--detail-primary);
+
+  transform:
+    translate(-50%, -50%) rotate(45deg);
+}
+
+
+/* Animation légère au hover */
+
+.btn-solid:hover .pin-shape {
+  transform:
+    rotate(-45deg) scale(1.08);
+}
+
+
+/* ============================================================
    6. HERO / VIDÉO
    ============================================================ */
 
 .detail-hero {
   position: relative;
+
   width: 100%;
 }
 
 
-/*
-   CADRE VIDÉO
+/* ============================================================
+   6.1 CADRE VIDÉO
+   ============================================================ */
 
+/*
    La vidéo reste toujours en 16:9.
 
-   Le padding crée physiquement le cadre.
-   Le fond blanc donne l'effet "TV / cadre photo".
+   Le header étant maintenant au-dessus,
+   aucune partie de la vidéo n'est recouverte.
 */
 
 .detail-video {
@@ -287,7 +470,9 @@ main {
   width: 100%;
 
   aspect-ratio: 16 / 9;
-  margin-top: 10px;
+
+  margin-top: 0;
+
   overflow: hidden;
 
   padding: var(--video-frame);
@@ -296,7 +481,7 @@ main {
 
   background: #ffffff;
 
-  border: 1px solid rgba(8, 8, 8, 0.08);
+  border: 0px,1px,1px,1px solid rgba(8, 8, 8, 0.08);
 
   box-shadow:
     5px 25px 60px rgba(0, 0, 0, 0.22),
@@ -306,27 +491,31 @@ main {
 }
 
 
-/*
-   L'espace intérieur du cadre.
-
-   On utilise inset: 0 parce que le padding du parent
-   détermine déjà l'épaisseur du cadre.
-*/
+/* ============================================================
+   6.2 ESPACE INTÉRIEUR DU CADRE
+   ============================================================ */
 
 .video-container {
   position: absolute;
+
   top: var(--video-frame);
   right: var(--video-frame);
   bottom: var(--video-frame);
   left: var(--video-frame);
+
   z-index: 2;
+
   overflow: hidden;
+
   border-radius: var(--video-inner-radius);
+
   background: #080a09;
 }
 
 
-/* iframe */
+/* ============================================================
+   6.3 IFRAME YOUTUBE
+   ============================================================ */
 
 .video-container iframe {
   display: block;
@@ -338,7 +527,9 @@ main {
 }
 
 
-/* vidéo HTML classique */
+/* ============================================================
+   6.4 VIDÉO HTML CLASSIQUE
+   ============================================================ */
 
 .detail-video video {
   display: block;
@@ -368,6 +559,7 @@ main {
   left: var(--video-frame);
 
   width: calc(100% - (var(--video-frame) * 2));
+
   height: calc(100% - (var(--video-frame) * 2));
 
   z-index: 2;
@@ -391,6 +583,7 @@ main {
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   overflow: hidden;
@@ -407,12 +600,9 @@ main {
 }
 
 
-/*
-   Bouton PLAY
-
-   Le z-index est volontairement élevé afin que le bouton
-   reste au-dessus de l'iframe / vidéo.
-*/
+/* ============================================================
+   7.1 BOUTON PLAY
+   ============================================================ */
 
 #playPreviewBtn {
   position: relative;
@@ -461,6 +651,7 @@ main {
 
 #playPreviewBtn:focus-visible {
   outline: 3px solid rgba(255, 255, 255, 0.65);
+
   outline-offset: 4px;
 }
 
@@ -473,6 +664,7 @@ main {
   position: absolute;
 
   right: calc(var(--video-frame) + 12px);
+
   bottom: calc(var(--video-frame) + 22px);
 
   z-index: 40;
@@ -498,6 +690,7 @@ main {
   display: flex;
 
   align-items: center;
+
   justify-content: flex-end;
 
   width: 100%;
@@ -519,9 +712,10 @@ main {
 
 #siteVideoCredit {
   margin: 0;
+
   padding: 0;
 
-  color: var(--detail-muted);
+  color: red;
 
   font-size: 11px;
 
@@ -541,33 +735,29 @@ main {
 
 .detail-content {
   display: grid;
-
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-
-  gap: 0;
-
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
   width: 100%;
-
   margin-top: 20px;
-
-  background: var(--detail-surface);
-
-  border-radius: var(--detail-radius);
-
-  box-shadow: var(--detail-shadow);
-
-  overflow: hidden;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
 }
 
 .detail-card {
   min-width: 0;
-
   padding: 22px 23px;
-}
 
-.detail-card+.detail-card {
-  border-left: 1px solid var(--detail-border);
+  background: rgba(255, 255, 255, 0.58);
+
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: var(--detail-radius);
+
+  box-shadow:
+    0 8px 30px rgba(22, 51, 43, 0.08);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 
@@ -696,6 +886,7 @@ main {
   display: flex;
 
   align-items: center;
+
   justify-content: space-between;
 
   gap: 10px;
@@ -744,6 +935,7 @@ main {
 
 .map-preview .leaflet-container {
   width: 100%;
+
   height: 100%;
 }
 
@@ -793,46 +985,78 @@ main {
   .page-shell {
     width: min(100% - 28px, 800px);
 
-    padding-top: 14px;
+    padding-top: 0;
+
+    padding-bottom: 40px;
   }
 
 
   /*
-     Le header reste superposé à la vidéo.
-     On ne le remet PAS en position relative.
+     Header compact au-dessus de la vidéo.
+     Il ne recouvre plus jamais la vidéo.
   */
+
+  .detail-topbar {
+    position: relative;
+
+    width: 100%;
+
+    grid-template-columns:
+      auto minmax(0, 1fr) auto;
+
+    gap: 12px;
+
+    padding: 10px 0 8px;
+  }
+
 
   .detail-hero {
     position: relative;
+
     width: 100%;
   }
+
+
   .detail-title {
-    text-align: left;
+    text-align: center;
   }
+
+
+  .detail-title h1,
+  .detail-topbar h1 {
+    font-size: clamp(23px, 4vw, 32px);
+  }
+
+
+  .detail-title p {
+    font-size: 12px;
+  }
+
 
   .detail-actions {
-    grid-column: 1 / -1;
+    display: flex;
 
-    width: 100%;
+    width: auto;
 
-    display: grid;
+    grid-column: auto;
 
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-
-    gap: 8px;
+    gap: 6px;
   }
+
 
   .detail-actions>* {
-    width: 100%;
+    width: auto;
   }
 
 
-  /* Contenu */
+  /*
+     Contenu
+  */
 
   .detail-content {
     grid-template-columns: 1fr;
   }
+
 
   .detail-card+.detail-card {
     border-left: 0;
@@ -842,7 +1066,9 @@ main {
   }
 
 
-  /* Statistiques */
+  /*
+     Statistiques
+  */
 
   .detail-stats {
     grid-template-columns:
@@ -852,7 +1078,9 @@ main {
   }
 
 
-  /* Cadre vidéo */
+  /*
+     Cadre vidéo
+  */
 
   :root {
     --video-frame: 13px;
@@ -874,14 +1102,33 @@ main {
 
 
   /*
-     HEADER SUR LA VIDÉO
+     ==========================================================
+     HEADER MOBILE
+     ==========================================================
 
-     Une seule règle mobile.
-     Pas de conflit position:absolute / relative.
+     Le header est toujours AVANT la vidéo.
+     Il ne recouvre donc aucun contrôle YouTube.
   */
 
+  .detail-topbar {
+    position: relative;
 
-  /* Bouton retour */
+    display: grid;
+
+    grid-template-columns:
+      auto minmax(0, 1fr);
+
+    gap: 7px;
+
+    width: 100%;
+
+    padding: 7px 0 8px;
+  }
+
+
+  /*
+     Bouton retour
+  */
 
   .detail-topbar .btn-back {
     min-height: 32px;
@@ -889,10 +1136,15 @@ main {
     padding: 6px 9px;
 
     font-size: 10px;
+
+    border-radius: 999px;
   }
 
 
-  /* Titre */
+
+  /*
+     Titre
+  */
 
   .detail-topbar .detail-title {
     min-width: 0;
@@ -900,10 +1152,11 @@ main {
     text-align: left;
   }
 
-  .detail-topbar .detail-title h1 {
-    font-size: 17px;
 
-    line-height: 1;
+  .detail-topbar .detail-title h1 {
+    font-size: 18px;
+
+    line-height: 1.05;
 
     white-space: nowrap;
 
@@ -911,6 +1164,7 @@ main {
 
     text-overflow: ellipsis;
   }
+
 
   .detail-topbar .detail-title p {
     margin-top: 2px;
@@ -925,7 +1179,12 @@ main {
   }
 
 
-  /* Boutons d'action */
+  /*
+     Boutons d'action
+
+     Ils passent sous le titre pour éviter
+     de comprimer le nom du lieu.
+  */
 
   .detail-topbar .detail-actions {
     grid-column: 1 / -1;
@@ -940,15 +1199,19 @@ main {
     width: 100%;
   }
 
-  .detail-topbar .detail-actions>* {
-    min-height: 30px;
 
-    padding: 5px 6px;
+  .detail-topbar .detail-actions>* {
+    width: 100%;
+
+    min-height: 32px;
+
+    padding: 6px 7px;
 
     font-size: 9px;
 
     border-radius: 999px;
   }
+
 
   .detail-topbar .btn-soon {
     font-size: 7px;
@@ -958,10 +1221,36 @@ main {
 
 
   /*
-     Cadre vidéo mobile.
+     ==========================================================
+     ICÔNE PIN MOBILE
+     ==========================================================
+  */
 
-     Il reste blanc mais devient légèrement
-     plus fin pour ne pas manger trop d'espace.
+  .pin-wrap {
+    width: 15px;
+
+    height: 18px;
+  }
+
+
+  .pin-shape {
+    width: 13px;
+
+    height: 13px;
+  }
+
+
+  .pin-shape::after {
+    width: 4px;
+
+    height: 4px;
+  }
+
+
+  /*
+     ==========================================================
+     CADRE VIDÉO MOBILE
+     ==========================================================
   */
 
   :root {
@@ -978,11 +1267,15 @@ main {
 
     padding: var(--video-frame);
 
+    margin-top: 0;
+
     border-radius: var(--video-radius);
   }
 
 
-  /* Bouton Play */
+  /*
+     Bouton Play
+  */
 
   #playPreviewBtn {
     min-height: 44px;
@@ -993,7 +1286,9 @@ main {
   }
 
 
-  /* Son */
+  /*
+     Son
+  */
 
   .video-unmute {
     right: calc(var(--video-frame) + 7px);
@@ -1008,7 +1303,9 @@ main {
   }
 
 
-  /* Statistiques */
+  /*
+     Statistiques
+  */
 
   .detail-stats {
     grid-template-columns:
@@ -1016,7 +1313,9 @@ main {
   }
 
 
-  /* Carte */
+  /*
+     Carte
+  */
 
   .map-preview {
     height: 205px;
@@ -1034,19 +1333,25 @@ main {
     width: calc(100% - 12px);
 
     padding-left: 0;
+
     padding-right: 0;
   }
 
 
-  .detail-topbar {
-    top: 6px;
-    left: 6px;
+  /*
+     Header très compact
+  */
 
-    width: calc(100% - 12px);
+  .detail-topbar {
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
 
     gap: 5px;
 
-    padding: 5px;
+    padding: 5px 0 6px;
   }
 
 
@@ -1070,12 +1375,17 @@ main {
   }
 
 
+  /*
+     Boutons
+  */
+
   .detail-actions {
     grid-template-columns: 1fr;
   }
 
+
   .detail-actions>* {
-    min-height: 32px;
+    min-height: 31px;
   }
 
 
@@ -1097,6 +1407,10 @@ main {
   }
 
 
+  /*
+     Play
+  */
+
   #playPreviewBtn {
     min-height: 38px;
 
@@ -1105,6 +1419,10 @@ main {
     font-size: 10px;
   }
 
+
+  /*
+     Son
+  */
 
   .video-unmute {
     right: calc(var(--video-frame) + 5px);
@@ -1118,6 +1436,10 @@ main {
     font-size: 8px;
   }
 
+
+  /*
+     Carte
+  */
 
   .map-preview {
     height: 190px;
@@ -1137,9 +1459,11 @@ main {
 
 
   .detail-topbar {
-    width: calc(100% - 50px);
+    width: 100%;
 
-    top: 20px;
+    padding-top: 14px;
+
+    padding-bottom: 10px;
   }
 
 
@@ -1191,7 +1515,7 @@ main {
    ============================================================ */
 
 /*
-   Cette partie garantit l'ordre :
+   Ordre des éléments :
 
    HEADER
       ↓
@@ -1200,29 +1524,41 @@ main {
    VIDEO / IFRAME
       ↓
    CADRE
+
+   IMPORTANT :
+   Le header n'est plus dans la zone vidéo.
 */
 
 .detail-video {
   isolation: isolate;
 }
 
+
 .detail-video .video-container {
   z-index: 2;
 }
+
 
 .detail-video>video {
   z-index: 2;
 }
 
+
 .detail-video .video-overlay {
   z-index: 10;
 }
 
+
 .detail-video .video-unmute {
   z-index: 40;
+
+
+  /*
+   Le header est au-dessus du hero,
+   mais physiquement séparé de la vidéo.
+*/
 }
 
 .detail-hero .detail-topbar {
-  z-index: 100;
+  z-index: 20;
 }
-
