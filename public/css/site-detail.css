@@ -5,22 +5,15 @@
   --detail-ink: #16332b;
   --detail-muted: #6b7d78;
   --detail-soft: #edf3f0;
-
   --detail-primary: #3b82f6;
   --detail-primary-dark: #2563eb;
-
   --detail-border: rgba(22, 51, 43, .10);
-
   --detail-radius: 18px;
   --detail-radius-sm: 12px;
-
   --detail-shadow: 0 10px 30px rgba(22, 51, 43, .08);
 }
 
 
-/* =========================
-   RESET
-========================= */
 
 * {
   box-sizing: border-box;
@@ -56,27 +49,24 @@ video {
 }
 
 
-/* =========================
-   CONTENEUR PRINCIPAL
-========================= */
-
 .page-frame {
   width: min(1180px, calc(100% - 40px));
   margin: 0 auto;
-  padding: 28px 0 50px;
+  padding: 18px 0 50px;
 }
 
+main {
+  width: 100%;
+}
 
-/* =========================
-   HEADER
-========================= */
 
 .detail-topbar {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  gap: 20px;
-  margin-bottom: 18px;
+  gap: 18px;
+
+  margin-bottom: 14px;
 }
 
 .detail-title-wrap {
@@ -85,16 +75,21 @@ video {
 
 .detail-topbar h1 {
   margin: 0;
+
   font-family: 'DM Serif Display', serif;
-  font-size: clamp(28px, 4vw, 48px);
+  font-size: clamp(26px, 3vw, 40px);
   line-height: 1.05;
+
   color: var(--detail-ink);
+
   overflow-wrap: anywhere;
 }
 
 .detail-location-label {
   display: block;
-  margin-top: 7px;
+
+  margin-top: 5px;
+
   color: var(--detail-muted);
   font-size: 13px;
 }
@@ -106,14 +101,15 @@ video {
 }
 
 
-/* =========================
-   BOUTONS
-========================= */
+/* =========================================================
+   5. BOUTONS
+   ========================================================= */
 
 .btn-ghost,
 .btn-solid {
-  min-height: 42px;
-  padding: 10px 15px;
+  min-height: 40px;
+  padding: 9px 14px;
+
   border-radius: 999px;
   border: 1px solid var(--detail-border);
 
@@ -126,6 +122,7 @@ video {
   cursor: pointer;
 
   white-space: nowrap;
+
   transition:
     transform .2s ease,
     box-shadow .2s ease,
@@ -141,8 +138,10 @@ video {
   background: linear-gradient(135deg,
       var(--detail-primary),
       var(--detail-primary-dark));
+
   color: #fff;
   border-color: transparent;
+
   box-shadow: 0 7px 18px rgba(59, 130, 246, .20);
 }
 
@@ -168,56 +167,123 @@ video {
 .btn-soon {
   font-size: 9px;
   padding: 3px 6px;
+
   border-radius: 999px;
   background: rgba(255, 255, 255, .18);
 }
 
 
-/* =========================
-   HERO VIDEO
-========================= */
-.detail-hero {
-  width: min(1100px, calc(100% - 40px));
-  margin: 0 auto;
-}
+/* ================= VIDÉO ================= */
 
 .detail-video {
   position: relative;
-  overflow: hidden;
-  background: #0b0d0c;
-  border-radius: 18px;
-  padding: 8px;
-  box-shadow:
-    0 20px 50px rgba(0, 0, 0, 0.22),
-    0 4px 12px rgba(0, 0, 0, 0.12);
-}
-
-.detail-video video,
-.detail-video .video-container {
-  display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
-  object-fit: cover;
-  border-radius: 12px;
-  background: #000;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #111;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
 }
 
+.detail-video video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Image + bouton superposé */
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.15);
+}
+
+/* Bouton Lire */
+#playPreviewBtn {
+  position: relative;
+  z-index: 11;
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: none;
+
+  background: rgba(255, 255, 255, 0.95);
+  color: #16332b;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Container YouTube/autre */
+.video-container {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+}
 
 .video-container iframe {
   width: 100%;
   height: 100%;
+  border: 0;
+}
+
+/* Bouton son */
+.video-unmute {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 12;
+}
+
+/* Source sous la vidéo */
+.video-source {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 7px;
+  padding-right: 4px;
+}
+
+.video-source-label {
+  display: none;
+}
+
+#siteVideoCredit {
+  margin: 0;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* iframe YouTube */
+
+.video-container {
+  overflow: hidden;
+}
+
+.video-container iframe {
   display: block;
+
+  width: 100%;
+  height: 100%;
+
   border: 0;
 }
 
 
-/* =========================
-   VIDEO OVERLAY
-========================= */
+/* =========================================================
+   7. OVERLAY VIDÉO
+   ========================================================= */
 
 .video-overlay {
   position: absolute;
-  inset: 0;
+  inset: 9px;
 
   display: flex;
   align-items: center;
@@ -225,7 +291,10 @@ video {
 
   z-index: 4;
 
-  background: rgba(0, 0, 0, .12);
+  border-radius: 12px;
+
+  background: rgba(0, 0, 0, .10);
+
   pointer-events: none;
 }
 
@@ -234,14 +303,15 @@ video {
 }
 
 
-/* =========================
-   BOUTON SON
-========================= */
+/* =========================================================
+   8. BOUTON SON
+   ========================================================= */
 
 .video-unmute {
   position: absolute;
-  right: 16px;
-  bottom: 55px;
+
+  right: 18px;
+  bottom: 62px;
 
   z-index: 5;
 
@@ -252,27 +322,24 @@ video {
 }
 
 
-/* =========================
-   SOURCE VIDEO
-========================= */
+/* =========================================================
+   9. SOURCE VIDÉO
+   ========================================================= */
 
 .video-source {
   display: flex;
   justify-content: flex-end;
-  margin-top: 6px;
+  align-items: center;
+
+  margin-top: 5px;
   padding-right: 4px;
+
   font-size: 12px;
   color: var(--detail-muted);
 }
 
 .video-source-label {
-  flex-shrink: 0;
-
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .7px;
-
-  color: var(--detail-ink);
+  display: none;
 }
 
 #siteVideoCredit {
@@ -286,48 +353,60 @@ video {
 }
 
 
-/* =========================
-   CONTENU
-========================= */
+/* =========================================================
+   10. CONTENU PRINCIPAL
+   ========================================================= */
 
 .detail-content {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 0;
+
+  margin-top: 22px;
+
+  background: var(--detail-surface);
+
+  border-radius: var(--detail-radius);
+
+  box-shadow: var(--detail-shadow);
+
+  overflow: hidden;
 }
 
 .detail-card {
+  min-width: 0;
   padding: 24px;
-  border-radius: 0;
+}
+
+.detail-card+.detail-card {
+  border-left: 1px solid var(--detail-border);
 }
 
 .detail-card h2 {
   margin: 0 0 16px;
 
   font-family: 'DM Serif Display', serif;
+
   font-size: 25px;
   font-weight: 400;
 
   color: var(--detail-ink);
 }
 
-.detail-map-card {
-  grid-column: 1 / -1;
-}
-.detail-card+.detail-card {
-  border-left: 1px solid rgba(22, 51, 43, 0.12);
-}
 
-
-/* =========================
-   BON À SAVOIR
-========================= */
+/* =========================================================
+   11. BON À SAVOIR
+   ========================================================= */
 
 .detail-facts {
   margin: 0;
   padding-left: 20px;
 
   color: var(--detail-muted);
+
   line-height: 1.65;
 }
 
@@ -336,14 +415,17 @@ video {
 }
 
 
-/* =========================
-   STATISTIQUES
-========================= */
+/* =========================================================
+   12. STATISTIQUES
+   ========================================================= */
 
 .detail-stats {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 14px 12px;
 
   margin-top: 22px;
   padding-top: 18px;
@@ -355,7 +437,8 @@ video {
   min-width: 0;
 }
 
-.detail-stat-label {
+.detail-stat-label,
+.detail-stats span {
   display: block;
 
   margin-bottom: 5px;
@@ -367,37 +450,49 @@ video {
 .detail-stats strong {
   display: block;
 
-  font-size: 15px;
+  font-size: 14px;
+
   color: var(--detail-ink);
 
   overflow-wrap: anywhere;
 }
 
 
-/* =========================
-   DESCRIPTION
-========================= */
+/* =========================================================
+   13. DESCRIPTION
+   ========================================================= */
 
 .detail-description {
   margin: 0;
 
   color: var(--detail-muted);
+
   font-size: 14px;
   line-height: 1.75;
 }
 
 
-/* =========================
-   CARTE
-========================= */
+/* =========================================================
+   14. CARTE
+   ========================================================= */
+
+.detail-map-card {
+  min-width: 0;
+}
 
 .detail-card-head {
   display: flex;
+
   align-items: center;
   justify-content: space-between;
+
   gap: 12px;
 
   margin-bottom: 14px;
+}
+
+.detail-card-head h2 {
+  margin: 0;
 }
 
 .detail-tag {
@@ -408,6 +503,7 @@ video {
   border-radius: 999px;
 
   background: var(--detail-soft);
+
   color: var(--detail-muted);
 
   font-size: 10px;
@@ -424,17 +520,20 @@ video {
 
   border-radius: var(--detail-radius-sm);
 
-  background: linear-gradient(135deg,
+  background:
+    linear-gradient(135deg,
       #eef4f2,
       #dce8e4);
 }
 
 .detail-legend {
   display: flex;
+
   flex-wrap: wrap;
+
   gap: 8px 14px;
 
-  margin-top: 12px;
+  margin-top: 10px;
 
   font-size: 11px;
   color: var(--detail-muted);
@@ -452,23 +551,25 @@ video {
 }
 
 
-/* =========================
-   PETITS ÉCRANS
-========================= */
+/* =========================================================
+   15. TABLETTE
+   ========================================================= */
 
 @media (max-width: 900px) {
 
   .page-frame {
     width: min(100% - 28px, 760px);
-    padding-top: 20px;
+    padding-top: 16px;
   }
 
   .detail-topbar {
-    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-columns:
+      auto minmax(0, 1fr);
   }
 
   .detail-topbar-actions {
     grid-column: 1 / -1;
+
     width: 100%;
   }
 
@@ -480,30 +581,21 @@ video {
     grid-template-columns: 1fr;
   }
 
-  .detail-map-card {
-    grid-column: auto;
+  .detail-card+.detail-card {
+    border-left: none;
+    border-top: 1px solid var(--detail-border);
   }
 
   .detail-stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
   }
 }
 
 
-/* =========================
-   MOBILE
-========================= */
-@media (max-width: 720px) {
-  .detail-content {
-    grid-template-columns: 1fr;
-  }
-
-  .detail-card+.detail-card {
-    border-left: none;
-    border-top: 1px solid rgba(22, 51, 43, 0.12);
-  }
-}
-
+/* =========================================================
+   16. MOBILE
+   ========================================================= */
 
 @media (max-width: 600px) {
 
@@ -514,20 +606,29 @@ video {
   .page-frame {
     width: 100%;
     margin: 0;
-    padding: 12px 12px 30px;
+
+    padding: 10px 10px 28px;
   }
 
-  .detail-topbar {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
+  /* Header compact */
 
-    gap: 10px;
-    margin-bottom: 14px;
+  .detail-topbar {
+    display: grid;
+
+    grid-template-columns: auto 1fr;
+
+    gap: 8px;
+
+    margin-bottom: 10px;
   }
 
   .btn-back {
-    align-self: flex-start;
+    align-self: start;
+
+    min-height: 38px;
+    padding: 8px 11px;
+
+    font-size: 12px;
   }
 
   .detail-title-wrap {
@@ -535,103 +636,158 @@ video {
   }
 
   .detail-topbar h1 {
-    font-size: 29px;
-    line-height: 1.08;
+    font-size: 24px;
+    line-height: 1.05;
   }
 
   .detail-location-label {
-    margin-top: 5px;
-    font-size: 12px;
+    margin-top: 3px;
+    font-size: 11px;
   }
 
+  /* Boutons */
+
   .detail-topbar-actions {
+    grid-column: 1 / -1;
+
     display: grid;
+
     grid-template-columns: 1fr 1fr;
 
     width: 100%;
-    gap: 8px;
+
+    gap: 7px;
   }
 
   .detail-topbar-actions>* {
     width: 100%;
     min-width: 0;
 
-    padding: 10px 8px;
+    min-height: 38px;
 
-    font-size: 12px;
+    padding: 8px 7px;
+
+    font-size: 11px;
+  }
+
+  /* Vidéo */
+
+  .detail-hero {
+    width: 100%;
   }
 
   .detail-video {
-    aspect-ratio: 16 / 10;
-    border-radius: 12px;
+    padding: 6px;
+
+    border-radius: 14px;
+
+    box-shadow:
+      0 15px 35px rgba(0, 0, 0, .18);
   }
 
-  .video-unmute {
-    right: 9px;
-    bottom: 47px;
+  .detail-video video,
+  .detail-video .video-container {
+    aspect-ratio: 16 / 10;
 
-    min-height: 34px;
-    padding: 7px 10px;
+    border-radius: 9px;
+  }
 
-    font-size: 10px;
+  .video-overlay {
+    inset: 6px;
+    border-radius: 9px;
   }
 
   .video-overlay button {
     min-height: 40px;
+
     padding: 9px 14px;
 
     font-size: 12px;
   }
 
-  .video-source {
-    margin-top: 4px;
-    min-height: 20px;
+  .video-unmute {
+    right: 10px;
+    bottom: 48px;
 
-    gap: 5px;
+    min-height: 34px;
+
+    padding: 7px 10px;
+
+    font-size: 10px;
+  }
+
+  /* Source */
+
+  .video-source {
+    justify-content: flex-end;
+
+    margin-top: 4px;
+    padding-right: 2px;
+
+    min-height: 18px;
 
     font-size: 9px;
   }
 
-  .video-source-label,
   #siteVideoCredit {
     font-size: 9px;
   }
 
+  /* Contenu */
+
   .detail-content {
     display: flex;
+
     flex-direction: column;
 
-    gap: 12px;
-    margin-top: 16px;
-  }
+    gap: 0;
 
-  .detail-card {
-    padding: 16px;
+    margin-top: 14px;
 
     border-radius: 14px;
   }
 
-  .detail-card h2 {
-    margin-bottom: 12px;
-    font-size: 23px;
+  .detail-card {
+    padding: 17px 15px;
   }
 
-  .detail-stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .detail-card+.detail-card {
+    border-left: none;
 
-    gap: 14px 10px;
-    margin-top: 18px;
-    padding-top: 15px;
+    border-top:
+      1px solid var(--detail-border);
+  }
+
+  .detail-card h2 {
+    margin-bottom: 11px;
+
+    font-size: 22px;
+  }
+
+  /* Stats */
+
+  .detail-stats {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 13px 10px;
+
+    margin-top: 17px;
+    padding-top: 14px;
   }
 
   .detail-stats strong {
-    font-size: 14px;
+    font-size: 13px;
   }
+
+  /* Description */
 
   .detail-description {
     font-size: 13px;
     line-height: 1.65;
   }
+
+  /* Carte */
 
   .map-preview {
     height: 230px;
@@ -639,24 +795,25 @@ video {
 
   .detail-legend {
     gap: 7px 10px;
+
     font-size: 10px;
   }
 }
 
 
-/* =========================
-   TRÈS PETITS TÉLÉPHONES
-========================= */
+/* =========================================================
+   17. TRÈS PETITS TÉLÉPHONES
+   ========================================================= */
 
 @media (max-width: 380px) {
 
   .page-frame {
-    padding-left: 9px;
-    padding-right: 9px;
+    padding-left: 8px;
+    padding-right: 8px;
   }
 
   .detail-topbar h1 {
-    font-size: 25px;
+    font-size: 22px;
   }
 
   .detail-topbar-actions {
@@ -664,11 +821,20 @@ video {
   }
 
   .detail-topbar-actions>* {
-    min-height: 40px;
+    min-height: 38px;
   }
 
   .detail-video {
+    padding: 5px;
+  }
+
+  .detail-video video,
+  .detail-video .video-container {
     aspect-ratio: 4 / 3;
+  }
+
+  .video-overlay {
+    inset: 5px;
   }
 
   .detail-stats {
@@ -681,9 +847,9 @@ video {
 }
 
 
-/* =========================
-   ACCESSIBILITÉ
-========================= */
+/* =========================================================
+   18. ACCESSIBILITÉ
+   ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
