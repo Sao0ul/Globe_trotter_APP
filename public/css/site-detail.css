@@ -1,3 +1,6 @@
+/* ============================================================
+   1. VARIABLES
+   ============================================================ */
 
 :root {
   --detail-bg: #f4f7f5;
@@ -7,13 +10,19 @@
   --detail-soft: #edf3f0;
   --detail-primary: #3b82f6;
   --detail-primary-dark: #2563eb;
-  --detail-border: rgba(22, 51, 43, .10);
+  --detail-border: rgba(22, 51, 43, 0.10);
   --detail-radius: 18px;
   --detail-radius-sm: 12px;
-  --detail-shadow: 0 10px 30px rgba(22, 51, 43, .08);
+  --detail-shadow:
+    0 10px 30px rgba(22, 51, 43, 0.08);
+  --video-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.16);
 }
 
 
+/* ============================================================
+   2. RESET
+   ============================================================ */
 
 * {
   box-sizing: border-box;
@@ -28,7 +37,8 @@ body {
   padding: 0;
   background: var(--detail-bg);
   color: var(--detail-ink);
-  font-family: 'Work Sans', sans-serif;
+  font-family: "Work Sans", sans-serif;
+  overflow-x: hidden;
 }
 
 button,
@@ -44,93 +54,117 @@ a {
 }
 
 img,
-video {
+video,
+iframe {
   max-width: 100%;
 }
 
+/* ============================================================
+   3. CONTENEUR GLOBAL
+   ============================================================ */
 
-.page-frame {
+.page-shell {
+  position: relative;
   width: min(1180px, calc(100% - 40px));
   margin: 0 auto;
-  padding: 18px 0 50px;
+  padding: 0 0 50px;
 }
 
 main {
   width: 100%;
 }
 
+/* ============================================================
+   4. HEADER
+   ============================================================ */
 
 .detail-topbar {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: min(1140px, calc(100% - 60px));
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 18px;
+  padding: 10px 14px;
+  min-height: 52px;
+  background: transparent;
 
-  margin-bottom: 14px;
 }
 
-.detail-title-wrap {
+/* Bouton retour */
+.btn-back {
+  flex-shrink: 0;
+}
+
+
+/* Zone titre */
+.detail-title {
   min-width: 0;
+  text-align: center;
 }
 
+.detail-title h1,
 .detail-topbar h1 {
   margin: 0;
-
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(26px, 3vw, 40px);
+  font-family: "DM Serif Display", serif;
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 400;
   line-height: 1.05;
-
   color: var(--detail-ink);
-
   overflow-wrap: anywhere;
 }
 
+.detail-title p,
 .detail-location-label {
   display: block;
-
-  margin-top: 5px;
-
+  margin: 5px 0 0;
   color: var(--detail-muted);
   font-size: 13px;
+  line-height: 1.3;
 }
 
-.detail-topbar-actions {
+
+/* Actions */
+
+.detail-actions {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 8px;
+  min-width: 0;
 }
 
 
-/* =========================================================
+/* ============================================================
    5. BOUTONS
-   ========================================================= */
+   ============================================================ */
 
 .btn-ghost,
 .btn-solid {
   min-height: 40px;
   padding: 9px 14px;
-
   border-radius: 999px;
   border: 1px solid var(--detail-border);
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 7px;
-
   text-decoration: none;
   cursor: pointer;
-
   white-space: nowrap;
-
   transition:
-    transform .2s ease,
-    box-shadow .2s ease,
-    background .2s ease;
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .btn-ghost {
-  background: #fff;
+  background: #ffffff;
   color: var(--detail-ink);
 }
 
@@ -138,11 +172,10 @@ main {
   background: linear-gradient(135deg,
       var(--detail-primary),
       var(--detail-primary-dark));
-
-  color: #fff;
+  color: #ffffff;
   border-color: transparent;
-
-  box-shadow: 0 7px 18px rgba(59, 130, 246, .20);
+  box-shadow:
+    0 7px 18px rgba(59, 130, 246, 0.20);
 }
 
 .btn-ghost:hover,
@@ -155,11 +188,18 @@ main {
 }
 
 .btn-solid:hover {
-  box-shadow: 0 10px 24px rgba(59, 130, 246, .28);
+  box-shadow:
+    0 10px 24px rgba(59, 130, 246, 0.28);
+}
+
+.btn-ghost:focus-visible,
+.btn-solid:focus-visible {
+  outline: 3px solid rgba(59, 130, 246, 0.25);
+  outline-offset: 3px;
 }
 
 .btn-3d:disabled {
-  opacity: .55;
+  opacity: 0.55;
   cursor: not-allowed;
   transform: none;
 }
@@ -167,22 +207,41 @@ main {
 .btn-soon {
   font-size: 9px;
   padding: 3px 6px;
-
   border-radius: 999px;
-  background: rgba(255, 255, 255, .18);
+  background: rgba(255, 255, 255, 0.18);
 }
 
 
-/* ================= VIDÉO ================= */
+/* ============================================================
+   6. HERO / VIDÉO
+   ============================================================ */
+
+.detail-hero {
+  width: 100%;
+}
 
 .detail-video {
   position: relative;
+
   width: 100%;
   aspect-ratio: 16 / 9;
+
   overflow: hidden;
-  border-radius: 18px;
-  background: #111;
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
+
+  padding: 18px;
+
+  border-radius: 30px;
+
+  background:
+    linear-gradient(145deg,
+      #18221f,
+      #090d0c);
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.22),
+    0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
 .detail-video video {
@@ -190,152 +249,104 @@ main {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 14px;
+  background: #080a09;
 }
-
-/* Image + bouton superposé */
-.video-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: rgba(0, 0, 0, 0.15);
-}
-
-/* Bouton Lire */
-#playPreviewBtn {
-  position: relative;
-  z-index: 11;
-  padding: 12px 22px;
-  border-radius: 999px;
-  border: none;
-
-  background: rgba(255, 255, 255, 0.95);
-  color: #16332b;
-
-  font-weight: 600;
-  cursor: pointer;
-
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-}
-
-/* Container YouTube/autre */
 .video-container {
   position: absolute;
-  inset: 0;
+  inset: 8px;
   z-index: 5;
-}
-
-.video-container iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-/* Bouton son */
-.video-unmute {
-  position: absolute;
-  right: 16px;
-  bottom: 16px;
-  z-index: 12;
-}
-
-/* Source sous la vidéo */
-.video-source {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 7px;
-  padding-right: 4px;
-}
-
-.video-source-label {
-  display: none;
-}
-
-#siteVideoCredit {
-  margin: 0;
-  font-size: 12px;
-  color: #6b7280;
-}
-
-/* iframe YouTube */
-
-.video-container {
   overflow: hidden;
+  border-radius: 14px;
+  background: #080a09;
 }
-
 .video-container iframe {
   display: block;
-
   width: 100%;
   height: 100%;
-
   border: 0;
 }
 
+.detail-video video,
+.detail-video .video-container {
+  border-radius: 18px;
+}
 
-/* =========================================================
-   7. OVERLAY VIDÉO
-   ========================================================= */
+/* ============================================================
+   7. OVERLAY / APERÇU VIDÉO
+   ============================================================ */
 
 .video-overlay {
-  position: absolute;
-  inset: 9px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  z-index: 4;
-
-  border-radius: 12px;
-
-  background: rgba(0, 0, 0, .10);
-
-  pointer-events: none;
+  inset: 18px;
+  border-radius: 18px;
 }
 
 .video-overlay button {
   pointer-events: auto;
 }
 
+#playPreviewBtn {
+  position: relative;
+  z-index: 11;
+  min-height: 52px;
+  padding: 13px 24px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.96);
+  color: #16332b;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow:0 10px 30px rgba(0, 0, 0, 0.28);
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
 
-/* =========================================================
-   8. BOUTON SON
-   ========================================================= */
+#playPreviewBtn:hover {
+  transform: scale(1.035);
+  background: #ffffff;
+  box-shadow:0 14px 36px rgba(0, 0, 0, 0.34);
+}
 
-.video-unmute {
-  position: absolute;
-
-  right: 18px;
-  bottom: 62px;
-
-  z-index: 5;
-
-  min-height: 36px;
-  padding: 8px 13px;
-
-  font-size: 12px;
+#playPreviewBtn:active {
+  transform: scale(0.98);
 }
 
 
-/* =========================================================
+/* ============================================================
+   8. BOUTON ACTIVER LE SON
+   ============================================================ */
+
+.video-unmute {
+  position: absolute;
+  right: 20px;
+  bottom: 70px;
+  z-index: 20;
+  min-height: 38px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  font-size: 12px;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+
+/* ============================================================
    9. SOURCE VIDÉO
-   ========================================================= */
+   ============================================================ */
 
 .video-source {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
-
+  justify-content: flex-end;
+  width: 100%;
   margin-top: 5px;
   padding-right: 4px;
-
-  font-size: 12px;
+  min-height: 18px;
   color: var(--detail-muted);
+  font-size: 12px;
 }
 
 .video-source-label {
@@ -345,150 +356,142 @@ main {
 #siteVideoCredit {
   margin: 0;
   padding: 0;
-
+  color: var(--detail-muted);
   font-size: 11px;
   font-weight: 500;
-
-  color: var(--detail-muted);
+  line-height: 1.3;
+  text-align: right;
+  overflow-wrap: anywhere;
 }
 
 
-/* =========================================================
+/* ============================================================
    10. CONTENU PRINCIPAL
-   ========================================================= */
+   ============================================================ */
 
 .detail-content {
   display: grid;
-
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-
+  grid-template-columns:repeat(3, minmax(0, 1fr));
   gap: 0;
-
-  margin-top: 22px;
-
+  width: 100%;
+  margin-top: 20px;
   background: var(--detail-surface);
-
   border-radius: var(--detail-radius);
-
   box-shadow: var(--detail-shadow);
-
   overflow: hidden;
 }
 
 .detail-card {
   min-width: 0;
-  padding: 24px;
+  padding: 22px 23px;
 }
 
 .detail-card+.detail-card {
-  border-left: 1px solid var(--detail-border);
+  border-left:1px solid var(--detail-border);
 }
 
+
+/* ============================================================
+   11. TITRES
+   ============================================================ */
+
 .detail-card h2 {
-  margin: 0 0 16px;
-
-  font-family: 'DM Serif Display', serif;
-
-  font-size: 25px;
+  margin: 0 0 14px;
+  font-family: "DM Serif Display", serif;
+  font-size: 24px;
   font-weight: 400;
-
+  line-height: 1.15;
   color: var(--detail-ink);
 }
 
 
-/* =========================================================
-   11. BON À SAVOIR
-   ========================================================= */
+/* ============================================================
+   12. BON À SAVOIR
+   ============================================================ */
 
+#siteFacts,
 .detail-facts {
   margin: 0;
-  padding-left: 20px;
-
+  padding-left: 18px;
   color: var(--detail-muted);
-
-  line-height: 1.65;
+  font-size: 13px;
+  line-height: 1.55;
 }
 
+#siteFacts li+li,
 .detail-facts li+li {
-  margin-top: 5px;
+  margin-top: 4px;
+}
+
+#siteFacts:empty {
+  display: none;
 }
 
 
-/* =========================================================
-   12. STATISTIQUES
-   ========================================================= */
+/* ============================================================
+   13. STATISTIQUES
+   ============================================================ */
 
 .detail-stats {
   display: grid;
-
-  grid-template-columns:
-    repeat(2, minmax(0, 1fr));
-
-  gap: 14px 12px;
-
-  margin-top: 22px;
-  padding-top: 18px;
-
-  border-top: 1px solid var(--detail-border);
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 15px;
+  border-top:1px solid var(--detail-border);
 }
 
 .detail-stats>div {
   min-width: 0;
 }
 
-.detail-stat-label,
-.detail-stats span {
+.detail-stats span,
+.detail-stat-label {
   display: block;
-
-  margin-bottom: 5px;
-
-  font-size: 11px;
+  margin-bottom: 4px;
   color: var(--detail-muted);
+  font-size: 10px;
+  line-height: 1.3;
 }
 
 .detail-stats strong {
   display: block;
-
-  font-size: 14px;
-
   color: var(--detail-ink);
-
+  font-size: 13px;
+  line-height: 1.35;
   overflow-wrap: anywhere;
 }
 
 
-/* =========================================================
-   13. DESCRIPTION
-   ========================================================= */
+/* ============================================================
+   14. DESCRIPTION
+   ============================================================ */
 
+#siteDescription,
 .detail-description {
   margin: 0;
-
   color: var(--detail-muted);
-
-  font-size: 14px;
-  line-height: 1.75;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
 }
 
 
-/* =========================================================
-   14. CARTE
-   ========================================================= */
+/* ============================================================
+   15. CARTE
+   ============================================================ */
 
 .detail-map-card {
   min-width: 0;
 }
 
+
 .detail-card-head {
   display: flex;
-
   align-items: center;
   justify-content: space-between;
-
-  gap: 12px;
-
-  margin-bottom: 14px;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
 .detail-card-head h2 {
@@ -497,84 +500,90 @@ main {
 
 .detail-tag {
   flex-shrink: 0;
-
   padding: 5px 9px;
-
   border-radius: 999px;
-
   background: var(--detail-soft);
-
   color: var(--detail-muted);
-
   font-size: 10px;
   font-weight: 600;
+  line-height: 1;
 }
 
 .map-preview {
   position: relative;
-
   width: 100%;
-  height: 280px;
-
+  height: 245px;
   overflow: hidden;
-
   border-radius: var(--detail-radius-sm);
-
   background:
     linear-gradient(135deg,
       #eef4f2,
       #dce8e4);
 }
 
+.map-preview .leaflet-container {
+  width: 100%;
+  height: 100%;
+}
+
+
+/* ============================================================
+   16. LÉGENDE
+   ============================================================ */
+
 .detail-legend {
   display: flex;
-
   flex-wrap: wrap;
-
-  gap: 8px 14px;
-
-  margin-top: 10px;
-
-  font-size: 11px;
+  align-items: center;
+  gap: 7px 13px;
+  margin-top: 9px;
   color: var(--detail-muted);
+  font-size: 10px;
+  line-height: 1.35;
 }
 
 .legend-dot {
   display: inline-block;
-
   width: 9px;
   height: 9px;
-
   margin-right: 5px;
-
   border-radius: 50%;
+  vertical-align: middle;
 }
 
 
-/* =========================================================
-   15. TABLETTE
-   ========================================================= */
+/* ============================================================
+   17. TABLETTE
+   ============================================================ */
 
-@media (max-width: 900px) {
+@media (max-width: 950px) {
 
-  .page-frame {
-    width: min(100% - 28px, 760px);
-    padding-top: 16px;
+  .page-shell {
+    width: min(100% - 28px, 800px);
+
+    padding-top: 14px;
   }
 
   .detail-topbar {
-    grid-template-columns:
-      auto minmax(0, 1fr);
+    grid-template-columns:auto minmax(0, 1fr);
+    gap: 10px 14px;
+    margin-bottom: 0;
   }
 
-  .detail-topbar-actions {
+  .detail-title {
+    text-align: left;
+  }
+
+  .detail-actions {
     grid-column: 1 / -1;
-
     width: 100%;
+    display: grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap: 8px;
   }
 
-  .detail-topbar-actions>* {
-    flex: 1;
+  .detail-actions>* {
+    width: 100%;
   }
 
   .detail-content {
@@ -582,277 +591,143 @@ main {
   }
 
   .detail-card+.detail-card {
-    border-left: none;
-    border-top: 1px solid var(--detail-border);
+    border-left: 0;
+    border-top:1px solid var(--detail-border);
   }
 
+
   .detail-stats {
-    grid-template-columns:
-      repeat(4, minmax(0, 1fr));
+    grid-template-columns:repeat(4, minmax(0, 1fr));
+    gap: 12px;
   }
 }
 
 
-/* =========================================================
-   16. MOBILE
-   ========================================================= */
+/* ============================================================
+   18. MOBILE
+   ============================================================ */
 
 @media (max-width: 600px) {
 
-  body {
-    background: #fff;
-  }
-
-  .page-frame {
-    width: 100%;
-    margin: 0;
-
-    padding: 10px 10px 28px;
-  }
-
-  /* Header compact */
-
   .detail-topbar {
-    display: grid;
-
-    grid-template-columns: auto 1fr;
-
-    gap: 8px;
-
-    margin-bottom: 10px;
-  }
-
-  .btn-back {
-    align-self: start;
-
-    min-height: 38px;
-    padding: 8px 11px;
-
-    font-size: 12px;
-  }
-
-  .detail-title-wrap {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
     width: 100%;
+    background: transparent;
   }
 
-  .detail-topbar h1 {
-    font-size: 24px;
-    line-height: 1.05;
-  }
-
-  .detail-location-label {
-    margin-top: 3px;
-    font-size: 11px;
-  }
-
-  /* Boutons */
-
-  .detail-topbar-actions {
-    grid-column: 1 / -1;
-
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    width: 100%;
-
-    gap: 7px;
-  }
-
-  .detail-topbar-actions>* {
-    width: 100%;
-    min-width: 0;
-
-    min-height: 38px;
-
-    padding: 8px 7px;
-
-    font-size: 11px;
-  }
-
-  /* Vidéo */
-
-  .detail-hero {
-    width: 100%;
-  }
-
-  .detail-video {
-    padding: 6px;
-
-    border-radius: 14px;
-
-    box-shadow:
-      0 15px 35px rgba(0, 0, 0, .18);
-  }
-
-  .detail-video video,
-  .detail-video .video-container {
-    aspect-ratio: 16 / 10;
-
-    border-radius: 9px;
-  }
-
-  .video-overlay {
-    inset: 6px;
-    border-radius: 9px;
-  }
-
-  .video-overlay button {
-    min-height: 40px;
-
-    padding: 9px 14px;
-
-    font-size: 12px;
-  }
-
-  .video-unmute {
-    right: 10px;
-    bottom: 48px;
-
-    min-height: 34px;
-
-    padding: 7px 10px;
-
-    font-size: 10px;
-  }
-
-  /* Source */
-
-  .video-source {
-    justify-content: flex-end;
-
-    margin-top: 4px;
-    padding-right: 2px;
-
-    min-height: 18px;
-
-    font-size: 9px;
-  }
-
-  #siteVideoCredit {
-    font-size: 9px;
-  }
-
-  /* Contenu */
-
-  .detail-content {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 0;
-
-    margin-top: 14px;
-
-    border-radius: 14px;
-  }
-
-  .detail-card {
-    padding: 17px 15px;
-  }
-
-  .detail-card+.detail-card {
-    border-left: none;
-
-    border-top:
-      1px solid var(--detail-border);
-  }
-
-  .detail-card h2 {
-    margin-bottom: 11px;
-
-    font-size: 22px;
-  }
-
-  /* Stats */
-
-  .detail-stats {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-
-    gap: 13px 10px;
-
-    margin-top: 17px;
-    padding-top: 14px;
-  }
-
-  .detail-stats strong {
-    font-size: 13px;
-  }
-
-  /* Description */
-
-  .detail-description {
-    font-size: 13px;
-    line-height: 1.65;
-  }
-
-  /* Carte */
-
-  .map-preview {
-    height: 230px;
-  }
-
-  .detail-legend {
-    gap: 7px 10px;
-
-    font-size: 10px;
-  }
 }
-
-
-/* =========================================================
-   17. TRÈS PETITS TÉLÉPHONES
-   ========================================================= */
+/* ============================================================
+   19. TRÈS PETITS TÉLÉPHONES
+   ============================================================ */
 
 @media (max-width: 380px) {
 
-  .page-frame {
+  .page-shell {
     padding-left: 8px;
     padding-right: 8px;
   }
 
-  .detail-topbar h1 {
-    font-size: 22px;
+  .detail-topbar {
+    gap: 7px;
   }
 
-  .detail-topbar-actions {
+  .detail-title h1,
+  .detail-topbar h1 {
+    font-size: 21px;
+  }
+
+  .detail-actions {
     grid-template-columns: 1fr;
   }
 
-  .detail-topbar-actions>* {
-    min-height: 38px;
+  .detail-actions>* {
+    min-height: 36px;
   }
+
+
+  /*
+     Vidéo toujours 16:9.
+  */
 
   .detail-video {
-    padding: 5px;
+    padding: 4px;
+    border-radius: 14px;
   }
 
-  .detail-video video,
-  .detail-video .video-container {
-    aspect-ratio: 4 / 3;
+  .detail-video video {
+    border-radius: 10px;
+  }
+
+  .video-container {
+    inset: 4px;
+    border-radius: 10px;
   }
 
   .video-overlay {
-    inset: 5px;
+    inset: 4px;
+    border-radius: 10px;
+  }
+
+  #playPreviewBtn {
+    min-height: 40px;
+    padding:
+      9px 13px;
+
+    font-size: 11px;
+  }
+  .video-unmute {
+    right: 8px;
+
+    bottom: 43px;
+
+    font-size: 9px;
   }
 
   .detail-stats {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns:
+      1fr 1fr;
   }
 
   .map-preview {
-    height: 210px;
+    height: 205px;
   }
 }
 
 
-/* =========================================================
-   18. ACCESSIBILITÉ
-   ========================================================= */
+/* ============================================================
+   20. ÉCRANS TRÈS LARGES
+   ============================================================ */
+
+@media (min-width: 1400px) {
+
+  .page-shell {
+    width: min(1240px, calc(100% - 60px));
+  }
+
+  .detail-video {
+    padding: 9px;
+    border-radius: 23px;
+  }
+
+  .video-container,
+  .video-overlay {
+    inset: 9px;
+  }
+  .detail-card {
+    padding:
+      24px 25px;
+  }
+}
+
+
+/* ============================================================
+   21. ACCESSIBILITÉ
+   ============================================================ */
 
 @media (prefers-reduced-motion: reduce) {
-
   html {
     scroll-behavior: auto;
   }
@@ -862,5 +737,77 @@ main {
   *::after {
     transition: none !important;
     animation: none !important;
+  }
+}
+
+
+/* ============================================================
+   HEADER SUPERPOSÉ — RESPONSIVE MOBILE
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+  .detail-topbar {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    transform: none;
+    width: calc(100% - 16px);
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 6px;
+    padding: 6px;
+    min-height: 0;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .detail-topbar .btn-back {
+    min-height: 32px;
+    padding: 6px 9px;
+    font-size: 10px;
+  }
+
+  .detail-topbar .detail-title {
+    min-width: 0;
+    text-align: left;
+  }
+
+  .detail-topbar .detail-title h1 {
+    font-size: 17px;
+    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .detail-topbar .detail-title p {
+    margin-top: 2px;
+    font-size: 9px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .detail-topbar .detail-actions {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    width: 100%;
+  }
+
+  .detail-topbar .detail-actions>* {
+    min-height: 30px;
+    padding: 5px 6px;
+    font-size: 9px;
+    border-radius: 999px;
+  }
+
+  .detail-topbar .btn-soon {
+    font-size: 7px;
+    padding: 2px 4px;
   }
 }
