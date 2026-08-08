@@ -31,9 +31,43 @@ const fallbackSite = {
 };
 const openDirectionsBtn = document.getElementById('openDirectionsBtn');
 
+function openDirectionsPanel() {
+  if (!directionsPanel) {
+    return;
+  }
+
+  directionsPanel.classList.add('is-open');
+  directionsPanel.style.display = 'block';
+
+  if (openDirectionsBtn) {
+    openDirectionsBtn.classList.add('is-active');
+  }
+
+  if (departInput) {
+    requestAnimationFrame(() => departInput.focus());
+  }
+}
+
+function closeDirectionsPanelView() {
+  if (!directionsPanel) {
+    return;
+  }
+
+  directionsPanel.classList.remove('is-open');
+  directionsPanel.style.display = 'none';
+
+  if (openDirectionsBtn) {
+    openDirectionsBtn.classList.remove('is-active');
+  }
+}
+
 if (openDirectionsBtn) {
   openDirectionsBtn.addEventListener('click', () => {
-    directionsPanel.style.display = 'block';
+    if (directionsPanel?.classList.contains('is-open')) {
+      closeDirectionsPanelView();
+    } else {
+      openDirectionsPanel();
+    }
   });
 }
 
@@ -341,19 +375,30 @@ async function fetchSiteDetail(siteId) {
 async function initDestination() {
   const params = new URLSearchParams(window.location.search);
   const siteId = params.get('siteId');
+  const providedLabel = params.get('destLabel');
 
-  let label = fallbackSite.titre;
-  let lat = params.get('destLat') !== null ? Number(params.get('destLat')) : null;
-  let lng = params.get('destLng') !== null ? Number(params.get('destLng')) : null;
+  let label = providedLabel || fallbackSite.titre;
+  const destLatParam = params.get('destLat');
+  const destLngParam = params.get('destLng');
+
+  let lat = destLatParam !== null && destLatParam !== '' ? Number(destLatParam) : null;
+  let lng = destLngParam !== null && destLngParam !== '' ? Number(destLngParam) : null;
 
   // Si le site-detail n'a pas transmis les coordonnées (ex. lien direct
   // vers itinerary.html sans passer par site-detail.js), on va les chercher.
-  if ((!Number.isFinite(lat) || !Number.isFinite(lng)) && siteId) {
+  // On récupère aussi le vrai libellé du site si nécessaire.
+  if (siteId && (!providedLabel || label === fallbackSite.titre)) {
     const site = await fetchSiteDetail(siteId);
 
     if (site) {
-      lat = site.latitude ?? lat;
-      lng = site.longitude ?? lng;
+      if (!Number.isFinite(lat)) {
+        lat = site.latitude ?? lat;
+      }
+
+      if (!Number.isFinite(lng)) {
+        lng = site.longitude ?? lng;
+      }
+
       label = site.titre || site.title || label;
     }
   }
@@ -395,7 +440,7 @@ async function initDestination() {
 
 if (closeDirectionsPanel && directionsPanel) {
   closeDirectionsPanel.addEventListener('click', () => {
-    directionsPanel.style.display = 'none';
+    closeDirectionsPanelView();
   });
 }
 
@@ -441,8 +486,14 @@ map.on('click', (event) => {
 
 if (useCurrentLocationButton) {
   useCurrentLocationButton.addEventListener('click', () => {
+    if (destinationPoint) {
+      map.flyTo([destinationPoint.lat, destinationPoint.lng], 13, { duration: 1 });
+      setRouteSummary(`Carte recentrée sur ${destinationLabel}.`);
+      return;
+    }
+
     if (!navigator.geolocation) {
-      setRouteSummary('La géolocalisation n’est pas prise en charge par ce navigateur.');
+      setRouteSummary('Aucune destination disponible pour recentrer la carte.');
       return;
     }
 
@@ -452,7 +503,7 @@ if (useCurrentLocationButton) {
       (position) => {
         placeOriginMarker(position.coords.latitude, position.coords.longitude);
         updateDepartLabel('Ma position');
-        map.setView([position.coords.latitude, position.coords.longitude], 13);
+        map.flyTo([position.coords.latitude, position.coords.longitude], 13, { duration: 1 });
         calculerItineraire();
       },
       () => {

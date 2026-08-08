@@ -202,6 +202,17 @@
   box-shadow: 0 10px 26px rgba(22, 51, 43, .18);
 
   cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.openDirectionsBtnc:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(22, 51, 43, 0.24);
+}
+
+.openDirectionsBtnc.is-active {
+  background: rgba(59, 130, 246, 0.95);
+  color: #fff;
 }
 
 
@@ -209,6 +220,25 @@
 
 
 /* ================= Panneau "Obtenir l'itinéraire" ================= */
+
+.directions-panel {
+  display: none;
+  position: absolute;
+  top: 86px;
+  left: 76px;
+  z-index: 1200;
+  width: min(420px, calc(100vw - 96px));
+  padding: 18px 18px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 16px 40px rgba(22, 51, 43, 0.18);
+  border: 1px solid rgba(22, 51, 43, 0.08);
+}
+
+.directions-panel.is-open {
+  display: block;
+}
 
 .directions-close-btn {
   position: absolute;
