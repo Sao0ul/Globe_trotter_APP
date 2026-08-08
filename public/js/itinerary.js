@@ -341,19 +341,30 @@ async function fetchSiteDetail(siteId) {
 async function initDestination() {
   const params = new URLSearchParams(window.location.search);
   const siteId = params.get('siteId');
+  const providedLabel = params.get('destLabel');
 
-  let label = fallbackSite.titre;
-  let lat = params.get('destLat') !== null ? Number(params.get('destLat')) : null;
-  let lng = params.get('destLng') !== null ? Number(params.get('destLng')) : null;
+  let label = providedLabel || fallbackSite.titre;
+  const destLatParam = params.get('destLat');
+  const destLngParam = params.get('destLng');
+
+  let lat = destLatParam !== null && destLatParam !== '' ? Number(destLatParam) : null;
+  let lng = destLngParam !== null && destLngParam !== '' ? Number(destLngParam) : null;
 
   // Si le site-detail n'a pas transmis les coordonnées (ex. lien direct
   // vers itinerary.html sans passer par site-detail.js), on va les chercher.
-  if ((!Number.isFinite(lat) || !Number.isFinite(lng)) && siteId) {
+  // On récupère aussi le vrai libellé du site si nécessaire.
+  if (siteId && (!providedLabel || label === fallbackSite.titre)) {
     const site = await fetchSiteDetail(siteId);
 
     if (site) {
-      lat = site.latitude ?? lat;
-      lng = site.longitude ?? lng;
+      if (!Number.isFinite(lat)) {
+        lat = site.latitude ?? lat;
+      }
+
+      if (!Number.isFinite(lng)) {
+        lng = site.longitude ?? lng;
+      }
+
       label = site.titre || site.title || label;
     }
   }

@@ -999,6 +999,10 @@ function openItinerary() {
     );
   }
 
+  const destinationLabel =
+    currentSite?.titre || fallbackSite.titre;
+  itineraryParams.set('destLabel', destinationLabel);
+
   // Position actuelle de l'utilisateur.
   if (userPosition) {
     itineraryParams.set(
