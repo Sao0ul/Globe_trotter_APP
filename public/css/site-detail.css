@@ -11,12 +11,20 @@
   --detail-primary: #3b82f6;
   --detail-primary-dark: #2563eb;
   --detail-border: rgba(22, 51, 43, 0.10);
+
   --detail-radius: 18px;
   --detail-radius-sm: 12px;
+
   --detail-shadow:
     0 10px 30px rgba(22, 51, 43, 0.08);
+
   --video-shadow:
     0 18px 45px rgba(0, 0, 0, 0.16);
+
+  /* Cadre vidéo */
+  --video-frame: 25px;
+  --video-radius: 30px;
+  --video-inner-radius: 5px;
 }
 
 
@@ -59,6 +67,7 @@ iframe {
   max-width: 100%;
 }
 
+
 /* ============================================================
    3. CONTENEUR GLOBAL
    ============================================================ */
@@ -74,34 +83,60 @@ main {
   width: 100%;
 }
 
+
 /* ============================================================
    4. HEADER
    ============================================================ */
+*/
+
+.detail-hero {
+  position: relative;
+  width: 100%;
+}
 
 .detail-topbar {
   position: absolute;
+
+  /* distance depuis le haut de la vidéo */
   top: 18px;
+
   left: 50%;
   transform: translateX(-50%);
+
   z-index: 100;
-  width: min(1140px, calc(100% - 60px));
+
+  width: calc(100% - 36px);
+
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 18px;
-  padding: 10px 14px;
-  min-height: 52px;
-  background: transparent;
 
+  align-items: center;
+
+  gap: 18px;
+
+  padding: 10px 14px;
+
+  pointer-events: none;
+
+  background: transparent;
+}
+
+/* Seuls les vrais éléments du header sont cliquables */
+.detail-topbar>*,
+.detail-topbar a,
+.detail-topbar button {
+  pointer-events: auto;
 }
 
 /* Bouton retour */
+
 .btn-back {
   flex-shrink: 0;
 }
 
 
 /* Zone titre */
+
 .detail-title {
   min-width: 0;
   text-align: center;
@@ -110,19 +145,28 @@ main {
 .detail-title h1,
 .detail-topbar h1 {
   margin: 0;
+
   font-family: "DM Serif Display", serif;
+
   font-size: clamp(26px, 3vw, 38px);
+
   font-weight: 400;
+
   line-height: 1.05;
+
   color: var(--detail-ink);
+
   overflow-wrap: anywhere;
 }
 
 .detail-title p,
 .detail-location-label {
   display: block;
+
   margin: 5px 0 0;
+
   color: var(--detail-muted);
+
   font-size: 13px;
   line-height: 1.3;
 }
@@ -132,9 +176,12 @@ main {
 
 .detail-actions {
   display: flex;
+
   align-items: center;
   justify-content: flex-end;
+
   gap: 8px;
+
   min-width: 0;
 }
 
@@ -147,7 +194,7 @@ main {
 .btn-solid {
   min-height: 40px;
   padding: 9px 14px;
-  border-radius: 999px;
+  border-radius: 5px;
   border: 1px solid var(--detail-border);
   display: inline-flex;
   align-items: center;
@@ -206,8 +253,11 @@ main {
 
 .btn-soon {
   font-size: 9px;
+
   padding: 3px 6px;
+
   border-radius: 999px;
+
   background: rgba(255, 255, 255, 0.18);
 }
 
@@ -217,87 +267,179 @@ main {
    ============================================================ */
 
 .detail-hero {
+  position: relative;
   width: 100%;
 }
+
+
+/*
+   CADRE VIDÉO
+
+   La vidéo reste toujours en 16:9.
+
+   Le padding crée physiquement le cadre.
+   Le fond blanc donne l'effet "TV / cadre photo".
+*/
 
 .detail-video {
   position: relative;
 
   width: 100%;
-  aspect-ratio: 16 / 9;
 
+  aspect-ratio: 16 / 9;
+  margin-top: 10px;
   overflow: hidden;
 
-  padding: 18px;
+  padding: var(--video-frame);
 
-  border-radius: 30px;
+  border-radius: 10px;
 
-  background:
-    linear-gradient(145deg,
-      #18221f,
-      #090d0c);
+  background: #ffffff;
 
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(8, 8, 8, 0.08);
 
   box-shadow:
-    0 25px 60px rgba(0, 0, 0, 0.22),
-    0 8px 25px rgba(0, 0, 0, 0.12);
+    5px 25px 60px rgba(0, 0, 0, 0.22),
+    5px 8px 25px rgba(0, 0, 0, 0.12);
+
+  isolation: isolate;
 }
 
-.detail-video video {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 14px;
-  background: #080a09;
-}
+
+/*
+   L'espace intérieur du cadre.
+
+   On utilise inset: 0 parce que le padding du parent
+   détermine déjà l'épaisseur du cadre.
+*/
+
 .video-container {
   position: absolute;
-  inset: 8px;
-  z-index: 5;
+  top: var(--video-frame);
+  right: var(--video-frame);
+  bottom: var(--video-frame);
+  left: var(--video-frame);
+  z-index: 2;
   overflow: hidden;
-  border-radius: 14px;
+  border-radius: var(--video-inner-radius);
   background: #080a09;
 }
+
+
+/* iframe */
+
 .video-container iframe {
   display: block;
+
   width: 100%;
   height: 100%;
+
   border: 0;
 }
 
-.detail-video video,
-.detail-video .video-container {
-  border-radius: 18px;
+
+/* vidéo HTML classique */
+
+.detail-video video {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  border-radius: var(--video-inner-radius);
+
+  background: #080a09;
 }
+
+
+/*
+   Si la vidéo HTML est directement utilisée,
+   elle occupe toute la zone intérieure.
+*/
+
+.detail-video>video {
+  position: absolute;
+
+  top: var(--video-frame);
+  right: var(--video-frame);
+  bottom: var(--video-frame);
+  left: var(--video-frame);
+
+  width: calc(100% - (var(--video-frame) * 2));
+  height: calc(100% - (var(--video-frame) * 2));
+
+  z-index: 2;
+}
+
 
 /* ============================================================
    7. OVERLAY / APERÇU VIDÉO
    ============================================================ */
 
 .video-overlay {
-  inset: 18px;
-  border-radius: 18px;
+  position: absolute;
+
+  top: var(--video-frame);
+  right: var(--video-frame);
+  bottom: var(--video-frame);
+  left: var(--video-frame);
+
+  z-index: 10;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  border-radius: var(--video-inner-radius);
+
+  pointer-events: none;
+
+  background: transparent;
 }
 
 .video-overlay button {
   pointer-events: auto;
 }
 
+
+/*
+   Bouton PLAY
+
+   Le z-index est volontairement élevé afin que le bouton
+   reste au-dessus de l'iframe / vidéo.
+*/
+
 #playPreviewBtn {
   position: relative;
-  z-index: 11;
+
+  z-index: 30;
+
   min-height: 52px;
+
   padding: 13px 24px;
+
   border: 0;
+
   border-radius: 999px;
+
   background: rgba(255, 255, 255, 0.96);
+
   color: #16332b;
+
   font-size: 14px;
+
   font-weight: 600;
+
   cursor: pointer;
-  box-shadow:0 10px 30px rgba(0, 0, 0, 0.28);
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.28);
+
   transition:
     transform 0.2s ease,
     background 0.2s ease,
@@ -306,12 +448,20 @@ main {
 
 #playPreviewBtn:hover {
   transform: scale(1.035);
+
   background: #ffffff;
-  box-shadow:0 14px 36px rgba(0, 0, 0, 0.34);
+
+  box-shadow:
+    0 14px 36px rgba(0, 0, 0, 0.34);
 }
 
 #playPreviewBtn:active {
   transform: scale(0.98);
+}
+
+#playPreviewBtn:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.65);
+  outline-offset: 4px;
 }
 
 
@@ -321,13 +471,20 @@ main {
 
 .video-unmute {
   position: absolute;
-  right: 20px;
-  bottom: 70px;
-  z-index: 20;
+
+  right: calc(var(--video-frame) + 12px);
+  bottom: calc(var(--video-frame) + 22px);
+
+  z-index: 40;
+
   min-height: 38px;
+
   padding: 8px 13px;
+
   border-radius: 999px;
+
   font-size: 12px;
+
   box-shadow:
     0 8px 24px rgba(0, 0, 0, 0.25);
 }
@@ -339,13 +496,20 @@ main {
 
 .video-source {
   display: flex;
+
   align-items: center;
   justify-content: flex-end;
+
   width: 100%;
+
   margin-top: 5px;
+
   padding-right: 4px;
+
   min-height: 18px;
+
   color: var(--detail-muted);
+
   font-size: 12px;
 }
 
@@ -356,11 +520,17 @@ main {
 #siteVideoCredit {
   margin: 0;
   padding: 0;
+
   color: var(--detail-muted);
+
   font-size: 11px;
+
   font-weight: 500;
+
   line-height: 1.3;
+
   text-align: right;
+
   overflow-wrap: anywhere;
 }
 
@@ -371,23 +541,33 @@ main {
 
 .detail-content {
   display: grid;
-  grid-template-columns:repeat(3, minmax(0, 1fr));
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
   gap: 0;
+
   width: 100%;
+
   margin-top: 20px;
+
   background: var(--detail-surface);
+
   border-radius: var(--detail-radius);
+
   box-shadow: var(--detail-shadow);
+
   overflow: hidden;
 }
 
 .detail-card {
   min-width: 0;
+
   padding: 22px 23px;
 }
 
 .detail-card+.detail-card {
-  border-left:1px solid var(--detail-border);
+  border-left: 1px solid var(--detail-border);
 }
 
 
@@ -397,10 +577,15 @@ main {
 
 .detail-card h2 {
   margin: 0 0 14px;
+
   font-family: "DM Serif Display", serif;
+
   font-size: 24px;
+
   font-weight: 400;
+
   line-height: 1.15;
+
   color: var(--detail-ink);
 }
 
@@ -412,9 +597,13 @@ main {
 #siteFacts,
 .detail-facts {
   margin: 0;
+
   padding-left: 18px;
+
   color: var(--detail-muted);
+
   font-size: 13px;
+
   line-height: 1.55;
 }
 
@@ -434,11 +623,17 @@ main {
 
 .detail-stats {
   display: grid;
-  grid-template-columns:repeat(2, minmax(0, 1fr));
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
   gap: 12px;
+
   margin-top: 18px;
+
   padding-top: 15px;
-  border-top:1px solid var(--detail-border);
+
+  border-top: 1px solid var(--detail-border);
 }
 
 .detail-stats>div {
@@ -448,17 +643,25 @@ main {
 .detail-stats span,
 .detail-stat-label {
   display: block;
+
   margin-bottom: 4px;
+
   color: var(--detail-muted);
+
   font-size: 10px;
+
   line-height: 1.3;
 }
 
 .detail-stats strong {
   display: block;
+
   color: var(--detail-ink);
+
   font-size: 13px;
+
   line-height: 1.35;
+
   overflow-wrap: anywhere;
 }
 
@@ -470,9 +673,13 @@ main {
 #siteDescription,
 .detail-description {
   margin: 0;
+
   color: var(--detail-muted);
+
   font-size: 13px;
+
   line-height: 1.7;
+
   overflow-wrap: anywhere;
 }
 
@@ -485,12 +692,14 @@ main {
   min-width: 0;
 }
 
-
 .detail-card-head {
   display: flex;
+
   align-items: center;
   justify-content: space-between;
+
   gap: 10px;
+
   margin-bottom: 12px;
 }
 
@@ -500,21 +709,33 @@ main {
 
 .detail-tag {
   flex-shrink: 0;
+
   padding: 5px 9px;
+
   border-radius: 999px;
+
   background: var(--detail-soft);
+
   color: var(--detail-muted);
+
   font-size: 10px;
+
   font-weight: 600;
+
   line-height: 1;
 }
 
 .map-preview {
   position: relative;
+
   width: 100%;
+
   height: 245px;
+
   overflow: hidden;
+
   border-radius: var(--detail-radius-sm);
+
   background:
     linear-gradient(135deg,
       #eef4f2,
@@ -533,21 +754,32 @@ main {
 
 .detail-legend {
   display: flex;
+
   flex-wrap: wrap;
+
   align-items: center;
+
   gap: 7px 13px;
+
   margin-top: 9px;
+
   color: var(--detail-muted);
+
   font-size: 10px;
+
   line-height: 1.35;
 }
 
 .legend-dot {
   display: inline-block;
+
   width: 9px;
   height: 9px;
+
   margin-right: 5px;
+
   border-radius: 50%;
+
   vertical-align: middle;
 }
 
@@ -564,21 +796,30 @@ main {
     padding-top: 14px;
   }
 
-  .detail-topbar {
-    grid-template-columns:auto minmax(0, 1fr);
-    gap: 10px 14px;
-    margin-bottom: 0;
-  }
 
+  /*
+     Le header reste superposé à la vidéo.
+     On ne le remet PAS en position relative.
+  */
+
+  .detail-hero {
+    position: relative;
+    width: 100%;
+  }
   .detail-title {
     text-align: left;
   }
 
   .detail-actions {
     grid-column: 1 / -1;
+
     width: 100%;
+
     display: grid;
-    grid-template-columns:repeat(2, minmax(0, 1fr));
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
     gap: 8px;
   }
 
@@ -586,19 +827,35 @@ main {
     width: 100%;
   }
 
+
+  /* Contenu */
+
   .detail-content {
     grid-template-columns: 1fr;
   }
 
   .detail-card+.detail-card {
     border-left: 0;
-    border-top:1px solid var(--detail-border);
+
+    border-top:
+      1px solid var(--detail-border);
   }
 
 
+  /* Statistiques */
+
   .detail-stats {
-    grid-template-columns:repeat(4, minmax(0, 1fr));
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+
     gap: 12px;
+  }
+
+
+  /* Cadre vidéo */
+
+  :root {
+    --video-frame: 13px;
   }
 }
 
@@ -609,16 +866,164 @@ main {
 
 @media (max-width: 600px) {
 
-  .detail-topbar {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-    width: 100%;
-    background: transparent;
+  .page-shell {
+    width: calc(100% - 16px);
+
+    padding-bottom: 30px;
   }
 
+
+  /*
+     HEADER SUR LA VIDÉO
+
+     Une seule règle mobile.
+     Pas de conflit position:absolute / relative.
+  */
+
+
+  /* Bouton retour */
+
+  .detail-topbar .btn-back {
+    min-height: 32px;
+
+    padding: 6px 9px;
+
+    font-size: 10px;
+  }
+
+
+  /* Titre */
+
+  .detail-topbar .detail-title {
+    min-width: 0;
+
+    text-align: left;
+  }
+
+  .detail-topbar .detail-title h1 {
+    font-size: 17px;
+
+    line-height: 1;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+  }
+
+  .detail-topbar .detail-title p {
+    margin-top: 2px;
+
+    font-size: 9px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+  }
+
+
+  /* Boutons d'action */
+
+  .detail-topbar .detail-actions {
+    grid-column: 1 / -1;
+
+    display: grid;
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 5px;
+
+    width: 100%;
+  }
+
+  .detail-topbar .detail-actions>* {
+    min-height: 30px;
+
+    padding: 5px 6px;
+
+    font-size: 9px;
+
+    border-radius: 999px;
+  }
+
+  .detail-topbar .btn-soon {
+    font-size: 7px;
+
+    padding: 2px 4px;
+  }
+
+
+  /*
+     Cadre vidéo mobile.
+
+     Il reste blanc mais devient légèrement
+     plus fin pour ne pas manger trop d'espace.
+  */
+
+  :root {
+    --video-frame: 10px;
+
+    --video-radius: 22px;
+
+    --video-inner-radius: 13px;
+  }
+
+
+  .detail-video {
+    aspect-ratio: 16 / 9;
+
+    padding: var(--video-frame);
+
+    border-radius: var(--video-radius);
+  }
+
+
+  /* Bouton Play */
+
+  #playPreviewBtn {
+    min-height: 44px;
+
+    padding: 10px 17px;
+
+    font-size: 12px;
+  }
+
+
+  /* Son */
+
+  .video-unmute {
+    right: calc(var(--video-frame) + 7px);
+
+    bottom: calc(var(--video-frame) + 12px);
+
+    min-height: 32px;
+
+    padding: 6px 9px;
+
+    font-size: 9px;
+  }
+
+
+  /* Statistiques */
+
+  .detail-stats {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+
+  /* Carte */
+
+  .map-preview {
+    height: 205px;
+  }
 }
+
+
 /* ============================================================
    19. TRÈS PETITS TÉLÉPHONES
    ============================================================ */
@@ -626,73 +1031,96 @@ main {
 @media (max-width: 380px) {
 
   .page-shell {
-    padding-left: 8px;
-    padding-right: 8px;
+    width: calc(100% - 12px);
+
+    padding-left: 0;
+    padding-right: 0;
   }
 
+
   .detail-topbar {
-    gap: 7px;
+    top: 6px;
+    left: 6px;
+
+    width: calc(100% - 12px);
+
+    gap: 5px;
+
+    padding: 5px;
   }
+
+
+  .detail-topbar .btn-back {
+    min-height: 29px;
+
+    padding: 5px 7px;
+
+    font-size: 9px;
+  }
+
 
   .detail-title h1,
   .detail-topbar h1 {
-    font-size: 21px;
+    font-size: 15px;
   }
+
+
+  .detail-topbar .detail-title p {
+    font-size: 8px;
+  }
+
 
   .detail-actions {
     grid-template-columns: 1fr;
   }
 
   .detail-actions>* {
-    min-height: 36px;
+    min-height: 32px;
   }
 
 
   /*
-     Vidéo toujours 16:9.
+     Cadre très petit téléphone
   */
 
+  :root {
+    --video-frame: 7px;
+
+    --video-radius: 16px;
+
+    --video-inner-radius: 10px;
+  }
+
+
   .detail-video {
-    padding: 4px;
-    border-radius: 14px;
+    border-radius: var(--video-radius);
   }
 
-  .detail-video video {
-    border-radius: 10px;
-  }
-
-  .video-container {
-    inset: 4px;
-    border-radius: 10px;
-  }
-
-  .video-overlay {
-    inset: 4px;
-    border-radius: 10px;
-  }
 
   #playPreviewBtn {
-    min-height: 40px;
-    padding:
-      9px 13px;
+    min-height: 38px;
 
-    font-size: 11px;
+    padding: 8px 12px;
+
+    font-size: 10px;
   }
+
+
   .video-unmute {
-    right: 8px;
+    right: calc(var(--video-frame) + 5px);
 
-    bottom: 43px;
+    bottom: calc(var(--video-frame) + 8px);
 
-    font-size: 9px;
+    min-height: 28px;
+
+    padding: 5px 7px;
+
+    font-size: 8px;
   }
 
-  .detail-stats {
-    grid-template-columns:
-      1fr 1fr;
-  }
 
   .map-preview {
-    height: 205px;
+    height: 190px;
   }
 }
 
@@ -707,15 +1135,30 @@ main {
     width: min(1240px, calc(100% - 60px));
   }
 
-  .detail-video {
-    padding: 9px;
-    border-radius: 23px;
+
+  .detail-topbar {
+    width: calc(100% - 50px);
+
+    top: 20px;
   }
 
-  .video-container,
-  .video-overlay {
-    inset: 9px;
+
+  :root {
+    --video-frame: 18px;
+
+    --video-radius: 32px;
+
+    --video-inner-radius: 20px;
   }
+
+
+  .detail-video {
+    padding: var(--video-frame);
+
+    border-radius: var(--video-radius);
+  }
+
+
   .detail-card {
     padding:
       24px 25px;
@@ -728,6 +1171,7 @@ main {
    ============================================================ */
 
 @media (prefers-reduced-motion: reduce) {
+
   html {
     scroll-behavior: auto;
   }
@@ -736,78 +1180,49 @@ main {
   *::before,
   *::after {
     transition: none !important;
+
     animation: none !important;
   }
 }
 
 
 /* ============================================================
-   HEADER SUPERPOSÉ — RESPONSIVE MOBILE
+   22. SÉCURITÉ DES CALQUES VIDÉO
    ============================================================ */
 
-@media (max-width: 600px) {
+/*
+   Cette partie garantit l'ordre :
 
-  .detail-topbar {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    transform: none;
-    width: calc(100% - 16px);
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: 6px;
-    padding: 6px;
-    min-height: 0;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.82);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-  }
+   HEADER
+      ↓
+   OVERLAY / PLAY
+      ↓
+   VIDEO / IFRAME
+      ↓
+   CADRE
+*/
 
-  .detail-topbar .btn-back {
-    min-height: 32px;
-    padding: 6px 9px;
-    font-size: 10px;
-  }
-
-  .detail-topbar .detail-title {
-    min-width: 0;
-    text-align: left;
-  }
-
-  .detail-topbar .detail-title h1 {
-    font-size: 17px;
-    line-height: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .detail-topbar .detail-title p {
-    margin-top: 2px;
-    font-size: 9px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .detail-topbar .detail-actions {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5px;
-    width: 100%;
-  }
-
-  .detail-topbar .detail-actions>* {
-    min-height: 30px;
-    padding: 5px 6px;
-    font-size: 9px;
-    border-radius: 999px;
-  }
-
-  .detail-topbar .btn-soon {
-    font-size: 7px;
-    padding: 2px 4px;
-  }
+.detail-video {
+  isolation: isolate;
 }
+
+.detail-video .video-container {
+  z-index: 2;
+}
+
+.detail-video>video {
+  z-index: 2;
+}
+
+.detail-video .video-overlay {
+  z-index: 10;
+}
+
+.detail-video .video-unmute {
+  z-index: 40;
+}
+
+.detail-hero .detail-topbar {
+  z-index: 100;
+}
+
