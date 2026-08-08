@@ -1,0 +1,18 @@
+{
+  "osm_type": "way",
+  "osm_id": 835453293,
+  "category": "culture",
+  "name": "Musée Ecologique du Millénaire",
+  "address": null,
+  "phone": "+237 675 36 53 51",
+  "latitude": 3.9403642,
+  "longitude": 11.65113,
+  "description": "The Millennium Ecological Museum, located in Yaoundé, Cameroon, was founded by ethnobotanist and professor Bernard-Aloys Nkongmeneck. Inaugurated in January 2016 as the first natural history museum in Central Africa, it houses more than 24,000 specimens of plants, animals, and rocks.",
+  "bonASavoir": "The Millennium Ecological Museum (located in Ntouessong near Soa/Yaoundé) does not publish a fixed official entrance fee online, as it is a private nature history initiative. Admission fees generally depend on guided tours or hikes organized on-site.",
+  "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMMqdLKdU7inTpxo22zYhA5CH79kTPRIFuD0EEiaNB6U6lrAyNT-vknjk&s=10",
+  "videoUrl": "",
+  "video_par": "",
+  "price": 0,
+  "dangerosity": "low",
+  "difficulty": "easy"
+}

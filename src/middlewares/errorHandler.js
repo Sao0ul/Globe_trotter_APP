@@ -1,8 +1,8 @@
 function errorHandler(err, req, res, next) {
   console.error(err);
 
-  // Erreur MySQL typique : contrainte violée, connexion refusée, etc.
-  if (err.code === 'ER_DUP_ENTRY') {
+  // PostgreSQL : violation de contrainte UNIQUE
+  if (err.code === '23505') {
     return res.status(409).json({ error: 'resource already exists' });
   }
 

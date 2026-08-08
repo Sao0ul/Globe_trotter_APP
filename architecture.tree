@@ -1,0 +1,2960 @@
+/
+├── .github/
+│   └── workflows/
+│       ├── ci-cd.yml
+│       └── semgrep.yml
+├── certs/
+│   └── ca.pem
+├── public/
+│   ├── assets/
+│   │   ├── images/
+│   │   │   ├── favicon.png
+│   │   │   └── logoLogin.png
+│   │   └── videos/
+│   ├── css/
+│   │   ├── register.css
+│   │   │   ├── .has-selection
+│   │   │   ├── .is-open
+│   │   │   ├── .is-selected
+│   │   │   ├── .pref-option
+│   │   │   ├── .pref-option-check
+│   │   │   ├── .pref-option-icon
+│   │   │   ├── .pref-option-label
+│   │   │   ├── .preferences-chevron
+│   │   │   ├── .preferences-dropdown
+│   │   │   ├── .preferences-panel
+│   │   │   ├── .preferences-trigger
+│   │   │   ├── .preferences-trigger-text
+│   │   │   ├── chevron
+│   │   │   ├── dropdown
+│   │   │   ├── first-child
+│   │   │   ├── focus-visible
+│   │   │   ├── has
+│   │   │   ├── hover
+│   │   │   ├── i
+│   │   │   ├── input
+│   │   │   ├── max-width
+│   │   │   ├── open
+│   │   │   ├── option
+│   │   │   ├── option-check
+│   │   │   ├── option-icon
+│   │   │   ├── option-label
+│   │   │   ├── panel
+│   │   │   ├── selected
+│   │   │   ├── selection
+│   │   │   ├── trigger
+│   │   │   ├── trigger-text
+│   │   ├── site-detail.css
+│   │   │   ├── .btn-ghost
+│   │   │   ├── .btn-solid
+│   │   │   ├── .chip
+│   │   │   ├── .chip-active
+│   │   │   ├── .detail-card
+│   │   │   ├── .detail-card-head
+│   │   │   ├── .detail-category
+│   │   │   ├── .detail-description
+│   │   │   ├── .detail-facts
+│   │   │   ├── .detail-grid
+│   │   │   ├── .detail-legend
+│   │   │   ├── .detail-location
+│   │   │   ├── .detail-map-card
+│   │   │   ├── .detail-stat-label
+│   │   │   ├── .detail-stats
+│   │   │   ├── .detail-tag
+│   │   │   ├── .detail-title-wrap
+│   │   │   ├── .detail-topbar
+│   │   │   ├── .detail-video-frame
+│   │   │   ├── .detail-video-meta
+│   │   │   ├── .eyebrow
+│   │   │   ├── .info-pill
+│   │   │   ├── .legend-dot
+│   │   │   ├── .legend-hospital
+│   │   │   ├── .legend-hotel
+│   │   │   ├── .legend-restaurant
+│   │   │   ├── .legend-site
+│   │   │   ├── .legend-transport
+│   │   │   ├── .map-grid
+│   │   │   ├── .map-preview
+│   │   │   ├── .page-frame
+│   │   │   ├── .page-shell
+│   │   │   ├── .video-container
+│   │   │   ├── .video-overlay
+│   │   │   ├── .video-unmute
+│   │   │   ├── active
+│   │   │   ├── card
+│   │   │   ├── card-head
+│   │   │   ├── category
+│   │   │   ├── container
+│   │   │   ├── description
+│   │   │   ├── dot
+│   │   │   ├── facts
+│   │   │   ├── frame
+│   │   │   ├── ghost
+│   │   │   ├── grid
+│   │   │   ├── h1
+│   │   │   ├── h2
+│   │   │   ├── hospital
+│   │   │   ├── hotel
+│   │   │   ├── hover
+│   │   │   ├── iframe
+│   │   │   ├── img
+│   │   │   ├── legend
+│   │   │   ├── li
+│   │   │   ├── location
+│   │   │   ├── map-card
+│   │   │   ├── max-width
+│   │   │   ├── overlay
+│   │   │   ├── pill
+│   │   │   ├── preview
+│   │   │   ├── restaurant
+│   │   │   ├── root
+│   │   │   ├── shell
+│   │   │   ├── site
+│   │   │   ├── solid
+│   │   │   ├── stat-label
+│   │   │   ├── stats
+│   │   │   ├── strong
+│   │   │   ├── tag
+│   │   │   ├── title-wrap
+│   │   │   ├── topbar
+│   │   │   ├── transport
+│   │   │   ├── unmute
+│   │   │   ├── video
+│   │   │   ├── video-frame
+│   │   │   ├── video-meta
+│   │   ├── site.css
+│   │   │   ├── .add-form
+│   │   │   ├── .add-panel
+│   │   │   ├── .add-panel-head
+│   │   │   ├── .app
+│   │   │   ├── .avatar
+│   │   │   ├── .bg-overlay
+│   │   │   ├── .brand
+│   │   │   ├── .brand-mark
+│   │   │   ├── .brand-name
+│   │   │   ├── .brand-tag
+│   │   │   ├── .brand-word
+│   │   │   ├── .btn-back
+│   │   │   ├── .btn-ghost
+│   │   │   ├── .btn-solid
+│   │   │   ├── .card
+│   │   │   ├── .card-author
+│   │   │   ├── .card-body
+│   │   │   ├── .card-category
+│   │   │   ├── .card-desc
+│   │   │   ├── .card-foot
+│   │   │   ├── .card-location
+│   │   │   ├── .card-media
+│   │   │   ├── .card-number
+│   │   │   ├── .card-tags
+│   │   │   ├── .card-title
+│   │   │   ├── .chip
+│   │   │   ├── .chip-icon
+│   │   │   ├── .chip-icon-aventure
+│   │   │   ├── .chip-icon-beach
+│   │   │   ├── .chip-icon-culture
+│   │   │   ├── .chip-icon-montagne
+│   │   │   ├── .chip-icon-nature
+│   │   │   ├── .chip-icon-tous
+│   │   │   ├── .close-btn
+│   │   │   ├── .compact-frame
+│   │   │   ├── .detail-card
+│   │   │   ├── .detail-card-head
+│   │   │   ├── .detail-category
+│   │   │   ├── .detail-description
+│   │   │   ├── .detail-facts
+│   │   │   ├── .detail-grid
+│   │   │   ├── .detail-info-card
+│   │   │   ├── .detail-legend
+│   │   │   ├── .detail-location
+│   │   │   ├── .detail-media-card
+│   │   │   ├── .detail-stat-label
+│   │   │   ├── .detail-stats
+│   │   │   ├── .detail-tag
+│   │   │   ├── .detail-title-wrap
+│   │   │   ├── .detail-topbar
+│   │   │   ├── .detail-video-frame
+│   │   │   ├── .detail-video-meta
+│   │   │   ├── .eyebrow
+│   │   │   ├── .filters
+│   │   │   ├── .filters-panel
+│   │   │   ├── .filters-toggle
+│   │   │   ├── .filters-toggle-icon
+│   │   │   ├── .filters-toggle-icon-badge
+│   │   │   ├── .form-actions
+│   │   │   ├── .form-error
+│   │   │   ├── .form-row
+│   │   │   ├── .form-row-3
+│   │   │   ├── .form-section-label
+│   │   │   ├── .greeting-hello
+│   │   │   ├── .greeting-name
+│   │   │   ├── .greeting-text
+│   │   │   ├── .grid
+│   │   │   ├── .info-pill
+│   │   │   ├── .is-active
+│   │   │   ├── .is-open
+│   │   │   ├── .itinerary-layout
+│   │   │   ├── .lang-pill
+│   │   │   ├── .language-switcher
+│   │   │   ├── .language-switcher-thumb
+│   │   │   ├── .legend-dot
+│   │   │   ├── .legend-hospital
+│   │   │   ├── .legend-hotel
+│   │   │   ├── .legend-restaurant
+│   │   │   ├── .legend-site
+│   │   │   ├── .legend-transport
+│   │   │   ├── .main
+│   │   │   ├── .map-grid
+│   │   │   ├── .map-marker
+│   │   │   ├── .map-marker-hospital
+│   │   │   ├── .map-marker-hotel
+│   │   │   ├── .map-marker-restaurant
+│   │   │   ├── .map-marker-site
+│   │   │   ├── .map-marker-transport
+│   │   │   ├── .map-preview
+│   │   │   ├── .menu-toggle
+│   │   │   ├── .nav-collapse
+│   │   │   ├── .nav-hint
+│   │   │   ├── .nav-item
+│   │   │   ├── .nav-label
+│   │   │   ├── .nav-logout
+│   │   │   ├── .overlay
+│   │   │   ├── .page-frame
+│   │   │   ├── .page-header
+│   │   │   ├── .page-shell
+│   │   │   ├── .placeholder-card
+│   │   │   ├── .rating
+│   │   │   ├── .route-grid
+│   │   │   ├── .route-map
+│   │   │   ├── .route-summary
+│   │   │   ├── .search-explorer
+│   │   │   ├── .search-icon
+│   │   │   ├── .search-wrap
+│   │   │   ├── .sidebar
+│   │   │   ├── .sidebar-close
+│   │   │   ├── .sidebar-collapsed
+│   │   │   ├── .sidebar-greeting
+│   │   │   ├── .sidebar-nav
+│   │   │   ├── .sidebar-scrim
+│   │   │   ├── .spinner
+│   │   │   ├── .state-panel
+│   │   │   ├── .tag
+│   │   │   ├── .tag-danger
+│   │   │   ├── .tag-difficulte
+│   │   │   ├── .tag-prix
+│   │   │   ├── .topbar
+│   │   │   ├── .topbar-heading
+│   │   │   ├── .video-overlay
+│   │   │   ├── .video-unmute
+│   │   │   ├── a
+│   │   │   ├── actions
+│   │   │   ├── active
+│   │   │   ├── after
+│   │   │   ├── aria-expanded
+│   │   │   ├── author
+│   │   │   ├── back
+│   │   │   ├── body
+│   │   │   ├── btn
+│   │   │   ├── button
+│   │   │   ├── card
+│   │   │   ├── card-head
+│   │   │   ├── category
+│   │   │   ├── close
+│   │   │   ├── collapse
+│   │   │   ├── collapsed
+│   │   │   ├── danger
+│   │   │   ├── data-language
+│   │   │   ├── data-level
+│   │   │   ├── desc
+│   │   │   ├── description
+│   │   │   ├── difficile
+│   │   │   ├── difficulte
+│   │   │   ├── div
+│   │   │   ├── dot
+│   │   │   ├── elevee
+│   │   │   ├── em
+│   │   │   ├── empty
+│   │   │   ├── en
+│   │   │   ├── error
+│   │   │   ├── explorer
+│   │   │   ├── explorer-walk
+│   │   │   ├── facile
+│   │   │   ├── facts
+│   │   │   ├── fade-in
+│   │   │   ├── faible
+│   │   │   ├── focus
+│   │   │   ├── focus-visible
+│   │   │   ├── focus-within
+│   │   │   ├── foot
+│   │   │   ├── form
+│   │   │   ├── frame
+│   │   │   ├── ghost
+│   │   │   ├── greeting
+│   │   │   ├── grid
+│   │   │   ├── h1
+│   │   │   ├── h2
+│   │   │   ├── header
+│   │   │   ├── heading
+│   │   │   ├── hello
+│   │   │   ├── hidden
+│   │   │   ├── hint
+│   │   │   ├── hospital
+│   │   │   ├── hotel
+│   │   │   ├── hover
+│   │   │   ├── html
+│   │   │   ├── icon
+│   │   │   ├── icon-aventure
+│   │   │   ├── icon-beach
+│   │   │   ├── icon-culture
+│   │   │   ├── icon-montagne
+│   │   │   ├── icon-nature
+│   │   │   ├── icon-tilt
+│   │   │   ├── icon-tous
+│   │   │   ├── img
+│   │   │   ├── info-card
+│   │   │   ├── input
+│   │   │   ├── item
+│   │   │   ├── label
+│   │   │   ├── layout
+│   │   │   ├── legend
+│   │   │   ├── location
+│   │   │   ├── logout
+│   │   │   ├── map
+│   │   │   ├── mark
+│   │   │   ├── marker
+│   │   │   ├── marker-hospital
+│   │   │   ├── marker-hotel
+│   │   │   ├── marker-restaurant
+│   │   │   ├── marker-site
+│   │   │   ├── marker-transport
+│   │   │   ├── max-width
+│   │   │   ├── media
+│   │   │   ├── media-card
+│   │   │   ├── modere
+│   │   │   ├── moderee
+│   │   │   ├── name
+│   │   │   ├── nav
+│   │   │   ├── not
+│   │   │   ├── number
+│   │   │   ├── open
+│   │   │   ├── overlay
+│   │   │   ├── panel
+│   │   │   ├── panel-head
+│   │   │   ├── pill
+│   │   │   ├── placeholder
+│   │   │   ├── prefers-reduced-motion
+│   │   │   ├── preview
+│   │   │   ├── prix
+│   │   │   ├── reduce
+│   │   │   ├── restaurant
+│   │   │   ├── root
+│   │   │   ├── row
+│   │   │   ├── row-3
+│   │   │   ├── scrim
+│   │   │   ├── section-label
+│   │   │   ├── select
+│   │   │   ├── shell
+│   │   │   ├── site
+│   │   │   ├── solid
+│   │   │   ├── span
+│   │   │   ├── spin
+│   │   │   ├── stat-label
+│   │   │   ├── stats
+│   │   │   ├── strong
+│   │   │   ├── summary
+│   │   │   ├── svg
+│   │   │   ├── switcher
+│   │   │   ├── switcher-thumb
+│   │   │   ├── tag
+│   │   │   ├── tags
+│   │   │   ├── text
+│   │   │   ├── textarea
+│   │   │   ├── title
+│   │   │   ├── title-wrap
+│   │   │   ├── toggle
+│   │   │   ├── toggle-icon
+│   │   │   ├── toggle-icon-badge
+│   │   │   ├── topbar
+│   │   │   ├── transport
+│   │   │   ├── true
+│   │   │   ├── unmute
+│   │   │   ├── video
+│   │   │   ├── video-frame
+│   │   │   ├── video-meta
+│   │   │   ├── word
+│   │   │   ├── wrap
+│   │   └── style.css
+│   │       ├── .active
+│   │       ├── .error-message
+│   │       ├── .input-group
+│   │       ├── .is-active
+│   │       ├── .lang-btn
+│   │       ├── .lang-pill
+│   │       ├── .language-switcher
+│   │       ├── .login-card
+│   │       ├── .login-container
+│   │       ├── .logo
+│   │       ├── .logo-circle
+│   │       ├── .options
+│   │       ├── .register
+│   │       ├── .separator
+│   │       ├── .social
+│   │       ├── .social-buttons
+│   │       ├── .success-message
+│   │       ├── .video-overlay
+│   │       ├── a
+│   │       ├── active
+│   │       ├── after
+│   │       ├── before
+│   │       ├── body
+│   │       ├── btn
+│   │       ├── button
+│   │       ├── buttons
+│   │       ├── card
+│   │       ├── circle
+│   │       ├── container
+│   │       ├── fade
+│   │       ├── focus-within
+│   │       ├── group
+│   │       ├── h1
+│   │       ├── hover
+│   │       ├── html
+│   │       ├── i
+│   │       ├── img
+│   │       ├── input
+│   │       ├── label
+│   │       ├── max-width
+│   │       ├── message
+│   │       ├── overlay
+│   │       ├── p
+│   │       ├── pill
+│   │       ├── placeholder
+│   │       ├── root
+│   │       ├── span
+│   │       ├── submit
+│   │       ├── switcher
+│   │       ├── type
+│   ├── js/
+│   │   ├── app.js
+│   │   │   ├── imports
+│   │   │   │   ├── ./model.js
+│   │   │   │   ├── ./view.js
+│   │   │   ├── function afficherRoute(route)
+│   │   │   ├── function handleLogin({ email, password })
+│   │   │   ├── function handleLogout()
+│   │   │   ├── function handleNavigation(route)
+│   │   ├── auth.js
+│   │   ├── i18n.js
+│   │   │   ├── function getInitialLanguage()
+│   │   │   ├── function resolveTranslation(path)
+│   │   │   ├── function interpolate(value, replacements)
+│   │   │   ├── function t(key, replacements, fallback)
+│   │   │   ├── function updateHtmlLang()
+│   │   │   ├── function translatePage()
+│   │   │   ├── function updateLanguageSwitcher()
+│   │   │   ├── function onLanguageChange(event)
+│   │   │   ├── function attachLanguageSwitcher()
+│   │   │   ├── function setLanguage(language)
+│   │   ├── itineraireMap.js
+│   │   │   ├── function chargerItineraire(depart, arrivee)
+│   │   │   ├── function afficherLegende()
+│   │   ├── itinerary.js
+│   │   │   ├── function buildPoiMarkers()
+│   │   │   ├── function setRouteSummary(startLabel, endLabel)
+│   │   │   ├── function drawMarkers()
+│   │   │   ├── function drawRoute()
+│   │   │   ├── function loadSite()
+│   │   │   ├── function controlX(start.x + selectedSite.x) / 2;
+  const controlY = Math.min(start.y, selectedSite.y) - 70;
+  routePath.setAttribute('d', `M ${start.x} ${start.y} Q ${controlX} ${controlY} ${selectedSite.x} ${selectedSite.y}`);
+  drawMarkers();
+  setRouteSummary('votre position', fallbackSite.titre);
+}
+
+async function loadSite() {
+  const params = new URLSearchParams(window.location.search);
+  const siteId = params.get('siteId');
+
+  try {
+    const response = await fetch('/api/sites?page=1&limit=100');
+    if (!response.ok) {
+      throw new Error('Unable to load site list');
+    }
+
+    const data = await response.json();
+    const site = (data.sites || []).find((entry)
+│   │   ├── models.js
+│   │   │   ├── class AppModel
+│   │   │   │   ├── isAuthenticated()
+│   │   │   │   ├── login({ email, password })
+│   │   │   │   ├── if(!res.ok)
+│   │   │   │   ├── logout()
+│   │   │   │   ├── fetchAvecAuth(url)
+│   │   │   │   ├── if(res.status === 401)
+│   │   │   │   ├── getProfile()
+│   │   │   │   ├── getSites()
+│   │   │   │   ├── getDashboardData()
+│   │   │   │   ├── getVisites()
+│   │   ├── register.js
+│   │   │   ├── function ouvrirFermerPreferences()
+│   │   │   ├── function fermerPreferences()
+│   │   │   ├── function mettreAJourTexteDeclencheur()
+│   │   ├── site-detail.js
+│   │   │   ├── function moneyLabel(value)
+│   │   │   ├── function toFiniteNumberOrNull(value)
+│   │   │   ├── function areValidCoordinates(latitude, longitude)
+│   │   │   ├── function validateRequiredElements()
+│   │   │   ├── function mapSiteResponse(raw)
+│   │   │   ├── function fetchSiteDetail(siteId)
+│   │   │   ├── function fetchSiteVideo(siteId)
+│   │   │   ├── function clearSiteVideo()
+│   │   │   ├── function getVideoMimeType(url)
+│   │   │   ├── function loadSiteVideo(siteId)
+│   │   │   ├── function parseExternalVideo(url)
+│   │   │   ├── function showVideoOverlay()
+│   │   │   ├── function hideVideoOverlay()
+│   │   │   ├── function showUnmuteControl()
+│   │   │   ├── function hideUnmuteControl()
+│   │   │   ├── function bindVideoControls()
+│   │   │   ├── function startGeolocationWatch()
+│   │   │   ├── function stopGeolocationWatch()
+│   │   │   ├── function toRad(value)
+│   │   │   ├── function haversineDistanceKm(pointA, pointB)
+│   │   │   ├── function updateLocationDisplay()
+│   │   │   ├── function setCardContent(site)
+│   │   │   ├── function loadSiteDetail()
+│   │   │   ├── function openItinerary()
+│   │   │   ├── function initializePage()
+│   │   └── sites.js
+│   │       ├── function compterColonnesVisibles()
+│   │       ├── function calculerLimiteParPage()
+│   │       ├── function afficherEtat(nom)
+│   │       ├── function mettreAJourLabelFiltre()
+│   │       ├── function ouvrirMenuFiltre()
+│   │       ├── function fermerMenuFiltre()
+│   │       ├── function selectionnerCategorie(categorie)
+│   │       ├── function chargerSites(reinitialiser = true)
+│   │       ├── function chargerPageSuivanteSiNecessaire()
+│   │       ├── function correspondAuxFiltres(site)
+│   │       ├── function moyenneNote(site)
+│   │       ├── function afficherSites()
+│   │       ├── function noterSite(siteId)
+│   │       ├── function ouvrirPanneauAjout()
+│   │       ├── function fermerPanneauAjout()
+│   │       ├── function fermerSidebar()
+│   ├── locales/
+│   │   ├── en.json
+│   │   └── fr.json
+│   ├── index.html
+│   │   ├── html
+│   │   │   ├── head
+│   │   │   │   ├── meta
+│   │   │   │   ├── meta
+│   │   │   │   ├── link
+│   │   │   │   ├── title
+│   │   │   │   ├── link
+│   │   │   │   ├── link
+│   │   │   │   └── link
+│   │   │   └── body
+│   │   │       ├── div.video-overlay
+│   │   │       ├── div#languageSwitcher.language-switcher
+│   │   │       │   ├── button.lang-pill
+│   │   │       │   └── button.lang-pill
+│   │   │       ├── main.login-container
+│   │   │       │   └── div.login-card
+│   │   │       │       ├── div.logo
+│   │   │       │       │   ├── div.logo-circle
+│   │   │       │       │   │   └── img
+│   │   │       │       │   ├── h1
+│   │   │       │       │   └── p
+│   │   │       │       ├── div#errorMessage.error-message
+│   │   │       │       ├── form#loginForm
+│   │   │       │       │   ├── div.input-group
+│   │   │       │       │   │   ├── i.fa-solid.fa-envelope
+│   │   │       │       │   │   └── input#email
+│   │   │       │       │   ├── div.input-group
+│   │   │       │       │   │   ├── i.fa-solid.fa-lock
+│   │   │       │       │   │   └── input#password
+│   │   │       │       │   ├── div.options
+│   │   │       │       │   │   ├── label
+│   │   │       │       │   │   │   ├── input
+│   │   │       │       │   │   │   └── span
+│   │   │       │       │   │   └── a
+│   │   │       │       │   └── button
+│   │   │       │       │       ├── i.fa-solid.fa-right-to-bracket
+│   │   │       │       │       └── span
+│   │   │       │       ├── div.separator
+│   │   │       │       │   └── span
+│   │   │       │       ├── div.social-buttons
+│   │   │       │       │   ├── button.social
+│   │   │       │       │   │   └── i.fab.fa-google
+│   │   │       │       │   ├── button.social
+│   │   │       │       │   │   └── i.fab.fa-facebook-f
+│   │   │       │       │   └── button.social
+│   │   │       │       │       └── i.fab.fa-apple
+│   │   │       │       └── p.register
+│   │   │       │           ├── span
+│   │   │       │           └── a
+│   │   │       ├── script
+│   │   │       └── script
+│   ├── infos.html
+│   │   ├── html
+│   │   │   ├── head
+│   │   │   │   ├── meta
+│   │   │   │   ├── meta
+│   │   │   │   ├── title
+│   │   │   │   └── link
+│   │   │   └── body.page-shell
+│   │   │       └── div.page-frame.compact-frame
+│   │   │           ├── header.detail-topbar
+│   │   │           │   ├── a.btn-ghost.btn-back
+│   │   │           │   └── div.detail-title-wrap
+│   │   │           │       ├── span.eyebrow
+│   │   │           │       └── h1
+│   │   │           └── main.placeholder-card
+│   │   │               └── p
+│   ├── itineraires.html
+│   │   ├── html
+│   │   │   ├── head
+│   │   │   │   ├── link
+│   │   │   │   └── script
+│   │   │   └── body
+│   │   │       ├── div#map
+│   │   │       └── div#legende
+│   ├── itinerary.html
+│   │   ├── html
+│   │   │   ├── head
+│   │   │   │   ├── meta
+│   │   │   │   ├── meta
+│   │   │   │   ├── title
+│   │   │   │   ├── link
+│   │   │   │   ├── link
+│   │   │   │   ├── link
+│   │   │   │   └── link
+│   │   │   └── body.page-shell
+│   │   │       ├── div.page-frame.itinerary-frame
+│   │   │       │   ├── header.detail-topbar
+│   │   │       │   │   ├── a.btn-ghost.btn-back
+│   │   │       │   │   ├── div.detail-title-wrap
+│   │   │       │   │   │   ├── span.eyebrow
+│   │   │       │   │   │   └── h1#itineraryTitle
+│   │   │       │   │   └── button#useCurrentLocationBtn.btn-solid
+│   │   │       │   └── main.itinerary-layout
+│   │   │       │       ├── section.detail-card.itinerary-map-card
+│   │   │       │       │   ├── div.detail-card-head
+│   │   │       │       │   │   ├── h2
+│   │   │       │       │   │   └── span.detail-tag
+│   │   │       │       │   ├── div#routeMap.route-map
+│   │   │       │       │   │   └── svg#routeSvg
+│   │   │       │       │   │       ├── defs
+│   │   │       │       │   │       │   └── lineargradient#routeGradient
+│   │   │       │       │   │       │       ├── stop
+│   │   │       │       │   │       │       └── stop
+│   │   │       │       │   │       ├── rect
+│   │   │       │       │   │       ├── g.route-grid
+│   │   │       │       │   │       ├── path#routePath
+│   │   │       │       │   │       └── g#routeMarkers
+│   │   │       │       │   └── div.detail-legend
+│   │   │       │       │       ├── span
+│   │   │       │       │       │   └── i.legend-dot.legend-site
+│   │   │       │       │       ├── span
+│   │   │       │       │       │   └── i.legend-dot.legend-restaurant
+│   │   │       │       │       ├── span
+│   │   │       │       │       │   └── i.legend-dot.legend-hotel
+│   │   │       │       │       ├── span
+│   │   │       │       │       │   └── i.legend-dot.legend-hospital
+│   │   │       │       │       └── span
+│   │   │       │       │           └── i.legend-dot.legend-transport
+│   │   │       │       └── aside.detail-card.itinerary-side-card
+│   │   │       │           ├── div.detail-card-head
+│   │   │       │           │   └── h2
+│   │   │       │           ├── p#routeSummary.route-summary
+│   │   │       │           └── ul#poiList.detail-facts
+│   │   │       ├── script
+│   │   │       └── script
+│   ├── messages.html
+│   │   ├── html
+│   │   │   ├── head
+│   │   │   │   ├── meta
+│   │   │   │   ├── meta
+│   │   │   │   ├── title
+│   │   │   │   └── link
+│   │   │   └── body.page-shell
+│   │   │       └── div.page-frame.compact-frame
+│   │   │           ├── header.detail-topbar
+│   │   │           │   ├── a.btn-ghost.btn-back
+│   │   │           │   └── div.detail-title-wrap
+│   │   │           │       ├── span.eyebrow
+│   │   │           │       └── h1
+│   │   │           └── main.placeholder-card
+│   │   │               └── p
+│   ├── profile.html
+│   │   ├── html
+│   │   │   ├── head
+│   │   │   │   ├── meta
+│   │   │   │   ├── meta
+│   │   │   │   ├── title
+│   │   │   │   └── link
+│   │   │   └── body.page-shell
+│   │   │       └── div.page-frame.compact-frame
+│   │   │           ├── header.detail-topbar
+│   │   │           │   ├── a.btn-ghost.btn-back
+│   │   │           │   └── div.detail-title-wrap
+│   │   │           │       ├── span.eyebrow
+│   │   │           │       └── h1
+│   │   │           └── main.placeholder-card
+│   │   │               └── p
+│   ├── register.html
+│   │   ├── html
+│   │   │   ├── head
+│   │   │   │   ├── meta
+│   │   │   │   ├── meta
+│   │   │   │   ├── link
+│   │   │   │   ├── title
+│   │   │   │   ├── link
+│   │   │   │   ├── link
+│   │   │   │   ├── link
+│   │   │   │   └── link
+│   │   │   └── body
+│   │   │       ├── div.video-overlay
+│   │   │       ├── div#languageSwitcher.language-switcher
+│   │   │       │   ├── button.lang-pill
+│   │   │       │   └── button.lang-pill
+│   │   │       ├── main.login-container
+│   │   │       │   └── div.login-card
+│   │   │       │       ├── div.logo
+│   │   │       │       │   ├── div.logo-circle
+│   │   │       │       │   │   └── img
+│   │   │       │       │   ├── h1
+│   │   │       │       │   └── p
+│   │   │       │       ├── div#errorMessage.error-message
+│   │   │       │       ├── div#successMessage.success-message
+│   │   │       │       ├── form#registerForm
+│   │   │       │       │   ├── div.input-group
+│   │   │       │       │   │   ├── i.fa-solid.fa-user
+│   │   │       │       │   │   └── input#username
+│   │   │       │       │   ├── div.input-group
+│   │   │       │       │   │   ├── i.fa-solid.fa-envelope
+│   │   │       │       │   │   └── input#email
+│   │   │       │       │   ├── div.input-group
+│   │   │       │       │   │   ├── i.fa-solid.fa-lock
+│   │   │       │       │   │   └── input#password
+│   │   │       │       │   ├── div#preferencesDropdown.preferences-dropdown
+│   │   │       │       │   │   ├── button#preferencesTrigger.preferences-trigger
+│   │   │       │       │   │   │   ├── i.fa-solid.fa-compass
+│   │   │       │       │   │   │   ├── span#preferencesTriggerText.preferences-trigger-text
+│   │   │       │       │   │   │   └── i.fa-solid.fa-chevron-down.preferences-chevron
+│   │   │       │       │   │   └── div#preferencesPanel.preferences-panel
+│   │   │       │       │   │       ├── label.pref-option
+│   │   │       │       │   │       │   ├── input
+│   │   │       │       │   │       │   ├── i.fa-solid.fa-leaf.pref-option-icon
+│   │   │       │       │   │       │   ├── span.pref-option-label
+│   │   │       │       │   │       │   └── i.fa-solid.fa-check.pref-option-check
+│   │   │       │       │   │       ├── label.pref-option
+│   │   │       │       │   │       │   ├── input
+│   │   │       │       │   │       │   ├── i.fa-solid.fa-landmark.pref-option-icon
+│   │   │       │       │   │       │   ├── span.pref-option-label
+│   │   │       │       │   │       │   └── i.fa-solid.fa-check.pref-option-check
+│   │   │       │       │   │       ├── label.pref-option
+│   │   │       │       │   │       │   ├── input
+│   │   │       │       │   │       │   ├── i.fa-solid.fa-person-hiking.pref-option-icon
+│   │   │       │       │   │       │   ├── span.pref-option-label
+│   │   │       │       │   │       │   └── i.fa-solid.fa-check.pref-option-check
+│   │   │       │       │   │       ├── label.pref-option
+│   │   │       │       │   │       │   ├── input
+│   │   │       │       │   │       │   ├── i.fa-solid.fa-spa.pref-option-icon
+│   │   │       │       │   │       │   ├── span.pref-option-label
+│   │   │       │       │   │       │   └── i.fa-solid.fa-check.pref-option-check
+│   │   │       │       │   │       ├── label.pref-option
+│   │   │       │       │   │       │   ├── input
+│   │   │       │       │   │       │   ├── i.fa-solid.fa-mountain.pref-option-icon
+│   │   │       │       │   │       │   ├── span.pref-option-label
+│   │   │       │       │   │       │   └── i.fa-solid.fa-check.pref-option-check
+│   │   │       │       │   │       ├── label.pref-option
+│   │   │       │       │   │       │   ├── input
+│   │   │       │       │   │       │   ├── i.fa-solid.fa-umbrella-beach.pref-option-icon
+│   │   │       │       │   │       │   ├── span.pref-option-label
+│   │   │       │       │   │       │   └── i.fa-solid.fa-check.pref-option-check
+│   │   │       │       │   │       └── label.pref-option
+│   │   │       │       │   │           ├── input
+│   │   │       │       │   │           ├── i.fa-solid.fa-star.pref-option-icon
+│   │   │       │       │   │           ├── span.pref-option-label
+│   │   │       │       │   │           └── i.fa-solid.fa-check.pref-option-check
+│   │   │       │       │   └── button
+│   │   │       │       │       ├── i.fa-solid.fa-user-plus
+│   │   │       │       │       └── span
+│   │   │       │       └── p.register
+│   │   │       │           ├── span
+│   │   │       │           └── a
+│   │   │       ├── script
+│   │   │       └── script
+│   ├── site-detail.html
+│   │   ├── html
+│   │   │   ├── head
+│   │   │   │   ├── meta
+│   │   │   │   ├── meta
+│   │   │   │   ├── title
+│   │   │   │   ├── link
+│   │   │   │   ├── link
+│   │   │   │   ├── link
+│   │   │   │   ├── link
+│   │   │   │   └── link
+│   │   │   └── body.page-shell
+│   │   │       ├── div.page-frame
+│   │   │       │   ├── header.detail-topbar
+│   │   │       │   │   ├── a.btn-ghost.btn-back
+│   │   │       │   │   ├── div.detail-title-wrap
+│   │   │       │   │   │   ├── span.eyebrow
+│   │   │       │   │   │   └── h1#siteTitle
+│   │   │       │   │   └── button#openItineraryBtn.btn-solid
+│   │   │       │   └── main.detail-grid
+│   │   │       │       ├── section.detail-card.detail-media-card
+│   │   │       │       │   ├── div.detail-video-frame
+│   │   │       │       │   │   ├── video#siteVideo
+│   │   │       │       │   │   │   └── source#videoSource
+│   │   │       │       │   │   ├── div#videoContainer.video-container
+│   │   │       │       │   │   ├── div#videoOverlay.video-overlay
+│   │   │       │       │   │   │   └── button#playPreviewBtn.btn-ghost
+│   │   │       │       │   │   └── button#unmuteBtn.btn-solid.video-unmute
+│   │   │       │       │   └── div.detail-video-meta
+│   │   │       │       │       ├── span.chip.chip-active
+│   │   │       │       │       └── span#siteLocation.detail-location
+│   │   │       │       ├── section.detail-card.detail-info-card
+│   │   │       │       │   ├── div.detail-hero
+│   │   │       │       │   │   ├── p#siteCategory.detail-category
+│   │   │       │       │   │   └── p#siteDescription.detail-description
+│   │   │       │       │   ├── div.detail-stats
+│   │   │       │       │   │   ├── div
+│   │   │       │       │   │   │   ├── span.detail-stat-label
+│   │   │       │       │   │   │   └── strong#siteDifficulty
+│   │   │       │       │   │   ├── div
+│   │   │       │       │   │   │   ├── span.detail-stat-label
+│   │   │       │       │   │   │   └── strong#siteDanger
+│   │   │       │       │   │   └── div
+│   │   │       │       │   │       ├── span.detail-stat-label
+│   │   │       │       │   │       └── strong#sitePrice
+│   │   │       │       │   └── div.detail-info-list
+│   │   │       │       │       ├── div.info-pill
+│   │   │       │       │       └── ul#siteFacts.detail-facts
+│   │   │       │       └── section.detail-card.detail-map-card
+│   │   │       │           ├── div.detail-card-head
+│   │   │       │           │   ├── h2
+│   │   │       │           │   └── span.detail-tag
+│   │   │       │           ├── div#miniMap.map-preview
+│   │   │       │           │   ├── div.map-grid
+│   │   │       │           │   ├── div.map-marker.map-marker-site
+│   │   │       │           │   ├── div.map-marker.map-marker-hotel
+│   │   │       │           │   ├── div.map-marker.map-marker-restaurant
+│   │   │       │           │   ├── div.map-marker.map-marker-hospital
+│   │   │       │           │   └── div.map-marker.map-marker-transport
+│   │   │       │           └── div.detail-legend
+│   │   │       │               ├── span
+│   │   │       │               │   └── i.legend-dot.legend-site
+│   │   │       │               ├── span
+│   │   │       │               │   └── i.legend-dot.legend-restaurant
+│   │   │       │               ├── span
+│   │   │       │               │   └── i.legend-dot.legend-hotel
+│   │   │       │               ├── span
+│   │   │       │               │   └── i.legend-dot.legend-hospital
+│   │   │       │               └── span
+│   │   │       │                   └── i.legend-dot.legend-transport
+│   │   │       ├── script
+│   │   │       └── script
+│   └── sites.html
+│       ├── html
+│       │   ├── head
+│       │   │   ├── meta
+│       │   │   ├── meta
+│       │   │   ├── title
+│       │   │   ├── link
+│       │   │   ├── link
+│       │   │   ├── link
+│       │   │   ├── link
+│       │   │   └── link
+│       │   └── body
+│       │       ├── div.bg-overlay
+│       │       ├── div#appShell.app
+│       │       │   ├── aside#sidebar.sidebar
+│       │       │   │   ├── button#sidebarClose.sidebar-close
+│       │       │   │   ├── div.sidebar-greeting
+│       │       │   │   │   ├── div#avatarInitials.avatar
+│       │       │   │   │   └── div.greeting-text
+│       │       │   │   │       ├── span.greeting-hello
+│       │       │   │   │       └── span#greetingName.greeting-name
+│       │       │   │   ├── nav.sidebar-nav
+│       │       │   │   │   ├── span.nav-label
+│       │       │   │   │   ├── a.nav-item.is-active
+│       │       │   │   │   │   ├── svg
+│       │       │   │   │   │   │   ├── circle
+│       │       │   │   │   │   │   └── path
+│       │       │   │   │   │   └── span
+│       │       │   │   │   ├── button#openAddSite.nav-item
+│       │       │   │   │   │   ├── svg
+│       │       │   │   │   │   │   └── path
+│       │       │   │   │   │   ├── span
+│       │       │   │   │   │   └── span.nav-hint
+│       │       │   │   │   ├── a.nav-item
+│       │       │   │   │   │   ├── svg
+│       │       │   │   │   │   │   └── path
+│       │       │   │   │   │   └── span
+│       │       │   │   │   ├── a.nav-item
+│       │       │   │   │   │   ├── svg
+│       │       │   │   │   │   │   ├── circle
+│       │       │   │   │   │   │   └── path
+│       │       │   │   │   │   └── span
+│       │       │   │   │   └── a.nav-item
+│       │       │   │   │       ├── svg
+│       │       │   │   │       │   ├── circle
+│       │       │   │   │       │   └── path
+│       │       │   │   │       └── span
+│       │       │   │   ├── button#collapseSidebar.nav-item.nav-collapse
+│       │       │   │   │   ├── svg
+│       │       │   │   │   │   └── path
+│       │       │   │   │   └── span
+│       │       │   │   └── button#logoutBtn.nav-item.nav-logout
+│       │       │   │       ├── svg
+│       │       │   │       │   └── path
+│       │       │   │       └── span
+│       │       │   ├── div#sidebarScrim.sidebar-scrim
+│       │       │   └── main.main
+│       │       │       ├── div.page-header
+│       │       │       │   ├── div.brand
+│       │       │       │   │   ├── svg.brand-mark
+│       │       │       │   │   │   ├── path
+│       │       │       │   │   │   ├── path
+│       │       │       │   │   │   └── circle
+│       │       │       │   │   └── div.brand-word
+│       │       │       │   │       ├── span.brand-name
+│       │       │       │   │       │   └── em
+│       │       │       │   │       └── span.brand-tag
+│       │       │       │   └── div#searchWrap.search-wrap
+│       │       │       │       ├── span.search-icon
+│       │       │       │       │   └── svg
+│       │       │       │       │       ├── circle
+│       │       │       │       │       └── path
+│       │       │       │       ├── input#searchInput
+│       │       │       │       └── span.search-explorer
+│       │       │       │           └── svg
+│       │       │       │               ├── circle
+│       │       │       │               ├── path
+│       │       │       │               └── path
+│       │       │       ├── header.topbar
+│       │       │       │   ├── button#menuToggle.menu-toggle
+│       │       │       │   │   └── svg
+│       │       │       │   │       └── path
+│       │       │       │   ├── div.topbar-heading
+│       │       │       │   │   └── h1
+│       │       │       │   └── div#languageSwitcher.language-switcher
+│       │       │       │       ├── span.language-switcher-thumb
+│       │       │       │       ├── button.lang-pill.is-active
+│       │       │       │       └── button.lang-pill
+│       │       │       ├── div#filters.filters
+│       │       │       │   ├── button#filtersToggle.filters-toggle
+│       │       │       │   │   ├── span#filtersToggleIcon.filters-toggle-icon-badge.chip-icon.chip-icon-tous
+│       │       │       │   │   │   └── svg
+│       │       │       │   │   │       └── path
+│       │       │       │   │   ├── span#filtersToggleLabel
+│       │       │       │   │   └── span.filters-toggle-icon
+│       │       │       │   └── div#filtersPanel.filters-panel
+│       │       │       │       ├── button.chip.is-active
+│       │       │       │       │   ├── span.chip-icon.chip-icon-tous
+│       │       │       │       │   │   └── svg
+│       │       │       │       │   │       └── path
+│       │       │       │       │   └── span
+│       │       │       │       ├── button.chip
+│       │       │       │       │   ├── span.chip-icon.chip-icon-nature
+│       │       │       │       │   │   └── svg
+│       │       │       │       │   │       ├── path
+│       │       │       │       │   │       └── path
+│       │       │       │       │   └── span
+│       │       │       │       ├── button.chip
+│       │       │       │       │   ├── span.chip-icon.chip-icon-culture
+│       │       │       │       │   │   └── svg
+│       │       │       │       │   │       └── path
+│       │       │       │       │   └── span
+│       │       │       │       ├── button.chip
+│       │       │       │       │   ├── span.chip-icon.chip-icon-beach
+│       │       │       │       │   │   └── svg
+│       │       │       │       │   │       └── path
+│       │       │       │       │   └── span
+│       │       │       │       ├── button.chip
+│       │       │       │       │   ├── span.chip-icon.chip-icon-montagne
+│       │       │       │       │   │   └── svg
+│       │       │       │       │   │       └── path
+│       │       │       │       │   └── span
+│       │       │       │       └── button.chip
+│       │       │       │           ├── span.chip-icon.chip-icon-aventure
+│       │       │       │           │   └── svg
+│       │       │       │           │       ├── circle
+│       │       │       │           │       └── path
+│       │       │       │           └── span
+│       │       │       ├── section#sitesGrid.grid
+│       │       │       ├── div#loadingState.state-panel
+│       │       │       │   ├── div.spinner
+│       │       │       │   └── p
+│       │       │       ├── div#emptyState.state-panel
+│       │       │       │   ├── svg
+│       │       │       │   │   └── path
+│       │       │       │   ├── p
+│       │       │       │   └── button#emptyStateAdd.btn-ghost
+│       │       │       └── div#errorState.state-panel
+│       │       │           ├── p
+│       │       │           └── button#retryLoad.btn-ghost
+│       │       ├── div#addSiteOverlay.overlay
+│       │       │   └── div.add-panel
+│       │       │       ├── div.add-panel-head
+│       │       │       │   ├── div
+│       │       │       │   │   ├── span.eyebrow
+│       │       │       │   │   └── h2
+│       │       │       │   └── button#closeAddSite.close-btn
+│       │       │       └── form#addSiteForm.add-form
+│       │       │           ├── label
+│       │       │           │   ├── span
+│       │       │           │   └── input
+│       │       │           ├── div.form-row
+│       │       │           │   ├── label
+│       │       │           │   │   ├── span
+│       │       │           │   │   └── input
+│       │       │           │   └── label
+│       │       │           │       ├── span
+│       │       │           │       └── select
+│       │       │           │           ├── option
+│       │       │           │           ├── option
+│       │       │           │           ├── option
+│       │       │           │           ├── option
+│       │       │           │           ├── option
+│       │       │           │           ├── option
+│       │       │           │           └── option
+│       │       │           ├── label
+│       │       │           │   ├── span
+│       │       │           │   └── input
+│       │       │           ├── label
+│       │       │           │   ├── span
+│       │       │           │   └── textarea
+│       │       │           ├── div.form-section-label
+│       │       │           ├── div.form-row.form-row-3
+│       │       │           │   ├── label
+│       │       │           │   │   ├── span
+│       │       │           │   │   └── select
+│       │       │           │   │       ├── option
+│       │       │           │   │       ├── option
+│       │       │           │   │       └── option
+│       │       │           │   ├── label
+│       │       │           │   │   ├── span
+│       │       │           │   │   └── select
+│       │       │           │   │       ├── option
+│       │       │           │   │       ├── option
+│       │       │           │   │       └── option
+│       │       │           │   └── label
+│       │       │           │       ├── span
+│       │       │           │       └── input
+│       │       │           ├── p#addSiteError.form-error
+│       │       │           └── div.form-actions
+│       │       │               ├── button#cancelAddSite.btn-ghost
+│       │       │               └── button.btn-solid
+│       │       ├── template#cardTemplate
+│       │       │   └── article.card
+│       │       │       ├── div.card-media
+│       │       │       │   ├── img
+│       │       │       │   ├── span.card-number
+│       │       │       │   └── span.card-category
+│       │       │       └── div.card-body
+│       │       │           ├── h3.card-title
+│       │       │           ├── p.card-location
+│       │       │           │   ├── svg
+│       │       │           │   │   ├── path
+│       │       │           │   │   └── circle
+│       │       │           │   └── span
+│       │       │           ├── p.card-desc
+│       │       │           ├── div.card-tags
+│       │       │           │   ├── span.tag.tag-difficulte
+│       │       │           │   ├── span.tag.tag-danger
+│       │       │           │   └── span.tag.tag-prix
+│       │       │           └── div.card-foot
+│       │       │               ├── button.rating
+│       │       │               │   ├── svg
+│       │       │               │   │   └── path
+│       │       │               │   └── span.rating-value
+│       │       │               └── span.card-author
+│       │       ├── script
+│       │       └── script
+├── src/
+│   ├── controllers/
+│   │   ├── authController.js
+│   │   ├── itineraireController.js
+│   │   │   ├── function resolvePoint(value)
+│   │   ├── sites-detailsController.js
+│   │   │   ├── function parseSiteId(value)
+│   │   │   ├── function getSiteVideo(req, res)
+│   │   │   ├── function getSiteDetails(req, res)
+│   │   ├── sitesController.js
+│   │   │   ├── function findImageForSite(title, location)
+│   │   │   ├── function findCoordinatesForLocation(location)
+│   │   │   ├── function toFrontendSite(row)
+│   │   │   ├── function normalizedMedia(Array.isArray(media) ? media : [...imageMedia, ...videoMedia])
+    .map((entry, index)
+│   │   └── userController.js
+│   │       ├── function preferences(()
+│   ├── db/
+│   │   ├── database/
+│   │   │   ├── assets/
+│   │   │   │   ├── images/
+│   │   │   │   │   ├── cliniques/
+│   │   │   │   │   │   └── .gitkeep
+│   │   │   │   │   ├── hopitaux/
+│   │   │   │   │   │   └── .gitkeep
+│   │   │   │   │   ├── hotels/
+│   │   │   │   │   │   └── .gitkeep
+│   │   │   │   │   ├── pharmacies/
+│   │   │   │   │   │   └── .gitkeep
+│   │   │   │   │   ├── restaurants/
+│   │   │   │   │   │   └── .gitkeep
+│   │   │   │   │   └── sites/
+│   │   │   │   │       └── .gitkeep
+│   │   │   │   └── videos/
+│   │   │   │       └── sites/
+│   │   │   │           └── .gitkeep
+│   │   │   ├── lieux/
+│   │   │   │   ├── cliniques/
+│   │   │   │   │   ├── .gitkeep
+│   │   │   │   │   ├── action-sante-developpement-n7165847712.json
+│   │   │   │   │   ├── african-genesic-health-center-w192815270.json
+│   │   │   │   │   ├── alhysca-n6337722735.json
+│   │   │   │   │   ├── alliance-divine-n7166747876.json
+│   │   │   │   │   ├── apsad-n7165839652.json
+│   │   │   │   │   ├── association-camerounaise-pour-la-sauvegarde-de-la-sante-du-d-w192832487.json
+│   │   │   │   │   ├── association-des-conseils-et-economie-social-et-familliale-au-w193961084.json
+│   │   │   │   │   ├── atelier-ethnbotanique-pr-noumi-n11752410128.json
+│   │   │   │   │   ├── avicenne-n7165983530.json
+│   │   │   │   │   ├── baden-dental-care-n13577920710.json
+│   │   │   │   │   ├── bb-diagnostics-n7165998327.json
+│   │   │   │   │   ├── cabinet-de-depistage-n7166058122.json
+│   │   │   │   │   ├── cabinet-de-kinesietherapie-sante-espoir-n7229970934.json
+│   │   │   │   │   ├── cabinet-de-medecine-chinoise-w193560558.json
+│   │   │   │   │   ├── cabinet-de-soin-au-coeur-uni-n7153482081.json
+│   │   │   │   │   ├── cabinet-de-soins-bon-secours-plus-w192844469.json
+│   │   │   │   │   ├── cabinet-de-soins-buccodentaire-n13881868875.json
+│   │   │   │   │   ├── cabinet-de-soins-cinsol-n2263245273.json
+│   │   │   │   │   ├── cabinet-de-soins-de-l-humanite-w192861066.json
+│   │   │   │   │   ├── cabinet-de-soins-de-sante-a-c-s-a-s-n7165897245.json
+│   │   │   │   │   ├── cabinet-de-soins-espoir-sante-vie-n7166799775.json
+│   │   │   │   │   ├── cabinet-de-soins-jehovat-jire-n7165854971.json
+│   │   │   │   │   ├── cabinet-de-soins-la-main-saine-w512316086.json
+│   │   │   │   │   ├── cabinet-de-soins-la-rose-w756558279.json
+│   │   │   │   │   ├── cabinet-de-soins-la-trinite-n13276294271.json
+│   │   │   │   │   ├── cabinet-de-soins-n13272036231.json
+│   │   │   │   │   ├── cabinet-de-soins-orl-oto-rhino-laryngologie-w221409784.json
+│   │   │   │   │   ├── cabinet-de-soins-pere-et-fils-n11483020370.json
+│   │   │   │   │   ├── cabinet-de-soins-saint-josue-n13276294293.json
+│   │   │   │   │   ├── cabinet-de-soins-saint-raphael-w191645430.json
+│   │   │   │   │   ├── cabinet-de-soins-sainte-rita-n13276294287.json
+│   │   │   │   │   ├── cabinet-de-soins-santa-teresa-w219203271.json
+│   │   │   │   │   ├── cabinet-de-soins-w193588807.json
+│   │   │   │   │   ├── cabinet-de-suivi-medical-imee-bernadette-n13272319575.json
+│   │   │   │   │   ├── cabinet-dentaire-effila-ebe-n5310402832.json
+│   │   │   │   │   ├── cabinet-dentaire-epc-w219466460.json
+│   │   │   │   │   ├── cabinet-dentaire-masulamite-n7162136068.json
+│   │   │   │   │   ├── cabinet-dentaire-n6316023391.json
+│   │   │   │   │   ├── cabinet-dentaire-n7165700316.json
+│   │   │   │   │   ├── cabinet-dentaire-n7230058319.json
+│   │   │   │   │   ├── cabinet-dentaire-the-queen-n7163382839.json
+│   │   │   │   │   ├── cabinet-dentaire-w193508948.json
+│   │   │   │   │   ├── cabinet-des-soins-des-professionnels-sans-frontieres-w192843875.json
+│   │   │   │   │   ├── cabinet-des-soins-les-delices-n4362565208.json
+│   │   │   │   │   ├── cabinet-des-soins-w193510044.json
+│   │   │   │   │   ├── cabinet-dr-tokam-n6337768109.json
+│   │   │   │   │   ├── cabinet-medical-dilma-n7166045007.json
+│   │   │   │   │   ├── cabinet-medical-dr-timma-w217004473.json
+│   │   │   │   │   ├── cabinet-medical-du-centre-n6337778044.json
+│   │   │   │   │   ├── cabinet-medical-ebana-mballa-n11384443823.json
+│   │   │   │   │   ├── cabinet-medical-la-gloire-n7230006182.json
+│   │   │   │   │   ├── cabinet-medical-la-vision-w192866789.json
+│   │   │   │   │   ├── cabinet-medical-le-samaritain-n13276294281.json
+│   │   │   │   │   ├── cabinet-medical-luceole-n7153605071.json
+│   │   │   │   │   ├── cabinet-medical-n6310583440.json
+│   │   │   │   │   ├── cabinet-medical-n6315935387.json
+│   │   │   │   │   ├── cabinet-medicale-saint-chretien-plus-n7230032188.json
+│   │   │   │   │   ├── cabinet-medico-sanitaire-la-voix-du-seigneur-m-appelle-n7166624253.json
+│   │   │   │   │   ├── cabinet-n6337753957.json
+│   │   │   │   │   ├── cabinet-veterinaire-univet-sarl-n13272319565.json
+│   │   │   │   │   ├── cabinets-de-soins-teffeu-n7153501911.json
+│   │   │   │   │   ├── caninet-dentaire-malcom-x-n2558754859.json
+│   │   │   │   │   ├── cap-sante-centre-medico-chirurgical-n7166000697.json
+│   │   │   │   │   ├── casesco-n7166052663.json
+│   │   │   │   │   ├── cemrio-n7166043515.json
+│   │   │   │   │   ├── cente-de-sante-mere-et-enfants-n13272044791.json
+│   │   │   │   │   ├── cente-de-sante-n13272044775.json
+│   │   │   │   │   ├── centee-de-sante-god-s-will-n7166814055.json
+│   │   │   │   │   ├── centre-d-imagerie-medicale-w192857898.json
+│   │   │   │   │   ├── centre-de-chirurchie-et-genycologie-n7230072527.json
+│   │   │   │   │   ├── centre-de-medicine-chinoise-w192775546.json
+│   │   │   │   │   ├── centre-de-naturopathe-n7153477360.json
+│   │   │   │   │   ├── centre-de-recherche-sur-les-filarioses-et-autres-maladies-tr-n7166000696.json
+│   │   │   │   │   ├── centre-de-sante-ambulatoire-w192825842.json
+│   │   │   │   │   ├── centre-de-sante-ambulatoire-w192876603.json
+│   │   │   │   │   ├── centre-de-sante-ange-raphael-n11386372004.json
+│   │   │   │   │   ├── centre-de-sante-apsad-n7165861248.json
+│   │   │   │   │   ├── centre-de-sante-bethesda-w192695416.json
+│   │   │   │   │   ├── centre-de-sante-catholique-d-okoa-n13272319595.json
+│   │   │   │   │   ├── centre-de-sante-catholique-de-n6337770013.json
+│   │   │   │   │   ├── centre-de-sante-catholique-nicolas-barre-w191248665.json
+│   │   │   │   │   ├── centre-de-sante-catholique-w193530818.json
+│   │   │   │   │   ├── centre-de-sante-christophe-n13272319563.json
+│   │   │   │   │   ├── centre-de-sante-coeur-d-ange-n13272319572.json
+│   │   │   │   │   ├── centre-de-sante-communal-w192837976.json
+│   │   │   │   │   ├── centre-de-sante-communal-w193518106.json
+│   │   │   │   │   ├── centre-de-sante-communautaire-de-ngousso-n7165855640.json
+│   │   │   │   │   ├── centre-de-sante-communautaire-w193530963.json
+│   │   │   │   │   ├── centre-de-sante-de-base-w192842191.json
+│   │   │   │   │   ├── centre-de-sante-de-district-de-mbankomo-w211356164.json
+│   │   │   │   │   ├── centre-de-sante-de-konabeng-w785842110.json
+│   │   │   │   │   ├── centre-de-sante-de-madagascar-n3678512661.json
+│   │   │   │   │   ├── centre-de-sante-de-mbansang-i-soa-n13276294284.json
+│   │   │   │   │   ├── centre-de-sante-de-ngoya-i-w786136255.json
+│   │   │   │   │   ├── centre-de-sante-de-sainte-pancrace-n7165865757.json
+│   │   │   │   │   ├── centre-de-sante-developpe-w192838105.json
+│   │   │   │   │   ├── centre-de-sante-don-de-guerison-n7166812917.json
+│   │   │   │   │   ├── centre-de-sante-du-bien-etre-n13276294288.json
+│   │   │   │   │   ├── centre-de-sante-dynamique-verte-n13272056301.json
+│   │   │   │   │   ├── centre-de-sante-el-shama-d-akak-n13272044782.json
+│   │   │   │   │   ├── centre-de-sante-et-formation-ave-maria-de-leboudi-i-n1067272364.json
+│   │   │   │   │   ├── centre-de-sante-et-vie-n13272044792.json
+│   │   │   │   │   ├── centre-de-sante-fortune-divine-n13272319580.json
+│   │   │   │   │   ├── centre-de-sante-gabriel-n13272056304.json
+│   │   │   │   │   ├── centre-de-sante-gisaprof-w191805242.json
+│   │   │   │   │   ├── centre-de-sante-hoch-n7163416455.json
+│   │   │   │   │   ├── centre-de-sante-integre-d-abom-n13276294280.json
+│   │   │   │   │   ├── centre-de-sante-integre-d-ebang-i-n13272044781.json
+│   │   │   │   │   ├── centre-de-sante-integre-de-koulou-n13272036230.json
+│   │   │   │   │   ├── centre-de-sante-integre-de-lebot-w786136257.json
+│   │   │   │   │   ├── centre-de-sante-integre-de-mvoua-w785842109.json
+│   │   │   │   │   ├── centre-de-sante-integre-de-nkolbisson-w192800564.json
+│   │   │   │   │   ├── centre-de-sante-integre-de-nkoldjobe-w786136260.json
+│   │   │   │   │   ├── centre-de-sante-integre-de-ntouessong-i-w193599902.json
+│   │   │   │   │   ├── centre-de-sante-integre-de-ntuesson-n13271993910.json
+│   │   │   │   │   ├── centre-de-sante-integre-de-ntuissong-n1067289748.json
+│   │   │   │   │   ├── centre-de-sante-integre-de-ntuissong-w786136261.json
+│   │   │   │   │   ├── centre-de-sante-integre-de-tikong-w264163834.json
+│   │   │   │   │   ├── centre-de-sante-integre-de-yegassi-w786136256.json
+│   │   │   │   │   ├── centre-de-sante-integre-el-rapha-n13272319597.json
+│   │   │   │   │   ├── centre-de-sante-integre-moise-elisabeth-n5161969332.json
+│   │   │   │   │   ├── centre-de-sante-integre-n13272044799.json
+│   │   │   │   │   ├── centre-de-sante-integre-saint-maurice-n7163428860.json
+│   │   │   │   │   ├── centre-de-sante-integre-sainte-marie-n5161979851.json
+│   │   │   │   │   ├── centre-de-sante-integre-w192828672.json
+│   │   │   │   │   ├── centre-de-sante-integre-w193588058.json
+│   │   │   │   │   ├── centre-de-sante-integree-de-ngali-2-n13272036234.json
+│   │   │   │   │   ├── centre-de-sante-intergre-de-song-onana-w785842111.json
+│   │   │   │   │   ├── centre-de-sante-irad-n7148852628.json
+│   │   │   │   │   ├── centre-de-sante-joie-de-vivre-n12237672014.json
+│   │   │   │   │   ├── centre-de-sante-joie-de-vivre-n13272319578.json
+│   │   │   │   │   ├── centre-de-sante-josepha-n7165895334.json
+│   │   │   │   │   ├── centre-de-sante-la-foi-n13272044788.json
+│   │   │   │   │   ├── centre-de-sante-la-gloire-de-dieu-n7163412436.json
+│   │   │   │   │   ├── centre-de-sante-la-grace-de-dieu-w191632455.json
+│   │   │   │   │   ├── centre-de-sante-la-grace-n13272044784.json
+│   │   │   │   │   ├── centre-de-sante-la-grece-divine-n13272044793.json
+│   │   │   │   │   ├── centre-de-sante-la-grece-n13276294283.json
+│   │   │   │   │   ├── centre-de-sante-la-paix-n7165846995.json
+│   │   │   │   │   ├── centre-de-sante-la-patience-n7230011827.json
+│   │   │   │   │   ├── centre-de-sante-la-perfection-w192738221.json
+│   │   │   │   │   ├── centre-de-sante-la-protection-n13276294274.json
+│   │   │   │   │   ├── centre-de-sante-la-protection-w192690792.json
+│   │   │   │   │   ├── centre-de-sante-la-providence-de-meyos-n13272111974.json
+│   │   │   │   │   ├── centre-de-sante-la-providence-n7229970680.json
+│   │   │   │   │   ├── centre-de-sante-la-reference-n13272044789.json
+│   │   │   │   │   ├── centre-de-sante-la-reference-n13276294290.json
+│   │   │   │   │   ├── centre-de-sante-la-reference-n7165822166.json
+│   │   │   │   │   ├── centre-de-sante-la-roche-n7166751943.json
+│   │   │   │   │   ├── centre-de-sante-la-trinite-n13272044794.json
+│   │   │   │   │   ├── centre-de-sante-la-vie-n7148818875.json
+│   │   │   │   │   ├── centre-de-sante-lap-w293073430.json
+│   │   │   │   │   ├── centre-de-sante-le-bistouri-w192730885.json
+│   │   │   │   │   ├── centre-de-sante-le-cenacle-n13272319599.json
+│   │   │   │   │   ├── centre-de-sante-le-divin-n7165883561.json
+│   │   │   │   │   ├── centre-de-sante-le-polyvalent-w192857169.json
+│   │   │   │   │   ├── centre-de-sante-le-polyvalent-w217006245.json
+│   │   │   │   │   ├── centre-de-sante-le-premier-secours-n7165843261.json
+│   │   │   │   │   ├── centre-de-sante-le-rocher-n13272319568.json
+│   │   │   │   │   ├── centre-de-sante-les-benedictins-de-st-jacques-n13272319584.json
+│   │   │   │   │   ├── centre-de-sante-les-experts-de-soa-n13272319598.json
+│   │   │   │   │   ├── centre-de-sante-les-mains-d-ange-n13272044798.json
+│   │   │   │   │   ├── centre-de-sante-les-merveilles-de-dieu-n13276294286.json
+│   │   │   │   │   ├── centre-de-sante-les-merveilles-de-fovu-n13276294279.json
+│   │   │   │   │   ├── centre-de-sante-les-merveilles-w609716780.json
+│   │   │   │   │   ├── centre-de-sante-les-pelercus-w192731951.json
+│   │   │   │   │   ├── centre-de-sante-lumiere-w192860947.json
+│   │   │   │   │   ├── centre-de-sante-main-douce-nhuka-n7163250219.json
+│   │   │   │   │   ├── centre-de-sante-maman-diana-w192877588.json
+│   │   │   │   │   ├── centre-de-sante-marie-anderson-n7148838202.json
+│   │   │   │   │   ├── centre-de-sante-mere-suzanne-plus-n13272036235.json
+│   │   │   │   │   ├── centre-de-sante-michelle-gracia-n13272319581.json
+│   │   │   │   │   ├── centre-de-sante-misericorde-divine-n13272044780.json
+│   │   │   │   │   ├── centre-de-sante-mission-catholique-de-nkoabang-n3623012693.json
+│   │   │   │   │   ├── centre-de-sante-monique-n13272044777.json
+│   │   │   │   │   ├── centre-de-sante-n13272044785.json
+│   │   │   │   │   ├── centre-de-sante-n13272319570.json
+│   │   │   │   │   ├── centre-de-sante-n13272319574.json
+│   │   │   │   │   ├── centre-de-sante-n13272319577.json
+│   │   │   │   │   ├── centre-de-sante-n13272319590.json
+│   │   │   │   │   ├── centre-de-sante-n13272319591.json
+│   │   │   │   │   ├── centre-de-sante-n13276294282.json
+│   │   │   │   │   ├── centre-de-sante-n13276294292.json
+│   │   │   │   │   ├── centre-de-sante-n6316081603.json
+│   │   │   │   │   ├── centre-de-sante-oyoma-bang-n4347378590.json
+│   │   │   │   │   ├── centre-de-sante-pilote-social-odzon-w192783696.json
+│   │   │   │   │   ├── centre-de-sante-polyvalent-n13272319561.json
+│   │   │   │   │   ├── centre-de-sante-providence-n7165857943.json
+│   │   │   │   │   ├── centre-de-sante-qhu-centre-medico-social-quality-heathcare-u-w192729588.json
+│   │   │   │   │   ├── centre-de-sante-rita-w193558948.json
+│   │   │   │   │   ├── centre-de-sante-saint-emmanuel-n13272056303.json
+│   │   │   │   │   ├── centre-de-sante-saint-etienne-w217002872.json
+│   │   │   │   │   ├── centre-de-sante-saint-gedeon-n13276294294.json
+│   │   │   │   │   ├── centre-de-sante-saint-jean-n13272044796.json
+│   │   │   │   │   ├── centre-de-sante-saint-joseph-d-akak-n13272044800.json
+│   │   │   │   │   ├── centre-de-sante-saint-joseph-n7148852719.json
+│   │   │   │   │   ├── centre-de-sante-saint-martin-d-etetak-abobo-n7148836611.json
+│   │   │   │   │   ├── centre-de-sante-saint-mary-bliss-n13276294273.json
+│   │   │   │   │   ├── centre-de-sante-saint-raphael-n7229936372.json
+│   │   │   │   │   ├── centre-de-sante-sainte-marie-de-nkamoetou-i-n13272036232.json
+│   │   │   │   │   ├── centre-de-sante-sainte-marie-mere-de-dieu-n4470403360.json
+│   │   │   │   │   ├── centre-de-sante-sainte-mere-theresa-n13272111975.json
+│   │   │   │   │   ├── centre-de-sante-sainte-monique-n7165854544.json
+│   │   │   │   │   ├── centre-de-sante-sainte-nathanaelle-n13276294278.json
+│   │   │   │   │   ├── centre-de-sante-sainte-therese-de-l-enfant-jesus-hopital-sai-w192824506.json
+│   │   │   │   │   ├── centre-de-sante-sante-pour-tous-n7165843697.json
+│   │   │   │   │   ├── centre-de-sante-shlam-humanitarian-center-for-global-service-w217735026.json
+│   │   │   │   │   ├── centre-de-sante-st-gok-pierre-n7163299118.json
+│   │   │   │   │   ├── centre-de-sante-st-joseph-n7163309319.json
+│   │   │   │   │   ├── centre-de-sante-sylvain-n13272044783.json
+│   │   │   │   │   ├── centre-de-sante-tehak-helen-w192694969.json
+│   │   │   │   │   ├── centre-de-sante-ubuntu-n13272044786.json
+│   │   │   │   │   ├── centre-de-sante-univers-n13272036233.json
+│   │   │   │   │   ├── centre-de-sante-w191804765.json
+│   │   │   │   │   ├── centre-de-sante-w192812170.json
+│   │   │   │   │   ├── centre-de-sante-w192812980.json
+│   │   │   │   │   ├── centre-de-sante-w192820018.json
+│   │   │   │   │   ├── centre-de-sante-w192820323.json
+│   │   │   │   │   ├── centre-de-sante-w192827303.json
+│   │   │   │   │   ├── centre-de-sante-w192828135.json
+│   │   │   │   │   ├── centre-de-sante-w192831506.json
+│   │   │   │   │   ├── centre-de-sante-w192832060.json
+│   │   │   │   │   ├── centre-de-sante-w192832898.json
+│   │   │   │   │   ├── centre-de-sante-w192833008.json
+│   │   │   │   │   ├── centre-de-sante-w192838186.json
+│   │   │   │   │   ├── centre-de-sante-w192841754.json
+│   │   │   │   │   ├── centre-de-sante-w192842478.json
+│   │   │   │   │   ├── centre-de-sante-w192842780.json
+│   │   │   │   │   ├── centre-de-sante-w192844498.json
+│   │   │   │   │   ├── centre-de-sante-w192844536.json
+│   │   │   │   │   ├── centre-de-sante-w192845097.json
+│   │   │   │   │   ├── centre-de-sante-w192851834.json
+│   │   │   │   │   ├── centre-de-sante-w192852715.json
+│   │   │   │   │   ├── centre-de-sante-w192857883.json
+│   │   │   │   │   ├── centre-de-sante-w192865248.json
+│   │   │   │   │   ├── centre-de-sante-w192866709.json
+│   │   │   │   │   ├── centre-de-sante-w192868646.json
+│   │   │   │   │   ├── centre-de-sante-w192870461.json
+│   │   │   │   │   ├── centre-de-sante-w192870558.json
+│   │   │   │   │   ├── centre-de-sante-w192871971.json
+│   │   │   │   │   ├── centre-de-sante-w192875003.json
+│   │   │   │   │   ├── centre-de-sante-w192875057.json
+│   │   │   │   │   ├── centre-de-sante-w192876114.json
+│   │   │   │   │   ├── centre-de-sante-w192877443.json
+│   │   │   │   │   ├── centre-de-sante-w192881054.json
+│   │   │   │   │   ├── centre-de-sante-w193506850.json
+│   │   │   │   │   ├── centre-de-sante-w193507807.json
+│   │   │   │   │   ├── centre-de-sante-w193509783.json
+│   │   │   │   │   ├── centre-de-sante-w193525536.json
+│   │   │   │   │   ├── centre-de-sante-w193526000.json
+│   │   │   │   │   ├── centre-de-sante-w193527474.json
+│   │   │   │   │   ├── centre-de-sante-w193529035.json
+│   │   │   │   │   ├── centre-de-sante-w193535121.json
+│   │   │   │   │   ├── centre-de-sante-w193535753.json
+│   │   │   │   │   ├── centre-de-sante-w193535843.json
+│   │   │   │   │   ├── centre-de-sante-w193555859.json
+│   │   │   │   │   ├── centre-de-sante-w193559909.json
+│   │   │   │   │   ├── centre-de-sante-w193566505.json
+│   │   │   │   │   ├── centre-de-sante-w193567080.json
+│   │   │   │   │   ├── centre-de-sante-w193577825.json
+│   │   │   │   │   ├── centre-de-sante-w193591660.json
+│   │   │   │   │   ├── centre-de-sante-w204120199.json
+│   │   │   │   │   ├── centre-de-soin-betta-health-n13272044790.json
+│   │   │   │   │   ├── centre-de-soin-medicaux-aux-enfants-vulnerables-et-desherite-w211356165.json
+│   │   │   │   │   ├── centre-de-soins-hospitalier-source-de-core-n7165865997.json
+│   │   │   │   │   ├── centre-de-soins-specialises-ste-germaine-n7153477358.json
+│   │   │   │   │   ├── centre-de-therapie-du-langage-orthophonie-logopedie-n7166050930.json
+│   │   │   │   │   ├── centre-de-vaccinations-internationales-de-yaounde-n5777072967.json
+│   │   │   │   │   ├── centre-e-de-sa-te-godwill-n13276294285.json
+│   │   │   │   │   ├── centre-hospitalier-caroline-n7281741986.json
+│   │   │   │   │   ├── centre-hospitalier-chirugical-maloine-sarl-w192878801.json
+│   │   │   │   │   ├── centre-hospitalier-mere-enfant-deo-gratias-w860642766.json
+│   │   │   │   │   ├── centre-hospitalier-pediatrique-et-gynecologique-nina-n5864861885.json
+│   │   │   │   │   ├── centre-medica-l-w192878824.json
+│   │   │   │   │   ├── centre-medical-ange-david-n7165887201.json
+│   │   │   │   │   ├── centre-medical-ashyvic-n7163229397.json
+│   │   │   │   │   ├── centre-medical-assiste-w193527428.json
+│   │   │   │   │   ├── centre-medical-au-bois-d-amour-n7165983529.json
+│   │   │   │   │   ├── centre-medical-care-first-n13272319573.json
+│   │   │   │   │   ├── centre-medical-d-arrondissement-d-oyom-abam-w757668295.json
+│   │   │   │   │   ├── centre-medical-d-arrondissement-de-nkomo-w191248672.json
+│   │   │   │   │   ├── centre-medical-d-arrondissement-etoa-w219157314.json
+│   │   │   │   │   ├── centre-medical-d-arrondissement-w193574953.json
+│   │   │   │   │   ├── centre-medical-d-arrondissement-yaounde-i-olembe-w219203270.json
+│   │   │   │   │   ├── centre-medical-de-l-hippodrome-n6314455450.json
+│   │   │   │   │   ├── centre-medical-de-la-brigade-du-quartier-general-w192852783.json
+│   │   │   │   │   ├── centre-medical-de-la-camnafaw-de-soa-n13272319576.json
+│   │   │   │   │   ├── centre-medical-de-sante-w192775406.json
+│   │   │   │   │   ├── centre-medical-elisabeth-n6337766791.json
+│   │   │   │   │   ├── centre-medical-espoir-solidarite-n7165964350.json
+│   │   │   │   │   ├── centre-medical-fm-sante-w192798350.json
+│   │   │   │   │   ├── centre-medical-la-cathedrale-w219203274.json
+│   │   │   │   │   ├── centre-medical-la-fraternite-w192735298.json
+│   │   │   │   │   ├── centre-medical-la-grece-divine-n13276294277.json
+│   │   │   │   │   ├── centre-medical-lamat-centre-cadio-vasculaire-n7166043517.json
+│   │   │   │   │   ├── centre-medical-le-jourdain-w222098966.json
+│   │   │   │   │   ├── centre-medical-mere-enfants-anaco-n7230053894.json
+│   │   │   │   │   ├── centre-medical-misericorde-divine-n11745911053.json
+│   │   │   │   │   ├── centre-medical-prive-islamique-w192813194.json
+│   │   │   │   │   ├── centre-medical-saint-esprit-w192799894.json
+│   │   │   │   │   ├── centre-medical-saint-luc-de-ngousso-n7165996431.json
+│   │   │   │   │   ├── centre-medical-saint-robert-n13272319567.json
+│   │   │   │   │   ├── centre-medical-sainte-bernadette-n7163338070.json
+│   │   │   │   │   ├── centre-medical-sainte-helene-n13272044778.json
+│   │   │   │   │   ├── centre-medical-sainte-victoire-n7165860155.json
+│   │   │   │   │   ├── centre-medical-sainte-victoire-n7166621918.json
+│   │   │   │   │   ├── centre-medical-social-w192782803.json
+│   │   │   │   │   ├── centre-medical-ste-veronique-w222102550.json
+│   │   │   │   │   ├── centre-medical-w192831590.json
+│   │   │   │   │   ├── centre-medical-w192840355.json
+│   │   │   │   │   ├── centre-medical-w192875449.json
+│   │   │   │   │   ├── centre-medicale-sainte-mathilde-n7230080168.json
+│   │   │   │   │   ├── centre-medicall-st-alexandre-w516136199.json
+│   │   │   │   │   ├── centre-medico-chirurgical-d-essos-n7165700314.json
+│   │   │   │   │   ├── centre-medico-chirurgical-de-l-espoir-n7165682017.json
+│   │   │   │   │   ├── centre-medico-chirurgical-queen-mary-n12441687901.json
+│   │   │   │   │   ├── centre-medico-sanitaire-de-l-espoir-n7163395313.json
+│   │   │   │   │   ├── centre-medico-social-w192841434.json
+│   │   │   │   │   ├── centre-medico-social-w192876728.json
+│   │   │   │   │   ├── centre-national-d-optometrie-n11455140751.json
+│   │   │   │   │   ├── centre-neurologique-et-medical-w193510991.json
+│   │   │   │   │   ├── centre-nutritionnel-w219988752.json
+│   │   │   │   │   ├── centre-sante-de-nomayos-1-w354338125.json
+│   │   │   │   │   ├── centre-sante-w192816584.json
+│   │   │   │   │   ├── centre-se-sante-grace-divine-n7165888460.json
+│   │   │   │   │   ├── citee-des-anges-n7163399807.json
+│   │   │   │   │   ├── clinic-saint-luc-n13785238982.json
+│   │   │   │   │   ├── clinique-catholique-sainte-marie-de-soa-n13272319562.json
+│   │   │   │   │   ├── clinique-de-bastos-w193965746.json
+│   │   │   │   │   ├── clinique-de-l-espoir-n5596176330.json
+│   │   │   │   │   ├── clinique-de-l-espoir-n7165700317.json
+│   │   │   │   │   ├── clinique-doh-s-diagnostic-n7230091398.json
+│   │   │   │   │   ├── clinique-du-6eme-bonheur-n7165640044.json
+│   │   │   │   │   ├── clinique-dutrelle-n7165838224.json
+│   │   │   │   │   ├── clinique-et-maternite-w192821580.json
+│   │   │   │   │   ├── clinique-hope-house-n7163267836.json
+│   │   │   │   │   ├── clinique-la-fortune-divine-n13272319589.json
+│   │   │   │   │   ├── clinique-la-passerelle-w435395800.json
+│   │   │   │   │   ├── clinique-la-sante-les-3-phoenix-n13272319585.json
+│   │   │   │   │   ├── clinique-medicale-enfants-malades-n7165664871.json
+│   │   │   │   │   ├── clinique-medicale-pierre-julien-n13276294289.json
+│   │   │   │   │   ├── clinique-medico-chirurgicale-sainte-marie-w219203273.json
+│   │   │   │   │   ├── clinique-saint-francois-n13272044795.json
+│   │   │   │   │   ├── clinique-sainte-cecile-w192842567.json
+│   │   │   │   │   ├── clinique-sainte-maithe-n6315935395.json
+│   │   │   │   │   ├── clinique-sainte-therese-d-etoudi-w191994336.json
+│   │   │   │   │   ├── clinique-st-joseph-cancer-center-n7166000698.json
+│   │   │   │   │   ├── clinique-traditionnelle-w193598250.json
+│   │   │   │   │   ├── clinique-veterinaire-de-ngousso-n7165996429.json
+│   │   │   │   │   ├── clinique-veterinaire-n6337677572.json
+│   │   │   │   │   ├── clinique-w192881376.json
+│   │   │   │   │   ├── clinique-zos-du-dr-obiang-w292842064.json
+│   │   │   │   │   ├── clinique-zos-n13272319596.json
+│   │   │   │   │   ├── complexe-aide-sante-w191632397.json
+│   │   │   │   │   ├── complexe-medico-chirurgical-n5479521721.json
+│   │   │   │   │   ├── dentiste-n6316081608.json
+│   │   │   │   │   ├── dentiste-w192813068.json
+│   │   │   │   │   ├── dispensaire-d-etoudi-w191994504.json
+│   │   │   │   │   ├── dispensaire-de-l-onu-n6337757203.json
+│   │   │   │   │   ├── dispensaire-de-mimboman-w219203275.json
+│   │   │   │   │   ├── dispensaire-maternite-w204121310.json
+│   │   │   │   │   ├── dispensaire-mvog-ada-n6310687640.json
+│   │   │   │   │   ├── dispensaire-w192692754.json
+│   │   │   │   │   ├── dispensaire-w193504167.json
+│   │   │   │   │   ├── dispensaire-w193530510.json
+│   │   │   │   │   ├── dispensaire-w222859466.json
+│   │   │   │   │   ├── district-de-sante-de-nkolbisson-n7150573780.json
+│   │   │   │   │   ├── djamtabo-n7166741483.json
+│   │   │   │   │   ├── docteur-edu-n9111838417.json
+│   │   │   │   │   ├── dr-billy-w603456504.json
+│   │   │   │   │   ├── emeraude-optique-n6337778043.json
+│   │   │   │   │   ├── en-elyon-n7165640045.json
+│   │   │   │   │   ├── en-said-n7166788590.json
+│   │   │   │   │   ├── esperance-cabinet-de-lunetterie-n7166050931.json
+│   │   │   │   │   ├── espoir-et-vie-n7165825149.json
+│   │   │   │   │   ├── espoir-et-vie-n7165844905.json
+│   │   │   │   │   ├── espoir-et-vie-n7166605684.json
+│   │   │   │   │   ├── etoug-ebe-baptist-hospital-w221005926.json
+│   │   │   │   │   ├── etoug-ebe-baptist-hospital-w756253076.json
+│   │   │   │   │   ├── exact-laboratoire-consultation-radiographie-echographie-n7166000695.json
+│   │   │   │   │   ├── feel-better-n5775378356.json
+│   │   │   │   │   ├── florence-nightingale-n7150538138.json
+│   │   │   │   │   ├── florence-nightingale-n7150592034.json
+│   │   │   │   │   ├── fohow-international-vip-l-univers-bio-de-votre-sante-n7165966141.json
+│   │   │   │   │   ├── fondation-chantal-biya-centre-et-mere-enfant-w533763947.json
+│   │   │   │   │   ├── fondation-medical-anchel-n7165857944.json
+│   │   │   │   │   ├── fondation-medical-bio-sante-n7165842012.json
+│   │   │   │   │   ├── fondation-medical-saint-raphael-n7165850136.json
+│   │   │   │   │   ├── fondation-medicale-ad-lucem-au-cameroun-n6337690369.json
+│   │   │   │   │   ├── fondation-medicale-ad-lucem-w205659731.json
+│   │   │   │   │   ├── fondation-medicale-bengolo-et-fils-w192821047.json
+│   │   │   │   │   ├── fondation-medicale-de-la-paix-n7165800678.json
+│   │   │   │   │   ├── fondation-medicale-de-la-paix-w219203276.json
+│   │   │   │   │   ├── fondation-medicale-mine-et-da-sylva-n7179451285.json
+│   │   │   │   │   ├── fondation-medicale-saint-clair-n13276294272.json
+│   │   │   │   │   ├── fondation-medicale-saint-raphael-n13272319571.json
+│   │   │   │   │   ├── fondation-mere-martine-w679260488.json
+│   │   │   │   │   ├── fondation-sigba-n7165861106.json
+│   │   │   │   │   ├── frot-n7165700315.json
+│   │   │   │   │   ├── full-bright-n11422827648.json
+│   │   │   │   │   ├── gasi-n7163391027.json
+│   │   │   │   │   ├── gic-de-sante-espoir-w193517452.json
+│   │   │   │   │   ├── gic-sante-la-securite-8-cemest-w192877847.json
+│   │   │   │   │   ├── gic-sante-moko-benis-n7163393385.json
+│   │   │   │   │   ├── gic-sante-n7163407162.json
+│   │   │   │   │   ├── go-for-humanity-n7166756459.json
+│   │   │   │   │   ├── grace-divine-n7166700178.json
+│   │   │   │   │   ├── groupement-d-initiative-commune-sante-w192838263.json
+│   │   │   │   │   ├── gynecologie-w192827671.json
+│   │   │   │   │   ├── hadassah-medical-center-hmc-w193572965.json
+│   │   │   │   │   ├── haward-la-patience-ahead-w192848713.json
+│   │   │   │   │   ├── holly-anna-health-center-n7166804631.json
+│   │   │   │   │   ├── hope-clinic-n5348083228.json
+│   │   │   │   │   ├── hopital-de-district-de-mvog-ada-n7163242975.json
+│   │   │   │   │   ├── hopital-des-soeurs-w217003820.json
+│   │   │   │   │   ├── humanitaire-n7163373365.json
+│   │   │   │   │   ├── iai-infirmerie-w886692366.json
+│   │   │   │   │   ├── innel-n6337722778.json
+│   │   │   │   │   ├── josephina-medical-space-al-technologie-cabinet-medicalise-de-n7165964071.json
+│   │   │   │   │   ├── jproso-plus-n5774855596.json
+│   │   │   │   │   ├── kutenda-medical-n7163357955.json
+│   │   │   │   │   ├── l-espoir-sante-n7163406954.json
+│   │   │   │   │   ├── la-bienfaisance-n7166736348.json
+│   │   │   │   │   ├── la-fraternite-n7166782793.json
+│   │   │   │   │   ├── la-gaiete-n7166767479.json
+│   │   │   │   │   ├── la-gloire-n7166815402.json
+│   │   │   │   │   ├── la-gloire-n8235688402.json
+│   │   │   │   │   ├── la-grace-de-dieu-n7165682019.json
+│   │   │   │   │   ├── la-grace-du-redempteur-n7166793232.json
+│   │   │   │   │   ├── la-main-douce-plus-n7163406522.json
+│   │   │   │   │   ├── la-misericorde-n7166739995.json
+│   │   │   │   │   ├── la-misericorde-n7166740373.json
+│   │   │   │   │   ├── la-paix-des-anges-n7163431628.json
+│   │   │   │   │   ├── la-patience-n5775378357.json
+│   │   │   │   │   ├── la-patience-n7165964070.json
+│   │   │   │   │   ├── la-providence-n7153477359.json
+│   │   │   │   │   ├── la-reference-n12875750203.json
+│   │   │   │   │   ├── la-reference-n7150590215.json
+│   │   │   │   │   ├── la-reference-n7165860052.json
+│   │   │   │   │   ├── la-releve-n7150594676.json
+│   │   │   │   │   ├── la-solidarite-n7165985534.json
+│   │   │   │   │   ├── la-trinite-n7148838024.json
+│   │   │   │   │   ├── la-vertu-n11459806721.json
+│   │   │   │   │   ├── laboratoire-bourgeois-n7166621371.json
+│   │   │   │   │   ├── laboratoire-d-analyse-medicale-du-centre-w410232320.json
+│   │   │   │   │   ├── laboratoire-d-analyse-medicale-n13276294276.json
+│   │   │   │   │   ├── laboratoire-d-analyse-medicales-de-l-ecxellence-n13301683020.json
+│   │   │   │   │   ├── laboratoire-de-sante-hygiene-mobile-n5777072966.json
+│   │   │   │   │   ├── laboratoire-lumen-christ-n5776914152.json
+│   │   │   │   │   ├── laboratoire-moderne-de-reference-n11400083237.json
+│   │   │   │   │   ├── laboratoire-w192869819.json
+│   │   │   │   │   ├── le-bien-etre-de-ngousso-n7166742324.json
+│   │   │   │   │   ├── le-bien-etre-de-nkolmesseng-n7163393978.json
+│   │   │   │   │   ├── le-jourdain-hopital-w193506251.json
+│   │   │   │   │   ├── le-magnificat-n7165858950.json
+│   │   │   │   │   ├── le-toubib-n7165854606.json
+│   │   │   │   │   ├── les-merveilles-de-dieu-n7165868795.json
+│   │   │   │   │   ├── les-merveilles-n7166815918.json
+│   │   │   │   │   ├── les-premiers-secours-de-ngoulmekong-fosapps-n7165893920.json
+│   │   │   │   │   ├── les-promoteurs-de-la-bonne-sante-n13801405081.json
+│   │   │   │   │   ├── lm-st-mary-medical-n5776915796.json
+│   │   │   │   │   ├── longrich-health-wealth-home-n7165996430.json
+│   │   │   │   │   ├── maeva-care-clinique-n7163243947.json
+│   │   │   │   │   ├── magrabi-ico-cameroon-eye-institute-w539239124.json
+│   │   │   │   │   ├── maison-de-la-sante-st-paul-n7163339590.json
+│   │   │   │   │   ├── mal-barr-n7163432402.json
+│   │   │   │   │   ├── maloine-sarl-n7166605683.json
+│   │   │   │   │   ├── maman-diana-n5774855582.json
+│   │   │   │   │   ├── maman-diana-w193517737.json
+│   │   │   │   │   ├── maternite-de-nomayos-1-w354338207.json
+│   │   │   │   │   ├── medical-services-n7166000699.json
+│   │   │   │   │   ├── medicy-n7165682018.json
+│   │   │   │   │   ├── ministere-de-la-sante-publique-n13272319569.json
+│   │   │   │   │   ├── naroge-medical-services-n7166043516.json
+│   │   │   │   │   ├── ngog-lituba-w193517415.json
+│   │   │   │   │   ├── ombessa-n9144291623.json
+│   │   │   │   │   ├── ong-nofowop-cemest-w192857277.json
+│   │   │   │   │   ├── pavillon-ngantaha-n5776915806.json
+│   │   │   │   │   ├── polyclinic-sende-n7165969036.json
+│   │   │   │   │   ├── polyclinique-du-palais-n5824969054.json
+│   │   │   │   │   ├── polyclinique-innov-a-w410014241.json
+│   │   │   │   │   ├── propharmacie-n7166808715.json
+│   │   │   │   │   ├── radiographie-echographie-n7165964072.json
+│   │   │   │   │   ├── renfort-plus-n5774855595.json
+│   │   │   │   │   ├── saint-luc-n4956850721.json
+│   │   │   │   │   ├── sainte-glanie-n7165859579.json
+│   │   │   │   │   ├── sainte-romaine-n7163416424.json
+│   │   │   │   │   ├── sainte-therese-n7163338977.json
+│   │   │   │   │   ├── samaritain-n7166818126.json
+│   │   │   │   │   ├── sapato-w192848196.json
+│   │   │   │   │   ├── serenity-medical-center-n12889045001.json
+│   │   │   │   │   ├── sgi-sarl-vente-de-produits-de-sante-traditionnel-n7165964073.json
+│   │   │   │   │   ├── shalom-n7166803744.json
+│   │   │   │   │   ├── sos-sante-n13272319593.json
+│   │   │   │   │   ├── st-germaine-n7166810543.json
+│   │   │   │   │   ├── st-john-healthy-centre-n13272044776.json
+│   │   │   │   │   ├── st-thomas-n7163386473.json
+│   │   │   │   │   ├── tamoud-n7166805434.json
+│   │   │   │   │   ├── tamoude-n7166808979.json
+│   │   │   │   │   ├── test-1-n7433218785.json
+│   │   │   │   │   ├── virginia-anderson-n7163372057.json
+│   │   │   │   │   ├── vision-care-centre-n13532527902.json
+│   │   │   │   │   ├── wellstar-1-w193961608.json
+│   │   │   │   │   ├── wellstar-medical-center-n6337769557.json
+│   │   │   │   │   ├── zogo-abena-n7166790480.json
+│   │   │   │   │   └── zos-clinic-n13272319564.json
+│   │   │   │   ├── hopitaux/
+│   │   │   │   │   ├── .gitkeep
+│   │   │   │   │   ├── abe-n7171631844.json
+│   │   │   │   │   ├── benoit-menni-w219157313.json
+│   │   │   │   │   ├── cabinet-de-soins-n11411616571.json
+│   │   │   │   │   ├── cabinet-medical-la-rose-w293073197.json
+│   │   │   │   │   ├── cabinet-medical-luceole-w761532083.json
+│   │   │   │   │   ├── camp-yeyap-2-n2284209683.json
+│   │   │   │   │   ├── centre-d-accueil-agojfida-w192860585.json
+│   │   │   │   │   ├── centre-de-la-mere-et-de-l-enfant-w219203272.json
+│   │   │   │   │   ├── centre-de-sante-claudine-echernier-n9780646428.json
+│   │   │   │   │   ├── centre-de-sante-de-district-de-soa-w1116226673.json
+│   │   │   │   │   ├── centre-de-sante-integre-de-mfou-n13514275244.json
+│   │   │   │   │   ├── centre-des-urgences-hopital-central-w533767387.json
+│   │   │   │   │   ├── centre-hospitalier-d-essos-w222060240.json
+│   │   │   │   │   ├── centre-hospitalier-de-recherche-et-d-application-en-chirurgi-w188759112.json
+│   │   │   │   │   ├── centre-hospitalier-dominicain-w192839326.json
+│   │   │   │   │   ├── centre-hospitalier-universitaire-w230560444.json
+│   │   │   │   │   ├── centre-international-de-reference-chantal-biya-w192837934.json
+│   │   │   │   │   ├── centre-medical-d-arrondissement-w192844359.json
+│   │   │   │   │   ├── centre-medical-la-reference-nkolbisson-w192802096.json
+│   │   │   │   │   ├── centre-medico-social-francais-n419588091.json
+│   │   │   │   │   ├── centre-medico-social-la-gloire-w511089968.json
+│   │   │   │   │   ├── centre-medico-social-vermeille-w769366899.json
+│   │   │   │   │   ├── centre-national-de-rehabilitation-des-personnes-handicapees-w219157317.json
+│   │   │   │   │   ├── clinique-st-christine-w222106302.json
+│   │   │   │   │   ├── clinique-ze-meka-w192812391.json
+│   │   │   │   │   ├── cma-de-mvog-ada-n10753137105.json
+│   │   │   │   │   ├── croix-rouge-camerounaise-clinique-w192820765.json
+│   │   │   │   │   ├── croix-rouge-camerounaise-n6308090915.json
+│   │   │   │   │   ├── croix-rouge-camerounaise-w192810183.json
+│   │   │   │   │   ├── de-la-chance-w192734708.json
+│   │   │   │   │   ├── diagnosticis-cameroon-w221017747.json
+│   │   │   │   │   ├── fondation-les-divines-w192798125.json
+│   │   │   │   │   ├── fondation-medecine-d-afrique-w192856501.json
+│   │   │   │   │   ├── fondation-medical-andre-fouda-w763921194.json
+│   │   │   │   │   ├── fondation-medico-chirurgicale-maria-rosa-nsisim-n4883735221.json
+│   │   │   │   │   ├── g-t-labo-w192780695.json
+│   │   │   │   │   ├── garnison-militaire-w192853910.json
+│   │   │   │   │   ├── gic-sante-w219157320.json
+│   │   │   │   │   ├── groupe-medical-saint-hilaire-w192686803.json
+│   │   │   │   │   ├── groupement-d-initiative-commune-sante-w192841273.json
+│   │   │   │   │   ├── groupement-d-initiative-commune-sante-w193535179.json
+│   │   │   │   │   ├── groupement-d-investissement-communautaire-sante-le-sonline-w219203277.json
+│   │   │   │   │   ├── gt-labo-n5695789322.json
+│   │   │   │   │   ├── hcnps-n11933010810.json
+│   │   │   │   │   ├── hopital-bethesda-w192778053.json
+│   │   │   │   │   ├── hopital-catholique-deo-gratias-afrique-future-w219203280.json
+│   │   │   │   │   ├── hopital-central-de-yaounde-w215363594.json
+│   │   │   │   │   ├── hopital-de-discrit-de-soa-n13272319586.json
+│   │   │   │   │   ├── hopital-de-district-d-efoulan-w1365316743.json
+│   │   │   │   │   ├── hopital-de-district-d-okola-r11046949.json
+│   │   │   │   │   ├── hopital-de-district-de-biyem-assi-w191166264.json
+│   │   │   │   │   ├── hopital-de-district-de-mbankomo-w516136198.json
+│   │   │   │   │   ├── hopital-de-district-de-soa-n13272319592.json
+│   │   │   │   │   ├── hopital-de-la-caisse-w192821362.json
+│   │   │   │   │   ├── hopital-de-la-cass-w410236396.json
+│   │   │   │   │   ├── hopital-de-la-cite-verte-w236844355.json
+│   │   │   │   │   ├── hopital-de-zalom-mfou-w1244873220.json
+│   │   │   │   │   ├── hopital-des-soeurs-n13272319583.json
+│   │   │   │   │   ├── hopital-du-bien-w192820615.json
+│   │   │   │   │   ├── hopital-general-de-yaounde-w533783280.json
+│   │   │   │   │   ├── hopital-gyneco-obstetrique-et-pediatrique-de-yaounde-r2595993.json
+│   │   │   │   │   ├── hopital-jamot-r11993012.json
+│   │   │   │   │   ├── hopital-militaire-w192853125.json
+│   │   │   │   │   ├── hopital-protestant-de-djoungolo-w191158128.json
+│   │   │   │   │   ├── hopital-sainte-therese-w192824575.json
+│   │   │   │   │   ├── hopital-st-therese-de-nomayos-n8318722317.json
+│   │   │   │   │   ├── hygiene-mobile-n8108601617.json
+│   │   │   │   │   ├── la-fraternite-d-etetak-w192776551.json
+│   │   │   │   │   ├── la-morque-d-okola-n1067289952.json
+│   │   │   │   │   ├── la-passerelle-clinique-w221026549.json
+│   │   │   │   │   ├── le-samaritain-plus-n7153637348.json
+│   │   │   │   │   ├── maternite-marie-etoudi-w191996250.json
+│   │   │   │   │   ├── moyo-polyclinique-yde-cameroun-w761466341.json
+│   │   │   │   │   ├── polyclinique-mbarga-w192865173.json
+│   │   │   │   │   ├── polyclinique-medicale-chinoise-w193510070.json
+│   │   │   │   │   ├── q7-hopital-n8460263826.json
+│   │   │   │   │   ├── reference-clinic-mimboman-n10013418817.json
+│   │   │   │   │   ├── sidje-loic-w602635130.json
+│   │   │   │   │   └── zion-reference-medical-clinic-n10013409318.json
+│   │   │   │   ├── hotels/
+│   │   │   │   │   ├── .gitkeep
+│   │   │   │   │   ├── 5-etoiles-house-n7178909385.json
+│   │   │   │   │   ├── albatros-premium-n13628665162.json
+│   │   │   │   │   ├── alice-hotel-w193526414.json
+│   │   │   │   │   ├── appart-hotel-w192839332.json
+│   │   │   │   │   ├── appart-w192840405.json
+│   │   │   │   │   ├── appartements-victoire-n7181744122.json
+│   │   │   │   │   ├── arenah-hotel-n9049183570.json
+│   │   │   │   │   ├── asta-w193566000.json
+│   │   │   │   │   ├── auberge-bleue-odza-w193579153.json
+│   │   │   │   │   ├── auberge-cado-d-okola-n1067289820.json
+│   │   │   │   │   ├── auberge-d-ekie-w193526554.json
+│   │   │   │   │   ├── auberge-de-la-paix-w192854687.json
+│   │   │   │   │   ├── auberge-essos-w192814078.json
+│   │   │   │   │   ├── auberge-essos-w192816343.json
+│   │   │   │   │   ├── auberge-essos-w192817715.json
+│   │   │   │   │   ├── auberge-grd-mvan-n5650210704.json
+│   │   │   │   │   ├── auberge-green-vallee-resort-w193522176.json
+│   │   │   │   │   ├── auberge-la-banquise-w193525734.json
+│   │   │   │   │   ├── auberge-le-marseillais-w192819676.json
+│   │   │   │   │   ├── auberge-les-roses-w193557686.json
+│   │   │   │   │   ├── auberge-n2315963521.json
+│   │   │   │   │   ├── auberge-n5650207971.json
+│   │   │   │   │   ├── auberge-prestige-w193524039.json
+│   │   │   │   │   ├── auberge-red-ligth-lem-n4510360307.json
+│   │   │   │   │   ├── auberge-relais-w193558062.json
+│   │   │   │   │   ├── auberge-w192861473.json
+│   │   │   │   │   ├── auberge-zenithe-w217006562.json
+│   │   │   │   │   ├── aubin-tokam-n4524301089.json
+│   │   │   │   │   ├── badenk-n7181753490.json
+│   │   │   │   │   ├── barbara-lennart-n6467961393.json
+│   │   │   │   │   ├── barriere-en-pierre-n5532018221.json
+│   │   │   │   │   ├── belvic-n7162149837.json
+│   │   │   │   │   ├── best-hotel-w410301789.json
+│   │   │   │   │   ├── bouns-hotel-n6538568085.json
+│   │   │   │   │   ├── calomba-w210970203.json
+│   │   │   │   │   ├── capitol-n1993239381.json
+│   │   │   │   │   ├── central-casa-w204121305.json
+│   │   │   │   │   ├── central-hotel-w192837930.json
+│   │   │   │   │   ├── centre-pastoral-d-okola-n12718930820.json
+│   │   │   │   │   ├── chat-blanc-w192844490.json
+│   │   │   │   │   ├── chez-dada-n11536870671.json
+│   │   │   │   │   ├── chez-soi-n5476922121.json
+│   │   │   │   │   ├── ciraton-hotel-w192865269.json
+│   │   │   │   │   ├── cmr-intr-l-hotel-n7162157811.json
+│   │   │   │   │   ├── cofe-hotel-w1311786178.json
+│   │   │   │   │   ├── complexe-de-la-capitale-n7181653261.json
+│   │   │   │   │   ├── complexe-madison-w192825990.json
+│   │   │   │   │   ├── congress-hotel-w410477046.json
+│   │   │   │   │   ├── cristal-w217003437.json
+│   │   │   │   │   ├── ctr-bastos-n12155545232.json
+│   │   │   │   │   ├── dajoll-hotel-w516388571.json
+│   │   │   │   │   ├── dakotel-palace-n6042813031.json
+│   │   │   │   │   ├── dany-motel-w192848999.json
+│   │   │   │   │   ├── djeuga-appart-w410244113.json
+│   │   │   │   │   ├── djeuga-palace-n6308029350.json
+│   │   │   │   │   ├── dolcena-palace-hotel-w192846405.json
+│   │   │   │   │   ├── dolcena-palace-w410295522.json
+│   │   │   │   │   ├── donalson-w193528246.json
+│   │   │   │   │   ├── dort-w192830355.json
+│   │   │   │   │   ├── elle-cabana-n7162120542.json
+│   │   │   │   │   ├── elle-cabana-n7162162760.json
+│   │   │   │   │   ├── espace-touristique-toyou-motel-w193525607.json
+│   │   │   │   │   ├── etok-koss-n5774565831.json
+│   │   │   │   │   ├── exotic-hill-w192843951.json
+│   │   │   │   │   ├── felicia-hotel-w410050533.json
+│   │   │   │   │   ├── felidac-hotel-n7192969414.json
+│   │   │   │   │   ├── fido-hotel-n12441688001.json
+│   │   │   │   │   ├── florencia-hotel-n6316081615.json
+│   │   │   │   │   ├── foyer-international-e-p-c-n4778356623.json
+│   │   │   │   │   ├── fraicheur-hotel-w192851295.json
+│   │   │   │   │   ├── francais-n4500589704.json
+│   │   │   │   │   ├── gamo-hotel-n6316081619.json
+│   │   │   │   │   ├── gic-tourisme-w192847230.json
+│   │   │   │   │   ├── girafe-hotel-n6310626530.json
+│   │   │   │   │   ├── girafe-hotel-n6310626531.json
+│   │   │   │   │   ├── graces-hotel-n7181643352.json
+│   │   │   │   │   ├── grand-canari-w192849613.json
+│   │   │   │   │   ├── grand-w192851126.json
+│   │   │   │   │   ├── heaven-n11752403458.json
+│   │   │   │   │   ├── hilton-yaounde-n6310721514.json
+│   │   │   │   │   ├── hohel-ram-w193533569.json
+│   │   │   │   │   ├── home-la-sapiniere-n8212709818.json
+│   │   │   │   │   ├── hopital-marie-wyss-w193504971.json
+│   │   │   │   │   ├── host-hotel-w450119914.json
+│   │   │   │   │   ├── hotel-ascot-w193572333.json
+│   │   │   │   │   ├── hotel-aurelia-palace-w192777268.json
+│   │   │   │   │   ├── hotel-azur-n6337789128.json
+│   │   │   │   │   ├── hotel-beau-lieu-w193559912.json
+│   │   │   │   │   ├── hotel-bellevue-w192736776.json
+│   │   │   │   │   ├── hotel-blanco-n7193030669.json
+│   │   │   │   │   ├── hotel-bome-n7162138646.json
+│   │   │   │   │   ├── hotel-cite-verte-w192810636.json
+│   │   │   │   │   ├── hotel-clamantis-n6311081079.json
+│   │   │   │   │   ├── hotel-copacabana-w410036592.json
+│   │   │   │   │   ├── hotel-de-flandre-w192819820.json
+│   │   │   │   │   ├── hotel-de-l-avenir-n7181762638.json
+│   │   │   │   │   ├── hotel-de-la-gare-n6310651172.json
+│   │   │   │   │   ├── hotel-delta-w192852855.json
+│   │   │   │   │   ├── hotel-des-deputes-n6306003428.json
+│   │   │   │   │   ├── hotel-doussie-w192777452.json
+│   │   │   │   │   ├── hotel-du-lac-w585637443.json
+│   │   │   │   │   ├── hotel-du-plateau-n5399362527.json
+│   │   │   │   │   ├── hotel-feuguiff-w192820997.json
+│   │   │   │   │   ├── hotel-franco-w410517366.json
+│   │   │   │   │   ├── hotel-freesia-n12546718180.json
+│   │   │   │   │   ├── hotel-grand-moulin-n6310626510.json
+│   │   │   │   │   ├── hotel-guido-palace-w192880240.json
+│   │   │   │   │   ├── hotel-happy-w193552927.json
+│   │   │   │   │   ├── hotel-independance-n6308170737.json
+│   │   │   │   │   ├── hotel-intel-international-n7181643351.json
+│   │   │   │   │   ├── hotel-jardin-d-eden-n7181655129.json
+│   │   │   │   │   ├── hotel-jc-w193961531.json
+│   │   │   │   │   ├── hotel-jouvence-2000-n7193085259.json
+│   │   │   │   │   ├── hotel-jouvence-2000-w192817588.json
+│   │   │   │   │   ├── hotel-jouvence-international-n7193092766.json
+│   │   │   │   │   ├── hotel-kamthe-n10171194518.json
+│   │   │   │   │   ├── hotel-la-couronne-n6337800124.json
+│   │   │   │   │   ├── hotel-la-fleur-n7162138641.json
+│   │   │   │   │   ├── hotel-la-fleur-w192810108.json
+│   │   │   │   │   ├── hotel-la-renardiere-n7192992511.json
+│   │   │   │   │   ├── hotel-la-roche-w1445803087.json
+│   │   │   │   │   ├── hotel-la-roche-w192688461.json
+│   │   │   │   │   ├── hotel-la-solution-de-mfomakap-n8595806225.json
+│   │   │   │   │   ├── hotel-laginaque-n6337774069.json
+│   │   │   │   │   ├── hotel-las-vegas-w192786683.json
+│   │   │   │   │   ├── hotel-le-bon-sejour-n6337796757.json
+│   │   │   │   │   ├── hotel-le-diplomate-n6337780957.json
+│   │   │   │   │   ├── hotel-le-fibi-w192879436.json
+│   │   │   │   │   ├── hotel-le-flamboyant-n13076227607.json
+│   │   │   │   │   ├── hotel-le-kremlin-n12278946349.json
+│   │   │   │   │   ├── hotel-le-lys-w192694608.json
+│   │   │   │   │   ├── hotel-le-makombe-w191994420.json
+│   │   │   │   │   ├── hotel-le-motan-w192868616.json
+│   │   │   │   │   ├── hotel-le-pacha-w410453039.json
+│   │   │   │   │   ├── hotel-le-paradis-n7181642953.json
+│   │   │   │   │   ├── hotel-le-paradis-w192687278.json
+│   │   │   │   │   ├── hotel-le-printania-n5777138818.json
+│   │   │   │   │   ├── hotel-les-ancetres-w192854381.json
+│   │   │   │   │   ├── hotel-les-platanes-w410579801.json
+│   │   │   │   │   ├── hotel-les-princes-n6316081616.json
+│   │   │   │   │   ├── hotel-les-pyramides-n7193086295.json
+│   │   │   │   │   ├── hotel-magny-w192814979.json
+│   │   │   │   │   ├── hotel-mandannou-w192873028.json
+│   │   │   │   │   ├── hotel-manga-w192842236.json
+│   │   │   │   │   ├── hotel-mansel-n7181651729.json
+│   │   │   │   │   ├── hotel-maurinah-prestige-n2296069665.json
+│   │   │   │   │   ├── hotel-meli-melo-sarl-n7181653262.json
+│   │   │   │   │   ├── hotel-merina-n6308327459.json
+│   │   │   │   │   ├── hotel-michaus-w192687917.json
+│   │   │   │   │   ├── hotel-miradir-sarl-n7193079368.json
+│   │   │   │   │   ├── hotel-misa-n7193052519.json
+│   │   │   │   │   ├── hotel-mont-febe-w192007841.json
+│   │   │   │   │   ├── hotel-ngon-etenga-w193542829.json
+│   │   │   │   │   ├── hotel-oasis-w192816749.json
+│   │   │   │   │   ├── hotel-palace-w192843851.json
+│   │   │   │   │   ├── hotel-planete-n2315963522.json
+│   │   │   │   │   ├── hotel-positif-n6771703645.json
+│   │   │   │   │   ├── hotel-printyva-w192829927.json
+│   │   │   │   │   ├── hotel-relais-n6316081617.json
+│   │   │   │   │   ├── hotel-residence-la-grace-w192815379.json
+│   │   │   │   │   ├── hotel-royal-n3614970069.json
+│   │   │   │   │   ├── hotel-saphir-w191994770.json
+│   │   │   │   │   ├── hotel-sejour-des-princes-w193508192.json
+│   │   │   │   │   ├── hotel-sinaha-w192840097.json
+│   │   │   │   │   ├── hotel-sinahi-n5776915769.json
+│   │   │   │   │   ├── hotel-succes-plus-n7193087518.json
+│   │   │   │   │   ├── hotel-tehasselois-w191641753.json
+│   │   │   │   │   ├── hotel-terminus-w192831290.json
+│   │   │   │   │   ├── hotel-venus-w192842563.json
+│   │   │   │   │   ├── hotel-w192820027.json
+│   │   │   │   │   ├── hotel-w192831072.json
+│   │   │   │   │   ├── hotel-wamndon-w192847968.json
+│   │   │   │   │   ├── hotel-yahoot-n6315935664.json
+│   │   │   │   │   ├── hotel-zoe-motel-w218540579.json
+│   │   │   │   │   ├── ideal-hotel-n6067029950.json
+│   │   │   │   │   ├── immeuble-bazor-fils-n5531649021.json
+│   │   │   │   │   ├── immeuble-happy-n4555768241.json
+│   │   │   │   │   ├── immeuble-maja-n10225296117.json
+│   │   │   │   │   ├── immeuble-marguerita-n4347378591.json
+│   │   │   │   │   ├── indra-hotel-w193962575.json
+│   │   │   │   │   ├── iris-hotel-n11399989829.json
+│   │   │   │   │   ├── jeunesse-hotel-n7181721038.json
+│   │   │   │   │   ├── jully-guest-house-n6310400752.json
+│   │   │   │   │   ├── jully-hotel-n6308327479.json
+│   │   │   │   │   ├── juracel-lodge-hotel-n11178388337.json
+│   │   │   │   │   ├── kamthe-hotel-w410056143.json
+│   │   │   │   │   ├── kenny-s-great-house-n8194659121.json
+│   │   │   │   │   ├── kingdom-w217002804.json
+│   │   │   │   │   ├── kitios-hotel-lodge-w410320502.json
+│   │   │   │   │   ├── km-hotel-n7162129861.json
+│   │   │   │   │   ├── la-baleine-w192867508.json
+│   │   │   │   │   ├── la-cachette-n7148255414.json
+│   │   │   │   │   ├── la-cave-simson-hotel-w410262480.json
+│   │   │   │   │   ├── la-falaise-n6308029352.json
+│   │   │   │   │   ├── la-fierte-w192847660.json
+│   │   │   │   │   ├── la-life-n7181762635.json
+│   │   │   │   │   ├── la-papillote-n7162505230.json
+│   │   │   │   │   ├── la-residence-n5776915764.json
+│   │   │   │   │   ├── la-rive-n7162495819.json
+│   │   │   │   │   ├── la-sltio-n1365229875.json
+│   │   │   │   │   ├── lagon-club-et-affaires-n12311707116.json
+│   │   │   │   │   ├── le-baroko-vip-n7191228540.json
+│   │   │   │   │   ├── le-best-hotel-n4891747021.json
+│   │   │   │   │   ├── le-chat-blanc-n5650207972.json
+│   │   │   │   │   ├── le-jardin-de-celine-w193543133.json
+│   │   │   │   │   ├── le-lion-d-or-le-limouzi-n4579391792.json
+│   │   │   │   │   ├── le-marseillais-n7191225351.json
+│   │   │   │   │   ├── le-metro-n7191260347.json
+│   │   │   │   │   ├── le-monarque-w651312212.json
+│   │   │   │   │   ├── le-papyrus-n7181722385.json
+│   │   │   │   │   ├── le-phenix-n2032605116.json
+│   │   │   │   │   ├── le-refuge-w480987166.json
+│   │   │   │   │   ├── le-samaritain-w192844896.json
+│   │   │   │   │   ├── lem-s-w192879598.json
+│   │   │   │   │   ├── les-3-cles-n7162481930.json
+│   │   │   │   │   ├── lieugne-hotel-w188761382.json
+│   │   │   │   │   ├── liza-hotel-w410014233.json
+│   │   │   │   │   ├── luxtral-hotel-w410036783.json
+│   │   │   │   │   ├── luxxor-hotel-n7181722388.json
+│   │   │   │   │   ├── lynna-hotel-n13763670506.json
+│   │   │   │   │   ├── ma-maison-n4470744389.json
+│   │   │   │   │   ├── maguy-n7181753491.json
+│   │   │   │   │   ├── maison-armando-eleveur-n9463019417.json
+│   │   │   │   │   ├── maison-d-hote-clin-d-oeil-n7193040053.json
+│   │   │   │   │   ├── maison-de-sephora-n7902231386.json
+│   │   │   │   │   ├── maison-de-sephora-n7902231485.json
+│   │   │   │   │   ├── maison-de-sephora-n7902231486.json
+│   │   │   │   │   ├── maison-moussa-kadjoum-n11727093169.json
+│   │   │   │   │   ├── maison-yde-n4752179721.json
+│   │   │   │   │   ├── masque-hotel-w192696124.json
+│   │   │   │   │   ├── massa-residence-meuble-n14058627021.json
+│   │   │   │   │   ├── massa-residence-meuble-yaounde-n14058627022.json
+│   │   │   │   │   ├── matonsi-hotel-n7181721374.json
+│   │   │   │   │   ├── mayland-housse-n5143122922.json
+│   │   │   │   │   ├── mbah-s-residence-n4722481192.json
+│   │   │   │   │   ├── mbah-s-residence-n4722649989.json
+│   │   │   │   │   ├── melrose-place-hotel-w191647994.json
+│   │   │   │   │   ├── menat-hotel-n13747726143.json
+│   │   │   │   │   ├── menom-hotel-w192737325.json
+│   │   │   │   │   ├── merina-hotel-w192838868.json
+│   │   │   │   │   ├── meumi-hotel-n9825652774.json
+│   │   │   │   │   ├── meumi-palace-n6337753924.json
+│   │   │   │   │   ├── mfandena-n7193001111.json
+│   │   │   │   │   ├── micah-hotel-w192880353.json
+│   │   │   │   │   ├── michou-hotel-n7193000727.json
+│   │   │   │   │   ├── mo-o-sa-a-palace-n7162130138.json
+│   │   │   │   │   ├── moan-nnam-w192867411.json
+│   │   │   │   │   ├── montadieu-n7181722386.json
+│   │   │   │   │   ├── montreal-hotel-n11007426705.json
+│   │   │   │   │   ├── motel-chat-blanc-n7191268854.json
+│   │   │   │   │   ├── motel-complexe-decor-w410014238.json
+│   │   │   │   │   ├── motel-cousin-castor-n7191273311.json
+│   │   │   │   │   ├── motel-de-dakar-w193507157.json
+│   │   │   │   │   ├── motel-el-dorado-de-nkomo-w192869267.json
+│   │   │   │   │   ├── motel-jakarta-city-n7191223832.json
+│   │   │   │   │   ├── motel-jardin-des-cygnes-w193543088.json
+│   │   │   │   │   ├── motel-la-griffe-n2033515661.json
+│   │   │   │   │   ├── motel-la-griffe-n7191225350.json
+│   │   │   │   │   ├── motel-lady-ange-w192012194.json
+│   │   │   │   │   ├── motel-le-marseillais-plus-n2033513997.json
+│   │   │   │   │   ├── motel-le-pacifique-w192879408.json
+│   │   │   │   │   ├── motel-le-relais-w193504517.json
+│   │   │   │   │   ├── motel-les-papillons-w193533996.json
+│   │   │   │   │   ├── motel-mocus-n5650210743.json
+│   │   │   │   │   ├── motel-n5650210744.json
+│   │   │   │   │   ├── motel-quart-de-tour-n7191216882.json
+│   │   │   │   │   ├── motel-rosa-blanca-n7191216883.json
+│   │   │   │   │   ├── motel-saint-hubert-w193526990.json
+│   │   │   │   │   ├── motel-w193552708.json
+│   │   │   │   │   ├── my-house-nkolanga-n4323035407.json
+│   │   │   │   │   ├── nature-w193577522.json
+│   │   │   │   │   ├── ndiadji-hotel-n7181671369.json
+│   │   │   │   │   ├── nguela-n8132406618.json
+│   │   │   │   │   ├── nk-n11752432069.json
+│   │   │   │   │   ├── noka-hotel-w192820891.json
+│   │   │   │   │   ├── nostra-venusa-sarl-motel-salvador-n7181680280.json
+│   │   │   │   │   ├── odza-hermine-a-vendre-n4825165223.json
+│   │   │   │   │   ├── odza-n4825018022.json
+│   │   │   │   │   ├── okols-palace-n1067289863.json
+│   │   │   │   │   ├── olympic-hotel-n7181699571.json
+│   │   │   │   │   ├── orly-hotel-w192841591.json
+│   │   │   │   │   ├── panthere-hotel-w192738573.json
+│   │   │   │   │   ├── papi-et-mami-n4740211421.json
+│   │   │   │   │   ├── parfait-hotel-w410284987.json
+│   │   │   │   │   ├── park-center-complex-n13785295012.json
+│   │   │   │   │   ├── pascalia-hotel-n10225353817.json
+│   │   │   │   │   ├── pat-lane-hostel-w292896731.json
+│   │   │   │   │   ├── petit-coin-de-plaisir-n7162157735.json
+│   │   │   │   │   ├── polyva-w437144086.json
+│   │   │   │   │   ├── prestige-hotel-oli-zoa-w192851175.json
+│   │   │   │   │   ├── prestige-hotel-plus-w192866365.json
+│   │   │   │   │   ├── printemps-w221349468.json
+│   │   │   │   │   ├── priscilla-manor-bastos-n4178557491.json
+│   │   │   │   │   ├── qnet-office-n5020213524.json
+│   │   │   │   │   ├── r-st-sebastien-w192850788.json
+│   │   │   │   │   ├── relaxe-palace-hotel-w977964700.json
+│   │   │   │   │   ├── republique-hotel-n7145883354.json
+│   │   │   │   │   ├── republique-hotel-n7181762637.json
+│   │   │   │   │   ├── residence-cana-malins-n6130727590.json
+│   │   │   │   │   ├── residence-chef-nkondengui-w192854426.json
+│   │   │   │   │   ├── residence-des-palmiers-de-nkomo-w193511344.json
+│   │   │   │   │   ├── residence-hoteliere-papyrus-w192817529.json
+│   │   │   │   │   ├── residence-italia-w193572475.json
+│   │   │   │   │   ├── residence-mairama-n4594312602.json
+│   │   │   │   │   ├── residence-manlon-n7181722387.json
+│   │   │   │   │   ├── riad-prince-louis-residence-riad-prince-louis-w1331616117.json
+│   │   │   │   │   ├── roi-david-w192881471.json
+│   │   │   │   │   ├── safari-hotel-nsam-w193525877.json
+│   │   │   │   │   ├── safari-n7131347179.json
+│   │   │   │   │   ├── saint-philomenia-student-hostel-w292327491.json
+│   │   │   │   │   ├── salma-hotel-r13129874.json
+│   │   │   │   │   ├── sam-efoulan-w193522363.json
+│   │   │   │   │   ├── sanda-oumarou-ibrahim-osi-n11536877972.json
+│   │   │   │   │   ├── santa-belle-n7249769387.json
+│   │   │   │   │   ├── satellite-hotel-w193559880.json
+│   │   │   │   │   ├── seduction-motel-n7162495828.json
+│   │   │   │   │   ├── segmad-hotel-n7193048413.json
+│   │   │   │   │   ├── sifis-hebergement-n7148255205.json
+│   │   │   │   │   ├── sims-appart-hotel-n11752420631.json
+│   │   │   │   │   ├── sinaha-n11752405033.json
+│   │   │   │   │   ├── somatel-hotel-biyem-assi-w410064971.json
+│   │   │   │   │   ├── somatel-w192811803.json
+│   │   │   │   │   ├── star-land-n9494868409.json
+│   │   │   │   │   ├── suita-hotel-n11662217169.json
+│   │   │   │   │   ├── summit-palace-n9111649017.json
+│   │   │   │   │   ├── taf-sport-n7192964946.json
+│   │   │   │   │   ├── tango-hotel-n6310597692.json
+│   │   │   │   │   ├── tokam-carine-n4524288792.json
+│   │   │   │   │   ├── tou-ngou-hotel-n2276771598.json
+│   │   │   │   │   ├── touna-jeanne-home-n4615786890.json
+│   │   │   │   │   ├── travel-lodges-n7181721039.json
+│   │   │   │   │   ├── tropical-hotel-w410506579.json
+│   │   │   │   │   ├── tsamo-simplice-n4524316290.json
+│   │   │   │   │   ├── tsep-hotel-w192776457.json
+│   │   │   │   │   ├── united-hotel-n11401041302.json
+│   │   │   │   │   ├── united-hotel-w1217707933.json
+│   │   │   │   │   ├── universal-w217006738.json
+│   │   │   │   │   ├── village-virginie-foue-n11536870670.json
+│   │   │   │   │   ├── visite-n9464121518.json
+│   │   │   │   │   ├── visites-ngousso-olembe-maison-n9465485918.json
+│   │   │   │   │   ├── washington-hotel-n7181762636.json
+│   │   │   │   │   ├── welcome-garden-s-hotel-n10029724175.json
+│   │   │   │   │   ├── xaviera-hotel-w410036314.json
+│   │   │   │   │   ├── yata-hotel-w192878671.json
+│   │   │   │   │   └── yeyap-hotel-n4362727876.json
+│   │   │   │   ├── pharmacies/
+│   │   │   │   │   ├── .gitkeep
+│   │   │   │   │   ├── ananaraie-w193528984.json
+│   │   │   │   │   ├── arab-contractor-residence-w219052042.json
+│   │   │   │   │   ├── beatitudes-w219052045.json
+│   │   │   │   │   ├── cai-w219052046.json
+│   │   │   │   │   ├── capha-vet-sarl-pharmacie-veterinaires-n7145774034.json
+│   │   │   │   │   ├── capha-vet-sarl-pharmacie-veterinaires-n7207678393.json
+│   │   │   │   │   ├── complexe-miss-ngou-n7207698555.json
+│   │   │   │   │   ├── cousin-castor-w192819817.json
+│   │   │   │   │   ├── cyfo-w219052048.json
+│   │   │   │   │   ├── dr-iguedo-s-goko-n7207683786.json
+│   │   │   │   │   ├── francois-tchoupou-w219052057.json
+│   │   │   │   │   ├── jouvence-w217004251.json
+│   │   │   │   │   ├── la-grande-pharmacie-des-lumieres-n6311082085.json
+│   │   │   │   │   ├── la-medecine-naturelle-de-maman-nettoyage-n7207718237.json
+│   │   │   │   │   ├── la-reference-de-ngousso-n2276189766.json
+│   │   │   │   │   ├── la-renaissance-n7164542361.json
+│   │   │   │   │   ├── la-sante-n7207680779.json
+│   │   │   │   │   ├── le-flamboyant-w219052089.json
+│   │   │   │   │   ├── le-mfoundi-n6310583599.json
+│   │   │   │   │   ├── lido-w219052059.json
+│   │   │   │   │   ├── lienou-w219052060.json
+│   │   │   │   │   ├── mami-macta-n2033671113.json
+│   │   │   │   │   ├── medicament-veterinaire-n7207701109.json
+│   │   │   │   │   ├── mindili-n4555768238.json
+│   │   │   │   │   ├── obili-w219052065.json
+│   │   │   │   │   ├── olembe-pharmacy-n9009718217.json
+│   │   │   │   │   ├── parapharmacie-pm-beauty-cmr-n13681170624.json
+│   │   │   │   │   ├── parapharmacie-w218797783.json
+│   │   │   │   │   ├── phamacie-bayard-n5112556308.json
+│   │   │   │   │   ├── phamarcie-athera-n7207705090.json
+│   │   │   │   │   ├── pharmacie-2000-n5177699233.json
+│   │   │   │   │   ├── pharmacie-2000-w218797784.json
+│   │   │   │   │   ├── pharmacie-3a-n9025463518.json
+│   │   │   │   │   ├── pharmacie-aumachae-w218797818.json
+│   │   │   │   │   ├── pharmacie-balance-w218797785.json
+│   │   │   │   │   ├── pharmacie-bastos-n6337753916.json
+│   │   │   │   │   ├── pharmacie-bethesda-n6283070985.json
+│   │   │   │   │   ├── pharmacie-biyem-assi-dr-tchachou-joseph-n4262441358.json
+│   │   │   │   │   ├── pharmacie-bleue-n5112556307.json
+│   │   │   │   │   ├── pharmacie-botanik-n12488863093.json
+│   │   │   │   │   ├── pharmacie-buvole-abondo-w218797787.json
+│   │   │   │   │   ├── pharmacie-cameric-w211356153.json
+│   │   │   │   │   ├── pharmacie-camerounaise-w410241002.json
+│   │   │   │   │   ├── pharmacie-d-ahala-n12441688003.json
+│   │   │   │   │   ├── pharmacie-d-etondi-w218797796.json
+│   │   │   │   │   ├── pharmacie-d-oyom-abang-n7192779250.json
+│   │   │   │   │   ├── pharmacie-de-l-aeroport-n2040363224.json
+│   │   │   │   │   ├── pharmacie-de-l-arche-n7207684673.json
+│   │   │   │   │   ├── pharmacie-de-l-etoile-n7831934486.json
+│   │   │   │   │   ├── pharmacie-de-l-hopital-de-district-d-okola-n1067289899.json
+│   │   │   │   │   ├── pharmacie-de-l-intendance-n6310433854.json
+│   │   │   │   │   ├── pharmacie-de-l-unite-n4470330023.json
+│   │   │   │   │   ├── pharmacie-de-l-universite-n11752565785.json
+│   │   │   │   │   ├── pharmacie-de-l-universite-w192843865.json
+│   │   │   │   │   ├── pharmacie-de-la-brique-w192811154.json
+│   │   │   │   │   ├── pharmacie-de-la-chapelle-n7207690222.json
+│   │   │   │   │   ├── pharmacie-de-la-cite-n7207700174.json
+│   │   │   │   │   ├── pharmacie-de-la-fidelite-n4361807957.json
+│   │   │   │   │   ├── pharmacie-de-la-liberte-n4470305284.json
+│   │   │   │   │   ├── pharmacie-de-la-moisson-n2033791377.json
+│   │   │   │   │   ├── pharmacie-de-la-rosee-n7207686738.json
+│   │   │   │   │   ├── pharmacie-de-la-valee-n13885722182.json
+│   │   │   │   │   ├── pharmacie-de-messassi-w1005200057.json
+│   │   │   │   │   ├── pharmacie-de-nkoldongo-w218661663.json
+│   │   │   │   │   ├── pharmacie-de-nkomo-n2018349391.json
+│   │   │   │   │   ├── pharmacie-de-nkomo-w218661666.json
+│   │   │   │   │   ├── pharmacie-de-nkozoa-n13272056302.json
+│   │   │   │   │   ├── pharmacie-de-simbock-n9025463520.json
+│   │   │   │   │   ├── pharmacie-de-sion-n12867093227.json
+│   │   │   │   │   ├── pharmacie-de-tongolo-w218797797.json
+│   │   │   │   │   ├── pharmacie-des-acacias-w385137757.json
+│   │   │   │   │   ├── pharmacie-des-capucines-w192865796.json
+│   │   │   │   │   ├── pharmacie-des-congres-n6316081662.json
+│   │   │   │   │   ├── pharmacie-des-hortensia-w218797799.json
+│   │   │   │   │   ├── pharmacie-des-nations-n9009685218.json
+│   │   │   │   │   ├── pharmacie-des-sept-collines-n12923511886.json
+│   │   │   │   │   ├── pharmacie-des-sesames-w192809859.json
+│   │   │   │   │   ├── pharmacie-du-20-mai-n13582776685.json
+│   │   │   │   │   ├── pharmacie-du-20-mai-w192843813.json
+│   │   │   │   │   ├── pharmacie-du-bien-etre-n6310583438.json
+│   │   │   │   │   ├── pharmacie-du-bleu-n7164533753.json
+│   │   │   │   │   ├── pharmacie-du-carrefour-emia-n11752425291.json
+│   │   │   │   │   ├── pharmacie-du-centre-n1993222656.json
+│   │   │   │   │   ├── pharmacie-du-chateau-w218797801.json
+│   │   │   │   │   ├── pharmacie-du-cypres-w219052051.json
+│   │   │   │   │   ├── pharmacie-du-jourdain-w218797802.json
+│   │   │   │   │   ├── pharmacie-du-lycee-bilingue-n7207703602.json
+│   │   │   │   │   ├── pharmacie-du-palais-w218797804.json
+│   │   │   │   │   ├── pharmacie-du-soleil-w218797805.json
+│   │   │   │   │   ├── pharmacie-du-stade-n2276189774.json
+│   │   │   │   │   ├── pharmacie-du-verset-n6316081610.json
+│   │   │   │   │   ├── pharmacie-ecole-de-police-w218797813.json
+│   │   │   │   │   ├── pharmacie-efoulan-n9041137277.json
+│   │   │   │   │   ├── pharmacie-ekounou-w192874285.json
+│   │   │   │   │   ├── pharmacie-ekounou-w192875146.json
+│   │   │   │   │   ├── pharmacie-elite-n11422765650.json
+│   │   │   │   │   ├── pharmacie-elobi-w218797814.json
+│   │   │   │   │   ├── pharmacie-emia-n5776960932.json
+│   │   │   │   │   ├── pharmacie-emmanuel-w218797788.json
+│   │   │   │   │   ├── pharmacie-francaise-n6310400744.json
+│   │   │   │   │   ├── pharmacie-get-better-n13339390408.json
+│   │   │   │   │   ├── pharmacie-hakkore-w192878102.json
+│   │   │   │   │   ├── pharmacie-isis-n2276045788.json
+│   │   │   │   │   ├── pharmacie-jerusalem-n7831945185.json
+│   │   │   │   │   ├── pharmacie-jireh-n13272319588.json
+│   │   │   │   │   ├── pharmacie-jireh-n2997531365.json
+│   │   │   │   │   ├── pharmacie-jouvance-w217004444.json
+│   │   │   │   │   ├── pharmacie-ketchy-madagascar-n4172532289.json
+│   │   │   │   │   ├── pharmacie-la-colombe-n4591981089.json
+│   │   │   │   │   ├── pharmacie-la-concorde-w218797809.json
+│   │   │   │   │   ├── pharmacie-la-fleche-w218797810.json
+│   │   │   │   │   ├── pharmacie-la-grace-w217002844.json
+│   │   │   │   │   ├── pharmacie-la-providence-n5777057853.json
+│   │   │   │   │   ├── pharmacie-la-reference-n7801588685.json
+│   │   │   │   │   ├── pharmacie-la-rosee-w192826174.json
+│   │   │   │   │   ├── pharmacie-la-statoise-n7831933495.json
+│   │   │   │   │   ├── pharmacie-le-bon-berger-n7207685052.json
+│   │   │   │   │   ├── pharmacie-le-cristallis-w218797812.json
+│   │   │   │   │   ├── pharmacie-le-cygne-n7207698014.json
+│   │   │   │   │   ├── pharmacie-les-manguiers-w192691240.json
+│   │   │   │   │   ├── pharmacie-les-petales-n12825693870.json
+│   │   │   │   │   ├── pharmacie-lyonnaise-n3615214649.json
+│   │   │   │   │   ├── pharmacie-m-m-n14043545119.json
+│   │   │   │   │   ├── pharmacie-mandela-n5776961120.json
+│   │   │   │   │   ├── pharmacie-marijova-n11455033582.json
+│   │   │   │   │   ├── pharmacie-melen-w219052068.json
+│   │   │   │   │   ├── pharmacie-messa-n5777057800.json
+│   │   │   │   │   ├── pharmacie-messamendongo-n11384443588.json
+│   │   │   │   │   ├── pharmacie-moliva-w218797792.json
+│   │   │   │   │   ├── pharmacie-mongale-w218797793.json
+│   │   │   │   │   ├── pharmacie-montesquieu-espace-conseils-n7207683699.json
+│   │   │   │   │   ├── pharmacie-moto-george-n2044656924.json
+│   │   │   │   │   ├── pharmacie-mvog-ada-n7207684672.json
+│   │   │   │   │   ├── pharmacie-mvog-ada-w218797817.json
+│   │   │   │   │   ├── pharmacie-mvog-atangana-mballa-n2034139428.json
+│   │   │   │   │   ├── pharmacie-notre-dame-w218797794.json
+│   │   │   │   │   ├── pharmacie-nsam-n12643422675.json
+│   │   │   │   │   ├── pharmacie-nsimeyong-w219052067.json
+│   │   │   │   │   ├── pharmacie-odza-w218661665.json
+│   │   │   │   │   ├── pharmacie-olezoa-n1987382968.json
+│   │   │   │   │   ├── pharmacie-populaire-n5702082026.json
+│   │   │   │   │   ├── pharmacie-provinciale-n4377493299.json
+│   │   │   │   │   ├── pharmacie-royale-w217003168.json
+│   │   │   │   │   ├── pharmacie-saint-bernadette-n11932894614.json
+│   │   │   │   │   ├── pharmacie-saint-luc-w192831466.json
+│   │   │   │   │   ├── pharmacie-saint-uriel-n6727115085.json
+│   │   │   │   │   ├── pharmacie-siloe-n7993239789.json
+│   │   │   │   │   ├── pharmacie-sim-ba-a-w193522681.json
+│   │   │   │   │   ├── pharmacie-star-w218661664.json
+│   │   │   │   │   ├── pharmacie-ste-madeleine-n4470403349.json
+│   │   │   │   │   ├── pharmacie-theriaque-w192852955.json
+│   │   │   │   │   ├── pharmacie-tsinga-n2033098470.json
+│   │   │   │   │   ├── pharmacie-urbaine-n7993240085.json
+│   │   │   │   │   ├── pharmacie-vallee-n6310687641.json
+│   │   │   │   │   ├── pharmacie-xavyo-w410232321.json
+│   │   │   │   │   ├── pharmacy-de-l-universite-n2033780266.json
+│   │   │   │   │   ├── priorite-sante-n13354177241.json
+│   │   │   │   │   ├── pro-pharmacie-n11603854627.json
+│   │   │   │   │   ├── pro-pharmacie-n7207711955.json
+│   │   │   │   │   ├── quifferou-w192827527.json
+│   │   │   │   │   ├── saint-martin-n3604839579.json
+│   │   │   │   │   ├── sante-st-victor-n7207713949.json
+│   │   │   │   │   ├── sotownek-n6684209185.json
+│   │   │   │   │   └── ubi-pharm-w410018407.json
+│   │   │   │   └── restaurants/
+│   │   │   │       ├── .gitkeep
+│   │   │   │       ├── 18eme-arrondissement-n6611867220.json
+│   │   │   │       ├── 237-n3372959695.json
+│   │   │   │       ├── abz-n7162019757.json
+│   │   │   │       ├── ace-rooftop-n14054420911.json
+│   │   │   │       ├── african-dream-n7230608748.json
+│   │   │   │       ├── african-queen-n6282216585.json
+│   │   │   │       ├── agora-tasty-food-w192786963.json
+│   │   │   │       ├── alima-cnps-n11953687193.json
+│   │   │   │       ├── all-stars-sports-lounge-n6337819786.json
+│   │   │   │       ├── alpha-food-n11455182871.json
+│   │   │   │       ├── alpha-foods-n10233779841.json
+│   │   │   │       ├── amadou-tourne-dos-n2033644948.json
+│   │   │   │       ├── amazone-n11752433531.json
+│   │   │   │       ├── american-fried-chicken-n4362701992.json
+│   │   │   │       ├── arena-club-w516176436.json
+│   │   │   │       ├── aux-fines-epices-n3372957108.json
+│   │   │   │       ├── balcon-bar-resto-n7230625788.json
+│   │   │   │       ├── bambou-lodge-n1808635162.json
+│   │   │   │       ├── bar-du-golf-w192017844.json
+│   │   │   │       ├── bar-restaurant-la-riviera-n6337860071.json
+│   │   │   │       ├── bar-restaurant-ma-etoundi-n6337737144.json
+│   │   │   │       ├── bar-restaurant-n7166136501.json
+│   │   │   │       ├── bar-restaurant-n7230569963.json
+│   │   │   │       ├── bar-restaurant-nature-n8718892807.json
+│   │   │   │       ├── bariso-bar-n7162798191.json
+│   │   │   │       ├── batiment-n11933006661.json
+│   │   │   │       ├── bh-de-mummy-n2300618476.json
+│   │   │   │       ├── bienvenue-chez-les-filles-n7162254412.json
+│   │   │   │       ├── bifteck-5-stars-n5416926923.json
+│   │   │   │       ├── bifteck-le-succes-n7260291061.json
+│   │   │   │       ├── black-diamond-w217234021.json
+│   │   │   │       ├── blue-diamond-n13158170939.json
+│   │   │   │       ├── bon-gout-n7257895146.json
+│   │   │   │       ├── bonnes-n6339415793.json
+│   │   │   │       ├── bookafe-n7162798190.json
+│   │   │   │       ├── boukarou-lounge-n5179789949.json
+│   │   │   │       ├── buena-vista-w193961096.json
+│   │   │   │       ├── c-m-v-n7230630481.json
+│   │   │   │       ├── cacao-cafee-n2033640717.json
+│   │   │   │       ├── cafe-bonjour-w351882730.json
+│   │   │   │       ├── cafe-coffee-day-n7131510039.json
+│   │   │   │       ├── cafe-dabang-w193961507.json
+│   │   │   │       ├── cafe-de-yaounde-n1014060413.json
+│   │   │   │       ├── cafe-le-pelerin-n7163869858.json
+│   │   │   │       ├── cafe-plus-le-rapido-n7162019755.json
+│   │   │   │       ├── cafe-restau-after-work-n7271318238.json
+│   │   │   │       ├── cafe-restau-chez-abdoulaye-n7162554095.json
+│   │   │   │       ├── cafe-restau-chez-amigo-n7162229113.json
+│   │   │   │       ├── cafe-restau-n4362584761.json
+│   │   │   │       ├── cafe-restau-super-kossam-n7163475488.json
+│   │   │   │       ├── cafe-restaurant-le-bon-gout-n7219151587.json
+│   │   │   │       ├── cafe-resto-chez-bouda-n4433384789.json
+│   │   │   │       ├── cafe-resto-chez-elisa-n7271371638.json
+│   │   │   │       ├── cafe-resto-dilan-n7163869861.json
+│   │   │   │       ├── cafe-resto-donia-n7271408144.json
+│   │   │   │       ├── cafe-resto-guey-et-frere-n7162202439.json
+│   │   │   │       ├── cafe-resto-les-francins-n7163562961.json
+│   │   │   │       ├── cafe-resto-rhema-n7163538206.json
+│   │   │   │       ├── cafe-up-n7271335414.json
+│   │   │   │       ├── cafe-vienna-n5521168471.json
+│   │   │   │       ├── cafetaria-n7163439204.json
+│   │   │   │       ├── cafetariat-edouma-n7162229801.json
+│   │   │   │       ├── cafetariat-n7165930775.json
+│   │   │   │       ├── cafetariat-ndombolo-n7162202440.json
+│   │   │   │       ├── cafeteria-n11752415077.json
+│   │   │   │       ├── cafeteria-n7162223364.json
+│   │   │   │       ├── cafeteria-n7162798188.json
+│   │   │   │       ├── cafeteria-n7162798189.json
+│   │   │   │       ├── cafeteria-n7162798192.json
+│   │   │   │       ├── cafeteria-n7163439198.json
+│   │   │   │       ├── cafeteria-n7163439201.json
+│   │   │   │       ├── cafeteria-n7163439203.json
+│   │   │   │       ├── cafeteria-n7163637660.json
+│   │   │   │       ├── cafeteria-n7163681643.json
+│   │   │   │       ├── cafeteria-n7163700941.json
+│   │   │   │       ├── cafeteria-n7163700942.json
+│   │   │   │       ├── cafeteria-n7163700943.json
+│   │   │   │       ├── cafeteria-n7163730506.json
+│   │   │   │       ├── cafeteria-n7163776642.json
+│   │   │   │       ├── cafeteria-n7165885471.json
+│   │   │   │       ├── cafeteria-n7165930774.json
+│   │   │   │       ├── cafeteriat-la-cachette-n7153216556.json
+│   │   │   │       ├── camaroes-n6337918822.json
+│   │   │   │       ├── case-a-palabre-w193509318.json
+│   │   │   │       ├── central-hotel-w192839344.json
+│   │   │   │       ├── cercle-vert-n7271328625.json
+│   │   │   │       ├── chez-audrey-n13800970394.json
+│   │   │   │       ├── chez-bouba-n2997541410.json
+│   │   │   │       ├── chez-fimbus-n7166092153.json
+│   │   │   │       ├── chez-guy-marcel-n2738324273.json
+│   │   │   │       ├── chez-issa-n7162028386.json
+│   │   │   │       ├── chez-john-dugibier-w292856322.json
+│   │   │   │       ├── chez-kalli-w192697083.json
+│   │   │   │       ├── chez-kao-n13806708799.json
+│   │   │   │       ├── chez-long-n6720137792.json
+│   │   │   │       ├── chez-lucie-n7162019754.json
+│   │   │   │       ├── chez-m-a-n7163841598.json
+│   │   │   │       ├── chez-maimouna-n7166092154.json
+│   │   │   │       ├── chez-mama-n11933027332.json
+│   │   │   │       ├── chez-marcelo-w192687798.json
+│   │   │   │       ├── chez-maxime-n7230669183.json
+│   │   │   │       ├── chez-mohamed-n7165929621.json
+│   │   │   │       ├── chez-mury-n7162541325.json
+│   │   │   │       ├── chez-nanou-n7241809388.json
+│   │   │   │       ├── chez-papi-la-fleche-n9106048717.json
+│   │   │   │       ├── chez-raymonde-w193530586.json
+│   │   │   │       ├── chez-tonton-andre-n6308029359.json
+│   │   │   │       ├── chez-uncle-sam-n11933028381.json
+│   │   │   │       ├── chez-wou-w193961865.json
+│   │   │   │       ├── chips-and-chiken-n11752425278.json
+│   │   │   │       ├── class-tendance-w293073420.json
+│   │   │   │       ├── class-tendance-w293073425.json
+│   │   │   │       ├── clic-n11946153614.json
+│   │   │   │       ├── club-betis-resto-n7166113669.json
+│   │   │   │       ├── club-des-amis-tsinga-n4223062189.json
+│   │   │   │       ├── commerce-n11752566478.json
+│   │   │   │       ├── complex-hawai-city-n7257831323.json
+│   │   │   │       ├── complexe-kouotou-restaurant-laverie-snack-n6337874068.json
+│   │   │   │       ├── complexe-rodrigue-alimentation-fast-food-restaurant-n7271451880.json
+│   │   │   │       ├── connexion-n7166063771.json
+│   │   │   │       ├── cosy-pool-w193965320.json
+│   │   │   │       ├── crepe-ziz-n7260136176.json
+│   │   │   │       ├── crepino-n11403819596.json
+│   │   │   │       ├── crifasy-restau-w292324151.json
+│   │   │   │       ├── d-akor-w679731406.json
+│   │   │   │       ├── daly-resto-bar-n7219263960.json
+│   │   │   │       ├── dejaco-snack-bar-n2997240060.json
+│   │   │   │       ├── delice-cafe-akwa-chez-pasto-n7163903822.json
+│   │   │   │       ├── delices-du-pays-n6772024175.json
+│   │   │   │       ├── dolce-vita-w236047936.json
+│   │   │   │       ├── dolcezza-yde-food-w192776473.json
+│   │   │   │       ├── dort-mange-bien-w192820419.json
+│   │   │   │       ├── douala-n4221228989.json
+│   │   │   │       ├── dr-shawarma-n5501915523.json
+│   │   │   │       ├── dubai-bar-n7219190812.json
+│   │   │   │       ├── el-phelicio-n7257849122.json
+│   │   │   │       ├── eric-s-n7162229110.json
+│   │   │   │       ├── escalier-n7271451674.json
+│   │   │   │       ├── espace-senateurs-n6339437810.json
+│   │   │   │       ├── espoir-plus-n7153247606.json
+│   │   │   │       ├── etok-koss-w421798314.json
+│   │   │   │       ├── ets-katamour-n7166083410.json
+│   │   │   │       ├── ets-maison-rose-n7166136690.json
+│   │   │   │       ├── eveline-bar-restaurant-w210981176.json
+│   │   │   │       ├── expresso-house-n3372957098.json
+│   │   │   │       ├── fast-food-n2040772074.json
+│   │   │   │       ├── favour-n7241806001.json
+│   │   │   │       ├── fetiche-cave-buffet-n7241818886.json
+│   │   │   │       ├── feuilles-vertes-n3584401532.json
+│   │   │   │       ├── five-star-bar-restaurant-n7271355245.json
+│   │   │   │       ├── flash-back-restaurant-n2304346036.json
+│   │   │   │       ├── flavour-jcs-n7166136687.json
+│   │   │   │       ├── flavours-tsinga-n4223061990.json
+│   │   │   │       ├── flora-resto-n7934998927.json
+│   │   │   │       ├── flore-n2033657974.json
+│   │   │   │       ├── flore-n2033659732.json
+│   │   │   │       ├── food-square-n6337717308.json
+│   │   │   │       ├── foodsquare-n7230637818.json
+│   │   │   │       ├── fresh-n-crunch-n7260149497.json
+│   │   │   │       ├── full-option-n7162007441.json
+│   │   │   │       ├── g-black-n7166134787.json
+│   │   │   │       ├── glacier-myka-w762803033.json
+│   │   │   │       ├── gogo-n11752579210.json
+│   │   │   │       ├── gold-coffee-n7271342890.json
+│   │   │   │       ├── gramland-n11392381238.json
+│   │   │   │       ├── grill-house-n7271432588.json
+│   │   │   │       ├── grillade-de-dame-nama-ntse-n7166123696.json
+│   │   │   │       ├── guyso-cafe-resto-n7218921088.json
+│   │   │   │       ├── happy-lunch-n13289149458.json
+│   │   │   │       ├── homme-sans-frontiere-n7257810102.json
+│   │   │   │       ├── homte-bar-restaurant-w211356109.json
+│   │   │   │       ├── hottollo-n7162225789.json
+│   │   │   │       ├── husline-restaurant-n7166168187.json
+│   │   │   │       ├── il-pastaio-street-food-caffe-n6337898842.json
+│   │   │   │       ├── iles-du-wouri-n3584401531.json
+│   │   │   │       ├── intime-n7241807244.json
+│   │   │   │       ├── istanbul-n2284597409.json
+│   │   │   │       ├── jeda-space-n7166134786.json
+│   │   │   │       ├── jodi-bites-n13301918629.json
+│   │   │   │       ├── julia-food-house-restaurant-bar-n6337780449.json
+│   │   │   │       ├── k-m-n7163822336.json
+│   │   │   │       ├── k-stay-cafe-n13580409533.json
+│   │   │   │       ├── kais-n8198599610.json
+│   │   │   │       ├── kajazoma-n6337772271.json
+│   │   │   │       ├── karoka-bbq-service-n4933980224.json
+│   │   │   │       ├── katie-eru-n3997669293.json
+│   │   │   │       ├── kazoo-w193965130.json
+│   │   │   │       ├── kisses-places-n7271328807.json
+│   │   │   │       ├── kmc-bastos-n13689494203.json
+│   │   │   │       ├── kobong-n12787770853.json
+│   │   │   │       ├── ks-n7166122074.json
+│   │   │   │       ├── l-ecrin-n11933104639.json
+│   │   │   │       ├── l-eden-n7230667913.json
+│   │   │   │       ├── l-esinganaise-restaurant-w193526335.json
+│   │   │   │       ├── l-esterel-w192810445.json
+│   │   │   │       ├── l-hybride-n12096271372.json
+│   │   │   │       ├── l-orient-rouge-n6339561371.json
+│   │   │   │       ├── l-orient-rouge-w192687206.json
+│   │   │   │       ├── l-univers-des-grillades-n13800789603.json
+│   │   │   │       ├── la-buona-pizza-w192785142.json
+│   │   │   │       ├── la-cantine-w192821115.json
+│   │   │   │       ├── la-detente-n11384444058.json
+│   │   │   │       ├── la-famille-n13069212468.json
+│   │   │   │       ├── la-force-du-poulet-n11403676170.json
+│   │   │   │       ├── la-force-du-poulet-n13507161436.json
+│   │   │   │       ├── la-foret-dense-n7230599367.json
+│   │   │   │       ├── la-grace-n7257841419.json
+│   │   │   │       ├── la-grace-n7271458400.json
+│   │   │   │       ├── la-joie-de-vivre-n7166061355.json
+│   │   │   │       ├── la-kompressor-n7241797467.json
+│   │   │   │       ├── la-maison-du-bouillon-n7271323476.json
+│   │   │   │       ├── la-maison-du-cafe-n5653336289.json
+│   │   │   │       ├── la-marmite-du-boulevard-n1993254174.json
+│   │   │   │       ├── la-mbamoise-n7162507421.json
+│   │   │   │       ├── la-mexicaine-n7257809487.json
+│   │   │   │       ├── la-paillotte-w416110230.json
+│   │   │   │       ├── la-pannetiere-n5275093747.json
+│   │   │   │       ├── la-pause-555-n7241793595.json
+│   │   │   │       ├── la-pepite-n7271440145.json
+│   │   │   │       ├── la-pizzeria-w188690997.json
+│   │   │   │       ├── la-planche-n13800715159.json
+│   │   │   │       ├── la-reine-du-poisson-braise-n11386372007.json
+│   │   │   │       ├── la-salsa-n6339483268.json
+│   │   │   │       ├── la-table-de-francois-n7230593131.json
+│   │   │   │       ├── la-terrasse-n6310433848.json
+│   │   │   │       ├── la-touche-de-la-mere-n7218992325.json
+│   │   │   │       ├── la-vallee-n13802283156.json
+│   │   │   │       ├── la-vieille-marmite-n7271300043.json
+│   │   │   │       ├── laman-n11500679181.json
+│   │   │   │       ├── lampeduza-n5820857576.json
+│   │   │   │       ├── le-baron-n6339547604.json
+│   │   │   │       ├── le-bazar-du-camp-africain-n7166136503.json
+│   │   │   │       ├── le-biniou-w193961325.json
+│   │   │   │       ├── le-bois-d-ebene-n6310583396.json
+│   │   │   │       ├── le-bois-sainte-anastasie-w191139648.json
+│   │   │   │       ├── le-boulevard-n6771675224.json
+│   │   │   │       ├── le-cafe-qui-sauve-n11711600751.json
+│   │   │   │       ├── le-carino-n11403819595.json
+│   │   │   │       ├── le-carpatio-au-plat-d-or-n2998038849.json
+│   │   │   │       ├── le-carring-ton2035-n7271326226.json
+│   │   │   │       ├── le-cendrillon-cafe-restau-n7166123693.json
+│   │   │   │       ├── le-cesame-w295998701.json
+│   │   │   │       ├── le-coeur-n7230628872.json
+│   │   │   │       ├── le-colisee-n13355471066.json
+│   │   │   │       ├── le-colisee-w192686834.json
+│   │   │   │       ├── le-continental-n7260212391.json
+│   │   │   │       ├── le-couloir-de-meme-n7230650613.json
+│   │   │   │       ├── le-dogel-n7166152011.json
+│   │   │   │       ├── le-doublon-n7219464938.json
+│   │   │   │       ├── le-dozo-lounge-n7260154986.json
+│   │   │   │       ├── le-finisterien-n7230591335.json
+│   │   │   │       ├── le-fournil-w410477045.json
+│   │   │   │       ├── le-gougnat-n2962424684.json
+│   │   │   │       ├── le-gourmandain-n7260177219.json
+│   │   │   │       ├── le-jardin-de-lisa-n6339557868.json
+│   │   │   │       ├── le-kalamo-n7260163923.json
+│   │   │   │       ├── le-maghy-s-n6339444635.json
+│   │   │   │       ├── le-manek-n2780509644.json
+│   │   │   │       ├── le-manhattan-n13929817830.json
+│   │   │   │       ├── le-marseillais-au-velodrome-n7230690435.json
+│   │   │   │       ├── le-meurice-n6339403866.json
+│   │   │   │       ├── le-moulin-de-don-quichotte-n6315935667.json
+│   │   │   │       ├── le-ndok-n6042816158.json
+│   │   │   │       ├── le-new-coq-blanc-n6337881880.json
+│   │   │   │       ├── le-normalien-w219052075.json
+│   │   │   │       ├── le-p-tit-bistrot-n11394066746.json
+│   │   │   │       ├── le-parallele-club-n2381876059.json
+│   │   │   │       ├── le-peuple-n7271394578.json
+│   │   │   │       ├── le-piccolo-n13189505406.json
+│   │   │   │       ├── le-pichichi-n4362645746.json
+│   │   │   │       ├── le-piroguier-n6337930605.json
+│   │   │   │       ├── le-premium-n5680784421.json
+│   │   │   │       ├── le-refuge-chez-mama-odile-w292697965.json
+│   │   │   │       ├── le-reveil-w292851389.json
+│   │   │   │       ├── le-rocher-n11403676171.json
+│   │   │   │       ├── le-rolis-restaurant-n10253165509.json
+│   │   │   │       ├── le-safoutier-n1116281761.json
+│   │   │   │       ├── le-saoudien-n7230615610.json
+│   │   │   │       ├── le-sawa-n4189575189.json
+│   │   │   │       ├── le-temps-de-dieu-n11446555752.json
+│   │   │   │       ├── le-week-end-du-carreleur-n7271481427.json
+│   │   │   │       ├── le-wenge-n6337914761.json
+│   │   │   │       ├── leevan-le-grand-n7241804511.json
+│   │   │   │       ├── les-cigalons-n6308170733.json
+│   │   │   │       ├── les-d-lices-de-mcej-restaurant-cave-w1162962682.json
+│   │   │   │       ├── les-delices-du-gourmet-n6339552057.json
+│   │   │   │       ├── les-delices-n2996112462.json
+│   │   │   │       ├── les-delices-n7271316397.json
+│   │   │   │       ├── les-merveilles-de-fololo-n9026271302.json
+│   │   │   │       ├── life-care-in-zion-n7271450746.json
+│   │   │   │       ├── liobot-resto-n7166108469.json
+│   │   │   │       ├── local-food-vendor-n11752326461.json
+│   │   │   │       ├── local-food-vendor-n11752395852.json
+│   │   │   │       ├── local-food-vendor-n11752418902.json
+│   │   │   │       ├── loft-de-kaja-w192690704.json
+│   │   │   │       ├── loz-food-n7078151785.json
+│   │   │   │       ├── maa-nina-n7166096867.json
+│   │   │   │       ├── maa-tu-resto-n7166096866.json
+│   │   │   │       ├── maddream-n7241808716.json
+│   │   │   │       ├── maguy-n7241815940.json
+│   │   │   │       ├── mahima-restaurant-n6315935385.json
+│   │   │   │       ├── maison-blanche-n2368816743.json
+│   │   │   │       ├── makom-n7230669812.json
+│   │   │   │       ├── mama-g-resto-n7271293779.json
+│   │   │   │       ├── mange-et-dor-n2033636213.json
+│   │   │   │       ├── manuba-n5177710525.json
+│   │   │   │       ├── mao-le-senegalais-w292701078.json
+│   │   │   │       ├── mapamba-grill-n11403676177.json
+│   │   │   │       ├── maria-luiza-n7257883691.json
+│   │   │   │       ├── marseillais-plus-n12825764666.json
+│   │   │   │       ├── mask-bar-n6339512081.json
+│   │   │   │       ├── massi-n12369257519.json
+│   │   │   │       ├── master-juice-services-n12814661807.json
+│   │   │   │       ├── merhodia-plus-n7230627431.json
+│   │   │   │       ├── mini-chic-resto-n7257792326.json
+│   │   │   │       ├── mini-restau-monica-n7271386132.json
+│   │   │   │       ├── minnam-lunch-n12311707115.json
+│   │   │   │       ├── motongor-cafe-n7163477310.json
+│   │   │   │       ├── mr-burger-w762803058.json
+│   │   │   │       ├── mr-popeyes-pastry-n13935263001.json
+│   │   │   │       ├── my-food-box-n7257915301.json
+│   │   │   │       ├── new-journey-restaurant-n6337907666.json
+│   │   │   │       ├── nice-restaurant-n7251466485.json
+│   │   │   │       ├── nseng-n2726206629.json
+│   │   │   │       ├── nyada-rocky-hill-n12895398079.json
+│   │   │   │       ├── nyango-restaurant-n7166123694.json
+│   │   │   │       ├── o-barbecue-restaurant-n6337898841.json
+│   │   │   │       ├── o-good-food-n13809657736.json
+│   │   │   │       ├── o-haira-walet-w1522867586.json
+│   │   │   │       ├── o-maeva-club-n6308327839.json
+│   │   │   │       ├── o-paletuvier-n12442271282.json
+│   │   │   │       ├── o-terroir-n7230617433.json
+│   │   │   │       ├── oemar-lounge-n11752396133.json
+│   │   │   │       ├── okebab-fast-food-n4375721891.json
+│   │   │   │       ├── one-spirit-n2017537694.json
+│   │   │   │       ├── opa-n7260151493.json
+│   │   │   │       ├── oubuntu-n7271365897.json
+│   │   │   │       ├── oui-noon-n11403676176.json
+│   │   │   │       ├── p-tite-faim-n6339552058.json
+│   │   │   │       ├── paletuvier-w221016069.json
+│   │   │   │       ├── penja-land-n6282216586.json
+│   │   │   │       ├── phoceen-n7271335046.json
+│   │   │   │       ├── piadina-caffe-et-restaurante-n6339477466.json
+│   │   │   │       ├── piano-piano-n13175833798.json
+│   │   │   │       ├── pieds-dans-l-eau-n7176969885.json
+│   │   │   │       ├── pim-poulet-n8718892808.json
+│   │   │   │       ├── pizza-roma-n6339537312.json
+│   │   │   │       ├── pizza-romeo-n11933015483.json
+│   │   │   │       ├── pizzeria-la-maria-n5731757968.json
+│   │   │   │       ├── popeyes-n8789946900.json
+│   │   │   │       ├── poulet-mayo-n13800858918.json
+│   │   │   │       ├── premium-vip-n7271450288.json
+│   │   │   │       ├── printemps-carrefour-jamot-n5764947253.json
+│   │   │   │       ├── quare-non-w610475181.json
+│   │   │   │       ├── raphaelo-pizza-n7271450946.json
+│   │   │   │       ├── refectoire-n2040772063.json
+│   │   │   │       ├── restau-jacqueline-n7162247999.json
+│   │   │   │       ├── restaurant-abanda-le-senegalais-n7260148020.json
+│   │   │   │       ├── restaurant-alidou-n7162507420.json
+│   │   │   │       ├── restaurant-alternatif-du-cameroun-n13801405073.json
+│   │   │   │       ├── restaurant-bar-africain-la-case-n7230528870.json
+│   │   │   │       ├── restaurant-bar-julie-n7257863990.json
+│   │   │   │       ├── restaurant-bar-le-refuge-n7271325791.json
+│   │   │   │       ├── restaurant-bar-les-boukinistes-n7230597908.json
+│   │   │   │       ├── restaurant-cave-ahni-bar-n7271410328.json
+│   │   │   │       ├── restaurant-chez-lucile-n4362645775.json
+│   │   │   │       ├── restaurant-chez-uncle-sam-n11932879308.json
+│   │   │   │       ├── restaurant-chicken-run-n7241787426.json
+│   │   │   │       ├── restaurant-chinois-village-n6316023158.json
+│   │   │   │       ├── restaurant-des-sept-saveurs-n13724089552.json
+│   │   │   │       ├── restaurant-dietetique-les-delices-dietes-de-fifi-labelle-n7260164652.json
+│   │   │   │       ├── restaurant-eden-parc-chez-ginette-n7260176748.json
+│   │   │   │       ├── restaurant-enam-n5776915854.json
+│   │   │   │       ├── restaurant-fotio-n11591598843.json
+│   │   │   │       ├── restaurant-halal-n12161507278.json
+│   │   │   │       ├── restaurant-kazoo-n6337753326.json
+│   │   │   │       ├── restaurant-khahyz-b-k-n8482202117.json
+│   │   │   │       ├── restaurant-kilimandjaro-n7230606217.json
+│   │   │   │       ├── restaurant-kimchi-w193961277.json
+│   │   │   │       ├── restaurant-la-saveur-chez-dg-n7260232797.json
+│   │   │   │       ├── restaurant-la-source-de-yaunde-n4460833983.json
+│   │   │   │       ├── restaurant-le-bacchus-n6315935389.json
+│   │   │   │       ├── restaurant-le-bien-etre-n7166123695.json
+│   │   │   │       ├── restaurant-le-bon-gout-n7271443181.json
+│   │   │   │       ├── restaurant-le-bonapriso-n7230653131.json
+│   │   │   │       ├── restaurant-le-cury-w507524710.json
+│   │   │   │       ├── restaurant-le-fouta-n10235824780.json
+│   │   │   │       ├── restaurant-le-jacana-n7260289268.json
+│   │   │   │       ├── restaurant-le-maquis-du-grand-bassam-n2033811692.json
+│   │   │   │       ├── restaurant-les-gourmets-n5678470221.json
+│   │   │   │       ├── restaurant-mahima-w192816089.json
+│   │   │   │       ├── restaurant-mta-n7241817265.json
+│   │   │   │       ├── restaurant-municipal-la-cascade-w316078160.json
+│   │   │   │       ├── restaurant-municipal-le-mfoundi-w192838429.json
+│   │   │   │       ├── restaurant-n11933006660.json
+│   │   │   │       ├── restaurant-ngand-a-fumee-n7230655209.json
+│   │   │   │       ├── restaurant-pizzeria-n7260167076.json
+│   │   │   │       ├── restaurant-populaire-w192837803.json
+│   │   │   │       ├── restaurant-prestige-w516176434.json
+│   │   │   │       ├── restaurant-royal-n3153728819.json
+│   │   │   │       ├── restaurant-sael-n7166060836.json
+│   │   │   │       ├── restaurant-sawa-n7230584147.json
+│   │   │   │       ├── restaurant-senegalais-chez-kao-n11394099571.json
+│   │   │   │       ├── restaurant-senegalais-chez-kao-n11539902718.json
+│   │   │   │       ├── restaurant-senegalais-chez-kao-n13141104011.json
+│   │   │   │       ├── restaurant-senegalais-chez-mme-cheikh-n7260260418.json
+│   │   │   │       ├── restaurant-senegalais-de-l-amitie-n7257841328.json
+│   │   │   │       ├── restaurant-senegalais-keur-serigne-saliou-mbacke-n7241817785.json
+│   │   │   │       ├── restaurant-senegalais-malekoum-salam-n7230593130.json
+│   │   │   │       ├── restaurant-senegalais-moderne-n11752421049.json
+│   │   │   │       ├── restaurant-senegalais-n4212966082.json
+│   │   │   │       ├── restaurant-senegalais-n4795272826.json
+│   │   │   │       ├── restaurant-snack-bar-le-partenaire-n4691479117.json
+│   │   │   │       ├── restaurant-taro-n7257810104.json
+│   │   │   │       ├── restaurant-universal-n5432000725.json
+│   │   │   │       ├── restaurant-universitaire-n-1-n7545604969.json
+│   │   │   │       ├── restaurant-universitaire-n-2-n1986989793.json
+│   │   │   │       ├── restaurant-vip-n2997348081.json
+│   │   │   │       ├── restaurant-wurey-bay-n7218919937.json
+│   │   │   │       ├── restaurant-zili-vip-n7218924287.json
+│   │   │   │       ├── resto-africain-n7260158310.json
+│   │   │   │       ├── resto-eru-n7260286143.json
+│   │   │   │       ├── resto-n7166123692.json
+│   │   │   │       ├── resto-sexy-dackere-5-etoiles-n2997531368.json
+│   │   │   │       ├── riad-prince-louis-entrance-building-and-restaurant-w1331616119.json
+│   │   │   │       ├── rotisserie-alino-n6339517279.json
+│   │   │   │       ├── rotisserie-ben-j-n2998038855.json
+│   │   │   │       ├── rotisserie-n3372988397.json
+│   │   │   │       ├── royal-crown-lounge-restaurant-n5176139432.json
+│   │   │   │       ├── royal-restaurant-bar-barbecue-n7260151494.json
+│   │   │   │       ├── rue-case-negre-n3604566559.json
+│   │   │   │       ├── rue-des-delices-n6454900185.json
+│   │   │   │       ├── rue-street-22-n2997541411.json
+│   │   │   │       ├── rustic-home-n7166080738.json
+│   │   │   │       ├── sadjo-n8334866631.json
+│   │   │   │       ├── sahel-n7271436362.json
+│   │   │   │       ├── saint-louis-restaurant-senegalais-n13544020201.json
+│   │   │   │       ├── saint-monaco-n7166060832.json
+│   │   │   │       ├── saint-tropez-n2483564186.json
+│   │   │   │       ├── salome-restau-w292698059.json
+│   │   │   │       ├── saveurs-africaines-n3463536119.json
+│   │   │   │       ├── saveurs-du-cameroun-n11398305595.json
+│   │   │   │       ├── saveurs-uniques-n11752383224.json
+│   │   │   │       ├── seven-hills-w192826288.json
+│   │   │   │       ├── shilo-resto-n7162211807.json
+│   │   │   │       ├── smile-n6308029351.json
+│   │   │   │       ├── smiley-n2033654670.json
+│   │   │   │       ├── snack-bar-restau-mister-m-w296169798.json
+│   │   │   │       ├── snack-bar-restaurant-la-martinaise-w210981241.json
+│   │   │   │       ├── snap-burger-n13806738203.json
+│   │   │   │       ├── socrate-n6316081653.json
+│   │   │   │       ├── soleil-d-epice-n7257858010.json
+│   │   │   │       ├── specialite-congo-meat-n6471967185.json
+│   │   │   │       ├── spicy-grill-n5510051723.json
+│   │   │   │       ├── square-n7257842795.json
+│   │   │   │       ├── st-eloi-n2017537696.json
+│   │   │   │       ├── st-tropes-w1522867784.json
+│   │   │   │       ├── super-kossam-n7166063769.json
+│   │   │   │       ├── superette-cafe-arras-n13091951328.json
+│   │   │   │       ├── sweet-life-n13801405064.json
+│   │   │   │       ├── t-west-n7257852128.json
+│   │   │   │       ├── taro-essos-n4986682821.json
+│   │   │   │       ├── tassa-w192776693.json
+│   │   │   │       ├── tchoko-s-food-n11519504476.json
+│   │   │   │       ├── tchop-et-yamo-n6339418924.json
+│   │   │   │       ├── tchop-et-yamo-w292852726.json
+│   │   │   │       ├── tchopetyamo-n2056858437.json
+│   │   │   │       ├── tchopetyamo-n6316081661.json
+│   │   │   │       ├── tchuiss-food-n11752433673.json
+│   │   │   │       ├── teleboutique-restaurant-n7271407053.json
+│   │   │   │       ├── terraga-n7257915093.json
+│   │   │   │       ├── terrific-coffee-n6339562820.json
+│   │   │   │       ├── terrific-coffee-n8989860017.json
+│   │   │   │       ├── texas-grill-n7260230128.json
+│   │   │   │       ├── the-best-boulangerie-n11947017568.json
+│   │   │   │       ├── the-craft-n7230651953.json
+│   │   │   │       ├── the-famous-w729246320.json
+│   │   │   │       ├── the-house-of-ice-cream-n7257857326.json
+│   │   │   │       ├── the-outsiders-n6979871485.json
+│   │   │   │       ├── the-outsiders-snack-bar-restaurant-n7260168906.json
+│   │   │   │       ├── the-steak-house-n13618453629.json
+│   │   │   │       ├── tkc-plus-w293058756.json
+│   │   │   │       ├── tobassi-grill-n12369257520.json
+│   │   │   │       ├── top-model-kola-n2441215323.json
+│   │   │   │       ├── tourou-village-n7271327462.json
+│   │   │   │       ├── tropical-fusion-n7257816674.json
+│   │   │   │       ├── ty-luz-fast-food-n7260134152.json
+│   │   │   │       ├── ulrich-n7433218985.json
+│   │   │   │       ├── vas-et-viens-n7166080737.json
+│   │   │   │       ├── vendeurs-de-nourriture-n11752379262.json
+│   │   │   │       ├── vente-de-poisson-braise-n7230660150.json
+│   │   │   │       ├── vietnamese-n5071940721.json
+│   │   │   │       ├── vip-restaurant-n7271441986.json
+│   │   │   │       ├── watzapp-plus-n7230660174.json
+│   │   │   │       ├── welcome-restaurant-n7257830173.json
+│   │   │   │       ├── white-house-restaurant-n7070016885.json
+│   │   │   │       ├── witek-hebergement-n7257898245.json
+│   │   │   │       ├── yao-ba-n5650210745.json
+│   │   │   │       ├── ye-lo-n4487342694.json
+│   │   │   │       ├── yelo-eateri-n7271343920.json
+│   │   │   │       ├── yoan-coffee-house-n13808399901.json
+│   │   │   │       ├── youssouf-wat-le-partener-n7163562958.json
+│   │   │   │       ├── yoyo-cafe-n7257858152.json
+│   │   │   │       ├── yunicks-n13750167614.json
+│   │   │   │       └── zone-cemac-n7230615605.json
+│   │   │   ├── raw/
+│   │   │   │   ├── .gitkeep
+│   │   │   │   ├── cliniques.json
+│   │   │   │   ├── hopitaux.json
+│   │   │   │   ├── hotels.json
+│   │   │   │   ├── pharmacies.json
+│   │   │   │   ├── restaurants.json
+│   │   │   │   └── sites.json
+│   │   │   └── sites/
+│   │   │       ├── .gitkeep
+│   │   │       ├── animaux-empailles-w192842105.json
+│   │   │       ├── blackitude-museum-n6310400747.json
+│   │   │       ├── catholic-cross-of-ngoya-summit-n5174142027.json
+│   │   │       ├── caveau-n5062521176.json
+│   │   │       ├── chapelle-de-christ-n7156368581.json
+│   │   │       ├── charles-atangana-w220117510.json
+│   │   │       ├── cimetiere-municipal-n1067289880.json
+│   │   │       ├── cimetiere-st-barthelemy-de-mva-a-n1067289826.json
+│   │   │       ├── eco-park-n8151287963.json
+│   │   │       ├── eugene-jamot-n5177886921.json
+│   │   │       ├── jardin-zoo-botanique-de-mvog-betsi-w207493773.json
+│   │   │       ├── joseph-akono-resident-n5479541421.json
+│   │   │       ├── kamerun-cooperative-n7980000786.json
+│   │   │       ├── lion-n2450331287.json
+│   │   │       ├── maison-dominik-w192839222.json
+│   │   │       ├── maison-fin-de-la-route-w438380294.json
+│   │   │       ├── marie-statue-n2292701975.json
+│   │   │       ├── monument-aux-morts-n3463536118.json
+│   │   │       ├── monument-de-l-independace-n2441565574.json
+│   │   │       ├── monument-de-la-reunification-n1067289936.json
+│   │   │       ├── monument-de-la-reunification-w188121375.json
+│   │   │       ├── monument-leclerc-eboue-n2292701978.json
+│   │   │       ├── musee-ecologique-du-millenaire-w835453293.json
+│   │   │       ├── musee-ethnographique-et-d-histoire-des-peuples-de-la-foret-d-n4204481689.json
+│   │   │       ├── musee-national-w188279621.json
+│   │   │       ├── musee-w193965513.json
+│   │   │       ├── nda-mekok-n13176969996.json
+│   │   │       ├── parc-n7164472394.json
+│   │   │       ├── plus-vieux-batiment-en-dur-de-yaounde-n2450442448.json
+│   │   │       ├── reunification-monument-n2450876088.json
+│   │   │       ├── rustick-home-musee-tmc-n7163440131.json
+│   │   │       ├── sainte-croix-n2292701976.json
+│   │   │       ├── salle-de-danse-n2040149864.json
+│   │   │       ├── statue-flamme-jeux-universitaire-n2997990131.json
+│   │   │       ├── statue-jeux-universitaire-n2997610891.json
+│   │   │       └── village-madiba-w293193590.json
+│   │   ├── lib/
+│   │   │   ├── geojsonHelpers.js
+│   │   │   │   ├── function extractOsmReference(feature)
+│   │   │   │   ├── function extractName(tags)
+│   │   │   │   ├── function extractAddress(tags)
+│   │   │   │   ├── function extractPhone(tags)
+│   │   │   │   ├── function extractCoordinates(feature)
+│   │   │   └── slugify.js
+│   │   │       ├── function slugify(value)
+│   │   │       ├── function buildFileSlug({ name, osm_type: osmType, osm_id: osmId })
+│   │   ├── schema.sql/
+│   │   ├── scripts/
+│   │   │   ├── extractCategoriesFromGeojson.js
+│   │   │   │   ├── function ensureDirectoryExists(directoryPath)
+│   │   │   │   ├── function readJsonFile(filePath)
+│   │   │   │   ├── function writeJsonFile(filePath, content)
+│   │   │   │   ├── function buildRawEntry({ osmReference, category, name, address, phone, coordinates, tags })
+│   │   │   │   ├── function indexExistingPlaceFiles(directoryPath)
+│   │   │   │   ├── function buildFreshPlaceEntry(rawEntry, { includeVideo })
+│   │   │   │   ├── function refreshPlaceEntry(existingContent, rawEntry)
+│   │   │   │   ├── function upsertPlaceFiles(directoryPath, rawEntries, { includeVideo })
+│   │   │   │   ├── function extractCategoriesFromGeojson()
+│   │   │   │   ├── function main()
+│   │   │   ├── seedLieuxFromDatabase.js
+│   │   │   │   ├── function listLieuFiles(categoryFolder)
+│   │   │   │   ├── function readJsonFile(filePath)
+│   │   │   │   ├── function normalizeLieuEntry(entry)
+│   │   │   │   ├── function seedLieuxFromDatabase()
+│   │   │   │   ├── function main()
+│   │   │   └── seedSitesFromDatabase.js
+│   │   │       ├── function listSiteFiles()
+│   │   │       ├── function readJsonFile(filePath)
+│   │   │       ├── function normalizeSiteEntry(entry)
+│   │   │       ├── function seedSitesFromDatabase()
+│   │   │       ├── function main()
+│   │   ├── seed/
+│   │   │   └── generated/
+│   │   │       ├── site-001/
+│   │   │       │   └── site.json
+│   │   │       └── site-002/
+│   │   │           └── site.json
+│   │   ├── bootstrap.js
+│   │   │   ├── function getVideoBySiteId(id)
+│   │   ├── config.js
+│   │   │   ├── function toNumber(value, fallback)
+│   │   │   ├── function getDatabaseConfig()
+│   │   ├── export.geojson
+│   │   ├── osmTagMapping.js
+│   │   │   ├── function determineCategory(tags)
+│   │   │   ├── function mapTagsToSiteCategory(tags)
+│   │   │   ├── function getCategoryFileName(category)
+│   │   ├── pool.js
+│   │   │   ├── function closePool()
+│   │   ├── README.md
+│   │   └── script.sql
+│   ├── middlewares/
+│   │   ├── asyncHandler.js
+│   │   │   ├── function asyncHandler(fn)
+│   │   ├── authMiddleware.js
+│   │   │   ├── function verifierToken(req, res, next)
+│   │   └── errorHandler.js
+│   │       ├── function errorHandler(err, req, res, next)
+│   ├── models/
+│   │   ├── lieuxModel.js
+│   │   │   ├── function getLieuxPresDuTrajet(coordonnees, rayonMetres = 5000, categories = null)
+│   │   ├── sites-detailsModel.js
+│   │   │   ├── function getVideoBySiteId(id)
+│   │   │   ├── function getSiteDetailsById(id)
+│   │   ├── sitesModel.js
+│   │   │   ├── function buildSiteBaseQuery()
+│   │   │   ├── function normalizeMediaPayload(media = [])
+│   │   │   ├── function buildSiteFilterQuery({ search, category, preference } = {})
+│   │   │   ├── function buildPaginatedQuery(baseQuery, { page = 1, limit = 20, params = [] } = {})
+│   │   │   ├── function querySites({ search, category, preference, page = 1, limit = 20 } = {})
+│   │   │   ├── function getAllSites({ search, category, page = 1, limit = 20 } = {})
+│   │   │   ├── function getSiteById(id)
+│   │   │   ├── function persistSiteMedia(client, siteId, mediaEntries)
+│   │   │   ├── function createSite({
+  id,
+  title,
+  description,
+  bonASavoir,
+  location,
+  category,
+  author,
+  imageUrl,
+  videoUrl,
+  latitude,
+  longitude,
+  difficulty,
+  dangerosity,
+  price,
+  userId = null,
+  media = [],
+})
+│   │   │   ├── function addRating(siteId, rating)
+│   │   │   ├── function getSiteByPreference(preference, { page = 1, limit = 20 } = {})
+│   │   │   ├── function offset(normalizedPage - 1) * normalizedLimit;
+
+  return {
+    query: `${baseQuery} ORDER BY s.created_at DESC LIMIT $${params.length + 1} OFFSET $${params.length + 2}`,
+    params: [...params, normalizedLimit, offset],
+  };
+}
+
+async function querySites({ search, category, preference, page = 1, limit = 20 } = {}) {
+  let query = buildSiteBaseQuery();
+  const { conditions, params } = buildSiteFilterQuery({ search, category, preference });
+
+  if (conditions.length) {
+    query += ` WHERE ${conditions.join(' AND ')}`;
+  }
+
+  query += ' GROUP BY s.id';
+
+  const paginatedQuery = buildPaginatedQuery(query, { page, limit, params });
+  const { rows } = await pool.query(paginatedQuery.query, paginatedQuery.params);
+
+  return rows;
+}
+
+async function getAllSites({ search, category, page = 1, limit = 20 } = {}) {
+  return querySites({ search, category, page, limit });
+}
+
+async function getSiteById(id) {
+  const { rows } = await pool.query(
+    `${buildSiteBaseQuery()} WHERE s.id = $1 GROUP BY s.id`,
+    [id]
+  );
+
+  return rows[0] || null;
+}
+
+async function persistSiteMedia(client, siteId, mediaEntries) {
+  const normalizedMedia = normalizeMediaPayload(mediaEntries);
+
+  await client.query('DELETE FROM site_media WHERE site_id = $1', [siteId]);
+
+  if (!normalizedMedia.length) {
+    return;
+  }
+
+  await Promise.all(normalizedMedia.map((entry)
+│   │   └── usersModel.js
+│   │       ├── function normalizePreferences(preferences)
+│   │       ├── function mapUserRow(user)
+│   │       ├── function findByEmail(email)
+│   │       ├── function findById(id)
+│   │       ├── function findByVerificationToken(token)
+│   │       ├── function createUser({ id, email, passwordHash, username, verificationToken, preferences })
+│   │       ├── function verifyUser(token)
+│   ├── routes/
+│   │   ├── authRoutes.js
+│   │   ├── itineraireRoutes.js
+│   │   ├── sites-detailsRoutes.js
+│   │   ├── sitesRoutes.js
+│   │   └── userRoutes.js
+│   ├── tests/
+│   │   ├── integration/
+│   │   │   ├── auth.test.js
+│   │   │   │   ├── function uniqueEmail()
+│   │   │   │   ├── function extractToken(confirmationLink)
+│   │   │   ├── moyenne.test.js
+│   │   │   │   ├── function extractToken(confirmationLink)
+│   │   │   │   ├── function creerSiteDeTest()
+│   │   │   ├── sites.test.js
+│   │   │   │   ├── function extractToken(confirmationLink)
+│   │   │   └── users.test.js
+│   │   │       ├── function extractToken(confirmationLink)
+│   │   │       ├── function creerUtilisateurConnecte({ username, preferences } = {})
+│   │   └── unit/
+│   │       └── converstionLanguage.test.js
+│   └── app.js
+├── .dockerignore
+├── .env
+├── .env.example
+├── .gitignore
+├── architecture.tree
+├── docker-compose.yml
+├── Dockerfile
+├── eslint.config.js
+├── init_Remote_Database.bat
+├── main.py
+├── package-lock.json
+├── package.json
+├── README.md
+└── RUNNING.md

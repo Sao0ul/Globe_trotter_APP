@@ -1,0 +1,18 @@
+{
+    "osm_type": "way",
+    "osm_id": 107193713,
+    "category": "beach",
+    "name": "kribi beach",
+    "address": null,
+    "phone": null,
+    "latitude": 2.96415,
+    "longitude": 9.911691,
+    "description": "Kribi beach is a coastal destination located in the South Region of Cameroon. Known for its pristine sandy shores and clear waters, it is a popular spot for both locals and tourists seeking relaxation and water activities. The beach is also famous for its nearby attractions, including the Lobé Waterfalls, where the river meets the Atlantic Ocean.",
+    "bonASavoir": "Kribi beach is a popular tourist destination, so be cautious of pickpockets and scams. It's advisable to keep your belongings secure and avoid isolated areas, especially at night. Always follow local guidelines and respect the environment to ensure a safe and enjoyable visit.",
+    "imageUrl": "https://discover-cameroon.com/wp-content/uploads/2021/02/Pirogue-des-pecheurs-8.jpg",
+    "videoUrl": "https://youtu.be/AXhtUGKBiNE?si=JcNiwXnnimM253wO",
+    "video_par": "Павло Щербань(youtube)",
+    "price": 0,
+    "dangerosity": "low",
+    "difficulty": "easy"
+}

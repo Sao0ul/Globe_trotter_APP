@@ -1,0 +1,96 @@
+.leaflet-div-icon {
+    background: transparent;
+    border: none;
+}
+
+.map-pin {
+    position: relative;
+    width: 26px;
+    height: 48px;
+}
+
+.map-pin-glyph {
+    position: absolute;
+    inset: 0;
+    background-image: var(--pin-icon-url);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* ============================================================
+   Icônes par catégorie — remplace chaque --pin-icon-url par le
+   chemin de ton image préparée (ex. url('/assets/markers/xxx.png'))
+   ============================================================ */
+
+.map-pin--destination {
+    --pin-color: #E3A93A;
+    --pin-icon-url: url("/assets/images/pin_goal-removebg.png");
+}
+
+.map-pin--restaurant {
+    --pin-color: #B8452F;
+    --pin-icon-url: url("../assets/images/pin_resto-removebg.png");
+}
+
+.map-pin--hotel {
+    --pin-color: #4FA3C4;
+    --pin-icon-url: url("/assets/images/pin_hotel-removebg.png");
+}
+
+.map-pin--hopital,
+.map-pin--clinique {
+    --pin-color: #D64545;
+    --pin-icon-url: url("/assets/images/pin_hopital-removebg.png");
+}
+
+.map-pin--pharmacie {
+    --pin-color: #2F8B7D;
+    --pin-icon-url: url("/assets/images/pin_pharmacie-removebg.png");
+}
+
+.map-pin--transport {
+    --pin-color: #2F8B7D;
+    --pin-icon-url: url("/assets/images/pin_transport-removebg.png");
+}
+
+.map-pin--site_touristique {
+    --pin-color: #C98A2E;
+    --pin-icon-url: url("/assets/images/pin_you-removebg.png");
+}
+
+/* ============================================================
+   Position utilisateur — reste un point circulaire qui pulse,
+   pas un losange (convention universelle des apps de carte)
+   ============================================================ */
+.map-pin--user {
+    width: 26px;
+    height: 48px;
+}
+
+.map-pin--user .map-pin-glyph {
+    background-image: url("/assets/images/pin_you-removebg.png");
+    background-size: cover;
+    background-position: center;
+}
+
+
+
+
+@keyframes pulse-user-pin {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 4px rgba(66, 133, 244, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 0 9px rgba(66, 133, 244, 0.12);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .map-pin--user::before {
+        animation: none;
+    }
+}
