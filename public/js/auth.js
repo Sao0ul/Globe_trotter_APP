@@ -40,3 +40,23 @@ loginForm.addEventListener("submit", async (event) => {
     errorMessage.hidden = false;
   }
 });
+
+// -------------------- Afficher/masquer le mot de passe --------------------
+
+const passwordInput = document.getElementById("password");
+const togglePasswordBtn = document.getElementById("togglePasswordBtn");
+const toggleIcon = togglePasswordBtn.querySelector("i");
+
+togglePasswordBtn.addEventListener("click", () => {
+  const estVisible = passwordInput.type === "text";
+
+  passwordInput.type = estVisible ? "password" : "text";
+  togglePasswordBtn.setAttribute("aria-pressed", String(!estVisible));
+  togglePasswordBtn.setAttribute(
+    "aria-label",
+    estVisible ? "Afficher le mot de passe" : "Masquer le mot de passe"
+  );
+
+  toggleIcon.classList.toggle("fa-eye", estVisible);
+  toggleIcon.classList.toggle("fa-eye-slash", !estVisible);
+});

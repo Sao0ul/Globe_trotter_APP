@@ -274,9 +274,6 @@ button[type="submit"]:hover {
     }
 }
 
-/* ==========================================
-   LANGUAGE TOGGLE
-========================================== */
 
 /* ==========================================
    LANGUAGE SWITCHER
@@ -320,6 +317,43 @@ button[type="submit"]:hover {
     color: #1b1b1b;
     box-shadow: 0 4px 12px rgba(255, 213, 79, .4);
 }
+
+
+
+.input-group.password-group {
+    position: relative;
+}
+
+.input-group.password-group input {
+    padding-right: 40px;
+    /* laisse la place au bouton, sans chevaucher le texte */
+}
+
+.password-toggle-btn {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: inherit;
+    opacity: 0.6;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: opacity .2s ease, background .2s ease;
+}
+
+.password-toggle-btn:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+
 
 @media(max-width:768px) {
     .language-switcher {

@@ -265,6 +265,7 @@ function afficherSites() {
 
     card.addEventListener("click", (event) => {
       if (event.target.closest(".rating")) return;
+      sauvegarderEtatListe();
       window.location.href = `site-detail.html?id=${encodeURIComponent(site.id)}`;
     });
 
@@ -402,16 +403,32 @@ addSiteForm.addEventListener("submit", async (event) => {
 
 document.getElementById("retryLoad").addEventListener("click", () => chargerSites(true));
 
-// -------------------- Chargement au scroll --------------------
+// -------------------- Chargement au scroll (IntersectionObserver) --------------------
+//
+// On observe un repère invisible en bas de la grille plutôt que d'écouter
+// le scroll brut : le navigateur ne nous prévient qu'UNE fois quand ce
+// repère devient visible, au lieu de déclencher un calcul à chaque pixel
+// scrollé. rootMargin déclenche un peu avant que le repère soit visible
+// à l'écran, pour un chargement fluide (l'utilisateur ne voit jamais de
+// "trou" en bas de page).
 
-window.addEventListener("scroll", () => {
-  const prochesDuBas =
-    window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 300;
+const scrollSentinel = document.getElementById("scrollSentinel");
 
-  if (prochesDuBas) {
-    chargerSites(false);
+const scrollObserver = new IntersectionObserver(
+  (entries) => {
+    const sentinelVisible = entries[0].isIntersecting;
+
+    if (sentinelVisible && !chargementEnCours && ilResteDesSites) {
+      chargerSites(false);
+    }
+  },
+  {
+    rootMargin: "400px", // déclenche 400px avant d'atteindre le repère
   }
-});
+);
+
+scrollObserver.observe(scrollSentinel);
+
 
 // Redemande le nombre de colonnes visibles quand la fenêtre change de taille
 // (rotation d'écran, redimensionnement) — recharge tout pour rester cohérent.
@@ -457,10 +474,66 @@ collapseBtn.addEventListener("click", () => {
   chargerSites(true);
 });
 
-// -------------------- Déconnexion --------------------
 
+// -------------------- Persistance de l'état de la liste --------------------
+//
+// Sauvegarde tout ce qu'il faut pour restaurer la liste à l'identique
+// (comme le feed Instagram) quand l'utilisateur revient depuis les
+// détails d'un site — sans refaire d'appel serveur ni perdre le scroll.
+
+const SITES_CACHE_KEY = "sitesFeedCache";
+
+function sauvegarderEtatListe() {
+  sessionStorage.setItem(SITES_CACHE_KEY, JSON.stringify({
+    sites: tousLesSites,
+    page: pageActuelle,
+    ilResteDesSites,
+    categorieActive,
+    rechercheActuelle,
+    scrollY: window.scrollY,
+  }));
+}
+
+function restaurerEtatListe() {
+  const brut = sessionStorage.getItem(SITES_CACHE_KEY);
+  if (!brut) return false;
+
+  try {
+    const etat = JSON.parse(brut);
+
+    tousLesSites = etat.sites || [];
+    pageActuelle = etat.page || 1;
+    ilResteDesSites = etat.ilResteDesSites ?? true;
+    categorieActive = etat.categorieActive || "tous";
+    rechercheActuelle = etat.rechercheActuelle || "";
+
+    searchInput.value = rechercheActuelle;
+    document.querySelectorAll(".filters-panel .chip").forEach((chip) => {
+      chip.classList.toggle("is-active", chip.dataset.cat === categorieActive);
+    });
+    mettreAJourLabelFiltre();
+
+    afficherSites();
+
+    // Le scroll doit être appliqué après que le navigateur ait fini de
+    // peindre les cartes restaurées, sinon la page n'a pas encore sa
+    // hauteur finale et le scroll retombe à 0.
+    requestAnimationFrame(() => {
+      window.scrollTo(0, etat.scrollY || 0);
+    });
+
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+
+
+// -------------------- Déconnexion --------------------
 logoutBtn.addEventListener("click", () => {
   localStorage.clear();
+  sessionStorage.removeItem(SITES_CACHE_KEY);
   window.location.href = "index.html";
 });
 
@@ -473,5 +546,9 @@ document.addEventListener("i18n:languageChanged", () => {
 
 window.i18n?.ready?.then(() => {
   mettreAJourLabelFiltre();
-  chargerSites(true);
+
+  const restaure = restaurerEtatListe();
+  if (!restaure) {
+    chargerSites(true);
+  }
 });
