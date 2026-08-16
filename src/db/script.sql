@@ -24,6 +24,21 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+
+
+ALTER TABLE IF EXISTS users
+    ALTER COLUMN password_hash DROP NOT NULL,
+    ADD COLUMN IF NOT EXISTS oauth_provider VARCHAR(20)
+        CHECK (oauth_provider IN ('google', 'facebook', 'apple')),
+    ADD COLUMN IF NOT EXISTS oauth_id VARCHAR(255);
+
+-- CREATE UNIQUE INDEX supporte IF NOT EXISTS, contrairement à
+-- ALTER TABLE ADD CONSTRAINT — cohérent avec le reste du fichier.
+-- Comme pour osm_type/osm_id : Postgres autorise plusieurs NULL,
+-- donc ça ne gêne pas les comptes classiques email/mot de passe.
+CREATE UNIQUE INDEX IF NOT EXISTS users_oauth_uniq
+    ON users (oauth_provider, oauth_id);
+
 -- ============================================================
 -- SITES — destinations à explorer, consultées via /api/sites.
 -- Alimentées soit manuellement (author = pseudo utilisateur),

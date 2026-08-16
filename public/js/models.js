@@ -28,7 +28,26 @@ export class AppModel {
 
     const data = await res.json();
     this.token = data.token;
-    this.pseudo = data.pseudo;
+    this.pseudo = data.username;  // ← corrigé, c'était data.pseudo
+    localStorage.setItem('token', this.token);
+    localStorage.setItem('pseudo', this.pseudo);
+  }
+  
+  async loginWithGoogle(credential) {
+    const res = await fetch(`${API_BASE}/auth/google`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ credential })
+    });
+
+    if (!res.ok) {
+      const data = await res.json();
+      throw new Error(data.error || 'Échec de connexion Google');
+    }
+
+    const data = await res.json();
+    this.token = data.token;
+    this.pseudo = data.username;
     localStorage.setItem('token', this.token);
     localStorage.setItem('pseudo', this.pseudo);
   }

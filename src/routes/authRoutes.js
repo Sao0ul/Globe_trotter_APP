@@ -4,6 +4,8 @@ const { register, login , verify } = require('../controllers/authController');
 
 router.post('/register', register);
 router.post('/login', login);
+router.post('/google', googleLogin);
 router.get('/verify/:token', verify);
+
 
 module.exports = router;

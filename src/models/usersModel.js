@@ -48,6 +48,35 @@ async function findById(id) {
   return rows[0] ? mapUserRow(rows[0]) : null;
 }
 
+async function findByOAuth(provider, providerId) {
+  const { rows } = await pool.query(
+    `SELECT * FROM users WHERE oauth_provider = $1 AND oauth_id = $2`,
+    [provider, providerId]
+  );
+  return rows[0] ? mapUserRow(rows[0]) : null;
+}
+
+async function createOAuthUser({ id, email, username, oauthProvider, oauthId }) {
+  const { rows } = await pool.query(
+    `INSERT INTO users (id, email, username, oauth_provider, oauth_id, is_verified)
+     VALUES ($1, $2, $3, $4, $5, TRUE)
+     RETURNING *`,
+    [id, email, username, oauthProvider, oauthId]
+  );
+  return mapUserRow(rows[0]);
+}
+
+async function linkOAuthToUser(userId, provider, providerId) {
+  const { rows } = await pool.query(
+    `UPDATE users SET oauth_provider = $1, oauth_id = $2, is_verified = TRUE
+     WHERE id = $3 RETURNING *`,
+    [provider, providerId, userId]
+  );
+  return rows[0] ? mapUserRow(rows[0]) : null;
+}
+
+
+
 // Find a user by verification token used by the confirmation link workflow.
 async function findByVerificationToken(token) {
   const { rows } = await pool.query(
@@ -109,4 +138,14 @@ async function verifyUser(token) {
   return rowCount > 0;
 }
 
-module.exports = { findByEmail, findById, findByVerificationToken, createUser, verifyUser };
+module.exports = {
+  // ... exports existants
+  findByOAuth,
+  createOAuthUser,
+  linkOAuthToUser,
+  findByEmail, 
+  findById, 
+  findByVerificationToken, 
+  createUser, 
+  verifyUser
+};

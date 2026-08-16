@@ -49,10 +49,10 @@ const register = asyncHandler(async (req, res) => {
     preferences: normalizedPreferences,
   });
 
-  // Lien de confirmation — en conditions réelles, on l'enverrait par email (SMTP).
-  // Ici on simule l'envoi : le lien est loggé côté serveur et renvoyé dans la
-  // réponse API, pour pouvoir tester sans configurer de vrai service mail.
-  const confirmationLink = `${req.protocol}://${req.get('host')}/api/auth/verify/${verificationToken}`;
+  // Pointe vers la page frontend qui affichera un message + redirigera,
+  // pas directement vers l'API (sinon l'utilisateur voit du JSON brut).
+  const frontendUrl = process.env.FRONTEND_URL || `${req.protocol}://${req.get('host')}`;
+  const confirmationLink = `${frontendUrl}/verify.html?token=${verificationToken}`;
   try {
     await sendVerificationEmail(email, username, confirmationLink);
   } catch (mailError) {

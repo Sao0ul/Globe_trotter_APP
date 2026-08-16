@@ -131,7 +131,7 @@ registerForm.addEventListener("submit", async (event) => {
     // Il n'est plus affiché dans le frontend.
 
     successMessage.textContent =
-      window.i18n.t("register.success");
+      successMessage.textContent = window.i18n.t("register.checkEmailInbox");
 
     successMessage.hidden = false;
 
@@ -141,7 +141,7 @@ registerForm.addEventListener("submit", async (event) => {
     // Redirection vers la page de login après un court délai
     setTimeout(() => {
       window.location.href = "login.html";
-    }, 1500);
+    }, 3000);
 
   } catch (error) {
     console.error("Erreur d'inscription :", error);

@@ -27,7 +27,8 @@
     "signInLink": "Sign in",
     "successHtml": "Account created! Confirm it by clicking {link}.",
     "successLink": "here",
-    "preferencesSelected": "{count} preference(s) selected"
+    "preferencesSelected": "{count} preference(s) selected",
+    "checkEmailInbox": "Account created! Check your inbox to confirm your account, then log in."
   },
   "preferences": {
     "nature": "Nature",

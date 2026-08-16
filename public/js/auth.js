@@ -60,3 +60,37 @@ togglePasswordBtn.addEventListener("click", () => {
   toggleIcon.classList.toggle("fa-eye", estVisible);
   toggleIcon.classList.toggle("fa-eye-slash", !estVisible);
 });
+
+
+//----------------------authentification avec google-------------------------
+function initGoogleSignIn() {
+  google.accounts.id.initialize({
+    client_id: 'xxxxxxxxxx.apps.googleusercontent.com', // remplace par le tien
+    callback: handleGoogleCredential,
+  });
+}
+
+async function handleGoogleCredential(response) {
+  try {
+    const res = await fetch('/api/auth/google', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ credential: response.credential }),
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Échec de la connexion Google');
+
+    localStorage.setItem('token', data.token); // ⚠️ voir ci-dessous
+    window.location.href = 'sites.html';
+  } catch (error) {
+    console.error('Connexion Google échouée :', error);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initGoogleSignIn();
+
+  const googleButton = document.querySelector('.social-buttons .fa-google')?.closest('button');
+  googleButton?.addEventListener('click', () => google.accounts.id.prompt());
+});
