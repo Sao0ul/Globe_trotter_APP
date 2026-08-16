@@ -3,8 +3,10 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const asyncHandler = require('../middlewares/asyncHandler');
 const { findByEmail, createUser, verifyUser } = require('../models/usersModel');
+const { sendVerificationEmail } = require('../services/mailer');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'travel-app-dev-secret';
+
 
 // POST /api/auth/register — création de compte, non vérifié par défaut
 const register = asyncHandler(async (req, res) => {
@@ -51,12 +53,17 @@ const register = asyncHandler(async (req, res) => {
   // Ici on simule l'envoi : le lien est loggé côté serveur et renvoyé dans la
   // réponse API, pour pouvoir tester sans configurer de vrai service mail.
   const confirmationLink = `${req.protocol}://${req.get('host')}/api/auth/verify/${verificationToken}`;
-  console.log(`[SIMULATION EMAIL] Lien de confirmation pour ${email} : ${confirmationLink}`);
+  try {
+    await sendVerificationEmail(email, username, confirmationLink);
+  } catch (mailError) {
+    console.error('Échec envoi mail de confirmation:', mailError.message);
+    // Le compte existe quand même — voir remarque plus bas sur le renvoi
+  }
 
   res.status(201).json({
     ...newUser,
-    // À retirer en production réelle — présent ici uniquement pour faciliter les tests
-    confirmationLink,
+    // confirmationLink n'est plus renvoyé dans la réponse — maintenant
+    // qu'un vrai mail part, plus besoin de l'exposer côté client
   });
 });
 

@@ -4,7 +4,7 @@ const token = localStorage.getItem("token");
 const username = localStorage.getItem("username");
 
 if (!token) {
-  window.location.href = "index.html";
+  window.location.href = "login.html";
 }
 
 // -------------------- Sidebar : salutation --------------------
@@ -140,7 +140,7 @@ async function chargerSites(reinitialiser = true) {
 
   if (response.status === 401) {
     localStorage.clear();
-    window.location.href = "index.html";
+    window.location.href = "login.html";
     return;
   }
 
@@ -534,7 +534,7 @@ function restaurerEtatListe() {
 logoutBtn.addEventListener("click", () => {
   localStorage.clear();
   sessionStorage.removeItem(SITES_CACHE_KEY);
-  window.location.href = "index.html";
+  window.location.href = "login.html";
 });
 
 document.addEventListener("i18n:languageChanged", () => {
