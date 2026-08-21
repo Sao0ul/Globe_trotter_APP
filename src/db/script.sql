@@ -39,6 +39,8 @@ ALTER TABLE IF EXISTS users
 CREATE UNIQUE INDEX IF NOT EXISTS users_oauth_uniq
     ON users (oauth_provider, oauth_id);
 
+
+
 -- ============================================================
 -- SITES — destinations à explorer, consultées via /api/sites.
 -- Alimentées soit manuellement (author = pseudo utilisateur),
