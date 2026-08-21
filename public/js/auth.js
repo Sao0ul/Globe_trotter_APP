@@ -60,3 +60,40 @@ togglePasswordBtn.addEventListener("click", () => {
   toggleIcon.classList.toggle("fa-eye", estVisible);
   toggleIcon.classList.toggle("fa-eye-slash", !estVisible);
 });
+
+//====================== login with google ======================
+
+document.addEventListener("DOMContentLoaded", () => {
+  const googleBtn = document.getElementById("google-btn");
+
+  if (googleBtn) {
+    googleBtn.addEventListener("click", () => {
+      // appelle l'api du backend
+      const backendGoogleUrl = "/api/auth/google";
+      
+      // Redirige le navigateur vers le backend qui va gérer le protocole OAuth2
+      window.location.href = backendGoogleUrl;
+    });
+  }
+});
+
+
+//====================== popup suggestion google ======================
+
+document.addEventListener("DOMContentLoaded", () => {
+  const popup = document.getElementById("googleSuggestPopup");
+  const closeBtn = popup?.querySelector(".google-suggest-close");
+  const ctaBtn = popup?.querySelector(".google-suggest-cta");
+
+  if (!popup) return;
+
+  setTimeout(() => {
+    popup.hidden = false;
+  }, 1000);
+
+  closeBtn?.addEventListener("click", () => { popup.hidden = true; });
+  ctaBtn?.addEventListener("click", () => {
+    popup.hidden = true;
+    document.getElementById("google-btn")?.click();
+  });
+});

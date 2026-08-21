@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const asyncHandler = require('../middlewares/asyncHandler');
-const { findByEmail, createUser, verifyUser } = require('../models/usersModel');
+const { findByEmail, createUser, verifyUser, findByGoogleId, createUserFromGoogle } = require('../models/usersModel');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'travel-app-dev-secret';
 
@@ -86,12 +86,18 @@ const login = asyncHandler(async (req, res) => {
     return res.status(401).json({ error: 'invalid email or password' });
   }
 
+  // Compte créé via Google : pas de mot de passe local, on ne peut pas comparer
+  if (user.auth_provider === 'google' || !user.password_hash) {
+    return res.status(400).json({
+      error: 'this account uses Google sign-in, please use the "Login with Google" button'
+    });
+  }
+
   const passwordValid = await bcrypt.compare(password, user.password_hash);
   if (!passwordValid) {
     return res.status(401).json({ error: 'invalid email or password' });
   }
 
-  // Bloque la connexion tant que le compte n'est pas confirmé
   if (!user.is_verified) {
     return res.status(403).json({ error: 'please confirm your account via the link sent to your email' });
   }
@@ -105,4 +111,70 @@ const login = asyncHandler(async (req, res) => {
   res.json({ token, username: user.username });
 });
 
-module.exports = { register, login, verify };
+
+// GET /api/auth/google -authentification by google
+const { OAuth2Client } = require('google-auth-library');
+
+const googleClient = new OAuth2Client(
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_CLIENT_SECRET,
+  process.env.GOOGLE_CALLBACK_URL
+);
+
+// GET /api/auth/google — redirige vers l'écran de consentement Google
+const googleAuth = asyncHandler(async (req, res) => {
+  const url = googleClient.generateAuthUrl({
+    access_type: 'offline',
+    scope: ['profile', 'email'],
+    prompt: 'consent',
+  });
+  res.redirect(url);
+});
+
+// GET /api/auth/google/callback
+const googleCallback = asyncHandler(async (req, res) => {
+  const { code } = req.query;
+
+  if (!code) {
+    return res.redirect(`${process.env.FRONTEND_URL}/login?error=google_no_code`);
+  }
+
+  const { tokens } = await googleClient.getToken(code);
+  googleClient.setCredentials(tokens);
+
+  const ticket = await googleClient.verifyIdToken({
+    idToken: tokens.id_token,
+    audience: process.env.GOOGLE_CLIENT_ID,
+  });
+  const payload = ticket.getPayload();
+  // payload.sub = id Google unique, payload.email, payload.name, payload.email_verified
+
+  let user = await findByGoogleId(payload.sub);
+
+  if (!user) {
+    // un compte local avec le même email existe déjà → on le lie au compte Google
+    const existingLocal = await findByEmail(payload.email);
+
+    if (existingLocal) {
+      return res.redirect(`${process.env.FRONTEND_URL}/auth-callback.html?error=email_already_used_local`);
+    }
+
+    user = await createUserFromGoogle({
+      id: crypto.randomUUID(),
+      email: payload.email,
+      username: payload.name || payload.email.split('@')[0],
+      googleId: payload.sub,
+    });
+  }
+
+  const token = jwt.sign(
+    { id: user.id, email: user.email, username: user.username },
+    JWT_SECRET,
+    { expiresIn: '7d' }
+  );
+
+  res.redirect(`${process.env.FRONTEND_URL}/auth-callback.html?token=${token}`);
+}); 
+
+
+module.exports = { register, login, verify, googleAuth, googleCallback };
