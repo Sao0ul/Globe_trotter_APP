@@ -1,17 +1,143 @@
 /
 ├── .github/
 │   └── workflows/
-│       ├── ci-cd.yml
-│       └── semgrep.yml
+│       └── ci-cd.yml
 ├── certs/
 │   └── ca.pem
 ├── public/
 │   ├── assets/
 │   │   ├── images/
 │   │   │   ├── favicon.png
-│   │   │   └── logoLogin.png
+│   │   │   ├── logojLogin.png
+│   │   │   ├── logoLeogin.png
+│   │   │   ├── logoLogin.png
+│   │   │   ├── pin.png
+│   │   │   ├── pin_eglise-removebg.png
+│   │   │   ├── pin_goal-removebg.png
+│   │   │   ├── pin_hopital-removebg.png
+│   │   │   ├── pin_hotel-removebg.png
+│   │   │   ├── pin_pharmacie-removebg.png
+│   │   │   ├── pin_resto-removebg.png
+│   │   │   ├── pin_you-removebg.png
+│   │   │   ├── site-detailBG.jpg
+│   │   │   └── yango-logo.svg
 │   │   └── videos/
 │   ├── css/
+│   │   ├── itinerary.css
+│   │   │   ├── .detail-facts
+│   │   │   ├── .detail-legend
+│   │   │   ├── .detail-legend-float
+│   │   │   ├── .directions-close-btn
+│   │   │   ├── .directions-field
+│   │   │   ├── .directions-mode-btn
+│   │   │   ├── .directions-modes
+│   │   │   ├── .directions-panel
+│   │   │   ├── .directions-row
+│   │   │   ├── .directions-swap-btn
+│   │   │   ├── .fab
+│   │   │   ├── .fab-locate
+│   │   │   ├── .float-topbar
+│   │   │   ├── .is-active
+│   │   │   ├── .is-dimmed
+│   │   │   ├── .is-open
+│   │   │   ├── .is-unavailable
+│   │   │   ├── .itinerary-fullbleed
+│   │   │   ├── .itinerary-layout
+│   │   │   ├── .leaflet-container
+│   │   │   ├── .leaflet-control-zoom
+│   │   │   ├── .leaflet-popup-content
+│   │   │   ├── .leaflet-popup-content-wrapper
+│   │   │   ├── .legend-dot
+│   │   │   ├── .legend-hospital
+│   │   │   ├── .legend-hotel
+│   │   │   ├── .legend-item
+│   │   │   ├── .legend-item--static
+│   │   │   ├── .legend-restaurant
+│   │   │   ├── .legend-site
+│   │   │   ├── .legend-transport
+│   │   │   ├── .openDirectionsBtnc
+│   │   │   ├── .popup-btn
+│   │   │   ├── .popup-category
+│   │   │   ├── .popup-title
+│   │   │   ├── .route-map
+│   │   │   ├── .route-map-full
+│   │   │   ├── .route-summary
+│   │   │   ├── .route-summary-float
+│   │   │   ├── a
+│   │   │   ├── active
+│   │   │   ├── btn
+│   │   │   ├── category
+│   │   │   ├── close-btn
+│   │   │   ├── container
+│   │   │   ├── control-zoom
+│   │   │   ├── dimmed
+│   │   │   ├── disabled
+│   │   │   ├── dot
+│   │   │   ├── facts
+│   │   │   ├── field
+│   │   │   ├── focus
+│   │   │   ├── fullbleed
+│   │   │   ├── hospital
+│   │   │   ├── hotel
+│   │   │   ├── hover
+│   │   │   ├── input
+│   │   │   ├── item
+│   │   │   ├── item--static
+│   │   │   ├── layout
+│   │   │   ├── legend
+│   │   │   ├── legend-float
+│   │   │   ├── locate
+│   │   │   ├── map
+│   │   │   ├── map-full
+│   │   │   ├── max-width
+│   │   │   ├── mode-btn
+│   │   │   ├── modes
+│   │   │   ├── not
+│   │   │   ├── open
+│   │   │   ├── p
+│   │   │   ├── panel
+│   │   │   ├── popup-content
+│   │   │   ├── popup-content-wrapper
+│   │   │   ├── readonly
+│   │   │   ├── restaurant
+│   │   │   ├── row
+│   │   │   ├── site
+│   │   │   ├── summary
+│   │   │   ├── summary-float
+│   │   │   ├── svg
+│   │   │   ├── swap-btn
+│   │   │   ├── title
+│   │   │   ├── topbar
+│   │   │   ├── transport
+│   │   │   ├── unavailable
+│   │   ├── map-markers.css
+│   │   │   ├── .leaflet-div-icon
+│   │   │   ├── .map-pin
+│   │   │   ├── .map-pin--clinique
+│   │   │   ├── .map-pin--destination
+│   │   │   ├── .map-pin--hopital
+│   │   │   ├── .map-pin--hotel
+│   │   │   ├── .map-pin--pharmacie
+│   │   │   ├── .map-pin--restaurant
+│   │   │   ├── .map-pin--site_touristique
+│   │   │   ├── .map-pin--transport
+│   │   │   ├── .map-pin--user
+│   │   │   ├── .map-pin-glyph
+│   │   │   ├── div-icon
+│   │   │   ├── pin
+│   │   │   ├── pin--clinique
+│   │   │   ├── pin--destination
+│   │   │   ├── pin--hopital
+│   │   │   ├── pin--hotel
+│   │   │   ├── pin--pharmacie
+│   │   │   ├── pin--restaurant
+│   │   │   ├── pin--site_touristique
+│   │   │   ├── pin--transport
+│   │   │   ├── pin--user
+│   │   │   ├── pin-glyph
+│   │   │   ├── prefers-reduced-motion
+│   │   │   ├── pulse-user-pin
+│   │   │   ├── reduce
 │   │   ├── register.css
 │   │   │   ├── .has-selection
 │   │   │   ├── .is-open
@@ -45,83 +171,101 @@
 │   │   │   ├── trigger
 │   │   │   ├── trigger-text
 │   │   ├── site-detail.css
+│   │   │   ├── #playPreviewBtn
+│   │   │   ├── #siteDescription
+│   │   │   ├── #siteFacts
+│   │   │   ├── #siteVideoCredit
+│   │   │   ├── .btn-3d
+│   │   │   ├── .btn-back
 │   │   │   ├── .btn-ghost
 │   │   │   ├── .btn-solid
-│   │   │   ├── .chip
-│   │   │   ├── .chip-active
+│   │   │   ├── .btn-soon
+│   │   │   ├── .detail-actions
 │   │   │   ├── .detail-card
 │   │   │   ├── .detail-card-head
-│   │   │   ├── .detail-category
+│   │   │   ├── .detail-content
 │   │   │   ├── .detail-description
 │   │   │   ├── .detail-facts
-│   │   │   ├── .detail-grid
+│   │   │   ├── .detail-hero
 │   │   │   ├── .detail-legend
-│   │   │   ├── .detail-location
+│   │   │   ├── .detail-location-label
 │   │   │   ├── .detail-map-card
 │   │   │   ├── .detail-stat-label
 │   │   │   ├── .detail-stats
 │   │   │   ├── .detail-tag
-│   │   │   ├── .detail-title-wrap
+│   │   │   ├── .detail-title
 │   │   │   ├── .detail-topbar
-│   │   │   ├── .detail-video-frame
-│   │   │   ├── .detail-video-meta
-│   │   │   ├── .eyebrow
-│   │   │   ├── .info-pill
+│   │   │   ├── .detail-video
+│   │   │   ├── .leaflet-container
 │   │   │   ├── .legend-dot
-│   │   │   ├── .legend-hospital
-│   │   │   ├── .legend-hotel
-│   │   │   ├── .legend-restaurant
-│   │   │   ├── .legend-site
-│   │   │   ├── .legend-transport
-│   │   │   ├── .map-grid
 │   │   │   ├── .map-preview
-│   │   │   ├── .page-frame
 │   │   │   ├── .page-shell
+│   │   │   ├── .pin-shape
+│   │   │   ├── .pin-wrap
 │   │   │   ├── .video-container
 │   │   │   ├── .video-overlay
+│   │   │   ├── .video-source
+│   │   │   ├── .video-source-label
 │   │   │   ├── .video-unmute
+│   │   │   ├── a
+│   │   │   ├── actions
 │   │   │   ├── active
+│   │   │   ├── after
+│   │   │   ├── back
+│   │   │   ├── before
+│   │   │   ├── body
+│   │   │   ├── button
 │   │   │   ├── card
 │   │   │   ├── card-head
-│   │   │   ├── category
 │   │   │   ├── container
+│   │   │   ├── content
 │   │   │   ├── description
+│   │   │   ├── disabled
+│   │   │   ├── div
 │   │   │   ├── dot
+│   │   │   ├── empty
 │   │   │   ├── facts
-│   │   │   ├── frame
+│   │   │   ├── focus-visible
 │   │   │   ├── ghost
-│   │   │   ├── grid
 │   │   │   ├── h1
 │   │   │   ├── h2
-│   │   │   ├── hospital
-│   │   │   ├── hotel
+│   │   │   ├── hero
 │   │   │   ├── hover
+│   │   │   ├── html
 │   │   │   ├── iframe
 │   │   │   ├── img
+│   │   │   ├── input
 │   │   │   ├── legend
 │   │   │   ├── li
-│   │   │   ├── location
+│   │   │   ├── location-label
+│   │   │   ├── main
 │   │   │   ├── map-card
 │   │   │   ├── max-width
+│   │   │   ├── min-width
 │   │   │   ├── overlay
-│   │   │   ├── pill
+│   │   │   ├── p
+│   │   │   ├── prefers-reduced-motion
 │   │   │   ├── preview
-│   │   │   ├── restaurant
+│   │   │   ├── reduce
 │   │   │   ├── root
+│   │   │   ├── select
+│   │   │   ├── shape
 │   │   │   ├── shell
-│   │   │   ├── site
 │   │   │   ├── solid
+│   │   │   ├── soon
+│   │   │   ├── source
+│   │   │   ├── source-label
+│   │   │   ├── span
 │   │   │   ├── stat-label
 │   │   │   ├── stats
 │   │   │   ├── strong
 │   │   │   ├── tag
-│   │   │   ├── title-wrap
+│   │   │   ├── textarea
+│   │   │   ├── title
 │   │   │   ├── topbar
-│   │   │   ├── transport
 │   │   │   ├── unmute
 │   │   │   ├── video
-│   │   │   ├── video-frame
-│   │   │   ├── video-meta
+│   │   │   ├── wrap
 │   │   ├── site.css
 │   │   │   ├── .add-form
 │   │   │   ├── .add-panel
@@ -162,10 +306,8 @@
 │   │   │   ├── .detail-card-head
 │   │   │   ├── .detail-category
 │   │   │   ├── .detail-description
-│   │   │   ├── .detail-facts
 │   │   │   ├── .detail-grid
 │   │   │   ├── .detail-info-card
-│   │   │   ├── .detail-legend
 │   │   │   ├── .detail-location
 │   │   │   ├── .detail-media-card
 │   │   │   ├── .detail-stat-label
@@ -193,24 +335,11 @@
 │   │   │   ├── .info-pill
 │   │   │   ├── .is-active
 │   │   │   ├── .is-open
-│   │   │   ├── .itinerary-layout
 │   │   │   ├── .lang-pill
 │   │   │   ├── .language-switcher
 │   │   │   ├── .language-switcher-thumb
-│   │   │   ├── .legend-dot
-│   │   │   ├── .legend-hospital
-│   │   │   ├── .legend-hotel
-│   │   │   ├── .legend-restaurant
-│   │   │   ├── .legend-site
-│   │   │   ├── .legend-transport
 │   │   │   ├── .main
 │   │   │   ├── .map-grid
-│   │   │   ├── .map-marker
-│   │   │   ├── .map-marker-hospital
-│   │   │   ├── .map-marker-hotel
-│   │   │   ├── .map-marker-restaurant
-│   │   │   ├── .map-marker-site
-│   │   │   ├── .map-marker-transport
 │   │   │   ├── .map-preview
 │   │   │   ├── .menu-toggle
 │   │   │   ├── .nav-collapse
@@ -224,9 +353,6 @@
 │   │   │   ├── .page-shell
 │   │   │   ├── .placeholder-card
 │   │   │   ├── .rating
-│   │   │   ├── .route-grid
-│   │   │   ├── .route-map
-│   │   │   ├── .route-summary
 │   │   │   ├── .search-explorer
 │   │   │   ├── .search-icon
 │   │   │   ├── .search-wrap
@@ -249,7 +375,6 @@
 │   │   │   ├── a
 │   │   │   ├── actions
 │   │   │   ├── active
-│   │   │   ├── after
 │   │   │   ├── aria-expanded
 │   │   │   ├── author
 │   │   │   ├── back
@@ -270,7 +395,6 @@
 │   │   │   ├── difficile
 │   │   │   ├── difficulte
 │   │   │   ├── div
-│   │   │   ├── dot
 │   │   │   ├── elevee
 │   │   │   ├── em
 │   │   │   ├── empty
@@ -279,7 +403,6 @@
 │   │   │   ├── explorer
 │   │   │   ├── explorer-walk
 │   │   │   ├── facile
-│   │   │   ├── facts
 │   │   │   ├── fade-in
 │   │   │   ├── faible
 │   │   │   ├── focus
@@ -298,8 +421,6 @@
 │   │   │   ├── hello
 │   │   │   ├── hidden
 │   │   │   ├── hint
-│   │   │   ├── hospital
-│   │   │   ├── hotel
 │   │   │   ├── hover
 │   │   │   ├── html
 │   │   │   ├── icon
@@ -315,18 +436,9 @@
 │   │   │   ├── input
 │   │   │   ├── item
 │   │   │   ├── label
-│   │   │   ├── layout
-│   │   │   ├── legend
 │   │   │   ├── location
 │   │   │   ├── logout
-│   │   │   ├── map
 │   │   │   ├── mark
-│   │   │   ├── marker
-│   │   │   ├── marker-hospital
-│   │   │   ├── marker-hotel
-│   │   │   ├── marker-restaurant
-│   │   │   ├── marker-site
-│   │   │   ├── marker-transport
 │   │   │   ├── max-width
 │   │   │   ├── media
 │   │   │   ├── media-card
@@ -346,7 +458,6 @@
 │   │   │   ├── preview
 │   │   │   ├── prix
 │   │   │   ├── reduce
-│   │   │   ├── restaurant
 │   │   │   ├── root
 │   │   │   ├── row
 │   │   │   ├── row-3
@@ -354,14 +465,12 @@
 │   │   │   ├── section-label
 │   │   │   ├── select
 │   │   │   ├── shell
-│   │   │   ├── site
 │   │   │   ├── solid
 │   │   │   ├── span
 │   │   │   ├── spin
 │   │   │   ├── stat-label
 │   │   │   ├── stats
 │   │   │   ├── strong
-│   │   │   ├── summary
 │   │   │   ├── svg
 │   │   │   ├── switcher
 │   │   │   ├── switcher-thumb
@@ -375,7 +484,6 @@
 │   │   │   ├── toggle-icon
 │   │   │   ├── toggle-icon-badge
 │   │   │   ├── topbar
-│   │   │   ├── transport
 │   │   │   ├── true
 │   │   │   ├── unmute
 │   │   │   ├── video
@@ -396,6 +504,8 @@
 │   │       ├── .logo
 │   │       ├── .logo-circle
 │   │       ├── .options
+│   │       ├── .password-group
+│   │       ├── .password-toggle-btn
 │   │       ├── .register
 │   │       ├── .separator
 │   │       ├── .social
@@ -433,6 +543,7 @@
 │   │       ├── span
 │   │       ├── submit
 │   │       ├── switcher
+│   │       ├── toggle-btn
 │   │       ├── type
 │   ├── js/
 │   │   ├── app.js
@@ -455,34 +566,27 @@
 │   │   │   ├── function onLanguageChange(event)
 │   │   │   ├── function attachLanguageSwitcher()
 │   │   │   ├── function setLanguage(language)
-│   │   ├── itineraireMap.js
-│   │   │   ├── function chargerItineraire(depart, arrivee)
-│   │   │   ├── function afficherLegende()
 │   │   ├── itinerary.js
-│   │   │   ├── function buildPoiMarkers()
-│   │   │   ├── function setRouteSummary(startLabel, endLabel)
-│   │   │   ├── function drawMarkers()
-│   │   │   ├── function drawRoute()
-│   │   │   ├── function loadSite()
-│   │   │   ├── function controlX(start.x + selectedSite.x) / 2;
-  const controlY = Math.min(start.y, selectedSite.y) - 70;
-  routePath.setAttribute('d', `M ${start.x} ${start.y} Q ${controlX} ${controlY} ${selectedSite.x} ${selectedSite.y}`);
-  drawMarkers();
-  setRouteSummary('votre position', fallbackSite.titre);
-}
-
-async function loadSite() {
-  const params = new URLSearchParams(window.location.search);
-  const siteId = params.get('siteId');
-
-  try {
-    const response = await fetch('/api/sites?page=1&limit=100');
-    if (!response.ok) {
-      throw new Error('Unable to load site list');
-    }
-
-    const data = await response.json();
-    const site = (data.sites || []).find((entry)
+│   │   │   ├── function openDirectionsPanel()
+│   │   │   ├── function closeDirectionsPanelView()
+│   │   │   ├── function placeDestinationMarker(lat, lng, label)
+│   │   │   ├── function placeOriginMarker(lat, lng)
+│   │   │   ├── function updateDepartLabel(label)
+│   │   │   ├── function buildLegend()
+│   │   │   ├── function formaterNomCategorie(category)
+│   │   │   ├── function setRouteSummary(text)
+│   │   │   ├── function afficherResume(data)
+│   │   │   ├── function calculerItineraire()
+│   │   │   ├── function fetchSiteDetail(siteId)
+│   │   │   ├── function initDestination()
+│   │   │   ├── function filtrerMarqueursParCategorie(category)
+│   │   │   ├── function afficherTousLesMarqueurs()
+│   │   │   ├── function mettreAJourEtatLegende()
+│   │   │   ├── function buildYangoLink(origin, destination)
+│   │   │   ├── function ouvrirYango()
+│   │   ├── mapicons.js
+│   │   │   ├── function creerIconeCarte(categorie)
+│   │   │   ├── function creerIconeUtilisateur()
 │   │   ├── models.js
 │   │   │   ├── class AppModel
 │   │   │   │   ├── isAuthenticated()
@@ -521,10 +625,13 @@ async function loadSite() {
 │   │   │   ├── function toRad(value)
 │   │   │   ├── function haversineDistanceKm(pointA, pointB)
 │   │   │   ├── function updateLocationDisplay()
+│   │   │   ├── function buildQuote(site)
 │   │   │   ├── function setCardContent(site)
+│   │   │   ├── function loadNearbyPlaces(lat, lng)
 │   │   │   ├── function loadSiteDetail()
 │   │   │   ├── function openItinerary()
 │   │   │   ├── function initializePage()
+│   │   │   ├── function initMiniMap(lat, lng)
 │   │   └── sites.js
 │   │       ├── function compterColonnesVisibles()
 │   │       ├── function calculerLimiteParPage()
@@ -542,6 +649,8 @@ async function loadSite() {
 │   │       ├── function ouvrirPanneauAjout()
 │   │       ├── function fermerPanneauAjout()
 │   │       ├── function fermerSidebar()
+│   │       ├── function sauvegarderEtatListe()
+│   │       ├── function restaurerEtatListe()
 │   ├── locales/
 │   │   ├── en.json
 │   │   └── fr.json
@@ -572,9 +681,11 @@ async function loadSite() {
 │   │   │       │       │   ├── div.input-group
 │   │   │       │       │   │   ├── i.fa-solid.fa-envelope
 │   │   │       │       │   │   └── input#email
-│   │   │       │       │   ├── div.input-group
+│   │   │       │       │   ├── div.input-group.password-group
 │   │   │       │       │   │   ├── i.fa-solid.fa-lock
-│   │   │       │       │   │   └── input#password
+│   │   │       │       │   │   ├── input#password
+│   │   │       │       │   │   └── button#togglePasswordBtn.password-toggle-btn
+│   │   │       │       │   │       └── i.fa-solid.fa-eye
 │   │   │       │       │   ├── div.options
 │   │   │       │       │   │   ├── label
 │   │   │       │       │   │   │   ├── input
@@ -613,63 +724,74 @@ async function loadSite() {
 │   │   │           │       └── h1
 │   │   │           └── main.placeholder-card
 │   │   │               └── p
-│   ├── itineraires.html
-│   │   ├── html
-│   │   │   ├── head
-│   │   │   │   ├── link
-│   │   │   │   └── script
-│   │   │   └── body
-│   │   │       ├── div#map
-│   │   │       └── div#legende
 │   ├── itinerary.html
 │   │   ├── html
 │   │   │   ├── head
 │   │   │   │   ├── meta
+│   │   │   │   ├── link
 │   │   │   │   ├── meta
 │   │   │   │   ├── title
 │   │   │   │   ├── link
 │   │   │   │   ├── link
 │   │   │   │   ├── link
+│   │   │   │   ├── link
+│   │   │   │   ├── link
+│   │   │   │   ├── link
 │   │   │   │   └── link
-│   │   │   └── body.page-shell
-│   │   │       ├── div.page-frame.itinerary-frame
-│   │   │       │   ├── header.detail-topbar
-│   │   │       │   │   ├── a.btn-ghost.btn-back
-│   │   │       │   │   ├── div.detail-title-wrap
-│   │   │       │   │   │   ├── span.eyebrow
-│   │   │       │   │   │   └── h1#itineraryTitle
-│   │   │       │   │   └── button#useCurrentLocationBtn.btn-solid
-│   │   │       │   └── main.itinerary-layout
-│   │   │       │       ├── section.detail-card.itinerary-map-card
-│   │   │       │       │   ├── div.detail-card-head
-│   │   │       │       │   │   ├── h2
-│   │   │       │       │   │   └── span.detail-tag
-│   │   │       │       │   ├── div#routeMap.route-map
-│   │   │       │       │   │   └── svg#routeSvg
-│   │   │       │       │   │       ├── defs
-│   │   │       │       │   │       │   └── lineargradient#routeGradient
-│   │   │       │       │   │       │       ├── stop
-│   │   │       │       │   │       │       └── stop
-│   │   │       │       │   │       ├── rect
-│   │   │       │       │   │       ├── g.route-grid
-│   │   │       │       │   │       ├── path#routePath
-│   │   │       │       │   │       └── g#routeMarkers
-│   │   │       │       │   └── div.detail-legend
-│   │   │       │       │       ├── span
-│   │   │       │       │       │   └── i.legend-dot.legend-site
-│   │   │       │       │       ├── span
-│   │   │       │       │       │   └── i.legend-dot.legend-restaurant
-│   │   │       │       │       ├── span
-│   │   │       │       │       │   └── i.legend-dot.legend-hotel
-│   │   │       │       │       ├── span
-│   │   │       │       │       │   └── i.legend-dot.legend-hospital
-│   │   │       │       │       └── span
-│   │   │       │       │           └── i.legend-dot.legend-transport
-│   │   │       │       └── aside.detail-card.itinerary-side-card
-│   │   │       │           ├── div.detail-card-head
-│   │   │       │           │   └── h2
-│   │   │       │           ├── p#routeSummary.route-summary
-│   │   │       │           └── ul#poiList.detail-facts
+│   │   │   └── body.itinerary-fullbleed
+│   │   │       ├── button#openDirectionsBtn.openDirectionsBtnc
+│   │   │       ├── div#routeMap.route-map-full
+│   │   │       │   ├── div.float-topbar
+│   │   │       │   │   ├── a.fab.fab-back
+│   │   │       │   │   │   └── svg
+│   │   │       │   │   │       └── path
+│   │   │       │   │   └── button#yangoBouton.fab.fab-yango
+│   │   │       │   │       └── img
+│   │   │       │   ├── div#directionsPanel.directions-panel
+│   │   │       │   │   ├── button#closeDirectionsPanel.directions-close-btn
+│   │   │       │   │   │   └── svg
+│   │   │       │   │   │       └── path
+│   │   │       │   │   ├── div.directions-row
+│   │   │       │   │   │   ├── div
+│   │   │       │   │   │   │   ├── div.directions-field
+│   │   │       │   │   │   │   │   ├── svg
+│   │   │       │   │   │   │   │   │   └── circle
+│   │   │       │   │   │   │   │   └── input#departInput
+│   │   │       │   │   │   │   └── div.directions-field
+│   │   │       │   │   │   │       ├── svg
+│   │   │       │   │   │   │       │   └── path
+│   │   │       │   │   │   │       └── input#arriveeInput
+│   │   │       │   │   │   └── button#swapDirectionsBtn.directions-swap-btn
+│   │   │       │   │   │       └── svg
+│   │   │       │   │   │           └── path
+│   │   │       │   │   └── div.directions-modes
+│   │   │       │   │       ├── button#modeDriveBtn.directions-mode-btn.is-active
+│   │   │       │   │       │   └── svg
+│   │   │       │   │       │       └── path
+│   │   │       │   │       ├── button#modeWalkBtn.directions-mode-btn.is-unavailable
+│   │   │       │   │       │   └── svg
+│   │   │       │   │       │       ├── circle
+│   │   │       │   │       │       └── path
+│   │   │       │   │       └── button#modeBikeBtn.directions-mode-btn.is-unavailable
+│   │   │       │   │           └── svg
+│   │   │       │   │               ├── circle
+│   │   │       │   │               ├── circle
+│   │   │       │   │               └── path
+│   │   │       │   ├── div#routeSummaryFloat.route-summary-float
+│   │   │       │   │   └── p#routeSummary
+│   │   │       │   └── div.detail-legend-float
+│   │   │       │       ├── span
+│   │   │       │       │   └── i.legend-dot.legend-site
+│   │   │       │       ├── span
+│   │   │       │       │   └── i.legend-dot.legend-restaurant
+│   │   │       │       ├── span
+│   │   │       │       │   └── i.legend-dot.legend-hotel
+│   │   │       │       ├── span
+│   │   │       │       │   └── i.legend-dot.legend-hospital
+│   │   │       │       └── span
+│   │   │       │           └── i.legend-dot.legend-transport
+│   │   │       ├── script
+│   │   │       ├── script
 │   │   │       ├── script
 │   │   │       └── script
 │   ├── messages.html
@@ -798,66 +920,60 @@ async function loadSite() {
 │   │   │   │   ├── link
 │   │   │   │   ├── link
 │   │   │   │   ├── link
+│   │   │   │   ├── link
+│   │   │   │   ├── link
 │   │   │   │   └── link
 │   │   │   └── body.page-shell
-│   │   │       ├── div.page-frame
-│   │   │       │   ├── header.detail-topbar
-│   │   │       │   │   ├── a.btn-ghost.btn-back
-│   │   │       │   │   ├── div.detail-title-wrap
-│   │   │       │   │   │   ├── span.eyebrow
-│   │   │       │   │   │   └── h1#siteTitle
-│   │   │       │   │   └── button#openItineraryBtn.btn-solid
-│   │   │       │   └── main.detail-grid
-│   │   │       │       ├── section.detail-card.detail-media-card
-│   │   │       │       │   ├── div.detail-video-frame
-│   │   │       │       │   │   ├── video#siteVideo
-│   │   │       │       │   │   │   └── source#videoSource
-│   │   │       │       │   │   ├── div#videoContainer.video-container
-│   │   │       │       │   │   ├── div#videoOverlay.video-overlay
-│   │   │       │       │   │   │   └── button#playPreviewBtn.btn-ghost
-│   │   │       │       │   │   └── button#unmuteBtn.btn-solid.video-unmute
-│   │   │       │       │   └── div.detail-video-meta
-│   │   │       │       │       ├── span.chip.chip-active
-│   │   │       │       │       └── span#siteLocation.detail-location
-│   │   │       │       ├── section.detail-card.detail-info-card
-│   │   │       │       │   ├── div.detail-hero
-│   │   │       │       │   │   ├── p#siteCategory.detail-category
-│   │   │       │       │   │   └── p#siteDescription.detail-description
-│   │   │       │       │   ├── div.detail-stats
-│   │   │       │       │   │   ├── div
-│   │   │       │       │   │   │   ├── span.detail-stat-label
-│   │   │       │       │   │   │   └── strong#siteDifficulty
-│   │   │       │       │   │   ├── div
-│   │   │       │       │   │   │   ├── span.detail-stat-label
-│   │   │       │       │   │   │   └── strong#siteDanger
-│   │   │       │       │   │   └── div
-│   │   │       │       │   │       ├── span.detail-stat-label
-│   │   │       │       │   │       └── strong#sitePrice
-│   │   │       │       │   └── div.detail-info-list
-│   │   │       │       │       ├── div.info-pill
-│   │   │       │       │       └── ul#siteFacts.detail-facts
+│   │   │       ├── header.detail-topbar
+│   │   │       │   ├── a.btn-ghost.btn-back
+│   │   │       │   ├── div.detail-title
+│   │   │       │   │   ├── h1#siteTitle
+│   │   │       │   │   └── p#siteLocation
+│   │   │       │   └── div.detail-actions
+│   │   │       │       ├── button#openItineraryBtn.btn-solid
+│   │   │       │       │   └── span.pin-wrap
+│   │   │       │       │       └── span.pin-shape
+│   │   │       │       └── button#launch3dBtn.btn-ghost.btn-3d
+│   │   │       │           └── span.btn-soon
+│   │   │       ├── main
+│   │   │       │   ├── section.detail-hero
+│   │   │       │   │   ├── div.detail-video
+│   │   │       │   │   │   ├── video#siteVideo
+│   │   │       │   │   │   │   └── source#videoSource
+│   │   │       │   │   │   ├── div#videoContainer.video-container
+│   │   │       │   │   │   └── div#videoOverlay.video-overlay
+│   │   │       │   │   │       └── button#playPreviewBtn.btn-ghost
+│   │   │       │   │   └── div.video-source
+│   │   │       │   │       ├── span.video-source-label
+│   │   │       │   │       └── span#siteVideoCredit
+│   │   │       │   └── section.detail-content
+│   │   │       │       ├── section.detail-card
+│   │   │       │       │   ├── h2
+│   │   │       │       │   ├── ul#siteFacts
+│   │   │       │       │   └── div.detail-stats
+│   │   │       │       │       ├── div
+│   │   │       │       │       │   ├── span
+│   │   │       │       │       │   └── strong#siteCategory
+│   │   │       │       │       ├── div
+│   │   │       │       │       │   ├── span
+│   │   │       │       │       │   └── strong#siteDifficulty
+│   │   │       │       │       ├── div
+│   │   │       │       │       │   ├── span
+│   │   │       │       │       │   └── strong#siteDanger
+│   │   │       │       │       └── div
+│   │   │       │       │           ├── span
+│   │   │       │       │           └── strong#sitePrice
+│   │   │       │       ├── section.detail-card
+│   │   │       │       │   ├── h2
+│   │   │       │       │   └── p#siteDescription
 │   │   │       │       └── section.detail-card.detail-map-card
 │   │   │       │           ├── div.detail-card-head
 │   │   │       │           │   ├── h2
 │   │   │       │           │   └── span.detail-tag
 │   │   │       │           ├── div#miniMap.map-preview
-│   │   │       │           │   ├── div.map-grid
-│   │   │       │           │   ├── div.map-marker.map-marker-site
-│   │   │       │           │   ├── div.map-marker.map-marker-hotel
-│   │   │       │           │   ├── div.map-marker.map-marker-restaurant
-│   │   │       │           │   ├── div.map-marker.map-marker-hospital
-│   │   │       │           │   └── div.map-marker.map-marker-transport
 │   │   │       │           └── div.detail-legend
-│   │   │       │               ├── span
-│   │   │       │               │   └── i.legend-dot.legend-site
-│   │   │       │               ├── span
-│   │   │       │               │   └── i.legend-dot.legend-restaurant
-│   │   │       │               ├── span
-│   │   │       │               │   └── i.legend-dot.legend-hotel
-│   │   │       │               ├── span
-│   │   │       │               │   └── i.legend-dot.legend-hospital
-│   │   │       │               └── span
-│   │   │       │                   └── i.legend-dot.legend-transport
+│   │   │       ├── script
+│   │   │       ├── script
 │   │   │       ├── script
 │   │   │       └── script
 │   └── sites.html
@@ -997,6 +1113,7 @@ async function loadSite() {
 │       │       │       │   │   └── path
 │       │       │       │   ├── p
 │       │       │       │   └── button#emptyStateAdd.btn-ghost
+│       │       │       ├── div#scrollSentinel
 │       │       │       └── div#errorState.state-panel
 │       │       │           ├── p
 │       │       │           └── button#retryLoad.btn-ghost
@@ -2734,41 +2851,17 @@ async function loadSite() {
 │   │   │   │   └── sites.json
 │   │   │   └── sites/
 │   │   │       ├── .gitkeep
-│   │   │       ├── animaux-empailles-w192842105.json
-│   │   │       ├── blackitude-museum-n6310400747.json
-│   │   │       ├── catholic-cross-of-ngoya-summit-n5174142027.json
-│   │   │       ├── caveau-n5062521176.json
-│   │   │       ├── chapelle-de-christ-n7156368581.json
-│   │   │       ├── charles-atangana-w220117510.json
-│   │   │       ├── cimetiere-municipal-n1067289880.json
-│   │   │       ├── cimetiere-st-barthelemy-de-mva-a-n1067289826.json
 │   │   │       ├── eco-park-n8151287963.json
-│   │   │       ├── eugene-jamot-n5177886921.json
 │   │   │       ├── jardin-zoo-botanique-de-mvog-betsi-w207493773.json
-│   │   │       ├── joseph-akono-resident-n5479541421.json
-│   │   │       ├── kamerun-cooperative-n7980000786.json
-│   │   │       ├── lion-n2450331287.json
-│   │   │       ├── maison-dominik-w192839222.json
-│   │   │       ├── maison-fin-de-la-route-w438380294.json
-│   │   │       ├── marie-statue-n2292701975.json
-│   │   │       ├── monument-aux-morts-n3463536118.json
 │   │   │       ├── monument-de-l-independace-n2441565574.json
 │   │   │       ├── monument-de-la-reunification-n1067289936.json
-│   │   │       ├── monument-de-la-reunification-w188121375.json
-│   │   │       ├── monument-leclerc-eboue-n2292701978.json
+│   │   │       ├── monument-jaime-mon-pays.json
 │   │   │       ├── musee-ecologique-du-millenaire-w835453293.json
 │   │   │       ├── musee-ethnographique-et-d-histoire-des-peuples-de-la-foret-d-n4204481689.json
 │   │   │       ├── musee-national-w188279621.json
-│   │   │       ├── musee-w193965513.json
 │   │   │       ├── nda-mekok-n13176969996.json
-│   │   │       ├── parc-n7164472394.json
-│   │   │       ├── plus-vieux-batiment-en-dur-de-yaounde-n2450442448.json
+│   │   │       ├── plage-de-kribi.json
 │   │   │       ├── reunification-monument-n2450876088.json
-│   │   │       ├── rustick-home-musee-tmc-n7163440131.json
-│   │   │       ├── sainte-croix-n2292701976.json
-│   │   │       ├── salle-de-danse-n2040149864.json
-│   │   │       ├── statue-flamme-jeux-universitaire-n2997990131.json
-│   │   │       ├── statue-jeux-universitaire-n2997610891.json
 │   │   │       └── village-madiba-w293193590.json
 │   │   ├── lib/
 │   │   │   ├── geojsonHelpers.js
@@ -2835,6 +2928,7 @@ async function loadSite() {
 │   ├── models/
 │   │   ├── lieuxModel.js
 │   │   │   ├── function getLieuxPresDuTrajet(coordonnees, rayonMetres = 5000, categories = null)
+│   │   │   ├── function getLieuxPresDuPoint(lat, lng, rayonMetres = 1500, categories = null)
 │   │   ├── sites-detailsModel.js
 │   │   │   ├── function getVideoBySiteId(id)
 │   │   │   ├── function getSiteDetailsById(id)
@@ -2896,6 +2990,11 @@ async function getAllSites({ search, category, page = 1, limit = 20 } = {}) {
 }
 
 async function getSiteById(id) {
+
+  if (!UUID_REGEX.test(id)) {
+    return null; // même comportement qu'un ID valide mais introuvable → 404 côté controller
+  }
+  
   const { rows } = await pool.query(
     `${buildSiteBaseQuery()} WHERE s.id = $1 GROUP BY s.id`,
     [id]
