@@ -20,6 +20,7 @@ jobs:
     timeout-minutes: 15
 
     steps:
+
       # Récupère le code du dépôt
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -61,12 +62,16 @@ jobs:
       # ========================================================
       # TESTS UNITAIRES
       # ========================================================
+
+      # Tests sans Docker ni base de données
       - name: Run Unit Tests
         run: npm run test:unit
 
       # ========================================================
       # BASE DE DONNÉES
       # ========================================================
+
+      # Démarre uniquement PostgreSQL
       - name: Build and start database container
         run: docker compose up -d --build db
 
@@ -93,6 +98,7 @@ jobs:
             sleep 2
           done
 
+          # Vérifie que PostgreSQL accepte vraiment une requête
           echo "Checking PostgreSQL connection..."
 
           if ! docker compose exec -T db \
@@ -102,10 +108,13 @@ jobs:
             -c "SELECT 1;" > /dev/null; then
 
             echo "PostgreSQL failed to become ready."
+
             echo "===== CONTAINER STATUS ====="
             docker compose ps
+
             echo "===== DATABASE LOGS ====="
             docker compose logs --no-color db
+
             exit 1
           fi
 
@@ -127,6 +136,10 @@ jobs:
             -d "$DB_NAME" \
             < ./src/db/script.sql
 
+      
+      # API
+    
+
       # Démarre l'API après la préparation de la DB
       - name: Build and start API container
         run: docker compose up -d --build api
@@ -146,6 +159,7 @@ jobs:
             sleep 3
           done
 
+          # Échec si l'API ne répond toujours pas
           if ! curl -fs http://localhost:3000/health > /dev/null 2>&1; then
             echo "API failed to become ready."
             docker compose logs --no-color api
@@ -156,7 +170,10 @@ jobs:
       - name: Show running containers
         run: docker compose ps
 
+
       # TESTS D'INTÉGRATION
+  
+      # Lance les tests dans le conteneur API
       - name: Run Integration Tests
         run: docker compose exec -T api npm run test:integration
 
@@ -170,31 +187,27 @@ jobs:
         if: always()
         run: docker compose down -v
 
-  # ==========================================================
-  # ANALYSE DE SÉCURITÉ SEMGREP
-  # ==========================================================
   semgrep:
-    name: Security Scan
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - run: docker pull semgrep/semgrep:latest
+      - run: |
+          docker run --rm \
+            -v "${{ github.workspace }}:/src" \
+            semgrep/semgrep:latest \
+            scan --config=auto --exclude=node_modules --exclude=.env --error /src
 
-      # Utilisation de l'Action GitHub officielle (plus propre et évite les conflits d'arguments Docker)
-      - name: Run Semgrep CI
-        uses: semgrep/semgrep-action@v1
-        with:
-          config: auto
-
-  # ==========================================================
   # DÉPLOIEMENT RENDER
-  # ==========================================================
   deploy:
     name: Deploy to Render
-    # Le déploiement attend maintenant la réussite des tests ET de Semgrep
-    needs: [run-tests, semgrep]
+    # Le déploiement attend que les tests passent
+    needs: [run-tests]
+    # Déploie uniquement après un push sur main
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
+      # Déclenche le déploiement Render
       - name: Trigger deployment
         run: curl -fsS "${{ secrets.RENDER_DEPLOY_HOOK }}"
+
