@@ -23,7 +23,7 @@ function normalizePreferences(preferences) {
 
 function mapUserRow(user) {
   return {
-    ...user,
+    ...user,//toutes les colones de la table
     preferences: normalizePreferences(user.preferences),
   };
 }
@@ -109,4 +109,34 @@ async function verifyUser(token) {
   return rowCount > 0;
 }
 
-module.exports = { findByEmail, findById, findByVerificationToken, createUser, verifyUser };
+
+//login with google 
+async function findByGoogleId(googleId) {
+  const { rows } = await pool.query(
+    'SELECT * FROM users WHERE google_id = $1',
+    [googleId]
+  );
+  return rows[0] ? mapUserRow(rows[0]) : null;
+}
+
+async function createUserFromGoogle({ id, email, username, googleId }) {
+  const { rows } = await pool.query(
+    `INSERT INTO users (id, email, username, google_id, auth_provider, is_verified, password_hash)
+     VALUES ($1, $2, $3, $4, 'google', TRUE, NULL)
+     RETURNING *`,
+    [id, email, username, googleId]
+  );
+  return mapUserRow(rows[0]);
+}
+
+
+
+module.exports = { 
+  findByEmail, 
+  findById, 
+  findByVerificationToken, 
+  createUser, 
+  verifyUser,
+  findByGoogleId,
+  createUserFromGoogle
+ };

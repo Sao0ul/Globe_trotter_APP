@@ -40,3 +40,60 @@ loginForm.addEventListener("submit", async (event) => {
     errorMessage.hidden = false;
   }
 });
+
+// -------------------- Afficher/masquer le mot de passe --------------------
+
+const passwordInput = document.getElementById("password");
+const togglePasswordBtn = document.getElementById("togglePasswordBtn");
+const toggleIcon = togglePasswordBtn.querySelector("i");
+
+togglePasswordBtn.addEventListener("click", () => {
+  const estVisible = passwordInput.type === "text";
+
+  passwordInput.type = estVisible ? "password" : "text";
+  togglePasswordBtn.setAttribute("aria-pressed", String(!estVisible));
+  togglePasswordBtn.setAttribute(
+    "aria-label",
+    estVisible ? "Afficher le mot de passe" : "Masquer le mot de passe"
+  );
+
+  toggleIcon.classList.toggle("fa-eye", estVisible);
+  toggleIcon.classList.toggle("fa-eye-slash", !estVisible);
+});
+
+//====================== login with google ======================
+
+document.addEventListener("DOMContentLoaded", () => {
+  const googleBtn = document.getElementById("google-btn");
+
+  if (googleBtn) {
+    googleBtn.addEventListener("click", () => {
+      // appelle l'api du backend
+      const backendGoogleUrl = "/api/auth/google";
+      
+      // Redirige le navigateur vers le backend qui va gérer le protocole OAuth2
+      window.location.href = backendGoogleUrl;
+    });
+  }
+});
+
+
+//====================== popup suggestion google ======================
+
+document.addEventListener("DOMContentLoaded", () => {
+  const popup = document.getElementById("googleSuggestPopup");
+  const closeBtn = popup?.querySelector(".google-suggest-close");
+  const ctaBtn = popup?.querySelector(".google-suggest-cta");
+
+  if (!popup) return;
+
+  setTimeout(() => {
+    popup.hidden = false;
+  }, 1000);
+
+  closeBtn?.addEventListener("click", () => { popup.hidden = true; });
+  ctaBtn?.addEventListener("click", () => {
+    popup.hidden = true;
+    document.getElementById("google-btn")?.click();
+  });
+});

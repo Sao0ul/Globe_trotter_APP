@@ -187,3 +187,11 @@ BEFORE INSERT OR UPDATE OF latitude, longitude
 ON lieux_touristiques
 FOR EACH ROW
 EXECUTE FUNCTION update_lieu_geom();
+
+
+--====================== login with google =================-------
+ALTER TABLE users
+    ALTER COLUMN password_hash DROP NOT NULL,
+    ADD COLUMN IF NOT EXISTS google_id VARCHAR(255) UNIQUE,
+    ADD COLUMN IF NOT EXISTS auth_provider VARCHAR(20) NOT NULL DEFAULT 'local'
+        CHECK (auth_provider IN ('local', 'google'));

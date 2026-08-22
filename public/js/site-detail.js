@@ -53,7 +53,7 @@ const fallbackSite = {
   video_par: '',
   difficulte: 'Facile',
   dangerosite: 'Faible',
-  prix: 12000,
+  prix: 0,
   bonASavoir: '',
 
   latitude: null,

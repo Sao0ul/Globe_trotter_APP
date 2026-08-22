@@ -274,9 +274,6 @@ button[type="submit"]:hover {
     }
 }
 
-/* ==========================================
-   LANGUAGE TOGGLE
-========================================== */
 
 /* ==========================================
    LANGUAGE SWITCHER
@@ -320,6 +317,43 @@ button[type="submit"]:hover {
     color: #1b1b1b;
     box-shadow: 0 4px 12px rgba(255, 213, 79, .4);
 }
+
+
+
+.input-group.password-group {
+    position: relative;
+}
+
+.input-group.password-group input {
+    padding-right: 40px;
+    /* laisse la place au bouton, sans chevaucher le texte */
+}
+
+.password-toggle-btn {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: inherit;
+    opacity: 0.6;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: opacity .2s ease, background .2s ease;
+}
+
+.password-toggle-btn:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+
 
 @media(max-width:768px) {
     .language-switcher {
@@ -400,4 +434,73 @@ button[type="submit"]:hover {
     .logo p {
         font-size: 14px;
     }
+}
+
+
+.google-suggest-popup {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 320px;
+    width: 90%;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    padding: 20px;
+    z-index: 1000;
+    animation: popIn 0.25s ease;
+}
+
+@keyframes popIn {
+    from {
+        transform: translateX(-50%) translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
+}
+
+.google-suggest-content {
+    position: relative;
+    text-align: center;
+}
+
+.google-suggest-content i {
+    font-size: 1.5rem;
+    color: #4285F4;
+    margin-bottom: 8px;
+}
+
+.google-suggest-content p {
+    font-size: 0.9rem;
+    margin: 8px 0 12px;
+}
+
+.google-suggest-close {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #888;
+}
+
+.google-suggest-cta {
+    background: #4285F4;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.google-suggest-cta:hover {
+    background: #3367d6;
 }
