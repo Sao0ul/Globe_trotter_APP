@@ -140,9 +140,19 @@ jobs:
       # API
     
 
+      # Crée une configuration Compose spécifique au CI
+      # pour utiliser Node au lieu de Nodemon
+      - name: Create CI Docker Compose override
+        run: |
+          cat <<EOF > docker-compose.ci.yml
+          services:
+            api:
+              command: npm start
+          EOF
+
       # Démarre l'API après la préparation de la DB
       - name: Build and start API container
-        run: docker compose run -d --build --no-deps -p 3000:3000 api npm start
+        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d --build api
 
       - name: check containers
         run: |
@@ -150,10 +160,10 @@ jobs:
           docker ps -a
 
           echo "===== COMPOSE PS ====="
-          docker compose ps -a
+          docker compose -f docker-compose.yml -f docker-compose.ci.yml ps -a
 
           echo "===== ALL LOGS ====="
-          docker compose logs --no-color || true
+          docker compose -f docker-compose.yml -f docker-compose.ci.yml logs --no-color || true
 
       # Attend que l'API réponde
       - name: Wait for API
@@ -173,30 +183,36 @@ jobs:
           # Échec si l'API ne répond toujours pas
           if ! curl -fs http://localhost:3000/health > /dev/null 2>&1; then
             echo "API failed to become ready."
-            docker compose logs --no-color api
+
+            echo "===== CONTAINER STATUS ====="
+            docker compose -f docker-compose.yml -f docker-compose.ci.yml ps -a
+
+            echo "===== API LOGS ====="
+            docker compose -f docker-compose.yml -f docker-compose.ci.yml logs --no-color api
+
             exit 1
           fi
 
       # Affiche les conteneurs actifs
       - name: Show running containers
-        run: docker compose ps
+        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml ps
 
 
       # TESTS D'INTÉGRATION
   
       # Lance les tests dans le conteneur API
       - name: Run Integration Tests
-        run: docker compose exec -T api npm run test:integration
+        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml exec -T api npm run test:integration
 
       # Affiche les logs si une étape échoue
       - name: Display container logs on failure
         if: failure()
-        run: docker compose logs --no-color
+        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml logs --no-color
 
       # Nettoie les conteneurs même après un échec
       - name: Stop and remove containers
         if: always()
-        run: docker compose down -v
+        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml down -v
 
   # DÉPLOIEMENT RENDER
   deploy:
@@ -210,4 +226,3 @@ jobs:
       # Déclenche le déploiement Render
       - name: Trigger deployment
         run: curl -fsS "${{ secrets.RENDER_DEPLOY_HOOK }}"
-
