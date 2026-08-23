@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const asyncHandler = require('../middlewares/asyncHandler');
-const { findByEmail, createUser, verifyUser, findByGoogleId, createUserFromGoogle } = require('../models/usersModel');
+const { findByEmail, createUser, verifyUser, findByGoogleId, findByFacebookId, createUserFromGoogle, createUserFromFacebook } = require('../models/usersModel');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'travel-app-dev-secret';
 
