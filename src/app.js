@@ -12,10 +12,10 @@ const itineraireRoutes = require('./routes/itineraireRoutes');
 const sitedetailsRoutes = require('./routes/sites-detailsRoutes');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: process.env.FRONTEND_URL,
   credentials: true,
 }));
 
