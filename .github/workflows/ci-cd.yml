@@ -190,19 +190,26 @@ jobs:
   semgrep:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: docker pull semgrep/semgrep:latest
-      - run: |
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Semgrep
+        run: |
           docker run --rm \
-            -v "${{ github.workspace }}:/src" \
-            semgrep/semgrep:latest \
-            scan --config=auto --exclude=node_modules --exclude=.env --error /src
+          -v "${{ github.workspace }}:/src" \
+          semgrep/semgrep:latest \
+            semgrep scan \
+            --config=auto \
+            --exclude=node_modules \
+            --exclude=.env \
+            --error \
+            /src
 
   # DÉPLOIEMENT RENDER
   deploy:
     name: Deploy to Render
     # Le déploiement attend que les tests passent
-    needs: [run-tests]
+    needs: [run-tests, semgrep]
     # Déploie uniquement après un push sur main
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
