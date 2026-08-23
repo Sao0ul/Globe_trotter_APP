@@ -144,6 +144,17 @@ jobs:
       - name: Build and start API container
         run: docker compose run -d --build --no-deps -p 3000:3000 api npm start
 
+      - name: check containers
+        run: |
+          echo "======= DOCKER PS ======="
+          docker ps -a
+
+          echo "===== COMPOSE PS ====="
+          docker compose ps -a
+
+          echo "===== ALL LOGS ====="
+          docker compose logs --no-color || true
+
       # Attend que l'API réponde
       - name: Wait for API
         run: |
