@@ -2,7 +2,13 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const asyncHandler = require('../middlewares/asyncHandler');
-const { findByEmail, createUser, verifyUser, findByGoogleId, findByFacebookId, createUserFromGoogle, createUserFromFacebook } = require('../models/usersModel');
+const { findByEmail, createUser, verifyUser, 
+  findByGoogleId, 
+  findByFacebookId, createUserFromGoogle,
+  createUserFromFacebook 
+} = require('../models/usersModel');
+
+const { sendVerificationEmail } = require('../services/mailer');
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const FRONTEND_URL = process.env.FRONTEND_URL;
@@ -51,27 +57,30 @@ const register = asyncHandler(async (req, res) => {
   // Lien de confirmation — en conditions réelles, on l'enverrait par email (SMTP).
   // Ici on simule l'envoi : le lien est loggé côté serveur et renvoyé dans la
   // réponse API, pour pouvoir tester sans configurer de vrai service mail.
+  // APRÈS — envoi réel via Resend
   const confirmationLink = `${req.protocol}://${req.get('host')}/api/auth/verify/${verificationToken}`;
-  console.log(`[SIMULATION EMAIL] Lien de confirmation pour ${email} : ${confirmationLink}`);
 
-  res.status(201).json({
-    ...newUser,
-    // À retirer en production réelle — présent ici uniquement pour faciliter les tests
-    confirmationLink,
-  });
-});
-
-// GET /api/auth/verify/:token — confirme le compte via le lien reçu
-const verify = asyncHandler(async (req, res) => {
-  const { token } = req.params;
-
-  const verified = await verifyUser(token);
-
-  if (!verified) {
-    return res.status(400).json({ error: 'invalid or expired confirmation link' });
+  try {
+    await sendVerificationEmail(email, username, confirmationLink);
+  } catch (mailError) {
+    console.error('Échec envoi mail de confirmation:', mailError.message);
+    // Le compte est créé même si l'envoi échoue — à toi de décider si tu
+    // veux plutôt bloquer la création dans ce cas (rollback), ou prévoir
+    // un moyen de renvoyer le lien plus tard.
   }
 
-  res.json({ message: 'account confirmed, you can now log in' });
+  res.status(201).json(newUser);
+  // confirmationLink n'est plus exposé dans la réponse : maintenant qu'un
+  // vrai mail part, plus besoin de le donner au client
+});
+
+// GET /api/auth/verify/:token — confirme le compte via le lien reçu et redirige vers une page HTML dédiée avec le résultat en paramètre
+const verify = asyncHandler(async (req, res) => {
+  const { token } = req.params;
+  const verified = await verifyUser(token);
+
+  const status = verified ? 'success' : 'error';
+  res.redirect(`/email-confirmed.html?status=${status}`);
 });
 
 // POST /api/auth/login
