@@ -40,6 +40,9 @@ jobs:
           DB_PASSWORD=test_pass
           PEXELS_API_KEY=mock_key
           JWT_SECRET=test_secret_key_for_ci
+          RESEND_API_KEY=1234567890
+          MAIL_FROM_NAME=NAME
+          MAIL_FROM_ADDRESS=NAME
           EOF
 
       # --------------------------------------------------------
