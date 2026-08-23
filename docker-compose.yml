@@ -1,6 +1,6 @@
 services:
   api:
-    build: .
+    build: . #le . signifie que docker-compose va s'executer avec le fichier dockerfile
     ports:
       - "3000:3000"
     volumes:
