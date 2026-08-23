@@ -142,7 +142,7 @@ jobs:
 
       # Démarre l'API après la préparation de la DB
       - name: Build and start API container
-        run: docker compose run -d --build --no-deps api npm start
+        run: docker compose run -d --build --no-deps -p 3000:3000 api npm start
 
       # Attend que l'API réponde
       - name: Wait for API
