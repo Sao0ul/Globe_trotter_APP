@@ -1,0 +1,17 @@
+semgrep:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Semgrep
+        run: |
+          docker run --rm \
+          -v "${{ github.workspace }}:/src" \
+          semgrep/semgrep:latest \
+            semgrep scan \
+            --config=auto \
+            --exclude=node_modules \
+            --exclude=.env \
+            --error \
+            /src

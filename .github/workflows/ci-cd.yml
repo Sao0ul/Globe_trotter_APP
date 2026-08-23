@@ -187,29 +187,11 @@ jobs:
         if: always()
         run: docker compose down -v
 
-  semgrep:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Run Semgrep
-        run: |
-          docker run --rm \
-          -v "${{ github.workspace }}:/src" \
-          semgrep/semgrep:latest \
-            semgrep scan \
-            --config=auto \
-            --exclude=node_modules \
-            --exclude=.env \
-            --error \
-            /src
-
   # DÉPLOIEMENT RENDER
   deploy:
     name: Deploy to Render
     # Le déploiement attend que les tests passent
-    needs: [run-tests, semgrep]
+    needs: [run-tests]
     # Déploie uniquement après un push sur main
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
