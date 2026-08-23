@@ -102,12 +102,8 @@ registerForm.addEventListener("submit", async (event) => {
       return;
     }
 
-    // En simulation, le lien de confirmation est affiché directement à l'écran.
-    // En conditions réelles (vrai SMTP), ce lien serait envoyé par email
-    // et cette ligne n'existerait pas dans le frontend.
-    successMessage.innerHTML = window.i18n.t("register.successHtml", {
-      link: `<a href="${data.confirmationLink}">${window.i18n.t("register.successLink")}</a>`
-    });
+    //envoie du mail et de la confirmation d'envoie
+    successMessage.textContent = window.i18n.t("register.checkYourEmail");
     successMessage.hidden = false;
     registerForm.reset();
     mettreAJourTexteDeclencheur();

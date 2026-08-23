@@ -27,7 +27,8 @@
     "signInLink": "Se connecter",
     "successHtml": "Compte créé ! Confirmez-le en cliquant {link}.",
     "successLink": "ici",
-    "preferencesSelected": "{count} préférence(s) sélectionnée(s)"
+    "preferencesSelected": "{count} préférence(s) sélectionnée(s)",
+    "checkYourEmail": "Compte créé ! Vérifie ta boîte mail pour confirmer ton compte avant de te connecter." 
   },
   "preferences": {
     "nature": "Nature",
@@ -127,4 +128,5 @@
     "registerFailed": "Erreur lors de l'inscription",
     "createSite": "Erreur lors de la création"
   }
+  
 }

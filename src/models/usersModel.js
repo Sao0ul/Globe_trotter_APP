@@ -159,6 +159,7 @@ async function updateUsernameAndPreferences(userId, { username, preferences }) {
 }
 
 
+
 module.exports = { 
   findByEmail, 
   findById, 
