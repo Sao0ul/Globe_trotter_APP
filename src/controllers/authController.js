@@ -174,7 +174,9 @@ const googleCallback = asyncHandler(async (req, res) => {
     { expiresIn: '7d' }
   );
 
-  res.redirect(`${process.env.FRONTEND_URL}/auth-callback.html?token=${token}`);
+  // signaler au frontend qu'il s'agit d'un nouveau compte, pour savoir vers quelle page rediriger
+  const isNewUser = !user.preferences || user.preferences.length === 0;
+  res.redirect(`${FRONTEND_URL}/auth-callback.html?token=${token}&newUser=${isNewUser}`);
 }); 
 
 
@@ -248,7 +250,9 @@ const facebookCallback = asyncHandler(async (req, res) => {
     { expiresIn: '7d' }
   );
 
-  res.redirect(`${FRONTEND_URL}/auth-callback.html?token=${token}`);
+  // signaler au frontend qu'il s'agit d'un nouveau compte, pour savoir vers quelle page rediriger
+  const isNewUser = !user.preferences || user.preferences.length === 0;
+  res.redirect(`${FRONTEND_URL}/auth-callback.html?token=${token}&newUser=${isNewUser}`);
 });
 
 module.exports = { register, login, verify, googleAuth, googleCallback, facebookAuth, facebookCallback };
