@@ -149,6 +149,15 @@ async function createUserFromFacebook({ id, email, username, facebookId }) {
   return mapUserRow(rows[0]);
 }
 
+//redirections for logins with 
+async function updateUsernameAndPreferences(userId, { username, preferences }) {
+  const { rows } = await pool.query(
+    `UPDATE users SET username = $1, preferences = $2 WHERE id = $3 RETURNING *`,
+    [username, JSON.stringify(preferences), userId]
+  );
+  return rows[0] ? mapUserRow(rows[0]) : null;
+}
+
 
 module.exports = { 
   findByEmail, 
@@ -159,5 +168,6 @@ module.exports = {
   findByGoogleId,
   createUserFromGoogle,
   findByFacebookId,
-  createUserFromFacebook
+  createUserFromFacebook,
+  updateUsernameAndPreferences
  };

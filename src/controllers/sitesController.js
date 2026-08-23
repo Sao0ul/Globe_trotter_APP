@@ -4,7 +4,7 @@ const {
   getAllSites,
   getSiteById,
   createSite,
-  addRating,
+  addRating, 
   getSiteByPreference,
 } = require('../models/sitesModel');
 

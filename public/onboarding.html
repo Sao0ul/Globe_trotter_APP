@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/images/logoLogin.png" />
+    <title>Discover Cameroon — Complète ton profil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/register.css">
+</head>
+
+<body>
+
+    <div class="video-overlay"></div>
+
+    <main class="login-container">
+        <div class="login-card">
+            <div class="logo">
+                <div class="logo-circle">
+                    <img src="./assets/images/logoLogin.png" alt="Discover Cameroon">
+                </div>
+                <h1>Complète ton profil</h1>
+                <p>Encore une étape avant d'explorer le Cameroun.</p>
+            </div>
+
+            <div id="errorMessage" class="error-message" hidden></div>
+
+            <form id="onboardingForm">
+                <div class="input-group">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" id="username" placeholder="Pseudo" required>
+                </div>
+
+                <div class="preferences-dropdown" id="preferencesDropdown">
+                    <button type="button" class="preferences-trigger" id="preferencesTrigger" aria-haspopup="listbox"
+                        aria-expanded="false">
+                        <i class="fa-solid fa-compass"></i>
+                        <span class="preferences-trigger-text" id="preferencesTriggerText">Sélectionne tes
+                            préférences</span>
+                        <i class="fa-solid fa-chevron-down preferences-chevron"></i>
+                    </button>
+
+                    <div class="preferences-panel" id="preferencesPanel" role="listbox">
+                        <label class="pref-option">
+                            <input type="checkbox" value="nature">
+                            <i class="fa-solid fa-leaf pref-option-icon"></i>
+                            <span class="pref-option-label">Nature</span>
+                            <i class="fa-solid fa-check pref-option-check"></i>
+                        </label>
+                        <label class="pref-option">
+                            <input type="checkbox" value="culture">
+                            <i class="fa-solid fa-landmark pref-option-icon"></i>
+                            <span class="pref-option-label">Culture</span>
+                            <i class="fa-solid fa-check pref-option-check"></i>
+                        </label>
+                        <label class="pref-option">
+                            <input type="checkbox" value="adventure">
+                            <i class="fa-solid fa-person-hiking pref-option-icon"></i>
+                            <span class="pref-option-label">Aventure</span>
+                            <i class="fa-solid fa-check pref-option-check"></i>
+                        </label>
+                        <label class="pref-option">
+                            <input type="checkbox" value="relaxation">
+                            <i class="fa-solid fa-spa pref-option-icon"></i>
+                            <span class="pref-option-label">Détente</span>
+                            <i class="fa-solid fa-check pref-option-check"></i>
+                        </label>
+                        <label class="pref-option">
+                            <input type="checkbox" value="mountain">
+                            <i class="fa-solid fa-mountain pref-option-icon"></i>
+                            <span class="pref-option-label">Montagne</span>
+                            <i class="fa-solid fa-check pref-option-check"></i>
+                        </label>
+                        <label class="pref-option">
+                            <input type="checkbox" value="beach">
+                            <i class="fa-solid fa-umbrella-beach pref-option-icon"></i>
+                            <span class="pref-option-label">Plage</span>
+                            <i class="fa-solid fa-check pref-option-check"></i>
+                        </label>
+                        <label class="pref-option">
+                            <input type="checkbox" value="other">
+                            <i class="fa-solid fa-star pref-option-icon"></i>
+                            <span class="pref-option-label">Autre</span>
+                            <i class="fa-solid fa-check pref-option-check"></i>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit">
+                    <i class="fa-solid fa-check"></i>
+                    <span>Continuer</span>
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <script src="js/i18n.js"></script>
+    <script src="js/onboarding.js"></script>
+
+</body>
+
+</html>
