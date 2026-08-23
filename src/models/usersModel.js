@@ -130,6 +130,25 @@ async function createUserFromGoogle({ id, email, username, googleId }) {
 }
 
 
+//login with facebook
+async function findByFacebookId(facebookId) {
+  const { rows } = await pool.query(
+    'SELECT * FROM users WHERE facebook_id = $1',
+    [facebookId]
+  );
+  return rows[0] ? mapUserRow(rows[0]) : null;
+}
+
+async function createUserFromFacebook({ id, email, username, facebookId }) {
+  const { rows } = await pool.query(
+    `INSERT INTO users (id, email, username, facebook_id, auth_provider, is_verified, password_hash)
+     VALUES ($1, $2, $3, $4, 'facebook', TRUE, NULL)
+     RETURNING *`,
+    [id, email, username, facebookId]
+  );
+  return mapUserRow(rows[0]);
+}
+
 
 module.exports = { 
   findByEmail, 
@@ -138,5 +157,7 @@ module.exports = {
   createUser, 
   verifyUser,
   findByGoogleId,
-  createUserFromGoogle
+  createUserFromGoogle,
+  findByFacebookId,
+  createUserFromFacebook
  };

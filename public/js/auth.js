@@ -78,6 +78,12 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+//======================login with facebook============================
+document.getElementById("facebook-btn")?.addEventListener("click", () => {
+  window.location.href = "/api/auth/facebook";
+});
+
+
 //====================== popup suggestion google ======================
 
 document.addEventListener("DOMContentLoaded", () => {

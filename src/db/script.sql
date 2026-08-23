@@ -195,3 +195,15 @@ ALTER TABLE users
     ADD COLUMN IF NOT EXISTS google_id VARCHAR(255) UNIQUE,
     ADD COLUMN IF NOT EXISTS auth_provider VARCHAR(20) NOT NULL DEFAULT 'local'
         CHECK (auth_provider IN ('local', 'google'));
+
+
+
+--===================== login with facebook ===================--
+ALTER TABLE users
+    ADD COLUMN IF NOT EXISTS facebook_id VARCHAR(255) UNIQUE;
+
+ALTER TABLE users
+    DROP CONSTRAINT IF EXISTS users_auth_provider_check;
+ALTER TABLE users
+    ADD CONSTRAINT users_auth_provider_check
+        CHECK (auth_provider IN ('local', 'google', 'facebook'));

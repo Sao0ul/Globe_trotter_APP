@@ -177,4 +177,78 @@ const googleCallback = asyncHandler(async (req, res) => {
 }); 
 
 
-module.exports = { register, login, verify, googleAuth, googleCallback };
+// GET /api/auth/facebook — redirige vers l'écran de consentement Facebook
+const facebookAuth = asyncHandler(async (req, res) => {
+  const params = new URLSearchParams({
+    client_id: process.env.FACEBOOK_APP_ID,
+    redirect_uri: process.env.FACEBOOK_CALLBACK_URL,
+    scope: 'email,public_profile',
+  });
+
+  res.redirect(`https://www.facebook.com/v21.0/dialog/oauth?${params.toString()}`);
+});
+
+// GET /api/auth/facebook/callback
+const facebookCallback = asyncHandler(async (req, res) => {
+  const { code } = req.query;
+
+  if (!code) {
+    return res.redirect(`${FRONTEND_URL}/auth-callback.html?error=facebook_no_code`);
+  }
+
+  // 1. Échange le code contre un access_token
+  const tokenParams = new URLSearchParams({
+    client_id: process.env.FACEBOOK_APP_ID,
+    client_secret: process.env.FACEBOOK_APP_SECRET,
+    redirect_uri: process.env.FACEBOOK_CALLBACK_URL,
+    code,
+  });
+
+  const tokenResponse = await fetch(
+    `https://graph.facebook.com/v21.0/oauth/access_token?${tokenParams.toString()}`
+  );
+  const tokenData = await tokenResponse.json();
+
+  if (!tokenData.access_token) {
+    return res.redirect(`${FRONTEND_URL}/auth-callback.html?error=facebook_token_failed`);
+  }
+
+  // 2. Récupère le profil (email peut être absent selon le compte)
+  const profileResponse = await fetch(
+    `https://graph.facebook.com/me?fields=id,name,email&access_token=${tokenData.access_token}`
+  );
+  const profile = await profileResponse.json();
+  // profile.id, profile.name, profile.email (optionnel)
+
+  let user = await findByFacebookId(profile.id);
+
+  if (!user) {
+    // email fourni par Facebook, sinon on en fabrique un à partir de l'ID
+    // (le numéro de téléphone n'est pas exposé par l'API Graph standard,
+    // donc on retombe sur l'ID Facebook, garanti unique)
+    const email = profile.email || `facebook_${profile.id}@globetrotter.com`;
+
+    const existingLocal = profile.email ? await findByEmail(profile.email) : null;
+    if (existingLocal) {
+      return res.redirect(`${FRONTEND_URL}/auth-callback.html?error=email_already_used_local`);
+    }
+
+    user = await createUserFromFacebook({
+      id: crypto.randomUUID(),
+      email,
+      username: profile.name || `facebook_user_${profile.id}`,
+      facebookId: profile.id,
+    });
+  }
+
+  const token = jwt.sign(
+    { id: user.id, email: user.email, username: user.username },
+    JWT_SECRET,
+    { expiresIn: '7d' }
+  );
+
+  res.redirect(`${FRONTEND_URL}/auth-callback.html?token=${token}`);
+});
+
+module.exports = { register, login, verify, googleAuth, googleCallback, facebookAuth, facebookCallback };
+
