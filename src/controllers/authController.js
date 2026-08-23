@@ -5,6 +5,7 @@ const asyncHandler = require('../middlewares/asyncHandler');
 const { findByEmail, createUser, verifyUser, findByGoogleId, findByFacebookId, createUserFromGoogle, createUserFromFacebook } = require('../models/usersModel');
 
 const JWT_SECRET = process.env.JWT_SECRET;
+const FRONTEND_URL = process.env.FRONTEND_URL;
 
 // POST /api/auth/register — création de compte, non vérifié par défaut
 const register = asyncHandler(async (req, res) => {
@@ -136,7 +137,7 @@ const googleCallback = asyncHandler(async (req, res) => {
   const { code } = req.query;
 
   if (!code) {
-    return res.redirect(`${process.env.FRONTEND_URL}/login?error=google_no_code`);
+    return res.redirect(`${FRONTEND_URL}/login?error=google_no_code`);
   }
 
   const { tokens } = await googleClient.getToken(code);
