@@ -27,7 +27,8 @@
     "db:seed-sites-db": "node src/db/scripts/seedSitesFromDatabase.js",
     "db:seed-lieux-db": "node src/db/scripts/seedLieuxFromDatabase.js",
     "db:seed-db": "npm run db:bootstrap && npm run db:seed-sites-db && npm run db:seed-lieux-db",
-    "db:seed": "npm run db:bootstrap && npm run db:seed-sites"
+    "db:seed": "npm run db:bootstrap && npm run db:seed-sites",
+    "semgrep": "docker run --rm -v \"$(pwd):/src\" semgrep/semgrep:latest semgrep scan --config=auto --exclude=node_modules --exclude=.env /src"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
