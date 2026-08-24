@@ -1,26 +1,190 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infos</title>
-    <link rel="stylesheet" href="css/site.css">
+    <title>About  Discover Cameroon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/info.css">
 </head>
 
-<body class="page-shell">
-    <div class="page-frame compact-frame">
-        <header class="detail-topbar">
-            <a href="sites.html" class="btn-ghost btn-back">← Retour</a>
-            <div class="detail-title-wrap">
-                <span class="eyebrow">Infos</span>
-                <h1>Bon à savoir</h1>
-            </div>
+<body>
+    <div class="info-page">
+
+        <!-- Navigation Back -->
+        <header class="info-topbar">
+            <a href="index.html" class="btn-back">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+            <span class="topbar-brand">Discover Cameroon</span>
         </header>
-        <main class="placeholder-card">
-            <p>Cette section centralise les conseils pratiques avant le départ, l'accès aux services, et les alertes utiles autour du site.</p>
+
+        <!-- Main Content -->
+        <main class="info-main">
+
+            <!-- LEFT COLUMN - Profile Card -->
+            <aside class="profile-card">
+                <div class="profile-avatar">
+                    <img src="assets/images/raoul-daril.jpg" alt="Raoul Daril" id="profileImage">
+                    <div class="avatar-badge">
+                        <i class="fas fa-code"></i>
+                    </div>
+                </div>
+                <h1 class="profile-name">Raoul Daril</h1>
+                <p class="profile-title">Full-Stack Developer &amp; UI/UX Designer</p>
+
+                <div class="profile-divider"></div>
+
+                <div class="profile-info-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Computer Science Student</span>
+                </div>
+                <div class="profile-info-item">
+                    <i class="fas fa-map-pin"></i>
+                    <span>Yaoundé, Cameroon</span>
+                </div>
+                <div class="profile-info-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>raoul.daril@example.com</span>
+                </div>
+                <div class="profile-info-item">
+                    <i class="fas fa-globe"></i>
+                    <span>discover-cameroon.com</span>
+                </div>
+
+                <div class="profile-social">
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+
+                <div class="profile-badge">
+                    <i class="fas fa-code-branch"></i>
+                    <span>v1.0 — School Project</span>
+                </div>
+            </aside>
+
+            <!-- RIGHT COLUMN - Content -->
+            <section class="content-area">
+
+                <!-- About Me -->
+                <div class="content-block">
+                    <h2><i class="fas fa-user-astronaut"></i> About Me</h2>
+                    <p>
+                        Hello! I'm <strong>Raoul Daril</strong>, a passionate Computer Science student
+                        with a love for building meaningful digital experiences.
+                        This project, <strong>Discover Cameroon</strong>, was created as part of my school
+                        curriculum to combine my interest in tourism, technology, and user-centered design.
+                    </p>
+                    <p>
+                        I believe that technology can bridge the gap between people and the hidden
+                        gems of our beautiful country. My goal is to make exploration accessible,
+                        intuitive, and enjoyable for everyone — whether you're a local or a visitor.
+                    </p>
+                </div>
+
+                <!-- The Project -->
+                <div class="content-block">
+                    <h2><i class="fas fa-rocket"></i> The Project</h2>
+                    <p>
+                        <strong>Discover Cameroon</strong> is a web application designed to help
+                        users explore tourist sites, cultural landmarks, and natural wonders across
+                        Cameroon. It's built with modern web technologies and focuses on:
+                    </p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Clean &amp; responsive interface</li>
+                        <li><i class="fas fa-check-circle"></i> Geolocation &amp; maps integration</li>
+                        <li><i class="fas fa-check-circle"></i> Rich multimedia content (videos, photos)</li>
+                        <li><i class="fas fa-check-circle"></i> Multi‑language support (FR &amp; EN)</li>
+                    </ul>
+                </div>
+
+                <!-- Features extracted from the Globe Trotter update -->
+                <div class="content-block features-block">
+                    <h2><i class="fas fa-star"></i> Key Features</h2>
+                    <div class="features-grid">
+
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-paint-brush"></i></div>
+                            <h3>Modern Design</h3>
+                            <p>Clean, responsive interface optimized for both desktop and mobile devices.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-search"></i></div>
+                            <h3>Smart Search</h3>
+                            <p>Reliable and fast place search to quickly find destinations.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-plus-circle"></i></div>
+                            <h3>Rich Places</h3>
+                            <p>Add and display tourist sites with descriptions, categories, difficulty, danger level,
+                                and estimated price.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-video"></i></div>
+                            <h3>Multimedia Content</h3>
+                            <p>Videos, photos, and detailed information for each location.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-map-marked-alt"></i></div>
+                            <h3>Geolocation</h3>
+                            <p>Find your current position and explore nearby places with ease.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-route"></i></div>
+                            <h3>Directions</h3>
+                            <p>Get turn‑by‑turn directions between your location and any destination.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-info-circle"></i></div>
+                            <h3>Place Details</h3>
+                            <p>Dedicated page with full info, location, and multimedia for each site.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-language"></i></div>
+                            <h3>Bilingual</h3>
+                            <p>Available in both French and English for a wider audience.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="content-block cta-block">
+                    <h2><i class="fas fa-heart"></i> Try It Now</h2>
+                    <p>
+                        Ready to explore Cameroon like never before?
+                        Start your journey today and discover the beauty of our country.
+                    </p>
+                    <a href="sites.html" class="btn-primary">
+                        <i class="fas fa-compass"></i> Explore Now
+                    </a>
+                </div>
+
+            </section>
+
         </main>
+
+        <!-- Footer -->
+        <footer class="info-footer">
+            <p>&copy; 2026 Discover Cameroon — Made with <i class="fas fa-heart" style="color: #e74c3c;"></i> by Raoul
+                Daril</p>
+        </footer>
+
     </div>
+
+    <script src="js/info.js"></script>
 </body>
 
 </html>
