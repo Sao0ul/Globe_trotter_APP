@@ -1,3 +1,13 @@
+const request = require('supertest');
+const app = require('../../app');
+const pool = require('../../db/pool');
+const { findByEmail } = require('../../models/usersModel');
+
+// Mock du service d'envoi d'email : évite un vrai appel réseau vers Resend
+// à chaque test qui passe par /register (via beforeAll ci-dessous).
+jest.mock('../../services/mailer', () => ({
+    sendVerificationEmail: jest.fn().mockResolvedValue(undefined),
+}));
 
 beforeEach(() => {
     // On remplace le fetch global pour éviter qu'il n'aille sur Internet
@@ -27,36 +37,29 @@ beforeEach(() => {
     });
 });
 
-
-const request = require('supertest');
-const app = require('../../app');
-const pool = require('../../db/pool');
-
-const VALID_PASSWORD = 'MotDePasse123!';
-let authToken;
-
-
-// src/tests/integration/moyenne.test.js
-
 afterEach(() => {
     // On nettoie le mock après chaque test pour ne pas perturber d'autres fichiers
     jest.restoreAllMocks();
 });
 
+const VALID_PASSWORD = 'MotDePasse123!';
+let authToken;
 
-
-function extractToken(confirmationLink) {
-    return confirmationLink.split('/').pop();
+// Lit le token de vérification via le model — l'API ne l'expose plus dans
+// sa réponse depuis le passage à un vrai envoi de mail (Resend).
+async function getVerificationToken(email) {
+    const user = await findByEmail(email);
+    return user.verification_token;
 }
 
 beforeAll(async () => {
     const email = `ratings-test-${Date.now()}@example.com`;
 
-    const registerRes = await request(app)
+    await request(app)
         .post('/api/auth/register')
         .send({ email, password: VALID_PASSWORD, username: 'testeur_notes' });
 
-    const verifToken = extractToken(registerRes.body.confirmationLink);
+    const verifToken = await getVerificationToken(email);
     await request(app).get(`/api/auth/verify/${verifToken}`);
 
     const loginRes = await request(app)

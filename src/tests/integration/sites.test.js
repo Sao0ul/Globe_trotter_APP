@@ -1,12 +1,21 @@
 const request = require('supertest');
 const app = require('../../app');
 const pool = require('../../db/pool');
+const { findByEmail } = require('../../models/usersModel');
+
+// Mock du service d'envoi d'email : évite un vrai appel réseau vers Resend.
+jest.mock('../../services/mailer', () => ({
+    sendVerificationEmail: jest.fn().mockResolvedValue(undefined),
+}));
 
 const VALID_PASSWORD = 'MotDePasse123!';
 let authToken;
 
-function extractToken(confirmationLink) {
-    return confirmationLink.split('/').pop();
+// Lit le token de vérification via le model — l'API ne l'expose plus dans
+// sa réponse depuis le passage à un vrai envoi de mail (Resend).
+async function getVerificationToken(email) {
+    const user = await findByEmail(email);
+    return user.verification_token;
 }
 
 // Crée un utilisateur réel, vérifié, connecté — pour obtenir un vrai token JWT
@@ -14,11 +23,11 @@ function extractToken(confirmationLink) {
 beforeAll(async () => {
     const email = `sites-test-${Date.now()}@example.com`;
 
-    const registerRes = await request(app)
+    await request(app)
         .post('/api/auth/register')
         .send({ email, password: VALID_PASSWORD, username: 'testeur_sites' });
 
-    const verifToken = extractToken(registerRes.body.confirmationLink);
+    const verifToken = await getVerificationToken(email);
     await request(app).get(`/api/auth/verify/${verifToken}`);
 
     const loginRes = await request(app)
@@ -34,8 +43,6 @@ afterAll(async () => {
 
 describe('GET /api/sites', () => {
     it('renvoie un objet contenant un tableau "sites" (même vide)', async () => {
-        // GET /api/sites est protégée chez toi (ton frontend sites.js envoie
-        // toujours le header Authorization sur cette route).
         const res = await request(app)
             .get('/api/sites')
             .set('Authorization', `Bearer ${authToken}`);

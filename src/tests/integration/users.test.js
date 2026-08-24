@@ -1,22 +1,32 @@
 const request = require('supertest');
 const app = require('../../app');
 const pool = require('../../db/pool');
+const { findByEmail } = require('../../models/usersModel');
+
+// Mock du service d'envoi d'email : évite un vrai appel réseau vers Resend
+// à chaque inscription faite dans creerUtilisateurConnecte().
+jest.mock('../../services/mailer', () => ({
+    sendVerificationEmail: jest.fn().mockResolvedValue(undefined),
+}));
 
 const VALID_PASSWORD = 'MotDePasse123!';
-
-function extractToken(confirmationLink) {
-    return confirmationLink.split('/').pop();
-}
 
 afterAll(async () => {
     await pool.end();
 });
 
+// Lit le token de vérification via le model — l'API ne l'expose plus dans
+// sa réponse depuis le passage à un vrai envoi de mail (Resend).
+async function getVerificationToken(email) {
+    const user = await findByEmail(email);
+    return user.verification_token;
+}
+
 // Inscrit, vérifie et connecte un utilisateur ; renvoie son token et les infos d'inscription.
 async function creerUtilisateurConnecte({ username, preferences } = {}) {
     const email = `users-test-${Date.now()}-${Math.random().toString(36).slice(2)}@example.com`;
 
-    const registerRes = await request(app)
+    await request(app)
         .post('/api/auth/register')
         .send({
             email,
@@ -25,7 +35,7 @@ async function creerUtilisateurConnecte({ username, preferences } = {}) {
             preferences,
         });
 
-    const verifToken = extractToken(registerRes.body.confirmationLink);
+    const verifToken = await getVerificationToken(email);
     await request(app).get(`/api/auth/verify/${verifToken}`);
 
     const loginRes = await request(app)
