@@ -96,10 +96,10 @@ const login = asyncHandler(async (req, res) => {
     return res.status(401).json({ error: 'invalid email or password' });
   }
 
-  // Compte créé via Google : pas de mot de passe local, on ne peut pas comparer
-  if (user.auth_provider === 'google' || !user.password_hash) {
+  // Compte créé via Google/Facebook : pas de mot de passe local à comparer
+  if (!user.password_hash) {
     return res.status(400).json({
-      error: 'this account uses Google sign-in, please use the "Login with Google" button'
+      error: `this account uses ${user.auth_provider} sign-in — please log in with ${user.auth_provider} instead`,
     });
   }
 
@@ -163,10 +163,9 @@ const googleCallback = asyncHandler(async (req, res) => {
 
   if (!user) {
     // un compte local avec le même email existe déjà → on le lie au compte Google
-    const existingLocal = await findByEmail(payload.email);
-
-    if (existingLocal) {
-      return res.redirect(`${process.env.FRONTEND_URL}/auth-callback.html?error=email_already_used_local`);
+    const existingUser = await findByEmail(payload.email);
+    if (existingUser) {
+      return res.redirect(`${FRONTEND_URL}/auth-callback.html?error=email_used_${existingUser.auth_provider}`);
     }
 
     user = await createUserFromGoogle({
@@ -240,9 +239,9 @@ const facebookCallback = asyncHandler(async (req, res) => {
     // donc on retombe sur l'ID Facebook, garanti unique)
     const email = profile.email || `facebook_${profile.id}@globetrotter.com`;
 
-    const existingLocal = profile.email ? await findByEmail(profile.email) : null;
-    if (existingLocal) {
-      return res.redirect(`${FRONTEND_URL}/auth-callback.html?error=email_already_used_local`);
+    const existingUser = profile.email ? await findByEmail(profile.email) : null;
+    if (existingUser) {
+      return res.redirect(`${FRONTEND_URL}/auth-callback.html?error=email_used_${existingUser.auth_provider}`);
     }
 
     user = await createUserFromFacebook({
