@@ -3,24 +3,68 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="assets/images/logoLogin.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil</title>
-    <link rel="stylesheet" href="css/site.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/profile.css">
 </head>
 
 <body class="page-shell">
     <div class="page-frame compact-frame">
+
         <header class="detail-topbar">
             <a href="sites.html" class="btn-ghost btn-back">← Retour</a>
             <div class="detail-title-wrap">
                 <span class="eyebrow">Profil</span>
-                <h1>Mon espace voyageur</h1>
+                <h1>My space</h1>
             </div>
         </header>
+
         <main class="placeholder-card">
-            <p>Le profil utilisateur est prêt à recevoir les informations personnelles et les préférences de voyage.</p>
+
+            <!-- État chargement -->
+            <div id="loadingState" class="profile-state">
+                <div class="spinner"></div>
+                <p>Chargement du profil...</p>
+            </div>
+
+            <!-- État erreur -->
+            <div id="errorState" class="profile-state" hidden>
+                <p>Impossible de charger le profil.</p>
+                <button class="btn-ghost" id="retryBtn" type="button">Réessayer</button>
+            </div>
+
+            <!-- Contenu réel du profil -->
+            <div id="profileContent" hidden>
+
+                <section class="profile-identity">
+                    <div class="profile-avatar" id="profileAvatar">?</div>
+                    <div class="profile-identity-text">
+                        <h2 id="profileUsername">—</h2>
+                        <p class="profile-joined" id="profileJoined"></p>
+                    </div>
+                </section>
+
+                <section class="profile-section">
+                    <h3 class="profile-section-title">Mes préférences de voyage</h3>
+                    <div class="profile-preferences" id="profilePreferences">
+                        <!-- Rempli dynamiquement par profile.js -->
+                    </div>
+                    <p class="profile-empty" id="profilePreferencesEmpty" hidden>
+                        Aucune préférence renseignée pour l'instant.
+                    </p>
+                </section>
+
+            </div>
+
         </main>
     </div>
+
+    <script src="js/profile.js"></script>
 </body>
 
 </html>
