@@ -50,7 +50,7 @@ const filterLabelKeys = {
   nature: "filters.nature",
   culture: "filters.culture",
   beach: "filters.beach",
-  montagne: "filters.mountain",
+  mountain: "filters.mountain",
   aventure: "filters.adventure"
 };
 
@@ -206,6 +206,8 @@ let idsDejaAffiches = new Set();
 
 function afficherSites() {
   const sitesFiltres = tousLesSites.filter(correspondAuxFiltres);
+  const idsAttendus = new Set(sitesFiltres.map((s) => s.id));
+  const rebuildComplet = ![...idsDejaAffiches].every((id) => idsAttendus.has(id));
 
   if (sitesFiltres.length === 0) {
     afficherEtat("empty");
@@ -213,15 +215,11 @@ function afficherSites() {
   }
   afficherEtat("grid");
 
-  // Si un filtre/recherche a changé, on ne peut pas se contenter d'ajouter :
-  // l'ensemble affiché doit être recalculé entièrement.
-  const idsAttendus = new Set(sitesFiltres.map((s) => s.id));
-  const rebuildComplet = ![...idsDejaAffiches].every((id) => idsAttendus.has(id));
-
   if (rebuildComplet) {
     sitesGrid.innerHTML = "";
     idsDejaAffiches = new Set();
   }
+  
 
   sitesFiltres.forEach((site, index) => {
     // Ne recrée pas une carte déjà présente dans le DOM
@@ -262,6 +260,20 @@ function afficherSites() {
       const locale = window.i18n.language === "en" ? "en-US" : "fr-FR";
       tagPrix.textContent = `${Number(site.prix).toLocaleString(locale)} FCFA`;
     }
+
+    // AJOUT — bouton like
+    const btnLike = node.querySelector(".card-like");
+
+    if (btnLike) {
+      btnLike.classList.toggle("is-liked", !!site.aimeParMoi);
+      btnLike.textContent = site.aimeParMoi ? "❤️" : "🤍";
+
+      btnLike.addEventListener("click", (event) => {
+        event.stopPropagation();
+        basculerLike(site, btnLike);
+      });
+    }
+
 
     card.addEventListener("click", (event) => {
       if (event.target.closest(".rating")) return;
@@ -528,6 +540,50 @@ function restaurerEtatListe() {
   }
 }
 
+
+//------------------- Gestion des suggestions ------------
+
+async function basculerLike(site, bouton) {
+  const dejaAime = !!site.aimeParMoi;
+  const methode = dejaAime ? "DELETE" : "POST";
+
+  bouton.disabled = true;
+
+  try {
+    const response = await fetch(`/api/sites/${site.id}/like`, {
+      method: methode,
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    if (response.status === 401) {
+      localStorage.clear();
+      window.location.href = "index.html";
+      return;
+    }
+
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      console.error("Erreur like :", data);
+      alert(data.error || "Impossible de modifier le like.");
+      return;
+    }
+
+    // Synchronisation frontend
+    site.aimeParMoi = !dejaAime;
+
+    bouton.classList.toggle("is-liked", site.aimeParMoi);
+    bouton.textContent = site.aimeParMoi ? "❤️" : "🤍";
+    sauvegarderEtatListe();
+
+  } catch (error) {
+    console.error("Erreur réseau lors du like :", error);
+    alert("Impossible de contacter le serveur.");
+  } finally {
+    bouton.disabled = false;
+  }
+}
 
 
 // -------------------- Déconnexion --------------------

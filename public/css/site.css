@@ -1,11 +1,19 @@
-﻿:root {
+﻿/* ============================================
+   FICHIER: site.css
+   ORDONNÉ ET STRUCTURÉ
+   ============================================ */
+
+/* ============================================
+   1. VARIABLES & ROOT
+   ============================================ */
+:root {
   --forest-deep: #16332B;
   --forest-mid: #234C3E;
   --forest-line: #2E5C4A;
   --sand: #F7F2E7;
   --card: #FFFDF8;
   --card-line: #E9E0CB;
-  --gold: #E3A93A; 
+  --gold: #E3A93A;
   --gold-soft: #F4C868;
   --clay: #B8452F;
   --ink: #1C2620;
@@ -24,8 +32,10 @@
   --bg-image: url("https://images.pexels.com/photos/17290983/pexels-photo-17290983.jpeg");
 }
 
-/* ================= RESET & BASE ================= */
 
+/* ============================================
+   2. RESET & BASE
+   ============================================ */
 * {
   box-sizing: border-box;
 }
@@ -68,8 +78,10 @@ button {
   }
 }
 
-/* ================= VOILE DE FOND ================= */
 
+/* ============================================
+   3. VOILE DE FOND (OVERLAY)
+   ============================================ */
 .bg-overlay {
   position: fixed;
   inset: 0;
@@ -77,8 +89,10 @@ button {
   z-index: -2;
 }
 
-/* ================= LAYOUT SHELL ================= */
 
+/* ============================================
+   4. LAYOUT SHELL (APP)
+   ============================================ */
 .app {
   display: grid;
   grid-template-columns: 272px 1fr;
@@ -91,8 +105,12 @@ button {
   max-width: 1280px;
 }
 
-/* ================= SIDEBAR ================= */
 
+/* ============================================
+   5. SIDEBAR
+   ============================================ */
+
+/* -------- 5.1 SIDEBAR PRINCIPALE -------- */
 .sidebar {
   background: rgba(22, 51, 43, 0.6);
   backdrop-filter: blur(20px) saturate(150%);
@@ -101,13 +119,14 @@ button {
   padding: 26px 20px 22px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   position: sticky;
   top: 0;
   height: 100vh;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* -------- 5.2 BOUTON FERMER (mobile) -------- */
 .sidebar-close {
   display: none;
   position: absolute;
@@ -117,12 +136,14 @@ button {
   font-size: 1.1rem;
 }
 
+/* -------- 5.3 SALUTATION / AVATAR -------- */
 .sidebar-greeting {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 6px;
-  margin-bottom: 22px;
+  /* margin-bottom: 22px; */
+  /* SUPPRIMÉ pour flexibilité */
 }
 
 .avatar {
@@ -161,6 +182,7 @@ button {
   text-overflow: ellipsis;
 }
 
+/* -------- 5.4 NAVIGATION -------- */
 .sidebar-nav {
   display: flex;
   flex-direction: column;
@@ -218,6 +240,7 @@ button {
   border-radius: 20px;
 }
 
+/* -------- 5.5 BOUTON RÉDUIRE (desktop) -------- */
 .nav-collapse {
   margin-top: 10px;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
@@ -228,6 +251,7 @@ button {
   transition: transform 0.2s ease;
 }
 
+/* -------- 5.6 BOUTON DÉCONNEXION -------- */
 .nav-logout {
   margin-top: 10px;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
@@ -240,12 +264,15 @@ button {
   color: #F4C6BA;
 }
 
+/* -------- 5.7 SCRIM (mobile) -------- */
 .sidebar-scrim {
   display: none;
 }
 
-/* ================= SIDEBAR RÉDUITE (desktop) ================= */
 
+/* ============================================
+   6. SIDEBAR RÉDUITE (desktop)
+   ============================================ */
 .app.sidebar-collapsed {
   grid-template-columns: 84px 1fr;
 }
@@ -266,8 +293,10 @@ button {
   transform: rotate(180deg);
 }
 
-/* ================= PAGE HEADER (logo + recherche) ================= */
 
+/* ============================================
+   7. PAGE HEADER (logo + recherche)
+   ============================================ */
 .page-header {
   display: flex;
   align-items: center;
@@ -277,6 +306,7 @@ button {
   margin-bottom: 18px;
 }
 
+/* -------- 7.1 BRAND (logo) -------- */
 .brand {
   display: flex;
   align-items: center;
@@ -323,8 +353,7 @@ button {
   margin-top: 2px;
 }
 
-/* -------- Barre de recherche -------- */
-
+/* -------- 7.2 BARRE DE RECHERCHE -------- */
 .search-wrap {
   position: relative;
   display: flex;
@@ -404,6 +433,7 @@ button {
   opacity: 1;
 }
 
+/* -------- 7.3 ANIMATIONS RECHERCHE -------- */
 @keyframes icon-tilt {
 
   0%,
@@ -442,8 +472,10 @@ button {
   }
 }
 
-/* ================= TOPBAR (titre + sélecteur de langue) ================= */
 
+/* ============================================
+   8. TOPBAR (titre + sélecteur de langue)
+   ============================================ */
 .topbar {
   display: flex;
   align-items: center;
@@ -461,7 +493,7 @@ button {
   font-size: 2rem;
   font-weight: 600;
   margin: 4px 0 0;
-  color: rgba(227, 233, 229,.8);
+  color: rgba(227, 233, 229, .8);
 }
 
 .eyebrow {
@@ -472,8 +504,7 @@ button {
   color: var(--clay);
 }
 
-/* -------- Sélecteur de langue (toggle à curseur glissant) -------- */
-
+/* -------- 8.1 SÉLECTEUR DE LANGUE -------- */
 .language-switcher {
   position: relative;
   display: inline-flex;
@@ -500,7 +531,7 @@ button {
   width: calc(50% - 3px);
   height: calc(100% - 6px);
   border-radius: 999px;
-  background: rgb(248, 232, 1) ;
+  background: rgb(248, 232, 1);
   box-shadow: 0 1px 1px 2px rgb(51, 56, 50);
   transition: transform 0.25s ease;
   z-index: 0;
@@ -527,8 +558,10 @@ button {
   transition: color 0.2s ease;
 }
 
-/* ================= FILTRES (menu déroulant) ================= */
 
+/* ============================================
+   9. FILTRES (menu déroulant)
+   ============================================ */
 .filters {
   position: relative;
   display: inline-flex;
@@ -582,6 +615,7 @@ button {
   display: none;
 }
 
+/* -------- 9.1 CHIPS (filtres) -------- */
 .chip {
   padding: 8px 16px;
   border-radius: 30px;
@@ -633,8 +667,7 @@ button {
   border-radius: 6px;
 }
 
-/* Icônes colorées façon "logo d'app", une couleur par catégorie */
-
+/* -------- 9.2 ICÔNES DES CHIPS -------- */
 .filters-panel .chip {
   display: flex;
   align-items: center;
@@ -677,8 +710,10 @@ button {
   background: linear-gradient(135deg, #4FA3C4, #235C74);
 }
 
-/* ================= GRID & CARDS ================= */
 
+/* ============================================
+   10. GRID & CARDS
+   ============================================ */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
@@ -694,6 +729,7 @@ button {
   flex-direction: column;
   transition: transform 0.18s ease, box-shadow 0.18s ease;
   animation: fade-in 0.4s ease backwards;
+  cursor: pointer;
 }
 
 .card:hover {
@@ -701,6 +737,7 @@ button {
   box-shadow: var(--shadow);
 }
 
+/* -------- 10.1 MEDIA (image) -------- */
 .card-media {
   position: relative;
   aspect-ratio: 4 / 3;
@@ -748,6 +785,7 @@ button {
   border-radius: 20px;
 }
 
+/* -------- 10.2 BODY -------- */
 .card-body {
   padding: 16px 16px 14px;
   display: flex;
@@ -784,6 +822,7 @@ button {
   overflow: hidden;
 }
 
+/* -------- 10.3 TAGS -------- */
 .card-tags {
   display: flex;
   flex-wrap: wrap;
@@ -849,6 +888,7 @@ button {
   font-weight: 600;
 }
 
+/* -------- 10.4 FOOT -------- */
 .card-foot {
   margin-top: auto;
   display: flex;
@@ -873,8 +913,10 @@ button {
   color: var(--ink-soft);
 }
 
-/* ================= STATE PANELS ================= */
 
+/* ============================================
+   11. STATE PANELS (chargement, vide, erreur)
+   ============================================ */
 .state-panel {
   display: flex;
   flex-direction: column;
@@ -922,6 +964,10 @@ button {
   }
 }
 
+
+/* ============================================
+   12. BOUTONS
+   ============================================ */
 .btn-ghost {
   padding: 9px 18px;
   border-radius: 30px;
@@ -951,8 +997,10 @@ button {
   background: var(--forest-mid);
 }
 
-/* ================= ADD SITE PANEL ================= */
 
+/* ============================================
+   13. ADD SITE PANEL (overlay)
+   ============================================ */
 .overlay {
   position: fixed;
   inset: 0;
@@ -1088,8 +1136,12 @@ button {
   margin-top: 6px;
 }
 
-/* ================= RESPONSIVE ================= */
 
+/* ============================================
+   14. RESPONSIVE
+   ============================================ */
+
+/* -------- 14.1 TABLETTE (max-width: 980px) -------- */
 @media (max-width: 980px) {
   .app {
     grid-template-columns: 1fr;
@@ -1168,6 +1220,7 @@ button {
   }
 }
 
+/* -------- 14.2 MOBILE (max-width: 600px) -------- */
 @media (max-width: 600px) {
   .filters-toggle {
     min-width: 100%;
@@ -1178,8 +1231,10 @@ button {
   }
 }
 
-/* ================= DETAIL / ITINERARY PAGES ================= */
 
+/* ============================================
+   15. DETAIL / ITINERARY PAGES
+   ============================================ */
 .page-shell {
   min-height: 100vh;
   background:
@@ -1240,6 +1295,7 @@ button {
   overflow: hidden;
   background: #1e2e2b;
   margin-bottom: 12px;
+  position: relative;
 }
 
 .detail-video-frame video {
@@ -1296,7 +1352,6 @@ button {
   color: var(--forest-deep);
 }
 
-
 .info-pill {
   display: inline-flex;
   align-items: center;
@@ -1327,43 +1382,6 @@ button {
   background-size: 32px 32px;
 }
 
-
-
-/* ================= VIDEO OVERLAY & CONTROLS ================= */
-
-.video-overlay {
- position: absolute;
- inset: 0;
- display: none; /* shown when needed */
- align-items: center;
- justify-content: center;
- background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.45));
- z-index: 2;
-}
-
-.video-overlay .btn-ghost {
- background: rgba(255,255,255,0.95);
- color: var(--forest-deep);
- padding: 12px 18px;
- border-radius: 999px;
- box-shadow: 0 8px 24px rgba(0,0,0,0.25);
- font-weight: 700;
-}
-
-.video-unmute {
- position: absolute;
- right: 12px;
- bottom: 12px;
- z-index: 3;
- padding: 9px 14px;
- border-radius: 999px;
- font-weight: 700;
-}
-
-/* Ensure the .detail-video-frame is position:relative so overlay works */
-.detail-video-frame { position: relative; }
-
-
 .btn-back {
   min-width: fit-content;
 }
@@ -1377,10 +1395,37 @@ button {
   color: var(--ink);
 }
 
-.card {
-  cursor: pointer;
+/* -------- 15.1 VIDEO OVERLAY & CONTROLS -------- */
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.45));
+  z-index: 2;
 }
 
+.video-overlay .btn-ghost {
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--forest-deep);
+  padding: 12px 18px;
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  font-weight: 700;
+}
+
+.video-unmute {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 3;
+  padding: 9px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+/* -------- 15.2 RESPONSIVE DETAIL -------- */
 @media (max-width: 920px) {
   .detail-grid {
     grid-template-columns: 1fr;
@@ -1398,5 +1443,66 @@ button {
 
   .page-frame {
     padding: 14px;
+  }
+}
+
+/* ================= CARD LIKE BUTTON ================= */
+
+.card-like {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  z-index: 2;
+  padding: 0;
+}
+
+.card-like:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.card-like.is-liked {
+  color: #e74c3c;
+}
+
+.card-like.is-liked svg {
+  fill: #e74c3c;
+  stroke: #e74c3c;
+}
+
+.card-like svg {
+  width: 18px;
+  height: 18px;
+  transition: all 0.2s ease;
+}
+
+.card-like.is-liked svg {
+  animation: like-pop 0.3s ease;
+}
+
+@keyframes like-pop {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.4);
+  }
+
+  100% {
+    transform: scale(1);
   }
 }

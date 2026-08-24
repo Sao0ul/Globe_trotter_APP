@@ -207,3 +207,16 @@ ALTER TABLE users
 ALTER TABLE users
     ADD CONSTRAINT users_auth_provider_check
         CHECK (auth_provider IN ('local', 'google', 'facebook'));
+
+
+--=========== gestioon des sugestions =================-
+CREATE TABLE IF NOT EXISTS site_likes (
+    id SERIAL PRIMARY KEY,
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    site_id UUID NOT NULL REFERENCES sites(id) ON DELETE CASCADE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    UNIQUE (user_id, site_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_site_likes_user_id ON site_likes(user_id);
+CREATE INDEX IF NOT EXISTS idx_site_likes_site_id ON site_likes(site_id);

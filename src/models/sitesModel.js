@@ -130,7 +130,6 @@ async function persistSiteMedia(client, siteId, mediaEntries) {
 // mais devrait normalement toujours venir de req.user.id côté controller.
 //
 // NOUVEAU (branche geolocalisation) : latitude, longitude, videoUrl ajoutés.
-// ⚠️ Nécessite une migration de schema.sql — voir plus bas.
 async function createSite({
   id,
   title,
@@ -206,4 +205,70 @@ async function getSiteByPreference(preference, { page = 1, limit = 20 } = {}) {
   return querySites({ preference, page, limit });
 }
 
-module.exports = { getAllSites, getSiteById, createSite, addRating, getSiteByPreference };
+
+// gestion des suggestions 
+async function getLikedSiteIds(userId) {
+  if (!userId) return new Set();
+  const { rows } = await pool.query(
+    'SELECT site_id FROM site_likes WHERE user_id = $1', [userId]
+  );
+  return new Set(rows.map(r => r.site_id));
+}
+
+
+async function likeSite(userId, siteId) {
+  await pool.query(
+    `INSERT INTO site_likes (user_id, site_id) VALUES ($1, $2)
+     ON CONFLICT (user_id, site_id) DO NOTHING`,
+    [userId, siteId]
+  );
+}
+
+async function unlikeSite(userId, siteId) {
+  await pool.query(
+    'DELETE FROM site_likes WHERE user_id = $1 AND site_id = $2',
+    [userId, siteId]
+  );
+}
+
+// Catégories aimées, triées par nombre de likes décroissant
+async function getLikedCategories(userId) {
+  const { rows } = await pool.query(
+    `SELECT s.category, COUNT(*) AS nb
+     FROM site_likes l
+     JOIN sites s ON s.id = l.site_id
+     WHERE l.user_id = $1
+     GROUP BY s.category
+     ORDER BY nb DESC`,
+    [userId]
+  );
+  return rows.map(r => r.category);
+}
+
+async function getSitesByLikedCategories(categories, { page = 1, limit = 20 } = {}) {
+  const baseQuery = buildSiteBaseQuery();
+  const query = `
+    ${baseQuery}
+    GROUP BY s.id
+    ORDER BY
+      CASE WHEN s.category = ANY($1::text[]) THEN 0 ELSE 1 END,
+      s.created_at DESC
+    LIMIT $2 OFFSET $3
+  `;
+  const { rows } = await pool.query(query, [
+    categories, limit, (page - 1) * limit
+  ]);
+  return rows;
+}
+
+module.exports = { getAllSites, 
+  getSiteById, 
+  createSite, 
+  addRating, 
+  getSiteByPreference,
+  likeSite,
+  unlikeSite,
+  getLikedCategories,
+  getSitesByLikedCategories,
+  getLikedSiteIds
+};
