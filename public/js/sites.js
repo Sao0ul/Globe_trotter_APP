@@ -578,8 +578,8 @@ async function basculerLike(site, bouton) {
     sauvegarderEtatListe();
 
   } catch (error) {
-    console.error("Erreur réseau lors du like :", error);
-    alert("Impossible de contacter le serveur.");
+    console.error("Network error while appling the like :", error);
+    alert("Impossible to contact the server.");
   } finally {
     bouton.disabled = false;
   }

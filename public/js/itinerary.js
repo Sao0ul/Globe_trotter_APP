@@ -148,7 +148,7 @@ function placeOriginMarker(lat, lng) {
       draggable: true,
     }).addTo(map);
 
-    originMarker.bindPopup('Votre point de départ (déplaçable)');
+    originMarker.bindPopup('Starting point (movable)');
 
     originMarker.on('dragend', () => {
       const { lat: newLat, lng: newLng } = originMarker.getLatLng();
@@ -177,7 +177,7 @@ function buildLegend() {
 
   const entries = [
     {
-      label: 'Votre position',
+      label: 'Your position',
       color: COULEUR_DEPART,
       category: null,
       static: true
@@ -222,7 +222,7 @@ function buildLegend() {
     if (!isStatic) {
 
       item.title =
-        'Double-cliquez pour afficher uniquement cette catégorie';
+        'Double-click to show only this cathegory';
 
       item.addEventListener('click', (event) => {
 
