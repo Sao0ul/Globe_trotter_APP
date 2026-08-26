@@ -1,0 +1,131 @@
+{
+  "lang": {
+    "english": "English",
+    "french": "Français"
+  },
+  "login": {
+    "title": "Discover Cameroon",
+    "subtitle": "Discover Cameroon's most beautiful landscapes, book tours, and enjoy an unforgettable experience.",
+    "emailPlaceholder": "Email address",
+    "passwordPlaceholder": "Password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "signIn": "Sign in",
+    "or": "OR",
+    "createAccount": "Create account",
+    "noAccount": "Don't have an account?"
+  },
+  "register": {
+    "title": "Create an account",
+    "subtitle": "Join Discover Cameroon and start exploring the country's most beautiful destinations.",
+    "usernamePlaceholder": "Username",
+    "emailPlaceholder": "Email address",
+    "passwordPlaceholder": "Password",
+    "selectPreferences": "Select your preferences",
+    "signUp": "Sign up",
+    "alreadyHaveAccount": "Already have an account?",
+    "signInLink": "Sign in",
+    "successHtml": "Account created! Confirm it by clicking {link}.",
+    "successLink": "here",
+    "preferencesSelected": "{count} preference(s) selected",
+    "checkYourEmail": "Account created ! please open your mailbox to confirm and then try to login again."
+  },
+  "preferences": {
+    "nature": "Nature",
+    "culture": "Culture",
+    "adventure": "Adventure",
+    "relaxation": "Relaxation",
+    "mountain": "Mountain",
+    "beach": "Beach",
+    "other": "Other"
+  },
+  "sidebar": {
+    "navigation": "Navigation",
+    "hello": "Hello",
+    "explore": "Explore",
+    "addSite": "Suggest a site",
+    "messages": "Messages",
+    "profile": "Profile",
+    "infos": "Info",
+    "collapseMenu": "Collapse menu",
+    "logout": "Log out"
+  },
+  "topbar": {
+    "heading": "Browse destinations",
+    "searchPlaceholder": "Search destinations, places..."
+  },
+  "sites": {
+    "title": "Browse Cameroon Visit"
+  },
+  "filters": {
+    "all": "All",
+    "nature": "Nature",
+    "culture": "Culture",
+    "beach": "Beach",
+    "mountain": "Mountain",
+    "adventure": "Adventure"
+  },
+  "state": {
+    "loading": "Loading destinations...",
+    "empty": "No destinations yet.",
+    "emptyAction": "Suggest the first one",
+    "error": "Unable to load destinations. Check your connection and try again.",
+    "retry": "Retry"
+  },
+  "addSite": {
+    "eyebrow": "New listing",
+    "heading": "Suggest a site",
+    "title": "Title",
+    "location": "Location",
+    "category": "Category",
+    "imageUrl": "Image (URL)",
+    "description": "Description",
+    "details": "Good to know before you go",
+    "difficulty": "Difficulty",
+    "danger": "Danger level",
+    "price": "Estimated price (FCFA)",
+    "cancel": "Cancel",
+    "publish": "Publish listing"
+  },
+  "form": {
+    "placeholderTitle": "Ex. Lobé Waterfalls",
+    "placeholderLocation": "Ex. Kribi, South region",
+    "placeholderImage": "https://…",
+    "placeholderDescription": "What makes this place special…",
+    "placeholderPrice": "Ex. 5000"
+  },
+  "categories": {
+    "all": "All",
+    "nature": "Nature",
+    "culture": "Culture",
+    "beach": "Beach",
+    "plage": "Beach",
+    "mountain": "Mountain",
+    "montagne": "Mountain",
+    "adventure": "Adventure",
+    "aventure": "Adventure",
+    "relaxation": "Relaxation",
+    "other": "Other"
+  },
+  "difficulty": {
+    "facile": "Easy",
+    "modere": "Moderate",
+    "difficile": "Hard"
+  },
+  "danger": {
+    "faible": "Low",
+    "moderee": "Moderate",
+    "elevee": "High"
+  },
+  "site": {
+    "ratePrompt": "Your rating for this site (1 to 5):",
+    "rateError": "Unable to save the rating right now.",
+    "authorPrefix": "by"
+  },
+  "errors": {
+    "loginFailed": "Email or password incorrect.",
+    "serverUnavailable": "Unable to contact the server",
+    "registerFailed": "Registration failed",
+    "createSite": "Error while creating the listing"
+  }
+}

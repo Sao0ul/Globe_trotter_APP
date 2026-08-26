@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/images/logoLogin.png" />
+    <title>Politique de confidentialité  Discover Cameroon</title>
+    <meta name="description"
+        content="Politique de confidentialité de Discover Cameroon : données collectées, utilisation, partage avec Google, Facebook, Resend, Aiven et Render.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --forest: #14432E;
+            --forest-deep: #0D2E1F;
+            --paper: #F7F2E6;
+            --paper-soft: #EFE8D8;
+            --terracotta: #9C2B1B;
+            --gold: #D9A62E;
+            --ink: #221E16;
+            --ink-soft: #55503F;
+            --line: rgba(34, 30, 22, 0.12);
+            --max-w: 1180px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Fraunces', Georgia, serif;
+            color: var(--forest-deep);
+            margin: 0 0 0.5em;
+            line-height: 1.15;
+        }
+
+        a {
+            color: var(--terracotta);
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 3px;
+        }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            position: relative;
+            background: var(--forest-deep);
+            color: var(--paper);
+            overflow: hidden;
+            padding: 3.5rem 1.5rem 3rem;
+        }
+
+        .hero-inner {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero .eyebrow {
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 0.9rem;
+            display: inline-block;
+        }
+
+        .hero h1 {
+            color: var(--paper);
+            font-size: clamp(2rem, 4.5vw, 3rem);
+            font-weight: 500;
+            max-width: 16ch;
+        }
+
+        .hero p {
+            max-width: 52ch;
+            color: rgba(247, 242, 230, 0.82);
+            font-size: 1.05rem;
+            margin-top: 1rem;
+        }
+
+        .hero .meta {
+            margin-top: 1.75rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+            color: rgba(247, 242, 230, 0.65);
+        }
+
+        .hero .meta strong {
+            color: var(--paper);
+            font-weight: 600;
+        }
+
+        /* contour-line signature motif */
+        .contours {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        /* ---------- Layout ---------- */
+        .layout {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            padding: 3rem 1.5rem 6rem;
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 3.5rem;
+            align-items: start;
+        }
+
+        nav.toc {
+            position: sticky;
+            top: 1.5rem;
+            border-left: 2px solid var(--line);
+            padding-left: 1.1rem;
+        }
+
+        nav.toc .toc-label {
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            color: var(--ink-soft);
+            font-weight: 600;
+            margin-bottom: 0.9rem;
+            display: block;
+        }
+
+        nav.toc ol {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+        }
+
+        nav.toc a {
+            text-decoration: none;
+            color: var(--ink-soft);
+            font-size: 0.88rem;
+            display: flex;
+            gap: 0.5rem;
+            transition: color 0.15s ease;
+        }
+
+        nav.toc a span.n {
+            color: var(--gold);
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+            min-width: 1.4em;
+        }
+
+        nav.toc a:hover,
+        nav.toc a.active {
+            color: var(--forest-deep);
+        }
+
+        nav.toc a.active {
+            font-weight: 600;
+        }
+
+        main {
+            min-width: 0;
+        }
+
+        section.article {
+            padding: 2.2rem 0;
+            border-bottom: 1px solid var(--line);
+            scroll-margin-top: 1.5rem;
+        }
+
+        section.article:last-of-type {
+            border-bottom: none;
+        }
+
+        section.article .num {
+            font-family: 'Fraunces', serif;
+            color: var(--gold);
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+
+        section.article h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        section.article p,
+        section.article li {
+            color: var(--ink);
+            font-size: 0.98rem;
+        }
+
+        section.article ul {
+            padding-left: 1.2rem;
+            margin: 0.8rem 0;
+        }
+
+        section.article li {
+            margin-bottom: 0.45rem;
+        }
+
+        .card {
+            background: var(--paper-soft);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 1rem 1.2rem;
+            margin: 1.1rem 0;
+        }
+
+        table.providers {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.92rem;
+        }
+
+        table.providers th,
+        table.providers td {
+            text-align: left;
+            padding: 0.65rem 0.7rem;
+            border-bottom: 1px solid var(--line);
+            vertical-align: top;
+        }
+
+        table.providers th {
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+            color: var(--forest-deep);
+            font-size: 0.85rem;
+        }
+
+        .contact-box {
+            background: var(--forest-deep);
+            color: var(--paper);
+            border-radius: 12px;
+            padding: 1.8rem 2rem;
+            margin-top: 1rem;
+        }
+
+        .contact-box h3 {
+            color: var(--paper);
+            font-size: 1.15rem;
+        }
+
+        .contact-box a {
+            color: var(--gold);
+        }
+
+        footer {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            padding: 2rem 1.5rem 3rem;
+            color: var(--ink-soft);
+            font-size: 0.82rem;
+            border-top: 1px solid var(--line);
+        }
+
+        @media (max-width: 860px) {
+            .layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            nav.toc {
+                position: static;
+                border-left: none;
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                padding: 1rem 1.1rem;
+            }
+
+            nav.toc ol {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem 1rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="hero">
+        <svg class="contours" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M-50 320 C 200 260, 350 380, 600 300 S 1000 200, 1250 280" stroke="#D9A62E" stroke-width="1.5"
+                fill="none" opacity="0.5" />
+            <path d="M-50 280 C 220 220, 380 320, 620 250 S 1020 160, 1250 230" stroke="#D9A62E" stroke-width="1.5"
+                fill="none" opacity="0.35" />
+            <path d="M-50 240 C 240 190, 400 270, 640 210 S 1040 130, 1250 190" stroke="#D9A62E" stroke-width="1.5"
+                fill="none" opacity="0.22" />
+            <path d="M-50 200 C 260 160, 420 220, 660 175 S 1060 100, 1250 150" stroke="#F7F2E6" stroke-width="1.2"
+                fill="none" opacity="0.15" />
+        </svg>
+        <div class="hero-inner">
+            <span class="eyebrow">Discover Cameroon</span>
+            <h1>Politique de confidentialité</h1>
+            <p>Ce document explique, sans jargon inutile, quelles données nous collectons sur Discover Cameroon,
+                pourquoi, et avec qui elles sont partagées.</p>
+            <div class="meta">
+                <span>Dernière mise à jour&nbsp;: <strong>23 août 2026</strong></span>
+                <span>Responsable&nbsp;: <strong>Discover Cameroon — Yaoundé, Cameroun</strong></span>
+            </div>
+        </div>
+    </header>
+
+    <div class="layout">
+        <nav class="toc" aria-label="Sommaire">
+            <span class="toc-label">Sommaire</span>
+            <ol>
+                <li><a href="#responsable"><span class="n">01</span>Qui nous sommes</a></li>
+                <li><a href="#donnees"><span class="n">02</span>Données collectées</a></li>
+                <li><a href="#usage"><span class="n">03</span>Pourquoi on les utilise</a></li>
+                <li><a href="#oauth"><span class="n">04</span>Connexion Google / Facebook</a></li>
+                <li><a href="#stockage"><span class="n">05</span>Stockage local &amp; session</a></li>
+                <li><a href="#partage"><span class="n">06</span>Partage avec des tiers</a></li>
+                <li><a href="#conservation"><span class="n">07</span>Durée de conservation</a></li>
+                <li><a href="#securite"><span class="n">08</span>Sécurité</a></li>
+                <li><a href="#droits"><span class="n">09</span>Vos droits</a></li>
+                <li><a href="#mineurs"><span class="n">10</span>Mineurs</a></li>
+                <li><a href="#modifications"><span class="n">11</span>Modifications</a></li>
+                <li><a href="#contact"><span class="n">12</span>Contact</a></li>
+            </ol>
+        </nav>
+
+        <main>
+
+            <section class="article" id="responsable">
+                <span class="num">01</span>
+                <h2>Qui nous sommes</h2>
+                <p>Discover Cameroon est une application de découverte de destinations et d'itinéraires au Cameroun. Le
+                    responsable du traitement des données décrites ici est l'équipe Discover Cameroon, basée à Yaoundé,
+                    Cameroun.</p>
+                <p>Cette politique s'applique à l'application web accessible sur <a
+                        href="https://globe-trotter-app-nu8c.onrender.com" target="_blank"
+                        rel="noopener">globe-trotter-app-nu8c.onrender.com</a> ainsi qu'à toute version publiée
+                    ultérieurement sur le domaine camertravelapp.online.</p>
+            </section>
+
+            <section class="article" id="donnees">
+                <span class="num">02</span>
+                <h2>Données que nous collectons</h2>
+                <p>Nous collectons uniquement ce qui est nécessaire au fonctionnement du compte et du service&nbsp;:</p>
+                <ul>
+                    <li><strong>Compte classique</strong> — adresse email, nom d'utilisateur, mot de passe (jamais
+                        stocké en clair, uniquement sous forme hachée).</li>
+                    <li><strong>Compte via Google ou Facebook</strong> — adresse email, nom affiché et identifiant
+                        unique fourni par ces services, transmis via leur mécanisme de connexion sécurisé.</li>
+                    <li><strong>Préférences de voyage</strong> — catégories choisies à l'inscription (nature, culture,
+                        aventure, détente, montagne, plage, autre).</li>
+                    <li><strong>Données techniques minimales</strong> — le jeton de session (JWT) généré à la connexion,
+                        utilisé pour vous garder connecté.</li>
+                </ul>
+                <p>Nous ne collectons pas votre localisation en continu, ne lisons pas vos contacts, et ne demandons pas
+                    de données bancaires directement — aucun paiement n'est traité par l'application à ce stade.</p>
+            </section>
+
+            <section class="article" id="usage">
+                <span class="num">03</span>
+                <h2>Pourquoi on utilise ces données</h2>
+                <ul>
+                    <li>Créer et sécuriser votre compte (inscription, connexion, confirmation d'email).</li>
+                    <li>Vous reconnaître d'une session à l'autre grâce au jeton de connexion.</li>
+                    <li>Personnaliser les suggestions de destinations selon vos préférences.</li>
+                    <li>Vous envoyer les emails strictement nécessaires au service (confirmation de compte,
+                        réinitialisation de mot de passe).</li>
+                </ul>
+                <p>Nous n'utilisons pas vos données pour de la publicité ciblée et nous ne les vendons pas à des tiers.
+                </p>
+            </section>
+
+            <section class="article" id="oauth">
+                <span class="num">04</span>
+                <h2>Connexion via Google ou Facebook</h2>
+                <p>Si vous choisissez de vous connecter avec Google ou Facebook plutôt qu'avec un mot de passe, ces
+                    services nous transmettent votre email, votre nom, et un identifiant unique (jamais votre mot de
+                    passe Google ou Facebook — nous ne le voyons jamais).</p>
+                <p>Cet identifiant est stocké de façon à le relier à votre compte Discover Cameroon. Si un compte existe
+                    déjà avec la même adresse email, vous pouvez l'utiliser pour vous connecter aux deux façons de vous
+                    connecter.</p>
+                <div class="card">
+                    Discover Cameroon ne reçoit et ne demande accès qu'aux informations de profil de base (email, nom).
+                    Nous ne publions jamais rien en votre nom sur ces plateformes.
+                </div>
+            </section>
+
+            <section class="article" id="stockage">
+                <span class="num">05</span>
+                <h2>Stockage local et session</h2>
+                <p>Après connexion, votre jeton de session et votre nom d'utilisateur sont enregistrés dans le
+                    <strong>localStorage</strong> de votre navigateur — un espace de stockage local à votre appareil,
+                    non partagé avec d'autres sites. Nous n'utilisons pas de cookies de suivi ni d'outils d'analyse
+                    tiers (type Google Analytics) pour le moment.</p>
+                <p>Ces informations restent sur votre appareil jusqu'à ce que vous vous déconnectiez ou effaciez les
+                    données de votre navigateur.</p>
+            </section>
+
+            <section class="article" id="partage">
+                <span class="num">06</span>
+                <h2>Partage avec des tiers</h2>
+                <p>Nous ne partageons vos données qu'avec les prestataires strictement nécessaires au fonctionnement du
+                    service, chacun dans un rôle précis&nbsp;:</p>
+                <table class="providers">
+                    <thead>
+                        <tr>
+                            <th>Prestataire</th>
+                            <th>Rôle</th>
+                            <th>Données concernées</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Render</td>
+                            <td>Hébergement de l'application et du serveur</td>
+                            <td>Toutes les données transitant par l'app</td>
+                        </tr>
+                        <tr>
+                            <td>Aiven</td>
+                            <td>Hébergement de la base de données</td>
+                            <td>Compte, préférences, identifiants OAuth</td>
+                        </tr>
+                        <tr>
+                            <td>Resend</td>
+                            <td>Envoi des emails transactionnels (confirmation de compte)</td>
+                            <td>Email, nom d'utilisateur</td>
+                        </tr>
+                        <tr>
+                            <td>Google Sign-In</td>
+                            <td>Connexion via compte Google</td>
+                            <td>Email, nom, identifiant Google</td>
+                        </tr>
+                        <tr>
+                            <td>Facebook Login</td>
+                            <td>Connexion via compte Facebook</td>
+                            <td>Email, nom, identifiant Facebook</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Ces prestataires traitent les données uniquement pour le compte de Discover Cameroon et selon leurs
+                    propres politiques de confidentialité respectives. Nous ne vendons ni ne louons vos données à des
+                    annonceurs ou courtiers de données.</p>
+            </section>
+
+            <section class="article" id="conservation">
+                <span class="num">07</span>
+                <h2>Durée de conservation</h2>
+                <p>Vos données de compte sont conservées tant que votre compte reste actif. Si vous demandez la
+                    suppression de votre compte, nous supprimons vos données personnelles de notre base sous un délai
+                    raisonnable, sauf obligation légale contraire.</p>
+            </section>
+
+            <section class="article" id="securite">
+                <span class="num">08</span>
+                <h2>Sécurité</h2>
+                <ul>
+                    <li>Les mots de passe sont hachés (bcrypt) — jamais stockés en clair.</li>
+                    <li>Les échanges avec le serveur passent par HTTPS.</li>
+                    <li>L'authentification par jeton (JWT) est signée et à expiration limitée.</li>
+                    <li>L'accès à la base de données est restreint à l'infrastructure de l'application.</li>
+                </ul>
+                <p>Aucun système n'étant infaillible à 100&nbsp;%, nous vous recommandons d'utiliser un mot de passe
+                    unique et de ne pas le réutiliser ailleurs.</p>
+            </section>
+
+            <section class="article" id="droits">
+                <span class="num">09</span>
+                <h2>Vos droits</h2>
+                <p>Quel que soit votre pays de résidence, vous pouvez à tout moment nous demander de&nbsp;:</p>
+                <ul>
+                    <li>Consulter les données personnelles que nous détenons sur vous.</li>
+                    <li>Corriger une information inexacte.</li>
+                    <li>Supprimer votre compte et les données associées.</li>
+                    <li>Retirer l'accès accordé via Google ou Facebook (vous pouvez aussi le faire directement depuis
+                        les paramètres de votre compte Google ou Facebook).</li>
+                </ul>
+                <p>Pour les utilisateurs situés dans l'Union européenne, nous nous efforçons d'appliquer les mêmes
+                    principes que ceux du RGPD (droit d'accès, de rectification, d'effacement) en tant que bonne
+                    pratique, même si Discover Cameroon est opéré depuis le Cameroun.</p>
+            </section>
+
+            <section class="article" id="mineurs">
+                <span class="num">10</span>
+                <h2>Mineurs</h2>
+                <p>Discover Cameroon n'est pas destiné aux enfants de moins de 16 ans. Nous ne collectons pas sciemment
+                    de données concernant des mineurs. Si vous pensez qu'un compte a été créé par un mineur,
+                    contactez-nous pour suppression.</p>
+            </section>
+
+            <section class="article" id="modifications">
+                <span class="num">11</span>
+                <h2>Modifications de cette politique</h2>
+                <p>Cette politique peut évoluer, notamment à mesure que l'application ajoute de nouvelles
+                    fonctionnalités (paiement, notifications, etc.). Toute modification importante sera indiquée par une
+                    mise à jour de la date en haut de cette page.</p>
+            </section>
+
+            <section class="article" id="contact">
+                <span class="num">12</span>
+                <h2>Contact</h2>
+                <p>Pour toute question sur cette politique ou pour exercer vos droits, contactez-nous&nbsp;:</p>
+                <div class="contact-box">
+                    <h3>Discover Cameroon</h3>
+                    <p style="color: rgba(247,242,230,0.85); margin: 0.3rem 0;">Yaoundé, Cameroun</p>
+                    <p style="margin: 0.6rem 0 0;"><a href="mailto:raouldarilt@gmail.com">raouldarilt@gmail.com</a></p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <footer>
+        © 2026 Discover Cameroon. Tous droits réservés. &nbsp;·&nbsp; <a href="index.html">Retour à la connexion</a>
+    </footer>
+
+    <script>
+        // Scroll-spy : met en évidence la section active dans le sommaire
+        const links = Array.from(document.querySelectorAll('nav.toc a'));
+        const sections = links.map(l => document.querySelector(l.getAttribute('href')));
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const id = '#' + entry.target.id;
+                const link = links.find(l => l.getAttribute('href') === id);
+                if (!link) return;
+                if (entry.isIntersecting) {
+                    links.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                }
+            });
+        }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+
+        sections.forEach(s => s && observer.observe(s));
+    </script>
+
+</body>
+
+</html>

@@ -23,6 +23,9 @@ const errorState = document.getElementById("errorState");
 const cardTemplate = document.getElementById("cardTemplate");
 
 const filters = document.getElementById("filters");
+const filtersToggle = document.getElementById("filtersToggle");
+const filtersPanel = document.getElementById("filtersPanel");
+const filtersToggleLabel = document.getElementById("filtersToggleLabel");
 const searchInput = document.getElementById("searchInput");
 const searchWrap = document.getElementById("searchWrap");
 
@@ -36,6 +39,37 @@ let tousLesSites = [];
 let categorieActive = "tous";
 let rechercheActuelle = "";
 
+// -------------------- Pagination dynamique --------------------
+
+let pageActuelle = 1;
+let chargementEnCours = false;
+let ilResteDesSites = true;
+
+const filterLabelKeys = {
+  tous: "filters.all",
+  nature: "filters.nature",
+  culture: "filters.culture",
+  beach: "filters.beach",
+  mountain: "filters.mountain",
+  aventure: "filters.adventure"
+};
+
+// Compte combien de colonnes le CSS Grid affiche réellement en ce moment.
+// Lit grid-template-columns calculé par le navigateur (ex: "320px 320px 320px" → 3 colonnes),
+// ce qui tient compte automatiquement de la largeur d'écran ET de l'état de la sidebar.
+function compterColonnesVisibles() {
+  const style = window.getComputedStyle(sitesGrid);
+  const colonnes = style.gridTemplateColumns.split(" ").filter(Boolean);
+  return colonnes.length || 1;
+}
+
+// Nombre de sites à demander par chargement : 2 rangées complètes à la fois,
+// pour limiter le nombre de requêtes tout en évitant de sur-charger.
+function calculerLimiteParPage() {
+  const colonnes = compterColonnesVisibles();
+  return colonnes * 2;
+}
+
 // -------------------- Affichage des états --------------------
 
 function afficherEtat(nom) {
@@ -45,18 +79,62 @@ function afficherEtat(nom) {
   sitesGrid.hidden = nom !== "grid";
 }
 
+function mettreAJourLabelFiltre() {
+  const labelKey = filterLabelKeys[categorieActive] || "filters.all";
+  filtersToggleLabel.textContent = window.i18n?.t(labelKey) || "All";
+}
+
+function ouvrirMenuFiltre() {
+  filtersPanel.hidden = false;
+  filtersToggle.setAttribute("aria-expanded", "true");
+}
+
+function fermerMenuFiltre() {
+  filtersPanel.hidden = true;
+  filtersToggle.setAttribute("aria-expanded", "false");
+}
+
+function selectionnerCategorie(categorie) {
+  categorieActive = categorie;
+  document.querySelectorAll(".filters-panel .chip").forEach((chip) => {
+    chip.classList.toggle("is-active", chip.dataset.cat === categorie);
+  });
+  mettreAJourLabelFiltre();
+  afficherSites();
+  fermerMenuFiltre();
+}
+
 // -------------------- Chargement des sites --------------------
 
-async function chargerSites() {
-  afficherEtat("loading");
+// reinitialiser=true : recharge tout depuis la page 1 (nouveau filtre, retry, etc.)
+// reinitialiser=false : ajoute la page suivante à la liste déjà chargée (scroll)
+async function chargerSites(reinitialiser = true) {
+  if (chargementEnCours) return;
+  if (!reinitialiser && !ilResteDesSites) return;
+
+  chargementEnCours = true;
+
+  if (reinitialiser) {
+    afficherEtat("loading");
+    pageActuelle = 1;
+    tousLesSites = [];
+    ilResteDesSites = true;
+  }
+
+  const limit = calculerLimiteParPage();
 
   let response;
   try {
-    response = await fetch("/api/sites", {
+    const searchParam = rechercheActuelle.trim()
+      ? `&search=${encodeURIComponent(rechercheActuelle.trim())}`
+      : "";
+
+    response = await fetch(`/api/sites?page=${pageActuelle}&limit=${limit}${searchParam}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
   } catch {
     afficherEtat("error");
+    chargementEnCours = false;
     return;
   }
 
@@ -68,11 +146,33 @@ async function chargerSites() {
 
   if (!response.ok) {
     afficherEtat("error");
+    chargementEnCours = false;
     return;
   }
 
-  tousLesSites = await response.json();
+  const data = await response.json();
+
+  // On accumule les pages plutôt que de remplacer : le filtrage client
+  // continue de fonctionner sur l'ensemble déjà chargé.
+  tousLesSites = tousLesSites.concat(data.sites);
+  ilResteDesSites = data.hasMore;
+  pageActuelle++;
+
   afficherSites();
+  chargementEnCours = false;
+
+  // Si après ce chargement la page n'est toujours pas remplie (peu de contenu
+  // ou grand écran), on redemande automatiquement la suite.
+  await chargerPageSuivanteSiNecessaire();
+}
+
+// Vérifie si le contenu affiché remplit la fenêtre ; sinon, charge la page suivante.
+// Évite qu'un grand écran affiche une grille à moitié vide sans scroll possible.
+async function chargerPageSuivanteSiNecessaire() {
+  const pageEstAssezRemplie = document.documentElement.scrollHeight > window.innerHeight + 100;
+  if (!pageEstAssezRemplie && ilResteDesSites && !chargementEnCours) {
+    await chargerSites(false);
+  }
 }
 
 // -------------------- Filtrage (catégorie + recherche) --------------------
@@ -101,8 +201,13 @@ function moyenneNote(site) {
 
 // -------------------- Affichage des cartes --------------------
 
+// Garde trace des cartes déjà rendues pour ne jamais les reconstruire inutilement
+let idsDejaAffiches = new Set();
+
 function afficherSites() {
   const sitesFiltres = tousLesSites.filter(correspondAuxFiltres);
+  const idsAttendus = new Set(sitesFiltres.map((s) => s.id));
+  const rebuildComplet = ![...idsDejaAffiches].every((id) => idsAttendus.has(id));
 
   if (sitesFiltres.length === 0) {
     afficherEtat("empty");
@@ -110,10 +215,18 @@ function afficherSites() {
   }
   afficherEtat("grid");
 
-  sitesGrid.innerHTML = "";
+  if (rebuildComplet) {
+    sitesGrid.innerHTML = "";
+    idsDejaAffiches = new Set();
+  }
+  
 
   sitesFiltres.forEach((site, index) => {
+    // Ne recrée pas une carte déjà présente dans le DOM
+    if (idsDejaAffiches.has(site.id)) return;
+
     const node = cardTemplate.content.cloneNode(true);
+    const card = node.querySelector(".card");
 
     const img = node.querySelector(".card-media img");
     img.src = site.imageUrl || "https://placehold.co/400x300/16332B/F4C868?text=Cameroun+Visit";
@@ -121,43 +234,66 @@ function afficherSites() {
 
     node.querySelector(".card-number").textContent =
       "N°" + String(site.id ?? index + 1).padStart(3, "0");
-    node.querySelector(".card-category").textContent = site.categorie || "—";
+    node.querySelector(".card-category").textContent =
+      window.i18n.t(`categories.${site.categorie}`) || site.categorie || "—";
     node.querySelector(".card-title").textContent = site.titre;
     node.querySelector(".card-location span").textContent = site.localisation;
     node.querySelector(".card-desc").textContent = site.description || "";
     node.querySelector(".rating-value").textContent = moyenneNote(site).toFixed(1);
-    node.querySelector(".card-author").textContent = site.auteur ? `par ${site.auteur}` : "";
-
-    const libellesDifficulte = { facile: "Facile", modere: "Modérée", difficile: "Difficile" };
-    const libellesDanger = { faible: "Risque faible", moderee: "Risque modéré", elevee: "Risque élevé" };
+    node.querySelector(".card-author").textContent =
+      site.auteur ? `${window.i18n.t("site.authorPrefix")} ${site.auteur}` : "";
 
     const tagDifficulte = node.querySelector(".tag-difficulte");
     if (site.difficulte) {
       tagDifficulte.dataset.level = site.difficulte;
-      tagDifficulte.textContent = libellesDifficulte[site.difficulte] || site.difficulte;
+      tagDifficulte.textContent = window.i18n.t(`difficulty.${site.difficulte}`) || site.difficulte;
     }
 
     const tagDanger = node.querySelector(".tag-danger");
     if (site.dangerosite) {
       tagDanger.dataset.level = site.dangerosite;
-      tagDanger.textContent = libellesDanger[site.dangerosite] || site.dangerosite;
+      tagDanger.textContent = window.i18n.t(`danger.${site.dangerosite}`) || site.dangerosite;
     }
 
     const tagPrix = node.querySelector(".tag-prix");
     if (site.prix !== undefined && site.prix !== null && site.prix !== "") {
-      tagPrix.textContent = `${Number(site.prix).toLocaleString("fr-FR")} FCFA`;
+      const locale = window.i18n.language === "en" ? "en-US" : "fr-FR";
+      tagPrix.textContent = `${Number(site.prix).toLocaleString(locale)} FCFA`;
     }
 
-    node.querySelector(".rating").addEventListener("click", () => noterSite(site.id));
+    // AJOUT — bouton like
+    const btnLike = node.querySelector(".card-like");
+
+    if (btnLike) {
+      btnLike.classList.toggle("is-liked", !!site.aimeParMoi);
+      btnLike.textContent = site.aimeParMoi ? "❤️" : "🤍";
+
+      btnLike.addEventListener("click", (event) => {
+        event.stopPropagation();
+        basculerLike(site, btnLike);
+      });
+    }
+
+
+    card.addEventListener("click", (event) => {
+      if (event.target.closest(".rating")) return;
+      sauvegarderEtatListe();
+      window.location.href = `site-detail.html?id=${encodeURIComponent(site.id)}`;
+    });
+
+    node.querySelector(".rating").addEventListener("click", (event) => {
+      event.stopPropagation();
+      noterSite(site.id);
+    });
 
     sitesGrid.appendChild(node);
+    idsDejaAffiches.add(site.id);
   });
 }
-
 // -------------------- Notation --------------------
 
 async function noterSite(siteId) {
-  const saisie = window.prompt("Votre note pour ce site (1 à 5) :");
+  const saisie = window.prompt(window.i18n.t("site.ratePrompt"));
   const valeur = Number(saisie);
   if (!valeur || valeur < 1 || valeur > 5) return;
 
@@ -171,7 +307,7 @@ async function noterSite(siteId) {
   });
 
   if (!response.ok) {
-    alert("Impossible d'enregistrer la note pour le moment.");
+    alert(window.i18n.t("site.rateError"));
     return;
   }
 
@@ -180,21 +316,47 @@ async function noterSite(siteId) {
 
 // -------------------- Filtres et recherche (UI) --------------------
 
-filters.addEventListener("click", (event) => {
+filtersToggle.addEventListener("click", (event) => {
+  event.stopPropagation();
+  const estOuvert = filtersToggle.getAttribute("aria-expanded") === "true";
+  if (estOuvert) {
+    fermerMenuFiltre();
+  } else {
+    ouvrirMenuFiltre();
+  }
+});
+
+filtersPanel.addEventListener("click", (event) => {
+  event.stopPropagation();
   const chip = event.target.closest(".chip");
   if (!chip) return;
 
-  document.querySelectorAll(".chip").forEach((c) => c.classList.remove("is-active"));
-  chip.classList.add("is-active");
-  categorieActive = chip.dataset.cat;
-  afficherSites();
+  const iconSource = chip.querySelector(".chip-icon");
+  const iconTarget = document.getElementById("filtersToggleIcon");
+  if (iconSource && iconTarget) {
+    iconTarget.className = "filters-toggle-icon-badge " + iconSource.className;
+    iconTarget.innerHTML = iconSource.innerHTML;
+  }
+
+  selectionnerCategorie(chip.dataset.cat);
 });
+
+document.addEventListener("click", () => {
+  fermerMenuFiltre();
+});
+
+// Attend 350ms après la dernière frappe avant d'interroger le backend,
+// pour ne pas envoyer une requête à chaque lettre tapée.
+let rechercheTimeout;
 
 searchInput.addEventListener("input", (event) => {
   rechercheActuelle = event.target.value;
-  afficherSites();
-});
 
+  clearTimeout(rechercheTimeout);
+  rechercheTimeout = setTimeout(() => {
+    chargerSites(true); // relance depuis la page 1, avec le nouveau terme de recherche
+  }, 350);
+});
 // -------------------- Panneau "Proposer un site" --------------------
 
 function ouvrirPanneauAjout() {
@@ -227,8 +389,6 @@ addSiteForm.addEventListener("submit", async (event) => {
   const dangerosite = addSiteForm.dangerosite.value;
   const prix = addSiteForm.prix.value ? Number(addSiteForm.prix.value) : null;
 
-  // Note : l'auteur est envoyé ici pour l'instant, mais devrait à terme
-  // être déterminé côté serveur depuis req.user plutôt que depuis le client.
   const response = await fetch("/api/sites", {
     method: "POST",
     headers: {
@@ -253,7 +413,44 @@ addSiteForm.addEventListener("submit", async (event) => {
   chargerSites();
 });
 
-document.getElementById("retryLoad").addEventListener("click", chargerSites);
+document.getElementById("retryLoad").addEventListener("click", () => chargerSites(true));
+
+// -------------------- Chargement au scroll (IntersectionObserver) --------------------
+//
+// On observe un repère invisible en bas de la grille plutôt que d'écouter
+// le scroll brut : le navigateur ne nous prévient qu'UNE fois quand ce
+// repère devient visible, au lieu de déclencher un calcul à chaque pixel
+// scrollé. rootMargin déclenche un peu avant que le repère soit visible
+// à l'écran, pour un chargement fluide (l'utilisateur ne voit jamais de
+// "trou" en bas de page).
+
+const scrollSentinel = document.getElementById("scrollSentinel");
+
+const scrollObserver = new IntersectionObserver(
+  (entries) => {
+    const sentinelVisible = entries[0].isIntersecting;
+
+    if (sentinelVisible && !chargementEnCours && ilResteDesSites) {
+      chargerSites(false);
+    }
+  },
+  {
+    rootMargin: "400px", // déclenche 400px avant d'atteindre le repère
+  }
+);
+
+scrollObserver.observe(scrollSentinel);
+
+
+// Redemande le nombre de colonnes visibles quand la fenêtre change de taille
+// (rotation d'écran, redimensionnement) — recharge tout pour rester cohérent.
+let redimensionnementTimeout;
+window.addEventListener("resize", () => {
+  clearTimeout(redimensionnementTimeout);
+  redimensionnementTimeout = setTimeout(() => {
+    chargerSites(true);
+  }, 400);
+});
 
 // -------------------- Sidebar mobile --------------------
 
@@ -284,15 +481,130 @@ if (localStorage.getItem("sidebarCollapsed") === "true") {
 collapseBtn.addEventListener("click", () => {
   const estReduite = appShell.classList.toggle("sidebar-collapsed");
   localStorage.setItem("sidebarCollapsed", estReduite);
+  // La largeur de la grille change quand la sidebar se replie/déplie :
+  // on recharge pour que le nombre de sites par page corresponde au nouvel espace.
+  chargerSites(true);
 });
 
-// -------------------- Déconnexion --------------------
 
+// -------------------- Persistance de l'état de la liste --------------------
+//
+// Sauvegarde tout ce qu'il faut pour restaurer la liste à l'identique
+// (comme le feed Instagram) quand l'utilisateur revient depuis les
+// détails d'un site — sans refaire d'appel serveur ni perdre le scroll.
+
+const SITES_CACHE_KEY = "sitesFeedCache";
+
+function sauvegarderEtatListe() {
+  sessionStorage.setItem(SITES_CACHE_KEY, JSON.stringify({
+    sites: tousLesSites,
+    page: pageActuelle,
+    ilResteDesSites,
+    categorieActive,
+    rechercheActuelle,
+    scrollY: window.scrollY,
+  }));
+}
+
+function restaurerEtatListe() {
+  const brut = sessionStorage.getItem(SITES_CACHE_KEY);
+  if (!brut) return false;
+
+  try {
+    const etat = JSON.parse(brut);
+
+    tousLesSites = etat.sites || [];
+    pageActuelle = etat.page || 1;
+    ilResteDesSites = etat.ilResteDesSites ?? true;
+    categorieActive = etat.categorieActive || "tous";
+    rechercheActuelle = etat.rechercheActuelle || "";
+
+    searchInput.value = rechercheActuelle;
+    document.querySelectorAll(".filters-panel .chip").forEach((chip) => {
+      chip.classList.toggle("is-active", chip.dataset.cat === categorieActive);
+    });
+    mettreAJourLabelFiltre();
+
+    afficherSites();
+
+    // Le scroll doit être appliqué après que le navigateur ait fini de
+    // peindre les cartes restaurées, sinon la page n'a pas encore sa
+    // hauteur finale et le scroll retombe à 0.
+    requestAnimationFrame(() => {
+      window.scrollTo(0, etat.scrollY || 0);
+    });
+
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+
+//------------------- Gestion des suggestions ------------
+
+async function basculerLike(site, bouton) {
+  const dejaAime = !!site.aimeParMoi;
+  const methode = dejaAime ? "DELETE" : "POST";
+
+  bouton.disabled = true;
+
+  try {
+    const response = await fetch(`/api/sites/${site.id}/like`, {
+      method: methode,
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    if (response.status === 401) {
+      localStorage.clear();
+      window.location.href = "index.html";
+      return;
+    }
+
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      console.error("Erreur like :", data);
+      alert(data.error || "Impossible de modifier le like.");
+      return;
+    }
+
+    // Synchronisation frontend
+    site.aimeParMoi = !dejaAime;
+
+    bouton.classList.toggle("is-liked", site.aimeParMoi);
+    bouton.textContent = site.aimeParMoi ? "❤️" : "🤍";
+    sauvegarderEtatListe();
+
+  } catch (error) {
+    console.error("Network error while appling the like :", error);
+    alert("Impossible to contact the server.");
+  } finally {
+    bouton.disabled = false;
+  }
+}
+
+
+// -------------------- Déconnexion --------------------
 logoutBtn.addEventListener("click", () => {
   localStorage.clear();
+  sessionStorage.removeItem(SITES_CACHE_KEY);
   window.location.href = "index.html";
+});
+
+document.addEventListener("i18n:languageChanged", () => {
+  mettreAJourLabelFiltre();
+  afficherSites();
 });
 
 // -------------------- Démarrage --------------------
 
-chargerSites();
+window.i18n?.ready?.then(() => {
+  mettreAJourLabelFiltre();
+
+  const restaure = restaurerEtatListe();
+  if (!restaure) {
+    chargerSites(true);
+  }
+});

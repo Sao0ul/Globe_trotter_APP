@@ -80,6 +80,13 @@
   transition: background 0.12s ease;
   box-shadow: 0 1px 1px rgba(235, 230, 230, 0.884);
 }
+
+.pref-option:first-child {
+  box-shadow: 0 1px 1px rgba(235, 230, 230, 0.884), 
+              0 -1px 1px rgba(235, 230, 230, 0.884);
+}
+
+
 .pref-option:hover { background: rgba(255, 255, 255, 0.14); }
 
 .pref-option input {

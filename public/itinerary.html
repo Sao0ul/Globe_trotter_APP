@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="assets/images/logoLogin.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="itinerary.title">Itinerary</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Work+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/map-markers.css">
+    <link rel="stylesheet" href="css/itinerary.css">
+</head>
+
+<body class="itinerary-fullbleed">
+
+        <!-- Carte plein écran, en fond de page -->
+    <div id="routeMap" class="route-map-full" role="img" aria-label="Carte de l'itinéraire">
+
+        <div class="float-topbar">
+            <a class="fab fab-back" href="javascript:history.back()" aria-label="Back" data-tooltip="Back">
+                <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
+                    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </a>
+
+            <button class="fab fab-directions" id="openDirectionsBtn" aria-label="Itinéraire"
+                data-tooltip="Get the itinerary">
+                🧭
+            </button>
+
+            <button class="fab fab-focus" id="focusOriginBtn" aria-label="Verrouiller le point de départ"
+                data-tooltip="Verrouiller le point de départ">
+                <span id="focusOriginIcon">🔓</span>
+            </button>
+
+            <button class="fab fab-yango" id="yangoBouton" aria-label="Commander un taxi Yango"
+                data-tooltip="Order Yango taxi">
+                <img src="assets/images/yango-logo.svg" alt="" width="18" height="18">
+            </button>
+        </div>
+
+        <!-- ... directionsPanel, routeSummaryFloat : inchangés ... -->
+
+        <!-- Bouton menu déroulant pour la légende, visible seulement en mobile -->
+        <button class="legend-toggle-btn fab" id="legendToggleBtn" aria-label="Show places nearby"
+            data-tooltip="Places nearby">
+            📍
+        </button>
+
+        <!-- Légende, générée dynamiquement par buildLegend() dans itinerary.js -->
+        <div class="detail-legend-float"></div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/mapicons.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/itinerary.js"></script>
+</body>
+
+</html>

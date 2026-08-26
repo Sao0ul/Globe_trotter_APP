@@ -1,0 +1,507 @@
+/* ==========================================================
+   1. RESET PLEIN ÉCRAN
+   ========================================================== */
+
+.itinerary-fullbleed {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+}
+
+.route-map-full {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(180deg, #eff8f5, #f8fbf9);
+}
+
+.route-map-full .leaflet-container {
+  width: 100%;
+  height: 100%;
+  font-family: 'Work Sans', sans-serif;
+}
+
+/* Contrôles zoom Leaflet, restylés */
+.route-map-full .leaflet-control-zoom {
+  border: none !important;
+  margin: 20px !important;
+  box-shadow: 0 8px 24px rgba(22, 51, 43, 0.15);
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+.route-map-full .leaflet-control-zoom a {
+  border: none !important;
+  color: var(--ink, #16332b) !important;
+  width: 38px !important;
+  height: 38px !important;
+  line-height: 38px !important;
+}
+
+/* Curseur cadenas quand la carte est verrouillée — desktop uniquement,
+   sur tactile ce curseur n'a aucun sens (pas de souris). */
+@media (hover: hover) and (pointer: fine) {
+  .route-map-full.is-locked .leaflet-container {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><text y='18' font-size='18'>🔒</text></svg>") 12 12, not-allowed;
+  }
+}
+
+
+/* ==========================================================
+   2. POPUPS LEAFLET
+   ========================================================== */
+
+.leaflet-popup-content-wrapper {
+  border-radius: 14px;
+  box-shadow: 0 14px 34px rgba(22, 51, 43, 0.2);
+}
+
+.leaflet-popup-content {
+  margin: 14px 16px;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 13.5px;
+  color: var(--ink, #16332b);
+  line-height: 1.5;
+}
+
+.popup-title {
+  font-weight: 700;
+  font-size: 14.5px;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.popup-category {
+  display: inline-block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--primary-dark);
+  background: rgba(59, 130, 246, .1);
+  padding: 3px 9px;
+  border-radius: 999px;
+  margin-bottom: 6px;
+}
+
+.popup-btn {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+
+/* ==========================================================
+   3. BOUTONS FLOTTANTS (FAB) + TOOLTIPS
+   ========================================================== */
+
+.fab {
+  pointer-events: auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  color: var(--ink, #16332b);
+  box-shadow: 0 10px 26px rgba(22, 51, 43, 0.18);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+}
+
+.fab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(22, 51, 43, 0.24);
+}
+
+/* Tooltip générique : tout bouton avec un attribut data-tooltip
+   affiche une petite bulle au survol / au focus clavier. Réutilisable
+   pour n'importe quel .fab, pas seulement ceux du topbar. */
+.fab[data-tooltip] {
+  position: relative;
+}
+
+.fab[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%) translateX(-6px);
+  white-space: nowrap;
+  background: var(--ink, #16332b);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(22, 51, 43, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
+  z-index: 1500;
+}
+
+.fab[data-tooltip]:hover::after,
+.fab[data-tooltip]:focus-visible::after {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* Sur mobile, pas de tooltip au survol (pas de souris) */
+@media (hover: none) {
+  .fab[data-tooltip]::after {
+    display: none;
+  }
+}
+
+
+/* ==========================================================
+   4. BARRE FLOTTANTE HAUTE (retour, itinéraire, focus, yango)
+   ========================================================== */
+
+.float-topbar {
+  position: absolute;
+  top: 106px;
+  left: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fab-directions.is-active {
+  background: rgba(59, 130, 246, 0.95);
+  color: #fff;
+}
+
+/* Le bouton focus reste bleu tant que le mode "modifier le départ"
+   est actif (carte déverrouillée, clic autorisé) */
+.fab-focus.is-active {
+  background: rgba(59, 130, 246, 0.95);
+  color: #fff;
+}
+
+/* --- État verrouillé : la carte a déjà un itinéraire calculé ---
+   1) le bouton focus passe en rouge (indicateur visible phone + pc)
+   2) les autres boutons du topbar disparaissent, pour que l'attention
+      se porte uniquement sur le bouton de déverrouillage
+   3) le curseur cadenas s'ajoute en plus, sur desktop (voir section 1) */
+.route-map-full.is-locked .float-topbar .fab:not(.fab-focus) {
+  display: none;
+}
+
+.route-map-full.is-locked .fab-focus {
+  background: rgba(220, 38, 38, 0.95);
+  color: #fff;
+}
+
+
+/* ==========================================================
+   5. PANNEAU "OBTENIR L'ITINÉRAIRE"
+   ========================================================== */
+
+.directions-panel {
+  display: none;
+  position: absolute;
+  top: 86px;
+  left: 76px;
+  z-index: 1200;
+  width: min(420px, calc(100vw - 96px));
+  padding: 18px 18px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 16px 40px rgba(22, 51, 43, 0.18);
+  border: 1px solid rgba(22, 51, 43, 0.08);
+}
+
+.directions-panel.is-open {
+  display: block;
+}
+
+.directions-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(22, 51, 43, 0.06);
+  color: var(--ink, #16332b);
+  cursor: pointer;
+  transition: background .2s ease;
+}
+
+.directions-close-btn:hover {
+  background: rgba(22, 51, 43, 0.12);
+}
+
+.directions-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.directions-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.directions-field svg {
+  position: absolute;
+  left: 12px;
+  width: 15px;
+  height: 15px;
+  color: var(--ink-soft, #6b7d78);
+  pointer-events: none;
+}
+
+.directions-field input {
+  width: 100%;
+  padding: 11px 12px 11px 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(22, 51, 43, 0.12);
+  background: #fff;
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--ink, #16332b);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.directions-field input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.directions-field input[readonly] {
+  background: rgba(22, 51, 43, 0.03);
+  cursor: default;
+}
+
+.directions-swap-btn {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(22, 51, 43, 0.12);
+  background: #fff;
+  color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease;
+}
+
+.directions-swap-btn:hover {
+  background: rgba(59, 130, 246, 0.08);
+  transform: rotate(180deg);
+}
+
+.directions-modes {
+  display: flex;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.directions-mode-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.directions-mode-btn.is-active {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+}
+
+.directions-mode-btn.is-unavailable {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+
+/* ==========================================================
+   6. RÉSUMÉ DU TRAJET (flottant bas-gauche)
+   ========================================================== */
+
+.route-summary-float {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+  max-width: 340px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-left: 3px solid var(--primary);
+  border-radius: 12px;
+  padding: 14px 16px;
+  box-shadow: 0 10px 26px rgba(22, 51, 43, 0.16);
+}
+
+.route-summary-float p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--ink, #16332b);
+}
+
+
+/* ==========================================================
+   7. LÉGENDE / FILTRE DE LIEUX (bas-droite, dropdown en mobile)
+   ========================================================== */
+
+.detail-legend-float {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  z-index: 2000;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  max-width: 380px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(22, 51, 43, 0.10);
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(22, 51, 43, 0.16), 0 3px 8px rgba(22, 51, 43, 0.08);
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(22, 51, 43, 0.08);
+  border-radius: 999px;
+  padding: 7px 11px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--ink, #16332b);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease, opacity .2s ease, box-shadow .2s ease;
+}
+
+.legend-item:not(:disabled):hover {
+  transform: translateY(-2px);
+  background: #ffffff;
+  box-shadow: 0 5px 14px rgba(22, 51, 43, 0.12);
+}
+
+/* Pastille : couleur pleine par défaut, ou image du pin si
+   itinerary.js lui donne un style background-image (voir ICONES_CATEGORIE) */
+/* Pastille de légende : même image que le pin correspondant sur la carte
+   (réutilise directement --pin-icon-url défini dans map-markers.css),
+   simplement redimensionnée en petit rond. */
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  flex: 0 0 10px;
+  border-radius: 50%;
+  background-image: var(--pin-icon-url, none);
+  background-color: var(--pin-color, transparent);
+  /* filet de sécurité si l'image manque */
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 0 2px #fff, 0 1px 4px rgba(0, 0, 0, .2);
+}
+
+.legend-item.is-active {
+  background: var(--forest-deep, #16332b);
+  color: #fff;
+  border-color: var(--forest-deep, #16332b);
+  box-shadow: 0 5px 15px rgba(22, 51, 43, .25);
+}
+
+.legend-item.is-dimmed {
+  opacity: .35;
+}
+
+.legend-item--static {
+  cursor: default;
+  opacity: .75;
+}
+
+/* Bouton menu déroulant : caché sur desktop, la légende y est déjà visible */
+.legend-toggle-btn {
+  display: none;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  z-index: 2100;
+}
+
+
+/* ==========================================================
+   8. RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 720px) {
+  .directions-panel {
+    left: 12px;
+    right: 12px;
+    width: auto;
+    top: 76px;
+  }
+
+  .route-summary-float {
+    left: 12px;
+    right: 12px;
+    max-width: none;
+  }
+
+  /* La légende devient un menu déroulant : cachée par défaut,
+     ouverte via le bouton .legend-toggle-btn, en colonne scrollable
+     pour rester lisible même avec beaucoup de catégories. */
+  .legend-toggle-btn {
+    display: flex;
+  }
+
+  .detail-legend-float {
+    display: none;
+    left: 12px;
+    right: 12px;
+    bottom: 74px;
+    /* au-dessus du bouton toggle */
+    max-width: none;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+
+  .detail-legend-float.is-open {
+    display: flex;
+  }
+
+  .legend-item {
+    width: 100%;
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+}

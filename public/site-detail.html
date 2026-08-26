@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Site détail</title>
+
+    <link rel="icon" type="image/png" href="assets/images/logoLogin.png">
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Work+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/site-detail.css">
+
+    <link rel="stylesheet" href="css/map-markers.css">
+</head>
+
+
+<body class="page-shell">
+    <header class="detail-topbar">
+    
+        <!-- Bouton retour -->
+        <a class="btn-ghost btn-back" href="sites.html">
+             Back
+        </a>
+    
+    
+        <!-- Titre -->
+        <div class="detail-title">
+    
+            <h1 id="siteTitle">
+                Chargement du lieu…
+            </h1>
+    
+            <p id="siteLocation">
+                —
+            </p>
+    
+        </div>
+    
+    
+        <!-- Actions -->
+        <div class="detail-actions">
+    
+            <!-- Voir sur la carte -->
+            <button class="btn-solid" id="openItineraryBtn" type="button">
+                Voir sur la carte
+    
+                <span class="pin-wrap">
+                    <span class="pin-shape"></span>
+                </span>
+            </button>
+    
+    
+            <!-- Vue 3D -->
+            <button class="btn-ghost btn-3d" id="launch3dBtn" type="button" disabled>
+                Vue 3D
+    
+                <span class="btn-soon">
+                    Bientôt
+                </span>
+            </button>
+    
+        </div>
+    
+    </header>
+
+    <main>
+
+        <!-- =====================================================
+             VIDÉO + HEADER SUPERPOSÉ
+             ===================================================== -->
+
+        <section class="detail-hero">
+
+
+            <!-- =================================================
+                 CADRE VIDÉO
+                 ================================================= -->
+
+            <div class="detail-video">
+
+                <!-- Vidéo principale -->
+                <video id="siteVideo" controls poster="">
+
+                    <source id="videoSource" src="" type="video/mp4">
+
+                    Votre navigateur ne supporte pas la vidéo.
+
+                </video>
+
+
+                <!-- Conteneur vidéo alternatif -->
+                <div id="videoContainer" class="video-container" aria-hidden="true"></div>
+
+
+                <!-- Overlay + bouton Play -->
+                <div id="videoOverlay" class="video-overlay" aria-hidden="true">
+
+                    <button id="playPreviewBtn" class="btn-ghost" type="button">
+                        ▶ Lire la vidéo
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 SOURCE VIDÉO
+                 ================================================= -->
+
+            <div class="video-source">
+
+                <span class="video-source-label"></span>
+
+                <span id="siteVideoCredit">
+                    —
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             CONTENU PRINCIPAL
+             ===================================================== -->
+
+        <section class="detail-content">
+
+
+            <!-- =================================================
+                 BON À SAVOIR
+                 ================================================= -->
+
+            <section class="detail-card">
+
+                <h2>
+                    Bon à savoir
+                </h2>
+
+
+                <ul id="siteFacts"></ul>
+
+
+                <!-- Statistiques -->
+                <div class="detail-stats">
+
+                    <div>
+                        <span>
+                            Catégorie
+                        </span>
+
+                        <strong id="siteCategory">
+                            —
+                        </strong>
+                    </div>
+
+
+                    <div>
+                        <span>
+                            Difficulté
+                        </span>
+
+                        <strong id="siteDifficulty">
+                            —
+                        </strong>
+                    </div>
+
+
+                    <div>
+                        <span>
+                            Danger
+                        </span>
+
+                        <strong id="siteDanger">
+                            —
+                        </strong>
+                    </div>
+
+
+                    <div>
+                        <span>
+                            Prix estimé
+                        </span>
+
+                        <strong id="sitePrice">
+                            —
+                        </strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 DESCRIPTION
+                 ================================================= -->
+
+            <section class="detail-card">
+
+                <h2>
+                    Description
+                </h2>
+
+                <p id="siteDescription">
+                    Description du lieu en cours de chargement.
+                </p>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 CARTE
+                 ================================================= -->
+
+            <section class="detail-card detail-map-card">
+
+                <div class="detail-card-head">
+
+                    <h2>
+                        Carte de navigation
+                    </h2>
+
+                    <span class="detail-tag">
+                        Vue locale
+                    </span>
+
+                </div>
+
+
+                <div id="miniMap" class="map-preview" aria-label="Carte de localisation du site"></div>
+
+
+                <div class="detail-legend"></div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+         ========================================================= -->
+
+    <script src="js/i18n.js"></script>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script src="js/mapicons.js"></script>
+
+    <script src="js/site-detail.js"></script>
+
+</body>
+
+</html>

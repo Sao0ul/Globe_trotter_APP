@@ -1,0 +1,335 @@
+name: Docker CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  # ==========================================================
+  # TESTS, BUILD ET INTÉGRATION
+  # ==========================================================
+  run-tests:
+    name: Build, Lint & Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+
+      # --------------------------------------------------------
+      # CHECKOUT
+      # --------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # --------------------------------------------------------
+      # ENVIRONNEMENT CI
+      # --------------------------------------------------------
+      - name: Create test .env
+        run: |
+          cat <<EOF > .env
+          PORT=3000
+          DB_HOST=db
+          DB_PORT=5432
+          DB_NAME=GlobeTrotterAPP_DB
+          DB_USER=test_user
+          DB_PASSWORD=test_pass
+          PEXELS_API_KEY=mock_key
+          JWT_SECRET=test_secret_key_for_ci
+          RESEND_API_KEY=1234567890
+          MAIL_FROM_NAME=NAME
+          MAIL_FROM_ADDRESS=NAME
+          EOF
+
+      # --------------------------------------------------------
+      # DOCKER
+      # --------------------------------------------------------
+      - name: Verify Docker installation
+        run: |
+          docker --version
+          docker compose version
+
+      # --------------------------------------------------------
+      # NODE.JS
+      # --------------------------------------------------------
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # --------------------------------------------------------
+      # LINT
+      # --------------------------------------------------------
+      - name: Run ESLint
+        run: npm run lint
+
+      # --------------------------------------------------------
+      # TESTS UNITAIRES
+      # --------------------------------------------------------
+      - name: Run Unit Tests
+        run: npm run test:unit
+
+      # ========================================================
+      # BASE DE DONNÉES
+      # ========================================================
+
+      # PostgreSQL démarre et exécute automatiquement
+      # src/db/script.sql via /docker-entrypoint-initdb.d/
+      - name: Build and start database container
+        run: |
+          docker compose up -d --build db
+
+      # --------------------------------------------------------
+      # ATTENTE POSTGRESQL
+      # --------------------------------------------------------
+      - name: Wait for PostgreSQL
+        run: |
+          set -a
+          source .env
+          set +a
+
+          echo "Waiting for PostgreSQL..."
+
+          for i in {1..60}; do
+
+            if docker compose exec -T db \
+              pg_isready \
+              -U "$DB_USER" \
+              -d "$DB_NAME" > /dev/null 2>&1; then
+
+              echo "PostgreSQL is ready!"
+              break
+            fi
+
+            echo "PostgreSQL not ready yet... attempt $i/60"
+            sleep 2
+
+          done
+
+          echo "Checking PostgreSQL connection..."
+
+          if ! docker compose exec -T db \
+            psql \
+            -U "$DB_USER" \
+            -d "$DB_NAME" \
+            -c "SELECT 1;" > /dev/null 2>&1; then
+
+            echo "PostgreSQL failed to become ready."
+
+            echo "===== CONTAINER STATUS ====="
+            docker compose ps -a
+
+            echo "===== DATABASE LOGS ====="
+            docker compose logs --no-color db
+
+            exit 1
+          fi
+
+          echo "PostgreSQL connection successful."
+
+      # ========================================================
+      # API
+      # ========================================================
+
+      # En CI : npm start au lieu de npm run dev
+      - name: Create CI Docker Compose override
+        run: |
+          cat <<EOF > docker-compose.ci.yml
+          services:
+            api:
+              command: npm start
+          EOF
+
+      # --------------------------------------------------------
+      # DÉMARRAGE API
+      # --------------------------------------------------------
+      - name: Build and start API container
+        run: |
+          docker compose \
+            -f docker-compose.yml \
+            -f docker-compose.ci.yml \
+            up -d --build api
+
+      # --------------------------------------------------------
+      # VÉRIFICATION DU CONTENEUR API
+      # --------------------------------------------------------
+      - name: Check API container
+        run: |
+          echo "===== DOCKER PS ====="
+          docker ps -a
+
+          echo "===== COMPOSE PS ====="
+          docker compose \
+            -f docker-compose.yml \
+            -f docker-compose.ci.yml \
+            ps -a
+
+          API_CONTAINER=$(docker compose \
+            -f docker-compose.yml \
+            -f docker-compose.ci.yml \
+            ps -q api)
+
+          if [ -z "$API_CONTAINER" ]; then
+            echo "ERROR: API container was not created."
+            exit 1
+          fi
+
+          API_RUNNING=$(docker inspect \
+            -f '{{.State.Running}}' \
+            "$API_CONTAINER")
+
+          if [ "$API_RUNNING" != "true" ]; then
+            echo "ERROR: API container is not running."
+
+            echo "===== API LOGS ====="
+            docker compose \
+              -f docker-compose.yml \
+              -f docker-compose.ci.yml \
+              logs --no-color api
+
+            exit 1
+          fi
+
+          echo "API container is running."
+
+      # --------------------------------------------------------
+      # ATTENTE API
+      # --------------------------------------------------------
+      - name: Wait for API
+        run: |
+          echo "Waiting for API..."
+
+          API_CONTAINER=$(docker compose \
+            -f docker-compose.yml \
+            -f docker-compose.ci.yml \
+            ps -q api)
+
+          for i in {1..60}; do
+
+            if [ -z "$API_CONTAINER" ]; then
+              echo "ERROR: API container does not exist."
+              exit 1
+            fi
+
+            API_RUNNING=$(docker inspect \
+              -f '{{.State.Running}}' \
+              "$API_CONTAINER" 2>/dev/null || echo "false")
+
+            if [ "$API_RUNNING" != "true" ]; then
+
+              echo "ERROR: API container stopped before becoming ready."
+
+              echo "===== CONTAINER STATUS ====="
+              docker compose \
+                -f docker-compose.yml \
+                -f docker-compose.ci.yml \
+                ps -a
+
+              echo "===== API LOGS ====="
+              docker compose \
+                -f docker-compose.yml \
+                -f docker-compose.ci.yml \
+                logs --no-color api
+
+              exit 1
+            fi
+
+            if curl -fs http://localhost:3000/health > /dev/null 2>&1; then
+              echo "API is ready!"
+              break
+            fi
+
+            echo "API not ready yet... attempt $i/60"
+            sleep 3
+
+          done
+
+          if ! curl -fs http://localhost:3000/health > /dev/null 2>&1; then
+
+            echo "ERROR: API failed to become ready."
+
+            echo "===== CONTAINER STATUS ====="
+            docker compose \
+              -f docker-compose.yml \
+              -f docker-compose.ci.yml \
+              ps -a
+
+            echo "===== API LOGS ====="
+            docker compose \
+              -f docker-compose.yml \
+              -f docker-compose.ci.yml \
+              logs --no-color api
+
+            exit 1
+          fi
+
+      # --------------------------------------------------------
+      # CONTENEURS
+      # --------------------------------------------------------
+      - name: Show running containers
+        run: |
+          docker compose \
+            -f docker-compose.yml \
+            -f docker-compose.ci.yml \
+            ps
+
+      # ========================================================
+      # TESTS D'INTÉGRATION
+      # ========================================================
+
+      - name: Run Integration Tests
+        run: |
+          docker compose \
+            -f docker-compose.yml \
+            -f docker-compose.ci.yml \
+            exec -T api npm run test:integration
+
+      # --------------------------------------------------------
+      # LOGS EN CAS D'ÉCHEC
+      # --------------------------------------------------------
+      - name: Display container logs on failure
+        if: failure()
+        run: |
+          docker compose \
+            -f docker-compose.yml \
+            -f docker-compose.ci.yml \
+            logs --no-color
+
+      # --------------------------------------------------------
+      # NETTOYAGE
+      # --------------------------------------------------------
+      - name: Stop and remove containers
+        if: always()
+        run: |
+          docker compose \
+            -f docker-compose.yml \
+            -f docker-compose.ci.yml \
+            down -v
+
+
+  # ==========================================================
+  # DÉPLOIEMENT RENDER
+  # ==========================================================
+  deploy:
+    name: Deploy to Render
+
+    needs:
+      - run-tests
+
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Trigger deployment
+        run: |
+          curl -fsS "${{ secrets.RENDER_DEPLOY_HOOK }}"

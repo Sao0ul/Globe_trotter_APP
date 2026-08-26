@@ -1,0 +1,18 @@
+{
+  "osm_type": "node",
+  "osm_id": 13176969996,
+  "category": "adventure",
+  "name": "Nda Mekok",
+  "address": null,
+  "phone": null,
+  "latitude": 3.9317914,
+  "longitude": 11.491627,
+  "description": "Nda Mekòk (meaning the House of Stones in the local Beti/Ewondo language) is a cultural, ecological, and tourist village located in Emana, Yaoundé, Cameroon. It is a green recreational and events space focused on nature, local traditions, and outdoor gatherings.",
+  "bonASavoir": "it's located in forested area be careful of snakes and other wild animals, also the place is not well known by locals so you may need to ask for directions",
+  "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYgQfZQV7kFZ8teH7r4uV_N3-3U0J7OlSJnOzSGo-STSwxQCYYigLK-ww&s=10",
+  "videoUrl": "https://youtube.com/shorts/1NmoBp8izWs?si=4IJCyAhdQ3eYxyhz",
+  "video_par": "travelcameroon (youtube)",
+  "price": 0,
+  "dangerosity": "moderate",
+  "difficulty": "moderate"
+}
