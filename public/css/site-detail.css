@@ -343,13 +343,6 @@ main {
   outline-offset: 3px;
 }
 
-.btn-3d:disabled {
-  opacity: 0.55;
-
-  cursor: not-allowed;
-
-  transform: none;
-}
 
 .btn-soon {
   font-size: 9px;

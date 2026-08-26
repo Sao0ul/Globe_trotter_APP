@@ -942,6 +942,8 @@ async function loadSiteDetail() {
     }
 
     setCardContent(site);
+    // Dans loadSiteDetail(), après setCardContent(site) ou en cas d'erreur
+    await initializeLikeState();
 
     // Utilise l'ID renvoyé par l'API lorsqu'il existe.
     // Sinon, utilise l'ID présent dans l'URL.
@@ -1055,7 +1057,8 @@ function initializePage() {
     'beforeunload',
     stopGeolocationWatch
   );
-
+  
+  bindLikeEvents();
   startGeolocationWatch();
   loadSiteDetail();
 }
@@ -1111,6 +1114,392 @@ function initMiniMap(lat, lng) {
   L.marker([lat, lng], { icon: creerIconeCarte('destination') })
     .addTo(miniMapInstance)
     .bindPopup(currentSite.titre || 'Ce site');
+}
+
+
+// test likes on site-details
+// ==========================================================
+// GESTION DES LIKES
+// ==========================================================
+
+// État des likes
+let likeState = {
+  isLiked: false,
+  likeCount: 0,
+  siteId: null,
+  isLoading: false
+};
+
+// Éléments DOM pour les likes
+const likeBtn = document.getElementById('likeBtn');
+const likeIcon = document.getElementById('likeIcon');
+const likeText = document.getElementById('likeText');
+
+/**
+ * Récupère le statut des likes pour un site donné
+ * @param {string|number} siteId 
+ * @returns {Promise<{liked: boolean, count: number}>}
+ */
+async function fetchLikeStatus(siteId) {
+  if (!siteId) {
+    return { liked: false, count: 0 };
+  }
+
+  try {
+    const encodedId = encodeURIComponent(siteId);
+    const response = await fetch(`/api/sites/${encodedId}/like`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        return { liked: false, count: 0 };
+      }
+      throw new Error(`Erreur ${response.status}`);
+    }
+
+    const data = await response.json();
+    return {
+      liked: data.liked || false,
+      count: data.likeCount || 0
+    };
+  } catch (error) {
+    console.error('Erreur lors du chargement des likes :', error);
+    return { liked: false, count: 0 };
+  }
+}
+
+/**
+ * Envoie une requête pour basculer l'état du like
+ * @param {string|number} siteId 
+ * @param {boolean} currentLikeState 
+ * @returns {Promise<{liked: boolean, count: number}>}
+ */
+async function toggleLikeOnServer(siteId, currentLikeState) {
+  if (!siteId) {
+    throw new Error('Identifiant du site manquant');
+  }
+
+  const encodedId = encodeURIComponent(siteId);
+  const newLikeState = !currentLikeState;
+
+  const response = await fetch(`/api/sites/${encodedId}/like`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: JSON.stringify({ liked: newLikeState }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Erreur ${response.status}`);
+  }
+
+  const data = await response.json();
+  return {
+    liked: data.liked || false,
+    count: data.likeCount || 0
+  };
+}
+
+/**
+ * Met à jour l'affichage du bouton like
+ */
+function updateLikeButtonUI() {
+  if (!likeBtn || !likeIcon || !likeText) return;
+
+  // Met à jour l'icône
+  likeIcon.textContent = likeState.isLiked ? '❤️' : '🤍';
+  likeIcon.style.color = likeState.isLiked ? '#e74c3c' : '';
+
+  // Met à jour le texte du compteur
+  likeText.textContent = likeState.likeCount > 0
+    ? `${likeState.likeCount} ${likeState.likeCount > 1 ? 'j\'aime' : 'j\'aime'}`
+    : '';
+
+  // Met à jour l'état du bouton
+  likeBtn.classList.toggle('liked', likeState.isLiked);
+  likeBtn.setAttribute('aria-pressed', String(likeState.isLiked));
+}
+
+/**
+ * Gère le clic sur le bouton like avec debounce
+ */
+async function handleLikeClick() {
+  // Évite les clics multiples pendant le chargement
+  if (likeState.isLoading) return;
+
+  // Vérifie que le site a un ID
+  const siteId = currentSite?.id || new URLSearchParams(window.location.search).get('id');
+  if (!siteId) {
+    console.warn('Impossible d\'aimer : identifiant du site absent');
+    return;
+  }
+
+  likeState.isLoading = true;
+  likeBtn.disabled = true;
+
+  try {
+    // Sauvegarde l'état actuel pour un éventuel rollback
+    const previousState = { ...likeState };
+
+    // Effectue la requête au serveur
+    const result = await toggleLikeOnServer(siteId, likeState.isLiked);
+
+    // Met à jour l'état
+    likeState.isLiked = result.liked;
+    likeState.likeCount = result.count;
+    likeState.siteId = siteId;
+
+    // Met à jour l'UI
+    updateLikeButtonUI();
+
+    // Animation subtile
+    likeBtn.classList.add('like-animation');
+    setTimeout(() => {
+      likeBtn.classList.remove('like-animation');
+    }, 300);
+
+  } catch (error) {
+    console.error('Erreur lors du basculement du like :', error);
+
+    // Optionnel : afficher un message d'erreur à l'utilisateur
+    // showToast('Impossible d\'enregistrer votre like', 'error');
+  } finally {
+    likeState.isLoading = false;
+    likeBtn.disabled = false;
+  }
+}
+
+/**
+ * Initialise l'état des likes pour le site courant
+ */
+async function initializeLikeState() {
+  const siteId = currentSite?.id || new URLSearchParams(window.location.search).get('id');
+
+  if (!siteId) {
+    // Si pas d'ID, on laisse le bouton dans son état initial
+    likeState.siteId = null;
+    updateLikeButtonUI();
+    return;
+  }
+
+  try {
+    const status = await fetchLikeStatus(siteId);
+    likeState.isLiked = status.liked;
+    likeState.likeCount = status.count;
+    likeState.siteId = siteId;
+    updateLikeButtonUI();
+  } catch (error) {
+    console.error('Erreur lors de l\'initialisation des likes :', error);
+    // Garde l'état par défaut
+  }
+}
+
+/**
+ * Lie les événements du bouton like
+ */
+function bindLikeEvents() {
+  if (!likeBtn) {
+    console.warn('Bouton like introuvable (#likeBtn)');
+    return;
+  }
+
+  // Événement principal
+  likeBtn.addEventListener('click', handleLikeClick);
+
+  // Support clavier
+  likeBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleLikeClick();
+    }
+  });
+
+  // Optionnel : animation au survol
+  likeBtn.addEventListener('mouseenter', () => {
+    if (!likeState.isLiked) {
+      likeIcon.textContent = '❤️';
+    }
+  });
+
+  likeBtn.addEventListener('mouseleave', () => {
+    if (!likeState.isLiked) {
+      likeIcon.textContent = '🤍';
+    }
+  });
+}
+
+// ==========================================================
+// STYLES CSS À AJOUTER (dans votre fichier CSS)
+// ==========================================================
+/*
+.btn-like {
+    transition: transform 0.2s ease;
+}
+
+.btn-like:active {
+    transform: scale(0.9);
+}
+
+.btn-like.liked {
+    color: #e74c3c;
+}
+
+.like-animation {
+    animation: likePop 0.3s ease;
+}
+
+@keyframes likePop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+*/
+
+// ==========================================================
+// INTÉGRATION DANS VOTRE CODE EXISTANT
+// ==========================================================
+
+// Modifiez votre fonction loadSiteDetail pour initialiser les likes
+// Ajoutez ceci après avoir défini currentSite :
+
+async function loadSiteDetail() {
+  const params = new URLSearchParams(window.location.search);
+  const siteId = params.get('id');
+
+  if (!siteId) {
+    currentSite = { ...fallbackSite };
+    siteCoordinates = null;
+    setCardContent(currentSite);
+    clearSiteVideo();
+    // Initialise les likes avec le fallback
+    await initializeLikeState();
+    return;
+  }
+
+  try {
+    const site = await fetchSiteDetail(siteId);
+    currentSite = site;
+
+    // ... (votre code existant pour les coordonnées, etc.)
+
+    setCardContent(site);
+
+    // Initialise les likes APRÈS avoir défini currentSite
+    await initializeLikeState();
+
+    await loadSiteVideo(site.id ?? siteId);
+  } catch (error) {
+    console.error('Impossible de charger la fiche détaillée du site :', error);
+    currentSite = { ...fallbackSite };
+    siteCoordinates = null;
+    setCardContent(currentSite);
+    clearSiteVideo();
+    // Initialise les likes même en cas d'erreur
+    await initializeLikeState();
+  }
+}
+
+// ==========================================================
+// INITIALISATION DES LIKES
+// ==========================================================
+
+// Liez les événements du bouton like dans initializePage
+function initializePage() {
+  if (!validateRequiredElements()) {
+    return;
+  }
+
+  // ... (votre code existant)
+
+  // Initialisation des likes
+  bindLikeEvents();
+
+  // Démarrage de la géolocalisation et chargement du site
+  startGeolocationWatch();
+  loadSiteDetail();
+}
+
+// ==========================================================
+// UTILITAIRE POUR FORCER LA MISE À JOUR DES LIKES (optionnel)
+// ==========================================================
+
+/**
+ * Fonction publique pour rafraîchir les likes depuis l'extérieur
+ * Utile si vous rechargez le contenu sans recharger la page
+ */
+window.refreshLikes = async function () {
+  await initializeLikeState();
+};
+
+/**
+ * Fonction publique pour obtenir l'état actuel des likes
+ */
+window.getLikeState = function () {
+  return { ...likeState };
+};
+
+// ==========================================================
+// GESTION DES ERREURS VISUELLES (optionnel)
+// ==========================================================
+
+/**
+ * Affiche un toast de notification
+ * @param {string} message 
+ * @param {string} type - 'success' | 'error' | 'info'
+ */
+function showToast(message, type = 'info') {
+  // Crée ou récupère le conteneur de toast
+  let toastContainer = document.getElementById('toastContainer');
+  if (!toastContainer) {
+    toastContainer = document.createElement('div');
+    toastContainer.id = 'toastContainer';
+    toastContainer.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            pointer-events: none;
+        `;
+    document.body.appendChild(toastContainer);
+  }
+
+  const toast = document.createElement('div');
+  toast.style.cssText = `
+        background: ${type === 'error' ? '#e74c3c' : type === 'success' ? '#2ecc71' : '#3498db'};
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        font-size: 14px;
+        pointer-events: auto;
+        animation: slideUp 0.3s ease;
+    `;
+  toast.textContent = message;
+
+  toastContainer.appendChild(toast);
+
+  // Supprime automatiquement après 3 secondes
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity 0.3s ease';
+    setTimeout(() => {
+      toast.remove();
+      if (toastContainer.children.length === 0) {
+        toastContainer.remove();
+      }
+    }, 300);
+  }, 3000);
 }
 
 
