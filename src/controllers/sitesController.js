@@ -10,7 +10,8 @@ const {
   unlikeSite,
   getLikedCategories,
   getSitesByLikedCategories,
-  getLikedSiteIds
+  getLikedSiteIds,
+  isSiteLikedByUser
 } = require('../models/sitesModel');
 
 const crypto = require('crypto');
@@ -215,8 +216,10 @@ const getSiteDetail = asyncHandler(async (req, res) => {
     return res.status(404).json({ error: 'site introuvable' });
   }
 
-  res.json(toFrontendSite(site));
+  const aimeParMoi = await isSiteLikedByUser(req.user?.id, id);
+  res.json({ ...toFrontendSite(site), aimeParMoi });
 });
+
 
 // ==========================================================
 // POST /api/sites

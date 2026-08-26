@@ -261,6 +261,15 @@ async function getSitesByLikedCategories(categories, { page = 1, limit = 20 } = 
   return rows;
 }
 
+async function isSiteLikedByUser(userId, siteId) {
+  if (!userId) return false;
+  const { rows } = await pool.query(
+    'SELECT 1 FROM site_likes WHERE user_id = $1 AND site_id = $2',
+    [userId, siteId]
+  );
+  return rows.length > 0;
+}
+
 module.exports = { getAllSites, 
   getSiteById, 
   createSite, 
@@ -270,5 +279,6 @@ module.exports = { getAllSites,
   unlikeSite,
   getLikedCategories,
   getSitesByLikedCategories,
-  getLikedSiteIds
+  getLikedSiteIds,
+  isSiteLikedByUser
 };

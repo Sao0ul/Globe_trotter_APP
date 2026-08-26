@@ -1,31 +1,84 @@
 /
 ├── .github/
 │   └── workflows/
-│       └── ci-cd.yml
+│       ├── ci-cd.yml
+│       └── job_semgrep.txt
 ├── certs/
 │   └── ca.pem
 ├── public/
 │   ├── assets/
-│   │   ├── images/
-│   │   │   ├── favicon.png
-│   │   │   ├── logojLogin.png
-│   │   │   ├── logoLeogin.png
-│   │   │   ├── logoLogin.png
-│   │   │   ├── pin.png
-│   │   │   ├── pin_eglise-removebg.png
-│   │   │   ├── pin_goal-removebg.png
-│   │   │   ├── pin_hopital-removebg.png
-│   │   │   ├── pin_hotel-removebg.png
-│   │   │   ├── pin_pharmacie-removebg.png
-│   │   │   ├── pin_resto-removebg.png
-│   │   │   ├── pin_you-removebg.png
-│   │   │   ├── site-detailBG.jpg
-│   │   │   └── yango-logo.svg
-│   │   └── videos/
+│   │   └── images/
+│   │       ├── favicon.png
+│   │       ├── logojLogin.png
+│   │       ├── logoLeogin.png
+│   │       ├── logoLogin.png
+│   │       ├── pin.png
+│   │       ├── pin_eglise-removebg.png
+│   │       ├── pin_goal-removebg.png
+│   │       ├── pin_hopital-removebg.png
+│   │       ├── pin_hotel-removebg.png
+│   │       ├── pin_pharmacie-removebg.png
+│   │       ├── pin_resto-removebg.png
+│   │       ├── pin_you-removebg.png
+│   │       ├── site-detailBG.jpg
+│   │       └── yango-logo.svg
 │   ├── css/
+│   │   ├── info.css
+│   │   │   ├── .avatar-badge
+│   │   │   ├── .btn-back
+│   │   │   ├── .btn-primary
+│   │   │   ├── .content-area
+│   │   │   ├── .content-block
+│   │   │   ├── .cta-block
+│   │   │   ├── .feature-card
+│   │   │   ├── .feature-icon
+│   │   │   ├── .feature-list
+│   │   │   ├── .features-grid
+│   │   │   ├── .info-footer
+│   │   │   ├── .info-main
+│   │   │   ├── .info-page
+│   │   │   ├── .info-topbar
+│   │   │   ├── .profile-avatar
+│   │   │   ├── .profile-badge
+│   │   │   ├── .profile-card
+│   │   │   ├── .profile-divider
+│   │   │   ├── .profile-info-item
+│   │   │   ├── .profile-name
+│   │   │   ├── .profile-social
+│   │   │   ├── .profile-title
+│   │   │   ├── .topbar-brand
+│   │   │   ├── a
+│   │   │   ├── area
+│   │   │   ├── avatar
+│   │   │   ├── back
+│   │   │   ├── badge
+│   │   │   ├── block
+│   │   │   ├── body
+│   │   │   ├── brand
+│   │   │   ├── card
+│   │   │   ├── divider
+│   │   │   ├── footer
+│   │   │   ├── grid
+│   │   │   ├── h2
+│   │   │   ├── h3
+│   │   │   ├── hover
+│   │   │   ├── i
+│   │   │   ├── icon
+│   │   │   ├── img
+│   │   │   ├── info-item
+│   │   │   ├── last-child
+│   │   │   ├── li
+│   │   │   ├── list
+│   │   │   ├── main
+│   │   │   ├── max-width
+│   │   │   ├── name
+│   │   │   ├── p
+│   │   │   ├── page
+│   │   │   ├── primary
+│   │   │   ├── social
+│   │   │   ├── title
+│   │   │   ├── topbar
 │   │   ├── itinerary.css
-│   │   │   ├── .detail-facts
-│   │   │   ├── .detail-legend
 │   │   │   ├── .detail-legend-float
 │   │   │   ├── .directions-close-btn
 │   │   │   ├── .directions-field
@@ -35,80 +88,73 @@
 │   │   │   ├── .directions-row
 │   │   │   ├── .directions-swap-btn
 │   │   │   ├── .fab
-│   │   │   ├── .fab-locate
+│   │   │   ├── .fab-directions
+│   │   │   ├── .fab-focus
 │   │   │   ├── .float-topbar
 │   │   │   ├── .is-active
 │   │   │   ├── .is-dimmed
+│   │   │   ├── .is-locked
 │   │   │   ├── .is-open
 │   │   │   ├── .is-unavailable
 │   │   │   ├── .itinerary-fullbleed
-│   │   │   ├── .itinerary-layout
 │   │   │   ├── .leaflet-container
 │   │   │   ├── .leaflet-control-zoom
 │   │   │   ├── .leaflet-popup-content
 │   │   │   ├── .leaflet-popup-content-wrapper
 │   │   │   ├── .legend-dot
-│   │   │   ├── .legend-hospital
-│   │   │   ├── .legend-hotel
 │   │   │   ├── .legend-item
 │   │   │   ├── .legend-item--static
-│   │   │   ├── .legend-restaurant
-│   │   │   ├── .legend-site
-│   │   │   ├── .legend-transport
-│   │   │   ├── .openDirectionsBtnc
+│   │   │   ├── .legend-toggle-btn
 │   │   │   ├── .popup-btn
 │   │   │   ├── .popup-category
 │   │   │   ├── .popup-title
-│   │   │   ├── .route-map
 │   │   │   ├── .route-map-full
-│   │   │   ├── .route-summary
 │   │   │   ├── .route-summary-float
 │   │   │   ├── a
 │   │   │   ├── active
+│   │   │   ├── after
+│   │   │   ├── and
 │   │   │   ├── btn
 │   │   │   ├── category
 │   │   │   ├── close-btn
 │   │   │   ├── container
 │   │   │   ├── control-zoom
+│   │   │   ├── data-tooltip
 │   │   │   ├── dimmed
+│   │   │   ├── directions
 │   │   │   ├── disabled
 │   │   │   ├── dot
-│   │   │   ├── facts
 │   │   │   ├── field
+│   │   │   ├── fine
 │   │   │   ├── focus
+│   │   │   ├── focus-visible
 │   │   │   ├── fullbleed
-│   │   │   ├── hospital
-│   │   │   ├── hotel
 │   │   │   ├── hover
 │   │   │   ├── input
 │   │   │   ├── item
 │   │   │   ├── item--static
-│   │   │   ├── layout
-│   │   │   ├── legend
 │   │   │   ├── legend-float
-│   │   │   ├── locate
-│   │   │   ├── map
+│   │   │   ├── locked
 │   │   │   ├── map-full
 │   │   │   ├── max-width
 │   │   │   ├── mode-btn
 │   │   │   ├── modes
+│   │   │   ├── none
 │   │   │   ├── not
 │   │   │   ├── open
 │   │   │   ├── p
 │   │   │   ├── panel
+│   │   │   ├── pointer
 │   │   │   ├── popup-content
 │   │   │   ├── popup-content-wrapper
 │   │   │   ├── readonly
-│   │   │   ├── restaurant
 │   │   │   ├── row
-│   │   │   ├── site
-│   │   │   ├── summary
 │   │   │   ├── summary-float
 │   │   │   ├── svg
 │   │   │   ├── swap-btn
 │   │   │   ├── title
+│   │   │   ├── toggle-btn
 │   │   │   ├── topbar
-│   │   │   ├── transport
 │   │   │   ├── unavailable
 │   │   ├── map-markers.css
 │   │   │   ├── .leaflet-div-icon
@@ -138,6 +184,51 @@
 │   │   │   ├── prefers-reduced-motion
 │   │   │   ├── pulse-user-pin
 │   │   │   ├── reduce
+│   │   ├── profile.css
+│   │   │   ├── .btn-ghost
+│   │   │   ├── .compact-frame
+│   │   │   ├── .detail-title-wrap
+│   │   │   ├── .detail-topbar
+│   │   │   ├── .eyebrow
+│   │   │   ├── .page-frame
+│   │   │   ├── .page-shell
+│   │   │   ├── .placeholder-card
+│   │   │   ├── .preference-chip
+│   │   │   ├── .profile-avatar
+│   │   │   ├── .profile-empty
+│   │   │   ├── .profile-identity
+│   │   │   ├── .profile-identity-text
+│   │   │   ├── .profile-joined
+│   │   │   ├── .profile-preferences
+│   │   │   ├── .profile-section-title
+│   │   │   ├── .profile-state
+│   │   │   ├── .spinner
+│   │   │   ├── avatar
+│   │   │   ├── before
+│   │   │   ├── body
+│   │   │   ├── card
+│   │   │   ├── chip
+│   │   │   ├── empty
+│   │   │   ├── fade-in
+│   │   │   ├── frame
+│   │   │   ├── ghost
+│   │   │   ├── h1
+│   │   │   ├── h2
+│   │   │   ├── hover
+│   │   │   ├── html
+│   │   │   ├── i
+│   │   │   ├── identity
+│   │   │   ├── identity-text
+│   │   │   ├── joined
+│   │   │   ├── max-width
+│   │   │   ├── preferences
+│   │   │   ├── root
+│   │   │   ├── section-title
+│   │   │   ├── shell
+│   │   │   ├── spin
+│   │   │   ├── state
+│   │   │   ├── title-wrap
+│   │   │   ├── topbar
 │   │   ├── register.css
 │   │   │   ├── .has-selection
 │   │   │   ├── .is-open
@@ -287,6 +378,7 @@
 │   │   │   ├── .card-category
 │   │   │   ├── .card-desc
 │   │   │   ├── .card-foot
+│   │   │   ├── .card-like
 │   │   │   ├── .card-location
 │   │   │   ├── .card-media
 │   │   │   ├── .card-number
@@ -334,6 +426,7 @@
 │   │   │   ├── .grid
 │   │   │   ├── .info-pill
 │   │   │   ├── .is-active
+│   │   │   ├── .is-liked
 │   │   │   ├── .is-open
 │   │   │   ├── .lang-pill
 │   │   │   ├── .language-switcher
@@ -436,6 +529,9 @@
 │   │   │   ├── input
 │   │   │   ├── item
 │   │   │   ├── label
+│   │   │   ├── like
+│   │   │   ├── like-pop
+│   │   │   ├── liked
 │   │   │   ├── location
 │   │   │   ├── logout
 │   │   │   ├── mark
@@ -494,6 +590,10 @@
 │   │   └── style.css
 │   │       ├── .active
 │   │       ├── .error-message
+│   │       ├── .google-suggest-close
+│   │       ├── .google-suggest-content
+│   │       ├── .google-suggest-cta
+│   │       ├── .google-suggest-popup
 │   │       ├── .input-group
 │   │       ├── .is-active
 │   │       ├── .lang-btn
@@ -539,21 +639,18 @@
 │   │       ├── p
 │   │       ├── pill
 │   │       ├── placeholder
+│   │       ├── popIn
 │   │       ├── root
 │   │       ├── span
 │   │       ├── submit
+│   │       ├── suggest-close
+│   │       ├── suggest-content
+│   │       ├── suggest-cta
+│   │       ├── suggest-popup
 │   │       ├── switcher
 │   │       ├── toggle-btn
 │   │       ├── type
 │   ├── js/
-│   │   ├── app.js
-│   │   │   ├── imports
-│   │   │   │   ├── ./model.js
-│   │   │   │   ├── ./view.js
-│   │   │   ├── function afficherRoute(route)
-│   │   │   ├── function handleLogin({ email, password })
-│   │   │   ├── function handleLogout()
-│   │   │   ├── function handleNavigation(route)
 │   │   ├── auth.js
 │   │   ├── i18n.js
 │   │   │   ├── function getInitialLanguage()
@@ -566,6 +663,7 @@
 │   │   │   ├── function onLanguageChange(event)
 │   │   │   ├── function attachLanguageSwitcher()
 │   │   │   ├── function setLanguage(language)
+│   │   ├── info.js
 │   │   ├── itinerary.js
 │   │   │   ├── function openDirectionsPanel()
 │   │   │   ├── function closeDirectionsPanelView()
@@ -579,26 +677,27 @@
 │   │   │   ├── function calculerItineraire()
 │   │   │   ├── function fetchSiteDetail(siteId)
 │   │   │   ├── function initDestination()
+│   │   │   ├── function pingMyPosition()
+│   │   │   ├── function getLockIcon(isLocked)
+│   │   │   ├── function updateFocusButtonState()
 │   │   │   ├── function filtrerMarqueursParCategorie(category)
 │   │   │   ├── function afficherTousLesMarqueurs()
 │   │   │   ├── function mettreAJourEtatLegende()
 │   │   │   ├── function buildYangoLink(origin, destination)
 │   │   │   ├── function ouvrirYango()
+│   │   │   ├── function init()
 │   │   ├── mapicons.js
 │   │   │   ├── function creerIconeCarte(categorie)
 │   │   │   ├── function creerIconeUtilisateur()
-│   │   ├── models.js
-│   │   │   ├── class AppModel
-│   │   │   │   ├── isAuthenticated()
-│   │   │   │   ├── login({ email, password })
-│   │   │   │   ├── if(!res.ok)
-│   │   │   │   ├── logout()
-│   │   │   │   ├── fetchAvecAuth(url)
-│   │   │   │   ├── if(res.status === 401)
-│   │   │   │   ├── getProfile()
-│   │   │   │   ├── getSites()
-│   │   │   │   ├── getDashboardData()
-│   │   │   │   ├── getVisites()
+│   │   ├── onboarding.js
+│   │   │   ├── function ouvrirFermerPreferences()
+│   │   │   ├── function fermerPreferences()
+│   │   │   ├── function mettreAJourTexteDeclencheur()
+│   │   ├── profile.js
+│   │   │   ├── function afficherEtat(nom)
+│   │   │   ├── function formaterDate(dateIso)
+│   │   │   ├── function afficherPreferences(preferences)
+│   │   │   ├── function chargerProfil()
 │   │   ├── register.js
 │   │   │   ├── function ouvrirFermerPreferences()
 │   │   │   ├── function fermerPreferences()
@@ -651,9 +750,38 @@
 │   │       ├── function fermerSidebar()
 │   │       ├── function sauvegarderEtatListe()
 │   │       ├── function restaurerEtatListe()
+│   │       ├── function basculerLike(site, bouton)
 │   ├── locales/
 │   │   ├── en.json
 │   │   └── fr.json
+│   ├── auth-callback.html
+│   │   ├── html
+│   │   │   ├── head
+│   │   │   │   ├── meta
+│   │   │   │   ├── link
+│   │   │   │   └── title
+│   │   │   └── body
+│   │   │       ├── p
+│   │   │       └── script
+│   ├── email-confirmed.html
+│   │   ├── html
+│   │   │   ├── head
+│   │   │   │   ├── meta
+│   │   │   │   ├── link
+│   │   │   │   ├── meta
+│   │   │   │   ├── title
+│   │   │   │   ├── link
+│   │   │   │   └── style
+│   │   │   └── body
+│   │   │       ├── div.confirm-shell
+│   │   │       │   └── div.confirm-card
+│   │   │       │       ├── div#confirmIcon.confirm-icon
+│   │   │       │       ├── h1#confirmTitle
+│   │   │       │       ├── p#confirmText
+│   │   │       │       └── div.confirm-actions
+│   │   │       │           ├── a.btn-back
+│   │   │       │           └── a#loginBtn.btn-login
+│   │   │       └── script
 │   ├── index.html
 │   │   ├── html
 │   │   │   ├── head
@@ -665,6 +793,14 @@
 │   │   │   │   ├── link
 │   │   │   │   └── link
 │   │   │   └── body
+│   │   │       ├── div#googleSuggestPopup.google-suggest-popup
+│   │   │       │   └── div.google-suggest-content
+│   │   │       │       ├── button.google-suggest-close
+│   │   │       │       ├── i.fab.fa-google
+│   │   │       │       ├── p
+│   │   │       │       └── button.google-suggest-cta
+│   │   │       ├── a
+│   │   │       │   └── i
 │   │   │       ├── div.video-overlay
 │   │   │       ├── div#languageSwitcher.language-switcher
 │   │   │       │   ├── button.lang-pill
@@ -697,9 +833,9 @@
 │   │   │       │       ├── div.separator
 │   │   │       │       │   └── span
 │   │   │       │       ├── div.social-buttons
-│   │   │       │       │   ├── button.social
+│   │   │       │       │   ├── button#google-btn.social
 │   │   │       │       │   │   └── i.fab.fa-google
-│   │   │       │       │   ├── button.social
+│   │   │       │       │   ├── button#facebook-btn.social
 │   │   │       │       │   │   └── i.fab.fa-facebook-f
 │   │   │       │       │   └── button.social
 │   │   │       │       │       └── i.fab.fa-apple
@@ -714,16 +850,124 @@
 │   │   │   │   ├── meta
 │   │   │   │   ├── meta
 │   │   │   │   ├── title
+│   │   │   │   ├── link
+│   │   │   │   ├── link
 │   │   │   │   └── link
-│   │   │   └── body.page-shell
-│   │   │       └── div.page-frame.compact-frame
-│   │   │           ├── header.detail-topbar
-│   │   │           │   ├── a.btn-ghost.btn-back
-│   │   │           │   └── div.detail-title-wrap
-│   │   │           │       ├── span.eyebrow
-│   │   │           │       └── h1
-│   │   │           └── main.placeholder-card
-│   │   │               └── p
+│   │   │   └── body
+│   │   │       ├── div.info-page
+│   │   │       │   ├── header.info-topbar
+│   │   │       │   │   ├── a.btn-back
+│   │   │       │   │   │   └── i.fas.fa-arrow-left
+│   │   │       │   │   └── span.topbar-brand
+│   │   │       │   ├── main.info-main
+│   │   │       │   │   ├── aside.profile-card
+│   │   │       │   │   │   ├── div.profile-avatar
+│   │   │       │   │   │   │   ├── img#profileImage
+│   │   │       │   │   │   │   └── div.avatar-badge
+│   │   │       │   │   │   │       └── i.fas.fa-code
+│   │   │       │   │   │   ├── h1.profile-name
+│   │   │       │   │   │   ├── p.profile-title
+│   │   │       │   │   │   ├── div.profile-divider
+│   │   │       │   │   │   ├── div.profile-info-item
+│   │   │       │   │   │   │   ├── i.fas.fa-graduation-cap
+│   │   │       │   │   │   │   └── span
+│   │   │       │   │   │   ├── div.profile-info-item
+│   │   │       │   │   │   │   ├── i.fas.fa-map-pin
+│   │   │       │   │   │   │   └── span
+│   │   │       │   │   │   ├── div.profile-info-item
+│   │   │       │   │   │   │   ├── i.fas.fa-envelope
+│   │   │       │   │   │   │   └── span
+│   │   │       │   │   │   ├── div.profile-info-item
+│   │   │       │   │   │   │   ├── i.fas.fa-globe
+│   │   │       │   │   │   │   └── span
+│   │   │       │   │   │   ├── div.profile-social
+│   │   │       │   │   │   │   ├── a
+│   │   │       │   │   │   │   │   └── i.fab.fa-github
+│   │   │       │   │   │   │   ├── a
+│   │   │       │   │   │   │   │   └── i.fab.fa-linkedin-in
+│   │   │       │   │   │   │   ├── a
+│   │   │       │   │   │   │   │   └── i.fab.fa-twitter
+│   │   │       │   │   │   │   └── a
+│   │   │       │   │   │   │       └── i.fab.fa-instagram
+│   │   │       │   │   │   └── div.profile-badge
+│   │   │       │   │   │       ├── i.fas.fa-code-branch
+│   │   │       │   │   │       └── span
+│   │   │       │   │   └── section.content-area
+│   │   │       │   │       ├── div.content-block
+│   │   │       │   │       │   ├── h2
+│   │   │       │   │       │   │   └── i.fas.fa-user-astronaut
+│   │   │       │   │       │   ├── p
+│   │   │       │   │       │   │   ├── strong
+│   │   │       │   │       │   │   └── strong
+│   │   │       │   │       │   └── p
+│   │   │       │   │       ├── div.content-block
+│   │   │       │   │       │   ├── h2
+│   │   │       │   │       │   │   └── i.fas.fa-rocket
+│   │   │       │   │       │   ├── p
+│   │   │       │   │       │   │   └── strong
+│   │   │       │   │       │   └── ul.feature-list
+│   │   │       │   │       │       ├── li
+│   │   │       │   │       │       │   └── i.fas.fa-check-circle
+│   │   │       │   │       │       ├── li
+│   │   │       │   │       │       │   └── i.fas.fa-check-circle
+│   │   │       │   │       │       ├── li
+│   │   │       │   │       │       │   └── i.fas.fa-check-circle
+│   │   │       │   │       │       └── li
+│   │   │       │   │       │           └── i.fas.fa-check-circle
+│   │   │       │   │       ├── div.content-block.features-block
+│   │   │       │   │       │   ├── h2
+│   │   │       │   │       │   │   └── i.fas.fa-star
+│   │   │       │   │       │   └── div.features-grid
+│   │   │       │   │       │       ├── div.feature-card
+│   │   │       │   │       │       │   ├── div.feature-icon
+│   │   │       │   │       │       │   │   └── i.fas.fa-paint-brush
+│   │   │       │   │       │       │   ├── h3
+│   │   │       │   │       │       │   └── p
+│   │   │       │   │       │       ├── div.feature-card
+│   │   │       │   │       │       │   ├── div.feature-icon
+│   │   │       │   │       │       │   │   └── i.fas.fa-search
+│   │   │       │   │       │       │   ├── h3
+│   │   │       │   │       │       │   └── p
+│   │   │       │   │       │       ├── div.feature-card
+│   │   │       │   │       │       │   ├── div.feature-icon
+│   │   │       │   │       │       │   │   └── i.fas.fa-plus-circle
+│   │   │       │   │       │       │   ├── h3
+│   │   │       │   │       │       │   └── p
+│   │   │       │   │       │       ├── div.feature-card
+│   │   │       │   │       │       │   ├── div.feature-icon
+│   │   │       │   │       │       │   │   └── i.fas.fa-video
+│   │   │       │   │       │       │   ├── h3
+│   │   │       │   │       │       │   └── p
+│   │   │       │   │       │       ├── div.feature-card
+│   │   │       │   │       │       │   ├── div.feature-icon
+│   │   │       │   │       │       │   │   └── i.fas.fa-map-marked-alt
+│   │   │       │   │       │       │   ├── h3
+│   │   │       │   │       │       │   └── p
+│   │   │       │   │       │       ├── div.feature-card
+│   │   │       │   │       │       │   ├── div.feature-icon
+│   │   │       │   │       │       │   │   └── i.fas.fa-route
+│   │   │       │   │       │       │   ├── h3
+│   │   │       │   │       │       │   └── p
+│   │   │       │   │       │       ├── div.feature-card
+│   │   │       │   │       │       │   ├── div.feature-icon
+│   │   │       │   │       │       │   │   └── i.fas.fa-info-circle
+│   │   │       │   │       │       │   ├── h3
+│   │   │       │   │       │       │   └── p
+│   │   │       │   │       │       └── div.feature-card
+│   │   │       │   │       │           ├── div.feature-icon
+│   │   │       │   │       │           │   └── i.fas.fa-language
+│   │   │       │   │       │           ├── h3
+│   │   │       │   │       │           └── p
+│   │   │       │   │       └── div.content-block.cta-block
+│   │   │       │   │           ├── h2
+│   │   │       │   │           │   └── i.fas.fa-heart
+│   │   │       │   │           ├── p
+│   │   │       │   │           └── a.btn-primary
+│   │   │       │   │               └── i.fas.fa-compass
+│   │   │       │   └── footer.info-footer
+│   │   │       │       └── p
+│   │   │       │           └── i.fas.fa-heart
+│   │   │       └── script
 │   ├── itinerary.html
 │   │   ├── html
 │   │   │   ├── head
@@ -739,57 +983,18 @@
 │   │   │   │   ├── link
 │   │   │   │   └── link
 │   │   │   └── body.itinerary-fullbleed
-│   │   │       ├── button#openDirectionsBtn.openDirectionsBtnc
 │   │   │       ├── div#routeMap.route-map-full
 │   │   │       │   ├── div.float-topbar
 │   │   │       │   │   ├── a.fab.fab-back
 │   │   │       │   │   │   └── svg
 │   │   │       │   │   │       └── path
+│   │   │       │   │   ├── button#openDirectionsBtn.fab.fab-directions
+│   │   │       │   │   ├── button#focusOriginBtn.fab.fab-focus
+│   │   │       │   │   │   └── span#focusOriginIcon
 │   │   │       │   │   └── button#yangoBouton.fab.fab-yango
 │   │   │       │   │       └── img
-│   │   │       │   ├── div#directionsPanel.directions-panel
-│   │   │       │   │   ├── button#closeDirectionsPanel.directions-close-btn
-│   │   │       │   │   │   └── svg
-│   │   │       │   │   │       └── path
-│   │   │       │   │   ├── div.directions-row
-│   │   │       │   │   │   ├── div
-│   │   │       │   │   │   │   ├── div.directions-field
-│   │   │       │   │   │   │   │   ├── svg
-│   │   │       │   │   │   │   │   │   └── circle
-│   │   │       │   │   │   │   │   └── input#departInput
-│   │   │       │   │   │   │   └── div.directions-field
-│   │   │       │   │   │   │       ├── svg
-│   │   │       │   │   │   │       │   └── path
-│   │   │       │   │   │   │       └── input#arriveeInput
-│   │   │       │   │   │   └── button#swapDirectionsBtn.directions-swap-btn
-│   │   │       │   │   │       └── svg
-│   │   │       │   │   │           └── path
-│   │   │       │   │   └── div.directions-modes
-│   │   │       │   │       ├── button#modeDriveBtn.directions-mode-btn.is-active
-│   │   │       │   │       │   └── svg
-│   │   │       │   │       │       └── path
-│   │   │       │   │       ├── button#modeWalkBtn.directions-mode-btn.is-unavailable
-│   │   │       │   │       │   └── svg
-│   │   │       │   │       │       ├── circle
-│   │   │       │   │       │       └── path
-│   │   │       │   │       └── button#modeBikeBtn.directions-mode-btn.is-unavailable
-│   │   │       │   │           └── svg
-│   │   │       │   │               ├── circle
-│   │   │       │   │               ├── circle
-│   │   │       │   │               └── path
-│   │   │       │   ├── div#routeSummaryFloat.route-summary-float
-│   │   │       │   │   └── p#routeSummary
+│   │   │       │   ├── button#legendToggleBtn.legend-toggle-btn.fab
 │   │   │       │   └── div.detail-legend-float
-│   │   │       │       ├── span
-│   │   │       │       │   └── i.legend-dot.legend-site
-│   │   │       │       ├── span
-│   │   │       │       │   └── i.legend-dot.legend-restaurant
-│   │   │       │       ├── span
-│   │   │       │       │   └── i.legend-dot.legend-hotel
-│   │   │       │       ├── span
-│   │   │       │       │   └── i.legend-dot.legend-hospital
-│   │   │       │       └── span
-│   │   │       │           └── i.legend-dot.legend-transport
 │   │   │       ├── script
 │   │   │       ├── script
 │   │   │       ├── script
@@ -810,22 +1015,297 @@
 │   │   │           │       └── h1
 │   │   │           └── main.placeholder-card
 │   │   │               └── p
-│   ├── profile.html
+│   ├── onboarding.html
 │   │   ├── html
 │   │   │   ├── head
 │   │   │   │   ├── meta
 │   │   │   │   ├── meta
+│   │   │   │   ├── link
 │   │   │   │   ├── title
+│   │   │   │   ├── link
+│   │   │   │   ├── link
+│   │   │   │   ├── link
+│   │   │   │   └── link
+│   │   │   └── body
+│   │   │       ├── div.video-overlay
+│   │   │       ├── main.login-container
+│   │   │       │   └── div.login-card
+│   │   │       │       ├── div.logo
+│   │   │       │       │   ├── div.logo-circle
+│   │   │       │       │   │   └── img
+│   │   │       │       │   ├── h1
+│   │   │       │       │   └── p
+│   │   │       │       ├── div#errorMessage.error-message
+│   │   │       │       └── form#onboardingForm
+│   │   │       │           ├── div.input-group
+│   │   │       │           │   ├── i.fa-solid.fa-user
+│   │   │       │           │   └── input#username
+│   │   │       │           ├── div#preferencesDropdown.preferences-dropdown
+│   │   │       │           │   ├── button#preferencesTrigger.preferences-trigger
+│   │   │       │           │   │   ├── i.fa-solid.fa-compass
+│   │   │       │           │   │   ├── span#preferencesTriggerText.preferences-trigger-text
+│   │   │       │           │   │   └── i.fa-solid.fa-chevron-down.preferences-chevron
+│   │   │       │           │   └── div#preferencesPanel.preferences-panel
+│   │   │       │           │       ├── label.pref-option
+│   │   │       │           │       │   ├── input
+│   │   │       │           │       │   ├── i.fa-solid.fa-leaf.pref-option-icon
+│   │   │       │           │       │   ├── span.pref-option-label
+│   │   │       │           │       │   └── i.fa-solid.fa-check.pref-option-check
+│   │   │       │           │       ├── label.pref-option
+│   │   │       │           │       │   ├── input
+│   │   │       │           │       │   ├── i.fa-solid.fa-landmark.pref-option-icon
+│   │   │       │           │       │   ├── span.pref-option-label
+│   │   │       │           │       │   └── i.fa-solid.fa-check.pref-option-check
+│   │   │       │           │       ├── label.pref-option
+│   │   │       │           │       │   ├── input
+│   │   │       │           │       │   ├── i.fa-solid.fa-person-hiking.pref-option-icon
+│   │   │       │           │       │   ├── span.pref-option-label
+│   │   │       │           │       │   └── i.fa-solid.fa-check.pref-option-check
+│   │   │       │           │       ├── label.pref-option
+│   │   │       │           │       │   ├── input
+│   │   │       │           │       │   ├── i.fa-solid.fa-spa.pref-option-icon
+│   │   │       │           │       │   ├── span.pref-option-label
+│   │   │       │           │       │   └── i.fa-solid.fa-check.pref-option-check
+│   │   │       │           │       ├── label.pref-option
+│   │   │       │           │       │   ├── input
+│   │   │       │           │       │   ├── i.fa-solid.fa-mountain.pref-option-icon
+│   │   │       │           │       │   ├── span.pref-option-label
+│   │   │       │           │       │   └── i.fa-solid.fa-check.pref-option-check
+│   │   │       │           │       ├── label.pref-option
+│   │   │       │           │       │   ├── input
+│   │   │       │           │       │   ├── i.fa-solid.fa-umbrella-beach.pref-option-icon
+│   │   │       │           │       │   ├── span.pref-option-label
+│   │   │       │           │       │   └── i.fa-solid.fa-check.pref-option-check
+│   │   │       │           │       └── label.pref-option
+│   │   │       │           │           ├── input
+│   │   │       │           │           ├── i.fa-solid.fa-star.pref-option-icon
+│   │   │       │           │           ├── span.pref-option-label
+│   │   │       │           │           └── i.fa-solid.fa-check.pref-option-check
+│   │   │       │           └── button
+│   │   │       │               ├── i.fa-solid.fa-check
+│   │   │       │               └── span
+│   │   │       ├── script
+│   │   │       └── script
+│   ├── policy.html
+│   │   ├── html
+│   │   │   ├── head
+│   │   │   │   ├── meta
+│   │   │   │   ├── meta
+│   │   │   │   ├── link
+│   │   │   │   ├── title
+│   │   │   │   ├── meta
+│   │   │   │   ├── link
+│   │   │   │   ├── link
+│   │   │   │   ├── link
+│   │   │   │   └── style
+│   │   │   └── body
+│   │   │       ├── header.hero
+│   │   │       │   ├── svg.contours
+│   │   │       │   │   ├── path
+│   │   │       │   │   ├── path
+│   │   │       │   │   ├── path
+│   │   │       │   │   └── path
+│   │   │       │   └── div.hero-inner
+│   │   │       │       ├── span.eyebrow
+│   │   │       │       ├── h1
+│   │   │       │       ├── p
+│   │   │       │       └── div.meta
+│   │   │       │           ├── span
+│   │   │       │           │   └── strong
+│   │   │       │           └── span
+│   │   │       │               └── strong
+│   │   │       ├── div.layout
+│   │   │       │   ├── nav.toc
+│   │   │       │   │   ├── span.toc-label
+│   │   │       │   │   └── ol
+│   │   │       │   │       ├── li
+│   │   │       │   │       │   └── a
+│   │   │       │   │       │       └── span.n
+│   │   │       │   │       ├── li
+│   │   │       │   │       │   └── a
+│   │   │       │   │       │       └── span.n
+│   │   │       │   │       ├── li
+│   │   │       │   │       │   └── a
+│   │   │       │   │       │       └── span.n
+│   │   │       │   │       ├── li
+│   │   │       │   │       │   └── a
+│   │   │       │   │       │       └── span.n
+│   │   │       │   │       ├── li
+│   │   │       │   │       │   └── a
+│   │   │       │   │       │       └── span.n
+│   │   │       │   │       ├── li
+│   │   │       │   │       │   └── a
+│   │   │       │   │       │       └── span.n
+│   │   │       │   │       ├── li
+│   │   │       │   │       │   └── a
+│   │   │       │   │       │       └── span.n
+│   │   │       │   │       ├── li
+│   │   │       │   │       │   └── a
+│   │   │       │   │       │       └── span.n
+│   │   │       │   │       ├── li
+│   │   │       │   │       │   └── a
+│   │   │       │   │       │       └── span.n
+│   │   │       │   │       ├── li
+│   │   │       │   │       │   └── a
+│   │   │       │   │       │       └── span.n
+│   │   │       │   │       ├── li
+│   │   │       │   │       │   └── a
+│   │   │       │   │       │       └── span.n
+│   │   │       │   │       └── li
+│   │   │       │   │           └── a
+│   │   │       │   │               └── span.n
+│   │   │       │   └── main
+│   │   │       │       ├── section#responsable.article
+│   │   │       │       │   ├── span.num
+│   │   │       │       │   ├── h2
+│   │   │       │       │   ├── p
+│   │   │       │       │   └── p
+│   │   │       │       │       └── a
+│   │   │       │       ├── section#donnees.article
+│   │   │       │       │   ├── span.num
+│   │   │       │       │   ├── h2
+│   │   │       │       │   ├── p
+│   │   │       │       │   ├── ul
+│   │   │       │       │   │   ├── li
+│   │   │       │       │   │   │   └── strong
+│   │   │       │       │   │   ├── li
+│   │   │       │       │   │   │   └── strong
+│   │   │       │       │   │   ├── li
+│   │   │       │       │   │   │   └── strong
+│   │   │       │       │   │   └── li
+│   │   │       │       │   │       └── strong
+│   │   │       │       │   └── p
+│   │   │       │       ├── section#usage.article
+│   │   │       │       │   ├── span.num
+│   │   │       │       │   ├── h2
+│   │   │       │       │   ├── ul
+│   │   │       │       │   │   ├── li
+│   │   │       │       │   │   ├── li
+│   │   │       │       │   │   ├── li
+│   │   │       │       │   │   └── li
+│   │   │       │       │   └── p
+│   │   │       │       ├── section#oauth.article
+│   │   │       │       │   ├── span.num
+│   │   │       │       │   ├── h2
+│   │   │       │       │   ├── p
+│   │   │       │       │   ├── p
+│   │   │       │       │   └── div.card
+│   │   │       │       ├── section#stockage.article
+│   │   │       │       │   ├── span.num
+│   │   │       │       │   ├── h2
+│   │   │       │       │   ├── p
+│   │   │       │       │   │   └── strong
+│   │   │       │       │   └── p
+│   │   │       │       ├── section#partage.article
+│   │   │       │       │   ├── span.num
+│   │   │       │       │   ├── h2
+│   │   │       │       │   ├── p
+│   │   │       │       │   ├── table.providers
+│   │   │       │       │   │   ├── thead
+│   │   │       │       │   │   │   └── tr
+│   │   │       │       │   │   │       ├── th
+│   │   │       │       │   │   │       ├── th
+│   │   │       │       │   │   │       └── th
+│   │   │       │       │   │   └── tbody
+│   │   │       │       │   │       ├── tr
+│   │   │       │       │   │       │   ├── td
+│   │   │       │       │   │       │   ├── td
+│   │   │       │       │   │       │   └── td
+│   │   │       │       │   │       ├── tr
+│   │   │       │       │   │       │   ├── td
+│   │   │       │       │   │       │   ├── td
+│   │   │       │       │   │       │   └── td
+│   │   │       │       │   │       ├── tr
+│   │   │       │       │   │       │   ├── td
+│   │   │       │       │   │       │   ├── td
+│   │   │       │       │   │       │   └── td
+│   │   │       │       │   │       ├── tr
+│   │   │       │       │   │       │   ├── td
+│   │   │       │       │   │       │   ├── td
+│   │   │       │       │   │       │   └── td
+│   │   │       │       │   │       └── tr
+│   │   │       │       │   │           ├── td
+│   │   │       │       │   │           ├── td
+│   │   │       │       │   │           └── td
+│   │   │       │       │   └── p
+│   │   │       │       ├── section#conservation.article
+│   │   │       │       │   ├── span.num
+│   │   │       │       │   ├── h2
+│   │   │       │       │   └── p
+│   │   │       │       ├── section#securite.article
+│   │   │       │       │   ├── span.num
+│   │   │       │       │   ├── h2
+│   │   │       │       │   ├── ul
+│   │   │       │       │   │   ├── li
+│   │   │       │       │   │   ├── li
+│   │   │       │       │   │   ├── li
+│   │   │       │       │   │   └── li
+│   │   │       │       │   └── p
+│   │   │       │       ├── section#droits.article
+│   │   │       │       │   ├── span.num
+│   │   │       │       │   ├── h2
+│   │   │       │       │   ├── p
+│   │   │       │       │   ├── ul
+│   │   │       │       │   │   ├── li
+│   │   │       │       │   │   ├── li
+│   │   │       │       │   │   ├── li
+│   │   │       │       │   │   └── li
+│   │   │       │       │   └── p
+│   │   │       │       ├── section#mineurs.article
+│   │   │       │       │   ├── span.num
+│   │   │       │       │   ├── h2
+│   │   │       │       │   └── p
+│   │   │       │       ├── section#modifications.article
+│   │   │       │       │   ├── span.num
+│   │   │       │       │   ├── h2
+│   │   │       │       │   └── p
+│   │   │       │       └── section#contact.article
+│   │   │       │           ├── span.num
+│   │   │       │           ├── h2
+│   │   │       │           ├── p
+│   │   │       │           └── div.contact-box
+│   │   │       │               ├── h3
+│   │   │       │               ├── p
+│   │   │       │               └── p
+│   │   │       │                   └── a
+│   │   │       ├── footer
+│   │   │       │   └── a
+│   │   │       └── script
+│   ├── profile.html
+│   │   ├── html
+│   │   │   ├── head
+│   │   │   │   ├── meta
+│   │   │   │   ├── link
+│   │   │   │   ├── meta
+│   │   │   │   ├── title
+│   │   │   │   ├── link
+│   │   │   │   ├── link
 │   │   │   │   └── link
 │   │   │   └── body.page-shell
-│   │   │       └── div.page-frame.compact-frame
-│   │   │           ├── header.detail-topbar
-│   │   │           │   ├── a.btn-ghost.btn-back
-│   │   │           │   └── div.detail-title-wrap
-│   │   │           │       ├── span.eyebrow
-│   │   │           │       └── h1
-│   │   │           └── main.placeholder-card
-│   │   │               └── p
+│   │   │       ├── div.page-frame.compact-frame
+│   │   │       │   ├── header.detail-topbar
+│   │   │       │   │   ├── a.btn-ghost.btn-back
+│   │   │       │   │   └── div.detail-title-wrap
+│   │   │       │   │       ├── span.eyebrow
+│   │   │       │   │       └── h1
+│   │   │       │   └── main.placeholder-card
+│   │   │       │       ├── div#loadingState.profile-state
+│   │   │       │       │   ├── div.spinner
+│   │   │       │       │   └── p
+│   │   │       │       ├── div#errorState.profile-state
+│   │   │       │       │   ├── p
+│   │   │       │       │   └── button#retryBtn.btn-ghost
+│   │   │       │       └── div#profileContent
+│   │   │       │           ├── section.profile-identity
+│   │   │       │           │   ├── div#profileAvatar.profile-avatar
+│   │   │       │           │   └── div.profile-identity-text
+│   │   │       │           │       ├── h2#profileUsername
+│   │   │       │           │       └── p#profileJoined.profile-joined
+│   │   │       │           └── section.profile-section
+│   │   │       │               ├── h3.profile-section-title
+│   │   │       │               ├── div#profilePreferences.profile-preferences
+│   │   │       │               └── p#profilePreferencesEmpty.profile-empty
+│   │   │       └── script
 │   ├── register.html
 │   │   ├── html
 │   │   │   ├── head
@@ -1174,7 +1654,10 @@
 │       │       │       ├── div.card-media
 │       │       │       │   ├── img
 │       │       │       │   ├── span.card-number
-│       │       │       │   └── span.card-category
+│       │       │       │   ├── span.card-category
+│       │       │       │   └── button.card-like
+│       │       │       │       └── svg
+│       │       │       │           └── path
 │       │       │       └── div.card-body
 │       │       │           ├── h3.card-title
 │       │       │           ├── p.card-location
@@ -2873,7 +3356,6 @@
 │   │   │   └── slugify.js
 │   │   │       ├── function slugify(value)
 │   │   │       ├── function buildFileSlug({ name, osm_type: osmType, osm_id: osmId })
-│   │   ├── schema.sql/
 │   │   ├── scripts/
 │   │   │   ├── extractCategoriesFromGeojson.js
 │   │   │   │   ├── function ensureDirectoryExists(directoryPath)
@@ -2923,8 +3405,10 @@
 │   │   │   ├── function asyncHandler(fn)
 │   │   ├── authMiddleware.js
 │   │   │   ├── function verifierToken(req, res, next)
-│   │   └── errorHandler.js
-│   │       ├── function errorHandler(err, req, res, next)
+│   │   ├── errorHandler.js
+│   │   │   ├── function errorHandler(err, req, res, next)
+│   │   └── optionalAuthMiddleware.js
+│   │       ├── function optionalAuth(req, res, next)
 │   ├── models/
 │   │   ├── lieuxModel.js
 │   │   │   ├── function getLieuxPresDuTrajet(coordonnees, rayonMetres = 5000, categories = null)
@@ -2961,6 +3445,11 @@
 })
 │   │   │   ├── function addRating(siteId, rating)
 │   │   │   ├── function getSiteByPreference(preference, { page = 1, limit = 20 } = {})
+│   │   │   ├── function getLikedSiteIds(userId)
+│   │   │   ├── function likeSite(userId, siteId)
+│   │   │   ├── function unlikeSite(userId, siteId)
+│   │   │   ├── function getLikedCategories(userId)
+│   │   │   ├── function getSitesByLikedCategories(categories, { page = 1, limit = 20 } = {})
 │   │   │   ├── function offset(normalizedPage - 1) * normalizedLimit;
 
   return {
@@ -3021,24 +3510,32 @@ async function persistSiteMedia(client, siteId, mediaEntries) {
 │   │       ├── function findByVerificationToken(token)
 │   │       ├── function createUser({ id, email, passwordHash, username, verificationToken, preferences })
 │   │       ├── function verifyUser(token)
+│   │       ├── function findByGoogleId(googleId)
+│   │       ├── function createUserFromGoogle({ id, email, username, googleId })
+│   │       ├── function findByFacebookId(facebookId)
+│   │       ├── function createUserFromFacebook({ id, email, username, facebookId })
+│   │       ├── function updateUsernameAndPreferences(userId, { username, preferences })
 │   ├── routes/
 │   │   ├── authRoutes.js
 │   │   ├── itineraireRoutes.js
 │   │   ├── sites-detailsRoutes.js
 │   │   ├── sitesRoutes.js
 │   │   └── userRoutes.js
+│   ├── services/
+│   │   └── mailer.js
+│   │       ├── function sendVerificationEmail(toEmail, username, confirmationLink)
 │   ├── tests/
 │   │   ├── integration/
 │   │   │   ├── auth.test.js
 │   │   │   │   ├── function uniqueEmail()
-│   │   │   │   ├── function extractToken(confirmationLink)
+│   │   │   │   ├── function getVerificationToken(email)
 │   │   │   ├── moyenne.test.js
-│   │   │   │   ├── function extractToken(confirmationLink)
+│   │   │   │   ├── function getVerificationToken(email)
 │   │   │   │   ├── function creerSiteDeTest()
 │   │   │   ├── sites.test.js
-│   │   │   │   ├── function extractToken(confirmationLink)
+│   │   │   │   ├── function getVerificationToken(email)
 │   │   │   └── users.test.js
-│   │   │       ├── function extractToken(confirmationLink)
+│   │   │       ├── function getVerificationToken(email)
 │   │   │       ├── function creerUtilisateurConnecte({ username, preferences } = {})
 │   │   └── unit/
 │   │       └── converstionLanguage.test.js
@@ -3047,6 +3544,7 @@ async function persistSiteMedia(client, siteId, mediaEntries) {
 ├── .env
 ├── .env.example
 ├── .gitignore
+├── .semgrepignore
 ├── architecture.tree
 ├── docker-compose.yml
 ├── Dockerfile

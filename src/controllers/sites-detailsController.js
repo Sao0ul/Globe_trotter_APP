@@ -1,15 +1,7 @@
 
 const { getVideoBySiteId, getSiteDetailsById } = require('../models/sites-detailsModel');
 
-/**
- * Vérifie qu'une valeur correspond à un UUID valide (v4 ou générique).
- *
- * Adapté au type UUID utilisé par la colonne "id" de la table sites
- * (UUID PRIMARY KEY DEFAULT gen_random_uuid()).
- *
- * @param {string} value - Valeur reçue dans l'URL.
- * @returns {string|null}
- */
+
 function parseSiteId(value) {
     const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -20,17 +12,6 @@ function parseSiteId(value) {
     return value;
 }
 
-/**
- * GET /api/sites/:id/video
- *
- * Renvoie la vidéo et l'image associées à un site.
- *
- * Réponse réussie :
- * {
- *   "video_url": "...",
- *   "image_url": "..."
- * }
- */
 async function getSiteVideo(req, res) {
     const siteId = parseSiteId(req.params.id);
 
