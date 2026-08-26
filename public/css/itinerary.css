@@ -1,53 +1,7 @@
-.itinerary-layout {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 18px;
-}
+/* ==========================================================
+   1. RESET PLEIN ÉCRAN
+   ========================================================== */
 
-.detail-facts {
-  margin: 0;
-  padding-left: 18px;
-  color: var(--ink);
-  display: grid;
-  gap: 8px;
-}
-
-.route-map {
-  position: relative;
-  min-height: 300px;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid rgba(22, 51, 43, 0.1);
-  background: linear-gradient(180deg, #eff8f5, #f8fbf9);
-}
-
-
-.legend-dot {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin-right: 6px;
-}
-
-.legend-site { background: #f4c868; }
-.legend-restaurant { background: #d97c45; }
-.legend-hotel { background: #5f8af6; }
-.legend-hospital { background: #d44b64; }
-.legend-transport { background: #2f8b7d; }
-
-.route-summary {
-  margin: 0 0 14px;
-  color: var(--ink);
-  line-height: 1.7;
-}
-
-
-
-
-
-
-/* ================= Reset plein écran ================= */
 .itinerary-fullbleed {
   margin: 0;
   padding: 0;
@@ -87,7 +41,19 @@
   line-height: 38px !important;
 }
 
-/* Popups Leaflet, restylés pour matcher le thème */
+/* Curseur cadenas quand la carte est verrouillée — desktop uniquement,
+   sur tactile ce curseur n'a aucun sens (pas de souris). */
+@media (hover: hover) and (pointer: fine) {
+  .route-map-full.is-locked .leaflet-container {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><text y='18' font-size='18'>🔒</text></svg>") 12 12, not-allowed;
+  }
+}
+
+
+/* ==========================================================
+   2. POPUPS LEAFLET
+   ========================================================== */
+
 .leaflet-popup-content-wrapper {
   border-radius: 14px;
   box-shadow: 0 14px 34px rgba(22, 51, 43, 0.2);
@@ -134,7 +100,10 @@
   cursor: pointer;
 }
 
-/* ================= Barre flottante haute (retour + géoloc) ================= */
+
+/* ==========================================================
+   3. BOUTONS FLOTTANTS (FAB) + TOOLTIPS
+   ========================================================== */
 
 .fab {
   pointer-events: auto;
@@ -151,7 +120,7 @@
   box-shadow: 0 10px 26px rgba(22, 51, 43, 0.18);
   text-decoration: none;
   cursor: pointer;
-  transition: transform .2s ease, box-shadow .2s ease;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
 }
 
 .fab:hover {
@@ -159,15 +128,50 @@
   box-shadow: 0 14px 32px rgba(22, 51, 43, 0.24);
 }
 
-.fab-locate {
-  color: var(--primary-dark);
+/* Tooltip générique : tout bouton avec un attribut data-tooltip
+   affiche une petite bulle au survol / au focus clavier. Réutilisable
+   pour n'importe quel .fab, pas seulement ceux du topbar. */
+.fab[data-tooltip] {
+  position: relative;
+}
+
+.fab[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%) translateX(-6px);
+  white-space: nowrap;
+  background: var(--ink, #16332b);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(22, 51, 43, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
+  z-index: 1500;
+}
+
+.fab[data-tooltip]:hover::after,
+.fab[data-tooltip]:focus-visible::after {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* Sur mobile, pas de tooltip au survol (pas de souris) */
+@media (hover: none) {
+  .fab[data-tooltip]::after {
+    display: none;
+  }
 }
 
 
-/*aligner les 3*/
-/* Le zoom Leaflet occupe environ 20px à 96px de haut (marge 20px +
-   2 boutons de 38px empilés = 76px). Les 3 boutons ci-dessous démarrent
-   juste après, avec un espacement de 10px entre chaque groupe/bouton. */
+/* ==========================================================
+   4. BARRE FLOTTANTE HAUTE (retour, itinéraire, focus, yango)
+   ========================================================== */
 
 .float-topbar {
   position: absolute;
@@ -177,49 +181,38 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  /* on n'a plus besoin de justify-content/right : tout reste aligné à gauche */
 }
 
-.openDirectionsBtnc {
-  position: absolute;
-  top: 214px;
-  left: 20px;
-  right: auto;
-  z-index: 1000;
-
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: rgba(255, 255, 255, .92);
-  backdrop-filter: blur(10px);
-
-  border: 1px solid rgba(255, 255, 255, .6);
-  box-shadow: 0 10px 26px rgba(22, 51, 43, .18);
-
-  cursor: pointer;
-  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
-}
-
-.openDirectionsBtnc:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 32px rgba(22, 51, 43, 0.24);
-}
-
-.openDirectionsBtnc.is-active {
+.fab-directions.is-active {
   background: rgba(59, 130, 246, 0.95);
   color: #fff;
 }
 
+/* Le bouton focus reste bleu tant que le mode "modifier le départ"
+   est actif (carte déverrouillée, clic autorisé) */
+.fab-focus.is-active {
+  background: rgba(59, 130, 246, 0.95);
+  color: #fff;
+}
+
+/* --- État verrouillé : la carte a déjà un itinéraire calculé ---
+   1) le bouton focus passe en rouge (indicateur visible phone + pc)
+   2) les autres boutons du topbar disparaissent, pour que l'attention
+      se porte uniquement sur le bouton de déverrouillage
+   3) le curseur cadenas s'ajoute en plus, sur desktop (voir section 1) */
+.route-map-full.is-locked .float-topbar .fab:not(.fab-focus) {
+  display: none;
+}
+
+.route-map-full.is-locked .fab-focus {
+  background: rgba(220, 38, 38, 0.95);
+  color: #fff;
+}
 
 
-
-
-/* ================= Panneau "Obtenir l'itinéraire" ================= */
+/* ==========================================================
+   5. PANNEAU "OBTENIR L'ITINÉRAIRE"
+   ========================================================== */
 
 .directions-panel {
   display: none;
@@ -332,8 +325,6 @@
   margin-top: 14px;
 }
 
-
-
 .directions-mode-btn svg {
   width: 18px;
   height: 18px;
@@ -351,7 +342,11 @@
   cursor: not-allowed;
 }
 
-/* ================= Résumé du trajet, flottant bas-gauche ================= */
+
+/* ==========================================================
+   6. RÉSUMÉ DU TRAJET (flottant bas-gauche)
+   ========================================================== */
+
 .route-summary-float {
   position: absolute;
   bottom: 20px;
@@ -373,134 +368,28 @@
   color: var(--ink, #16332b);
 }
 
-/* ================= Légende, flottante bas-droite ================= */
-.detail-legend-float {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  z-index: 1000;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 14px;
-  max-width: 260px;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-size: 11.5px;
-  color: var(--ink-soft, #6b7d78);
-  box-shadow: 0 8px 20px rgba(22, 51, 43, 0.12);
-}
-
-.legend-dot {
-  display: inline-block;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  margin-right: 5px;
-}
-
-.legend-site {
-  background: #f4c868;
-}
-
-.legend-restaurant {
-  background: #d97c45;
-}
-
-.legend-hotel {
-  background: #5f8af6;
-}
-
-.legend-hospital {
-  background: #d44b64;
-}
-
-.legend-transport {
-  background: #2f8b7d;
-}
-
-/* ================= Responsive ================= */
-@media (max-width: 720px) {
-  .directions-panel {
-    left: 12px;
-    right: 12px;
-    width: auto;
-    top: 76px;
-  }
-
-  .route-summary-float {
-    left: 12px;
-    right: 12px;
-    max-width: none;
-  }
-
-  .detail-legend-float {
-    display: none;
-    /* trop d'éléments flottants sur mobile, on masque la légende */
-  }
-}
-
-
-@media (max-width: 920px) {
-  .itinerary-layout {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 720px) {
-  .detail-legend-float {
-    left: 12px;
-    right: 12px;
-    bottom: 12px;
-
-    max-width: none;
-
-    justify-content: center;
-  }
-
-  .legend-item {
-    font-size: 10.5px;
-    padding: 6px 9px;
-  }
-}
 
 /* ==========================================================
-   LÉGENDE FLOTTANTE
+   7. LÉGENDE / FILTRE DE LIEUX (bas-droite, dropdown en mobile)
    ========================================================== */
 
-.detail-legend-float,
-.detail-legend {
+.detail-legend-float {
   position: absolute;
   right: 20px;
   bottom: 20px;
-
   z-index: 2000;
-
   display: flex;
   flex-wrap: wrap;
   gap: 7px;
-
   max-width: 380px;
-
   padding: 10px;
-
   background: rgba(255, 255, 255, 0.95);
-
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-
   border: 1px solid rgba(22, 51, 43, 0.10);
-
   border-radius: 16px;
-
-  box-shadow:
-    0 12px 30px rgba(22, 51, 43, 0.16),
-    0 3px 8px rgba(22, 51, 43, 0.08);
+  box-shadow: 0 12px 30px rgba(22, 51, 43, 0.16), 0 3px 8px rgba(22, 51, 43, 0.08);
 }
-
-
-/* Élément de légende */
 
 .legend-item {
   display: inline-flex;
@@ -515,75 +404,104 @@
   font-size: 11px;
   font-weight: 600;
   cursor: pointer;
-  transition:
-    transform .2s ease,
-    background .2s ease,
-    opacity .2s ease,
-    box-shadow .2s ease;
+  transition: transform .2s ease, background .2s ease, opacity .2s ease, box-shadow .2s ease;
 }
-
-
-/* Hover */
 
 .legend-item:not(:disabled):hover {
   transform: translateY(-2px);
   background: #ffffff;
-  box-shadow:
-    0 5px 14px rgba(22, 51, 43, 0.12);
+  box-shadow: 0 5px 14px rgba(22, 51, 43, 0.12);
 }
 
-
-/* Petit point */
-
+/* Pastille : couleur pleine par défaut, ou image du pin si
+   itinerary.js lui donne un style background-image (voir ICONES_CATEGORIE) */
+/* Pastille de légende : même image que le pin correspondant sur la carte
+   (réutilise directement --pin-icon-url défini dans map-markers.css),
+   simplement redimensionnée en petit rond. */
 .legend-dot {
   width: 10px;
   height: 10px;
   flex: 0 0 10px;
   border-radius: 50%;
-  box-shadow:
-    0 0 0 2px #fff,
-    0 1px 4px rgba(0, 0, 0, .2);
+  background-image: var(--pin-icon-url, none);
+  background-color: var(--pin-color, transparent);
+  /* filet de sécurité si l'image manque */
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 0 2px #fff, 0 1px 4px rgba(0, 0, 0, .2);
 }
-
-
-/* Catégorie sélectionnée */
 
 .legend-item.is-active {
   background: var(--forest-deep, #16332b);
   color: #fff;
   border-color: var(--forest-deep, #16332b);
-  box-shadow:
-    0 5px 15px rgba(22, 51, 43, .25);
+  box-shadow: 0 5px 15px rgba(22, 51, 43, .25);
 }
-
-
-/* Catégories masquées */
 
 .legend-item.is-dimmed {
   opacity: .35;
 }
-
-
-/* Position + destination */
 
 .legend-item--static {
   cursor: default;
   opacity: .75;
 }
 
+/* Bouton menu déroulant : caché sur desktop, la légende y est déjà visible */
+.legend-toggle-btn {
+  display: none;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  z-index: 2100;
+}
 
-/* Mobile */
+
+/* ==========================================================
+   8. RESPONSIVE
+   ========================================================== */
 
 @media (max-width: 720px) {
-
-  .detail-legend-float,
-  .detail-legend {
+  .directions-panel {
     left: 12px;
     right: 12px;
-    bottom: 12px;
+    width: auto;
+    top: 76px;
+  }
 
+  .route-summary-float {
+    left: 12px;
+    right: 12px;
     max-width: none;
+  }
 
-    justify-content: center;
+  /* La légende devient un menu déroulant : cachée par défaut,
+     ouverte via le bouton .legend-toggle-btn, en colonne scrollable
+     pour rester lisible même avec beaucoup de catégories. */
+  .legend-toggle-btn {
+    display: flex;
+  }
+
+  .detail-legend-float {
+    display: none;
+    left: 12px;
+    right: 12px;
+    bottom: 74px;
+    /* au-dessus du bouton toggle */
+    max-width: none;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+
+  .detail-legend-float.is-open {
+    display: flex;
+  }
+
+  .legend-item {
+    width: 100%;
+    font-size: 12px;
+    padding: 8px 10px;
   }
 }

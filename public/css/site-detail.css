@@ -282,6 +282,14 @@ main {
     background 0.15s ease;
 }
 
+.btn-back{
+  width: 100px;
+  letter-spacing: 0.2cap;
+  text-align: center;
+  text-decoration:wavy;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 20px ;
+}
 
 /* lumière sur le haut du bouton */
 .btn-solid::before {
