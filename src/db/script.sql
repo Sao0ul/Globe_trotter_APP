@@ -220,3 +220,5 @@ CREATE TABLE IF NOT EXISTS site_likes (
 
 CREATE INDEX IF NOT EXISTS idx_site_likes_user_id ON site_likes(user_id);
 CREATE INDEX IF NOT EXISTS idx_site_likes_site_id ON site_likes(site_id);
+
+ALTER TABLE users ADD COLUMN avatar_url TEXT;

@@ -35,6 +35,13 @@ body {
     padding: 0;
 }
 
+/* L'attribut hidden doit toujours gagner, quel que soit l'ordre des
+   autres règles (ex: .profile-state { display: flex } écraserait
+   sinon le display:none par défaut du navigateur). */
+[hidden] {
+    display: none !important;
+}
+
 .page-shell {
     min-height: 100vh;
     font-family: var(--font-body);
@@ -60,14 +67,14 @@ body {
     position: relative;
     z-index: 1;
     max-width: 840px;
-    /* Élargi pour un rendu plus pro */
     margin: 0 auto;
     padding: 40px 20px 60px;
 }
 
+/* Volontairement identique à .page-frame pour l'instant : gardée au
+   cas où une page l'utiliserait seule, sans .page-frame. */
 .compact-frame {
     max-width: 840px;
-    /* Annulation du trop court 560px */
 }
 
 /* ==========================================
@@ -178,6 +185,35 @@ body {
     font-size: 2rem;
     box-shadow: 0 8px 20px rgba(216, 155, 40, 0.3);
     border: 3px solid #fff;
+    overflow: hidden;
+    /* garde l'image ronde même si elle n'est pas exactement carrée */
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
+.profile-avatar-wrap {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-avatar-edit {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #fff;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 .profile-identity-text h2 {
@@ -248,7 +284,7 @@ body {
 }
 
 /* ==========================================
-   GRID DES SITES LIKÉS (IMAGE RESIZING FIXED)
+   GRID DES SITES LIKÉS
 ========================================== */
 
 .liked-sites-grid {
@@ -258,8 +294,12 @@ body {
     margin-top: 16px;
 }
 
-/* Styles applicables aux cartes générées par JS */
+/* Styles des cartes générées par profile.js (creerCarteSiteLike).
+   Noms alignés avec les classes réellement utilisées côté JS :
+   liked-site-card / liked-site-image / liked-site-body / liked-site-title
+   liked-site-location / liked-site-like */
 .liked-site-card {
+    position: relative;
     background: #fff;
     border-radius: var(--radius);
     border: 1px solid var(--card-line);
@@ -268,6 +308,7 @@ body {
     flex-direction: column;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer;
 }
 
 .liked-site-card:hover {
@@ -275,27 +316,59 @@ body {
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
 }
 
-/* RÈGLE CLÉ : Redimensionne automatiquement toutes les images */
-.liked-site-card img,
-.liked-sites-grid img {
+.liked-site-image {
     width: 100%;
     height: 160px;
     object-fit: cover;
     display: block;
 }
 
-.liked-site-card-body {
+.liked-site-body {
     padding: 14px;
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
-.liked-site-card-title {
+.liked-site-title {
     margin: 0;
     font-size: 1rem;
     font-weight: 700;
     color: var(--forest-deep);
+}
+
+.liked-site-location {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+}
+
+.liked-site-like {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    transition: transform 0.15s ease;
+}
+
+.liked-site-like:hover {
+    transform: scale(1.1);
+}
+
+.liked-site-like:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 /* ==========================================

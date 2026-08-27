@@ -26,6 +26,7 @@ const likedSitesGrid = document.getElementById("likedSitesGrid");
 const likedSitesEmpty = document.getElementById("likedSitesEmpty");
 const likedSitesLoadingMore = document.getElementById("likedSitesLoadingMore");
 const likedSitesLoadMoreBtn = document.getElementById("likedSitesLoadMoreBtn");
+const avatarInput = document.getElementById("avatarInput");
 
 // Icône + libellé par préférence — même mapping que dans register.html,
 // pour garder une cohérence visuelle sur toute l'app.
@@ -269,7 +270,7 @@ async function chargerProfil() {
 
         const data = await response.json();
 
-        profileAvatar.textContent = data.username ? data.username.slice(0, 2).toUpperCase() : "?";
+        afficherAvatar(data.username, data.avatarUrl);
         profileUsername.textContent = data.username || "—";
         profileJoined.textContent = formaterDate(data.joined);
         afficherPreferences(data.preferences);
@@ -284,6 +285,58 @@ async function chargerProfil() {
         afficherEtat("error");
     }
 }
+
+function afficherAvatar(username, avatarUrl) {
+    if (avatarUrl) {
+        profileAvatar.innerHTML = `<img src="${avatarUrl}" alt="Photo de profil">`;
+    } else {
+        profileAvatar.textContent = username ? username.slice(0, 2).toUpperCase() : "?";
+    }
+}
+
+const MAX_AVATAR_SIZE_BYTES = 5 * 1024 * 1024; // 5 Mo, doit matcher la limite backend
+
+avatarInput.addEventListener("change", async () => {
+    const file = avatarInput.files[0];
+    if (!file) return;
+
+    if (file.size > MAX_AVATAR_SIZE_BYTES) {
+        alert("L'image est trop lourde (5 Mo max).");
+        avatarInput.value = "";
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("avatar", file);
+
+    try {
+        const response = await fetch("/api/users/me/avatar", {
+            method: "POST",
+            headers: { Authorization: `Bearer ${token}` }, // pas de Content-Type : le navigateur le gère avec la boundary du FormData
+            body: formData,
+        });
+
+        if (response.status === 401) {
+            localStorage.clear();
+            window.location.href = "login.html";
+            return;
+        }
+
+        if (!response.ok) {
+            const data = await response.json().catch(() => ({}));
+            alert(data.error || "Impossible de mettre à jour la photo de profil.");
+            return;
+        }
+
+        const data = await response.json();
+        afficherAvatar(profileUsername.textContent, data.avatarUrl);
+    } catch (error) {
+        console.error("Erreur réseau lors de l'upload de l'avatar :", error);
+        alert("Impossible de contacter le serveur.");
+    } finally {
+        avatarInput.value = ""; // permet de re-sélectionner le même fichier plus tard
+    }
+});
 
 document.getElementById("retryBtn").addEventListener("click", chargerProfil);
 

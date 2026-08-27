@@ -158,6 +158,18 @@ async function updateUsernameAndPreferences(userId, { username, preferences }) {
   return rows[0] ? mapUserRow(rows[0]) : null;
 }
 
+async function updateAvatarUrl(userId, avatarUrl) {
+  const query = `
+    UPDATE users
+    SET avatar_url = $1
+    WHERE id = $2
+    RETURNING id, email, username, role, avatar_url, created_at, preferences
+  `;
+
+  const { rows } = await pool.query(query, [avatarUrl, userId]);
+  return rows[0] || null;
+}
+
 
 
 module.exports = { 
@@ -170,5 +182,6 @@ module.exports = {
   createUserFromGoogle,
   findByFacebookId,
   createUserFromFacebook,
-  updateUsernameAndPreferences
+  updateUsernameAndPreferences,
+  updateAvatarUrl
  };

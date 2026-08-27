@@ -54,6 +54,37 @@ const filterLabelKeys = {
   aventure: "filters.adventure"
 };
 
+//==========================Gerer l'avatar=======================
+async function afficherAvatarSidebar(username) {
+  const avatarEl = document.getElementById("avatarInitials");
+
+  document.getElementById("greetingName").textContent = username;
+  avatarEl.textContent = username ? username.slice(0, 2).toUpperCase() : "?";
+
+  const token = localStorage.getItem("token");
+  if (!token) return; // pas connecté, on garde les initiales/placeholder
+
+  try {
+    const response = await fetch("/api/users/me", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (!response.ok) return; // échec silencieux : les initiales restent affichées
+
+    const data = await response.json();
+
+    if (data.avatarUrl) {
+      avatarEl.innerHTML = `<img src="${data.avatarUrl}" alt="Profile picture">`;
+    }
+  } catch (error) {
+    console.warn("Couldn't load profile picture:", error);
+    // pas bloquant : les initiales restent visibles
+  }
+}
+
+// Remplace ton ancien appel par :
+afficherAvatarSidebar(username);
+
 // Compte combien de colonnes le CSS Grid affiche réellement en ce moment.
 // Lit grid-template-columns calculé par le navigateur (ex: "320px 320px 320px" → 3 colonnes),
 // ce qui tient compte automatiquement de la largeur d'écran ET de l'état de la sidebar.

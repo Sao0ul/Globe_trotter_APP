@@ -4,8 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/png" href="assets/images/logoLogin.png" />
-    <!-- Remplace la ligne du bouton de retour dans le header par : -->
-    <a href="sites.html" class="btn-ghost btn-back"><i class="fa-solid fa-arrow-left"></i> Back</a>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil</title>
 
@@ -19,7 +17,7 @@
     <div class="page-frame compact-frame">
 
         <header class="detail-topbar">
-            
+            <a href="sites.html" class="btn-ghost btn-back"><i class="fa-solid fa-arrow-left"></i> Back</a>
             <div class="detail-title-wrap">
                 <span class="eyebrow">Profil</span>
                 <h1>My space</h1>
@@ -44,7 +42,13 @@
             <div id="profileContent" hidden>
 
                 <section class="profile-identity">
-                    <div class="profile-avatar" id="profileAvatar">?</div>
+                    <div class="profile-avatar-wrap">
+                        <div class="profile-avatar" id="profileAvatar">?</div>
+                        <label for="avatarInput" class="profile-avatar-edit" title="Change photo">
+                            <i class="fa-solid fa-camera"></i>
+                        </label>
+                        <input type="file" id="avatarInput" accept="image/png, image/jpeg, image/webp" hidden>
+                    </div>
                     <div class="profile-identity-text">
                         <h2 id="profileUsername">—</h2>
                         <p class="profile-joined" id="profileJoined"></p>
