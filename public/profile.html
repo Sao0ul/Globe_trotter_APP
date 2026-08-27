@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/png" href="assets/images/logoLogin.png" />
+    <!-- Remplace la ligne du bouton de retour dans le header par : -->
+    <a href="sites.html" class="btn-ghost btn-back"><i class="fa-solid fa-arrow-left"></i> Back</a>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil</title>
 
@@ -17,7 +19,7 @@
     <div class="page-frame compact-frame">
 
         <header class="detail-topbar">
-            <a href="sites.html" class="btn-ghost btn-back">← Back</a>
+            
             <div class="detail-title-wrap">
                 <span class="eyebrow">Profil</span>
                 <h1>My space</h1>
@@ -57,6 +59,26 @@
                     <p class="profile-empty" id="profilePreferencesEmpty" hidden>
                         No profile for the moment.
                     </p>
+                </section>
+
+                <section class="profile-section">
+                    <h3 class="profile-section-title">Mes sites likés</h3>
+
+                    <div class="liked-sites-grid" id="likedSitesGrid">
+                        <!-- Rempli dynamiquement par profile.js -->
+                    </div>
+
+                    <p class="profile-empty" id="likedSitesEmpty" hidden>
+                        Tu n'as encore liké aucun site.
+                    </p>
+
+                    <div id="likedSitesLoadingMore" class="profile-state" hidden>
+                        <div class="spinner"></div>
+                    </div>
+
+                    <button class="btn-ghost" id="likedSitesLoadMoreBtn" type="button" hidden>
+                        Voir plus
+                    </button>
                 </section>
 
             </div>

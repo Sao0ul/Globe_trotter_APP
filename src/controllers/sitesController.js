@@ -361,6 +361,7 @@ module.exports = {
   rateSite,
   likeSite: likeSiteHandler,
   unlikeSite: unlikeSiteHandler,
+  toFrontendSite,
   // Utilitaires (si besoin dans d'autres contrôleurs)
   CATEGORY_FR_TO_EN,
   CATEGORY_EN_TO_FR,
