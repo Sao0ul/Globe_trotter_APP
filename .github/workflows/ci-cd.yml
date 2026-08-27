@@ -329,27 +329,48 @@ jobs:
             -f docker-compose.ci.yml \
             down -v
 
-  #===========================================================
-  #TEST CONNECTION SSH GITHUB
-  #==========================================================
-  test-ssh:
-    name: Test SSH Raoul Server
+        #--------------------------------------------------------------
+        #TEST CONNECTION SSH GITHUB
+        #--------------------------------------------------------------
+        test-ssh:
+          name: Test SSH Raoul Server
+          needs:
+            - run-tests
+          if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+          runs-on: ubuntu-latest
+          steps:
+            - name: Test SSH connection
+              uses: appleboy/ssh-action@v1.2.2
+              with:
+                host: ${{ secrets.AWS_HOST }}
+                username: ${{ secrets.AWS_USER }}
+                key: ${{ secrets.AWS_SSH_KEY }}
+                script: |
+                  echo "Connexion SSH réussie"
+                  hostname
+                  docker --version
+                  docker compose version
+    
+  # ==========================================================
+  # DÉPLOIEMENT RAOULSERVER
+  # ==========================================================
+  deploy-Raoul-Server-EC2:
+    name: Deploy to Raoul Server EC2
     needs:
-      - run-tests
+      - test-ssh
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
-      - name: Test SSH connection
+      - name: Deploy to AWS EC2
         uses: appleboy/ssh-action@v1.2.2
         with:
           host: ${{ secrets.AWS_HOST }}
           username: ${{ secrets.AWS_USER }}
           key: ${{ secrets.AWS_SSH_KEY }}
           script: |
-            echo "Connexion SSH réussie"
-            hostname
-            docker --version
-            docker compose version
+            cd /CHEMIN/DE/TON/PROJET
+            git pull origin main
+            docker compose up -d --build
 
 
   # ==========================================================
@@ -357,16 +378,12 @@ jobs:
   # ==========================================================
   deploy:
     name: Deploy to Render
-
     needs:
       - run-tests
 
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-
     runs-on: ubuntu-latest
-
     steps:
-
       - name: Trigger deployment
         run: |
           curl -fsS "${{ secrets.RENDER_DEPLOY_HOOK }}"
