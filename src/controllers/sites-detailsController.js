@@ -1,15 +1,11 @@
+const { getVideoBySiteId, getSiteDetailsById, getLikedSitesByUser } = require('../models/sites-detailsModel');
 
-const { getVideoBySiteId, getSiteDetailsById } = require('../models/sites-detailsModel');
+// Réutilise la conversion DB -> frontend déjà écrite dans sitesController,
+// pour ne pas dupliquer la logique (titre, catégorie FR/EN, etc.).
+// -> Pense à exporter toFrontendSite depuis sitesController.js :
+//      module.exports = { ..., toFrontendSite };
+const { toFrontendSite } = require('./sitesController');
 
-/**
- * Vérifie qu'une valeur correspond à un UUID valide (v4 ou générique).
- *
- * Adapté au type UUID utilisé par la colonne "id" de la table sites
- * (UUID PRIMARY KEY DEFAULT gen_random_uuid()).
- *
- * @param {string} value - Valeur reçue dans l'URL.
- * @returns {string|null}
- */
 function parseSiteId(value) {
     const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -20,17 +16,6 @@ function parseSiteId(value) {
     return value;
 }
 
-/**
- * GET /api/sites/:id/video
- *
- * Renvoie la vidéo et l'image associées à un site.
- *
- * Réponse réussie :
- * {
- *   "video_url": "...",
- *   "image_url": "..."
- * }
- */
 async function getSiteVideo(req, res) {
     const siteId = parseSiteId(req.params.id);
 
@@ -78,7 +63,6 @@ async function getSiteVideo(req, res) {
     }
 }
 
-
 async function getSiteDetails(req, res) {
     const siteId = parseSiteId(req.params.id);
 
@@ -100,7 +84,50 @@ async function getSiteDetails(req, res) {
     }
 }
 
+// ==========================================================
+// GET /api/sites/details/liked
+// ==========================================================
+//
+// IMPORTANT (routage Express) : cette route doit être déclarée AVANT
+// la route dynamique "/details/:id" dans le fichier de routes, sinon
+// Express interprète "liked" comme un id et appelle getSiteDetails à
+// la place :
+//
+//   router.get('/details/liked', authMiddleware, getLikedSites);
+//   router.get('/details/:id', getSiteDetails);
+//
+async function getLikedSites(req, res) {
+    // Nécessite d'être connecté : pas de sens à demander "mes" sites likés
+    // sans savoir qui est "moi".
+    if (!req.user) {
+        return res.status(401).json({ error: 'Authentification requise.' });
+    }
+
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+
+    try {
+        const sites = await getLikedSitesByUser(req.user.id, { page, limit });
+
+        // Ce sont par définition des sites likés par l'utilisateur connecté.
+        const frontendSites = sites.map((site) => ({
+            ...toFrontendSite(site),
+            aimeParMoi: true,
+        }));
+
+        return res.status(200).json({
+            sites: frontendSites,
+            page,
+            hasMore: sites.length === limit,
+        });
+    } catch (error) {
+        console.error('Erreur lors de la récupération des sites likés :', error);
+        return res.status(500).json({ error: 'Une erreur interne est survenue.' });
+    }
+}
+
 module.exports = {
     getSiteVideo,
     getSiteDetails,
+    getLikedSites,
 };

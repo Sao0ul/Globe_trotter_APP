@@ -1,27 +1,27 @@
 /* ==========================================
-   VARIABLES — cohérentes avec le reste de l'app
+   VARIABLES & SETUP
 ========================================== */
 
 :root {
-    --forest-deep: #16332B;
-    --forest-mid: #234C3E;
-    --sand: #F7F2E7;
-    --card: #FFFDF8;
-    --card-line: #E9E0CB;
-    --gold: #E3A93A;
-    --gold-soft: #F4C868;
+    --forest-deep: #112822;
+    --forest-mid: #1D4034;
+    --sand: #F7F4EB;
+    --card: rgba(255, 255, 255, 0.88);
+    --card-border: rgba(255, 255, 255, 0.4);
+    --card-line: #E2DAC8;
+    --gold: #D89B28;
+    --gold-soft: #F9E7B9;
     --clay: #B8452F;
     --ink: #1C2620;
-    --ink-soft: #5B6960;
-    --ink-inverse: #F3EFE3;
+    --ink-soft: #637369;
+    --shadow-lg: 0 20px 40px -15px rgba(12, 31, 25, 0.35);
 
-    --font-display: "DM Serif Display", serif;
-    --font-body: "Inter", sans-serif;
+    --font-display: 'Inter', sans-serif;
+    --font-body: 'Inter', sans-serif;
 
+    --radius-lg: 24px;
     --radius: 14px;
-    --shadow: 0 10px 30px -12px rgba(22, 51, 43, 0.25);
 
-    /* Fond changeable en un seul endroit */
     --bg-image: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80");
 }
 
@@ -35,35 +35,46 @@ body {
     padding: 0;
 }
 
+/* L'attribut hidden doit toujours gagner, quel que soit l'ordre des
+   autres règles (ex: .profile-state { display: flex } écraserait
+   sinon le display:none par défaut du navigateur). */
+[hidden] {
+    display: none !important;
+}
+
 .page-shell {
     min-height: 100vh;
     font-family: var(--font-body);
     color: var(--ink);
     background: var(--bg-image) center center/cover no-repeat fixed;
+    position: relative;
 }
 
 .page-shell::before {
     content: "";
     position: fixed;
     inset: 0;
-    background: linear-gradient(rgba(0, 0, 0, .35), rgba(0, 0, 0, .55));
+    background: radial-gradient(circle at top right, rgba(22, 51, 43, 0.4), rgba(10, 20, 16, 0.75));
+    backdrop-filter: blur(4px);
     z-index: 0;
 }
 
 /* ==========================================
-   LAYOUT
+   LAYOUT & RESPONSIVITÉ
 ========================================== */
 
 .page-frame {
     position: relative;
     z-index: 1;
-    max-width: 720px;
+    max-width: 840px;
     margin: 0 auto;
     padding: 40px 20px 60px;
 }
 
+/* Volontairement identique à .page-frame pour l'instant : gardée au
+   cas où une page l'utiliserait seule, sans .page-frame. */
 .compact-frame {
-    max-width: 560px;
+    max-width: 840px;
 }
 
 /* ==========================================
@@ -73,62 +84,73 @@ body {
 .detail-topbar {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 20px;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 }
 
 .btn-ghost {
     display: inline-flex;
     align-items: center;
-    padding: 10px 18px;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 22px;
     border-radius: 999px;
-    background: rgba(255, 253, 248, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    color: var(--forest-deep);
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #fff;
     font-weight: 600;
+    font-size: 0.9rem;
     text-decoration: none;
-    transition: transform .15s ease, box-shadow .15s ease;
-    box-shadow: 0 4px 12px rgba(22, 51, 43, 0.15);
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.4);
     transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(22, 51, 43, 0.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.detail-title-wrap {
+    text-align: right;
 }
 
 .detail-title-wrap .eyebrow {
     display: block;
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    font-size: 0.75rem;
     color: var(--gold-soft);
-    margin-bottom: 2px;
 }
 
 .detail-title-wrap h1 {
     margin: 0;
-    font-family: var(--font-display);
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    font-weight: 800;
     color: #fff;
 }
 
 /* ==========================================
-   CARTE PRINCIPALE
+   CARTE PRINCIPALE (CONTAINER)
 ========================================== */
 
 .placeholder-card {
     background: var(--card);
-    border-radius: 24px;
-    border: 1px solid var(--card-line);
-    box-shadow: var(--shadow);
-    padding: 32px;
-    animation: fade-in .4s ease;
+    backdrop-filter: blur(16px);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-lg);
+    padding: 40px;
+    animation: fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes fade-in {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(16px);
     }
 
     to {
@@ -138,7 +160,219 @@ body {
 }
 
 /* ==========================================
-   ÉTATS (chargement / erreur)
+   IDENTITÉ (HEADER PROFIL)
+========================================== */
+
+.profile-identity {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--card-line);
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--clay) 100%);
+    color: #fff;
+    font-weight: 800;
+    font-size: 2rem;
+    box-shadow: 0 8px 20px rgba(216, 155, 40, 0.3);
+    border: 3px solid #fff;
+    overflow: hidden;
+    /* garde l'image ronde même si elle n'est pas exactement carrée */
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
+.profile-avatar-wrap {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-avatar-edit {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #fff;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.profile-identity-text h2 {
+    margin: 0 0 6px;
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--forest-deep);
+    letter-spacing: -0.5px;
+}
+
+.profile-joined {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    font-weight: 500;
+}
+
+/* ==========================================
+   SECTIONS & SEPARATEURS
+========================================== */
+
+.profile-section {
+    padding-top: 32px;
+}
+
+.profile-section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--forest-deep);
+    margin: 0 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ==========================================
+   PRÉFÉRENCES (TAGS/CHIPS)
+========================================== */
+
+.profile-preferences {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.preference-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 99px;
+    background: #fff;
+    border: 1px solid var(--card-line);
+    color: var(--ink);
+    font-size: 0.88rem;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.preference-chip:hover {
+    transform: translateY(-2px);
+    border-color: var(--gold);
+}
+
+.preference-chip i {
+    color: var(--gold);
+}
+
+/* ==========================================
+   GRID DES SITES LIKÉS
+========================================== */
+
+.liked-sites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 16px;
+}
+
+/* Styles des cartes générées par profile.js (creerCarteSiteLike).
+   Noms alignés avec les classes réellement utilisées côté JS :
+   liked-site-card / liked-site-image / liked-site-body / liked-site-title
+   liked-site-location / liked-site-like */
+.liked-site-card {
+    position: relative;
+    background: #fff;
+    border-radius: var(--radius);
+    border: 1px solid var(--card-line);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer;
+}
+
+.liked-site-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.liked-site-image {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+}
+
+.liked-site-body {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.liked-site-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--forest-deep);
+}
+
+.liked-site-location {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+}
+
+.liked-site-like {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    transition: transform 0.15s ease;
+}
+
+.liked-site-like:hover {
+    transform: scale(1.1);
+}
+
+.liked-site-like:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ==========================================
+   ÉTATS & BOUTONS
 ========================================== */
 
 .profile-state {
@@ -152,10 +386,10 @@ body {
 }
 
 .spinner {
-    width: 26px;
-    height: 26px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    border: 3px solid var(--card-line);
+    border: 3px solid rgba(22, 51, 43, 0.1);
     border-top-color: var(--gold);
     animation: spin 0.8s linear infinite;
 }
@@ -166,103 +400,57 @@ body {
     }
 }
 
-/* ==========================================
-   IDENTITÉ
-========================================== */
-
-.profile-identity {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    margin-bottom: 28px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--card-line);
-}
-
-.profile-avatar {
-    width: 64px;
-    height: 64px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(155deg, var(--gold) 0%, var(--clay) 100%);
-    color: #fff;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.4rem;
-}
-
-.profile-identity-text h2 {
-    margin: 0 0 4px;
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    color: var(--forest-deep);
-}
-
-.profile-joined {
-    margin: 0;
-    font-size: 0.85rem;
-    color: var(--ink-soft);
-}
-
-/* ==========================================
-   SECTION PRÉFÉRENCES
-========================================== */
-
-.profile-section-title {
-    font-family: var(--font-mono, inherit);
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--forest-deep);
-    margin: 0 0 14px;
-}
-
-.profile-preferences {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.preference-chip {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    border-radius: 30px;
-    background: var(--sand);
-    border: 1px solid var(--card-line);
-    color: var(--ink);
-    font-size: 0.88rem;
-    font-weight: 500;
-}
-
-.preference-chip i {
-    color: var(--gold);
-}
-
 .profile-empty {
     color: var(--ink-soft);
-    font-size: 0.88rem;
+    font-size: 0.9rem;
     font-style: italic;
+    margin: 10px 0;
+}
+
+#likedSitesLoadMoreBtn {
+    margin: 24px auto 0;
+    display: block;
+    background: var(--forest-deep);
+    color: #fff;
+    border: none;
+}
+
+#likedSitesLoadMoreBtn:hover {
+    background: var(--forest-mid);
 }
 
 /* ==========================================
-   RESPONSIVE
+   RESPONSIVITY (MOBILE & TABLET)
 ========================================== */
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
     .page-frame {
-        padding: 24px 16px 40px;
+        padding: 20px 14px 40px;
     }
 
     .placeholder-card {
-        padding: 22px;
+        padding: 24px 18px;
+        border-radius: 18px;
     }
 
     .profile-identity {
         flex-direction: column;
         text-align: center;
+        gap: 14px;
+        padding-bottom: 24px;
+    }
+
+    .profile-avatar {
+        width: 72px;
+        height: 72px;
+        font-size: 1.75rem;
+    }
+
+    .liked-sites-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-topbar {
+        align-items: flex-start;
     }
 }

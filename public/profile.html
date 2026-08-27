@@ -17,7 +17,7 @@
     <div class="page-frame compact-frame">
 
         <header class="detail-topbar">
-            <a href="sites.html" class="btn-ghost btn-back">← Retour</a>
+            <a href="sites.html" class="btn-ghost btn-back"><i class="fa-solid fa-arrow-left"></i> Back</a>
             <div class="detail-title-wrap">
                 <span class="eyebrow">Profil</span>
                 <h1>My space</h1>
@@ -29,7 +29,7 @@
             <!-- État chargement -->
             <div id="loadingState" class="profile-state">
                 <div class="spinner"></div>
-                <p>Chargement du profil...</p>
+                <p>Loading profile...</p>
             </div>
 
             <!-- État erreur -->
@@ -42,7 +42,13 @@
             <div id="profileContent" hidden>
 
                 <section class="profile-identity">
-                    <div class="profile-avatar" id="profileAvatar">?</div>
+                    <div class="profile-avatar-wrap">
+                        <div class="profile-avatar" id="profileAvatar">?</div>
+                        <label for="avatarInput" class="profile-avatar-edit" title="Change photo">
+                            <i class="fa-solid fa-camera"></i>
+                        </label>
+                        <input type="file" id="avatarInput" accept="image/png, image/jpeg, image/webp" hidden>
+                    </div>
                     <div class="profile-identity-text">
                         <h2 id="profileUsername">—</h2>
                         <p class="profile-joined" id="profileJoined"></p>
@@ -55,8 +61,28 @@
                         <!-- Rempli dynamiquement par profile.js -->
                     </div>
                     <p class="profile-empty" id="profilePreferencesEmpty" hidden>
-                        Aucune préférence renseignée pour l'instant.
+                        No profile for the moment.
                     </p>
+                </section>
+
+                <section class="profile-section">
+                    <h3 class="profile-section-title">Mes sites likés</h3>
+
+                    <div class="liked-sites-grid" id="likedSitesGrid">
+                        <!-- Rempli dynamiquement par profile.js -->
+                    </div>
+
+                    <p class="profile-empty" id="likedSitesEmpty" hidden>
+                        Tu n'as encore liké aucun site.
+                    </p>
+
+                    <div id="likedSitesLoadingMore" class="profile-state" hidden>
+                        <div class="spinner"></div>
+                    </div>
+
+                    <button class="btn-ghost" id="likedSitesLoadMoreBtn" type="button" hidden>
+                        Voir plus
+                    </button>
                 </section>
 
             </div>

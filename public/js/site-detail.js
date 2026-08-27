@@ -1,17 +1,14 @@
+// ============================================================
+// RÉFÉRENCES DOM
+// ============================================================
 const videoElement = document.getElementById('siteVideo');
 const videoSourceElement = document.getElementById('videoSource');
-// Container for alternate (embed) content and thumbnail
-const videoContainer = document.getElementById('videoContainer');
-// Overlay / controls for autoplay fallback
-const videoOverlay = document.getElementById('videoOverlay');
+const videoContainer = document.getElementById('videoContainer'); // embed / miniature
+const videoOverlay = document.getElementById('videoOverlay');     // overlay "play"
 const playPreviewBtn = document.getElementById('playPreviewBtn');
 const unmuteBtn = document.getElementById('unmuteBtn');
 const quoteElement = document.getElementById('siteQuote');
 const videoParElement = document.getElementById('siteVideoCredit');
-
-// Flags for external/embed videos
-let externalProvider = null; // 'youtube' | 'vimeo' | 'tiktok' | null
-let externalProviderId = null;
 
 const titleElement = document.getElementById('siteTitle');
 const categoryElement = document.getElementById('siteCategory');
@@ -22,129 +19,73 @@ const dangerElement = document.getElementById('siteDanger');
 const priceElement = document.getElementById('sitePrice');
 const factsElement = document.getElementById('siteFacts');
 
-const openItineraryButton = document.getElementById(
-  'openItineraryBtn'
-);
+const openItineraryButton = document.getElementById('openItineraryBtn');
+const btnLike = document.getElementById('btn-likes');
 
+// Fournisseur vidéo externe détecté (youtube / vimeo / tiktok)
+let externalProvider = null;
+let externalProviderId = null;
 
-// ==========================================================
-// Données de secours
-// ==========================================================
-//
-// Elles sont utilisées lorsque :
-// - aucun ID n'est présent dans l'URL ;
-// - l'API est indisponible ;
-// - une erreur empêche le chargement du site.
-// ==========================================================
-
+// ============================================================
+// DONNÉES DE SECOURS (utilisées si pas d'ID, API down, erreur)
+// ============================================================
 const fallbackSite = {
   id: null,
   titre: 'Centre touristique de Kribi',
   localisation: 'Kribi, Cameroun',
   categorie: 'Nature',
-
   description:
     'Un point de départ idéal pour découvrir les plages, le paysage côtier et les points de repère utiles avant la visite.',
-
   imageUrl:
     'https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=800',
-
   videoUrl: '',
   video_par: '',
   difficulte: 'Facile',
   dangerosite: 'Faible',
   prix: 0,
   bonASavoir: '',
-
   latitude: null,
   longitude: null,
 };
 
-
-// ==========================================================
-// État partagé de la page
-// ==========================================================
-
-// Site actuellement affiché.
+// ============================================================
+// ÉTAT PARTAGÉ DE LA PAGE
+// ============================================================
 let currentSite = { ...fallbackSite };
-
-// Position actuelle de l'utilisateur.
-let userPosition = null;
-
-// Coordonnées du site touristique.
-let siteCoordinates = null;
-
-// Identifiant retourné par watchPosition().
+let userPosition = null;        // position GPS de l'utilisateur
+let siteCoordinates = null;     // coordonnées du site affiché
 let geolocationWatchId = null;
+let miniMapInstance = null;     // instance Leaflet
 
-
-// ==========================================================
-// Fonctions utilitaires
-// ==========================================================
-
-/**
- * Formate un montant en francs CFA.
- *
- * @param {number|string|null} value
- * @returns {string}
- */
+// ============================================================
+// UTILITAIRES
+// ============================================================
 function moneyLabel(value) {
   const amount = Number(value);
-
-  if (!Number.isFinite(amount)) {
-    return 'Prix non disponible';
-  }
-
+  if (!Number.isFinite(amount)) return 'Prix non disponible';
   return `${amount.toLocaleString('fr-FR')} FCFA`;
 }
 
-/**
- * Convertit une valeur en nombre valide ou retourne null.
- *
- * Number('') produit normalement 0. Ici, une chaîne vide
- * doit plutôt être considérée comme une absence de valeur.
- *
- * @param {*} value
- * @returns {number|null}
- */
 function toFiniteNumberOrNull(value) {
-  if (
-    value === null ||
-    value === undefined ||
-    value === ''
-  ) {
-    return null;
-  }
-
+  if (value === null || value === undefined || value === '') return null;
   const number = Number(value);
-
   return Number.isFinite(number) ? number : null;
 }
 
-/**
- * Vérifie qu'une latitude et une longitude sont valides.
- *
- * @param {number|null} latitude
- * @param {number|null} longitude
- * @returns {boolean}
- */
+function getAuthToken() {
+  return localStorage.getItem('token');
+}
+
 function areValidCoordinates(latitude, longitude) {
   return (
     Number.isFinite(latitude) &&
     Number.isFinite(longitude) &&
-    latitude >= -90 &&
-    latitude <= 90 &&
-    longitude >= -180 &&
-    longitude <= 180
+    latitude >= -90 && latitude <= 90 &&
+    longitude >= -180 && longitude <= 180
   );
 }
 
-/**
- * Vérifie que les principaux éléments HTML nécessaires
- * existent dans la page.
- *
- * @returns {boolean}
- */
+// Vérifie que tous les éléments HTML requis existent avant de démarrer
 function validateRequiredElements() {
   const requiredElements = {
     siteVideo: videoElement,
@@ -164,222 +105,106 @@ function validateRequiredElements() {
     .map(([id]) => id);
 
   if (missingElements.length > 0) {
-    console.error(
-      `Éléments HTML introuvables : ${missingElements.join(', ')}`
-    );
-
+    console.error(`Éléments HTML introuvables : ${missingElements.join(', ')}`);
     return false;
   }
 
   return true;
 }
 
-
-// ==========================================================
-// Adaptation des données venant de l'API
-// ==========================================================
-
-/**
- * Transforme les différents noms possibles reçus depuis
- * l'API vers un format unique utilisé par le frontend.
- *
- * Par exemple :
- * - image_url devient imageUrl ;
- * - video_url devient videoUrl ;
- * - lat devient latitude.
- *
- * @param {object} raw
- * @returns {object}
- */
+// ============================================================
+// ADAPTATION DES DONNÉES API -> FORMAT INTERNE
+// ============================================================
 function mapSiteResponse(raw) {
   if (!raw || typeof raw !== 'object') {
     return { ...fallbackSite };
   }
 
-  const latitude = toFiniteNumberOrNull(
-    raw.latitude ?? raw.lat
-  );
-
-  const longitude = toFiniteNumberOrNull(
-    raw.longitude ?? raw.lng ?? raw.lon
-  );
+  const latitude = toFiniteNumberOrNull(raw.latitude ?? raw.lat);
+  const longitude = toFiniteNumberOrNull(raw.longitude ?? raw.lng ?? raw.lon);
 
   return {
-    // On ne remplace pas un identifiant absent par une fausse
-    // valeur comme "sample-site".
     id: raw.id ?? null,
-
-    titre:
-      raw.titre ||
-      raw.title ||
-      fallbackSite.titre,
-
-    localisation:
-      raw.localisation ||
-      raw.location ||
-      fallbackSite.localisation,
-
+    titre: raw.titre || raw.title || fallbackSite.titre,
+    localisation: raw.localisation || raw.location || fallbackSite.localisation,
     video_par: raw.video_par || raw.videoPar || '',
-
-    categorie:
-      raw.categorie ||
-      raw.category ||
-      fallbackSite.categorie,
-
-    description:
-      raw.description ||
-      fallbackSite.description,
-
-    imageUrl:
-      raw.imageUrl ||
-      raw.image_url ||
-      fallbackSite.imageUrl,
-
-    videoUrl:
-      raw.videoUrl ||
-      raw.video_url ||
-      '',
-
-    difficulte:
-      raw.difficulte ||
-      raw.difficulty ||
-      fallbackSite.difficulte,
-
-    dangerosite:
-      raw.dangerosite ||
-      raw.dangerosity ||
-      fallbackSite.dangerosite,
-
-    prix:
-      raw.prix ??
-      raw.price ??
-      fallbackSite.prix,
-
-    bonASavoir:
-      raw.bonASavoir ||
-      raw.bon_a_savoir ||
-      '',
-
+    categorie: raw.categorie || raw.category || fallbackSite.categorie,
+    description: raw.description || fallbackSite.description,
+    imageUrl: raw.imageUrl || raw.image_url || fallbackSite.imageUrl,
+    videoUrl: raw.videoUrl || raw.video_url || '',
+    difficulte: raw.difficulte || raw.difficulty || fallbackSite.difficulte,
+    dangerosite: raw.dangerosite || raw.dangerosity || fallbackSite.dangerosite,
+    prix: raw.prix ?? raw.price ?? fallbackSite.prix,
+    bonASavoir: raw.bonASavoir || raw.bon_a_savoir || '',
     latitude,
     longitude,
+    aimeParMoi: !!raw.aimeParMoi, // statut like renvoyé directement par l'API
   };
 }
 
-
-// ==========================================================
-// Appels API
-// ==========================================================
-
-/**
- * Récupère la fiche complète d'un site.
- *
- * Cette fonction suppose que ton backend possède la route :
- * GET /api/sites/:id
- *
- * @param {string} siteId
- * @returns {Promise<object>}
- */
+// ============================================================
+// APPELS API
+// ============================================================
 async function fetchSiteDetail(siteId) {
   const encodedSiteId = encodeURIComponent(siteId);
+  const token = getAuthToken();
 
-  const response = await fetch(
-    `/api/sites/details/${encodedSiteId}`,
-    {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-      },
-    }
-  );
+  const response = await fetch(`/api/sites/details/${encodedSiteId}`, {
+    method: 'GET',
+    cache: 'no-store',
+    headers: {
+      Accept: 'application/json',
+      // Cette route ne calcule pas aimeParMoi (voir fetchLikeStatus
+      // plus bas) ; on envoie quand même le token au cas où d'autres
+      // champs en dépendraient côté serveur.
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+  });
 
   if (!response.ok) {
-    throw new Error(
-      `Impossible de charger le site (${response.status})`
-    );
+    throw new Error(`Impossible de charger le site (${response.status})`);
   }
 
   const data = await response.json();
-
-  // Accepte les deux formes suivantes :
-  //
-  // { site: { ... } }
-  //
-  // ou directement :
-  //
-  // { id: 12, titre: "...", ... }
+  // Accepte { site: {...} } ou directement { id, titre, ... }
   return mapSiteResponse(data.site || data);
 }
 
-/**
- * Récupère la vidéo et l'image d'un site.
- *
- * Route utilisée :
- * GET /api/sites/:id/video
- *
- * @param {string|number} siteId
- * @returns {Promise<object|null>}
- */
 async function fetchSiteVideo(siteId) {
   try {
     const encodedSiteId = encodeURIComponent(siteId);
 
-    const response = await fetch(
-      `/api/sites/details/${encodedSiteId}/video`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-        },
-      }
-    );
+    const response = await fetch(`/api/sites/details/${encodedSiteId}/video`, {
+      method: 'GET',
+      headers: { Accept: 'application/json' },
+    });
 
-    // Une réponse 404 signifie que le site ou sa vidéo
-    // n'existe pas. Ce cas ne doit pas bloquer la page.
-    if (response.status === 404) {
-      return null;
-    }
+    // 404 = pas de vidéo pour ce site, ce n'est pas bloquant
+    if (response.status === 404) return null;
 
     if (!response.ok) {
-      throw new Error(
-        `Impossible de charger la vidéo (${response.status})`
-      );
+      throw new Error(`Impossible de charger la vidéo (${response.status})`);
     }
 
     return await response.json();
   } catch (error) {
-    console.error(
-      'Erreur lors du chargement de la vidéo :',
-      error
-    );
-
+    console.error('Erreur lors du chargement de la vidéo :', error);
     return null;
   }
 }
 
-
-// ==========================================================
-// Gestion de la vidéo
-// ==========================================================
-
-/**
- * Retire la vidéo actuellement chargée du lecteur.
- */
+// ============================================================
+// GESTION DE LA VIDÉO
+// ============================================================
 function clearSiteVideo() {
-  if (!videoElement || !videoSourceElement) {
-    return;
-  }
+  if (!videoElement || !videoSourceElement) return;
 
   videoElement.pause();
-
   videoSourceElement.removeAttribute('src');
   videoSourceElement.removeAttribute('type');
-
-  // Recharge le lecteur pour supprimer l'ancienne ressource.
   videoElement.load();
 
-  // Si une image de poster est disponible, on la laisse s'afficher.
-  // Le champ #siteVideo servira ainsi de bloc visuel lorsque seul
-  // l'image du lieu est disponible et qu'il n'y a pas de vidéo.
+  // On garde l'image poster affichée s'il y en a une
   videoElement.hidden = !videoElement.poster;
 
   if (videoContainer) {
@@ -390,41 +215,37 @@ function clearSiteVideo() {
   hideVideoOverlay();
 }
 
-/**
- * Détermine approximativement le type MIME à partir de l'URL.
- *
- * @param {string} url
- * @returns {string}
- */
 function getVideoMimeType(url) {
-  const cleanUrl = url
-    .split('?')[0]
-    .split('#')[0]
-    .toLowerCase();
+  const cleanUrl = url.split('?')[0].split('#')[0].toLowerCase();
 
-  if (cleanUrl.endsWith('.webm')) {
-    return 'video/webm';
-  }
-
-  if (
-    cleanUrl.endsWith('.ogg') ||
-    cleanUrl.endsWith('.ogv')
-  ) {
-    return 'video/ogg';
-  }
-
-  if (cleanUrl.endsWith('.mov')) {
-    return 'video/quicktime';
-  }
-
+  if (cleanUrl.endsWith('.webm')) return 'video/webm';
+  if (cleanUrl.endsWith('.ogg') || cleanUrl.endsWith('.ogv')) return 'video/ogg';
+  if (cleanUrl.endsWith('.mov')) return 'video/quicktime';
   return 'video/mp4';
 }
 
-/**
- * Charge la vidéo d'un site dans le lecteur HTML.
- *
- * @param {string|number} siteId
- */
+// Détecte un lien externe (YouTube / Vimeo / TikTok) et extrait son ID
+function parseExternalVideo(url) {
+  const u = String(url).trim();
+
+  const ytPatterns = [
+    /(?:youtube\.com\/(?:watch\?.*v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/,
+    /[?&]v=([A-Za-z0-9_-]{11})/,
+  ];
+  for (const re of ytPatterns) {
+    const m = u.match(re);
+    if (m && m[1]) return { provider: 'youtube', id: m[1] };
+  }
+
+  const mVimeo = u.match(/vimeo\.com\/(?:.*\/)?(\d+)/);
+  if (mVimeo && mVimeo[1]) return { provider: 'vimeo', id: mVimeo[1] };
+
+  const mTiktok = u.match(/tiktok\.com\/(?:@[^/]+\/video\/|embed(?:\/v2)?\/)(\d+)/);
+  if (mTiktok && mTiktok[1]) return { provider: 'tiktok', id: mTiktok[1] };
+
+  return null;
+}
+
 async function loadSiteVideo(siteId) {
   if (!siteId) {
     clearSiteVideo();
@@ -438,57 +259,49 @@ async function loadSiteVideo(siteId) {
     return;
   }
 
-  // Detecter un lien externe (YouTube, Vimeo, TikTok, ...)
   const parsed = parseExternalVideo(String(data.video_url));
 
   if (parsed) {
-    externalProvider = parsed.provider;
-    externalProviderId = parsed.id;
-
-    // Mode embed externe : on affiche une miniature (si possible) et on charge l'iframe uniquement au clic.
-    // Masque le lecteur <video> natif
-    if (videoElement) {
-      videoElement.pause();
-      videoElement.hidden = true;
-      videoSourceElement.removeAttribute('src');
-      videoSourceElement.removeAttribute('type');
-      videoElement.load();
-    }
-
-    // Prépare la miniature (soit fournie par l'API, soit prise depuis le provider quand possible)
-    let thumbUrl = data.image_url || '';
-    if (!thumbUrl) {
-      if (externalProvider === 'youtube') {
-        thumbUrl = `https://img.youtube.com/vi/${externalProviderId}/hqdefault.jpg`;
-      } else if (externalProvider === 'vimeo') {
-        // Vimeo thumbnails require an API call; fallback to empty and rely on data.image_url
-        thumbUrl = '';
-      } else if (externalProvider === 'tiktok') {
-        // TikTok doesn't expose a simple static thumbnail URL reliably; rely on data.image_url or placeholder
-        thumbUrl = '';
-      }
-    }
-
-    if (videoContainer) {
-      if (thumbUrl) {
-        videoContainer.innerHTML = `<img id="externalThumb" src="${thumbUrl}" alt="Aperçu vidéo" style="width:100%;height:auto;display:block;">`;
-      } else {
-        // Placeholder visual if no thumbnail available
-        videoContainer.innerHTML = `<div style="width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;background:#000;color:#fff">Aperçu vidéo</div>`;
-      }
-      videoContainer.setAttribute('aria-hidden', 'false');
-    }
-
-    // Affiche l'overlay d'invite au clic pour charger l'iframe
-    showVideoOverlay();
-
-    // On cache le contrôle unmute (non applicable pour iframe)
-    hideUnmuteControl();
-
+    setupExternalVideo(parsed, data);
     return;
   }
 
-  // Sinon, comportement précédent : lecteur HTML5 pour fichiers directs
+  setupNativeVideo(data);
+}
+
+// Vidéo hébergée par un fournisseur externe (embed au clic)
+function setupExternalVideo(parsed, data) {
+  externalProvider = parsed.provider;
+  externalProviderId = parsed.id;
+
+  // On masque le lecteur natif
+  if (videoElement) {
+    videoElement.pause();
+    videoElement.hidden = true;
+    videoSourceElement.removeAttribute('src');
+    videoSourceElement.removeAttribute('type');
+    videoElement.load();
+  }
+
+  // Miniature : fournie par l'API sinon générée pour YouTube
+  let thumbUrl = data.image_url || '';
+  if (!thumbUrl && externalProvider === 'youtube') {
+    thumbUrl = `https://img.youtube.com/vi/${externalProviderId}/hqdefault.jpg`;
+  }
+
+  if (videoContainer) {
+    videoContainer.innerHTML = thumbUrl
+      ? `<img id="externalThumb" src="${thumbUrl}" alt="Aperçu vidéo" style="width:100%;height:auto;display:block;">`
+      : `<div style="width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;background:#000;color:#fff">Aperçu vidéo</div>`;
+    videoContainer.setAttribute('aria-hidden', 'false');
+  }
+
+  showVideoOverlay();
+  hideUnmuteControl(); // non pertinent pour une iframe
+}
+
+// Vidéo directe (fichier mp4/webm/...) via lecteur HTML5 natif
+function setupNativeVideo(data) {
   externalProvider = null;
   externalProviderId = null;
 
@@ -498,171 +311,98 @@ async function loadSiteVideo(siteId) {
   }
 
   videoElement.hidden = false;
-
   videoSourceElement.src = data.video_url;
-  videoSourceElement.type = getVideoMimeType(
-    data.video_url
-  );
+  videoSourceElement.type = getVideoMimeType(data.video_url);
 
   if (data.image_url) {
     videoElement.poster = data.image_url;
   }
 
-  // Recharge le lecteur après modification de la source.
   videoElement.load();
+  attemptAutoplay();
+}
 
-  // Tentative d'autoplay muet — les navigateurs autorisent souvent l'autoplay si la vidéo est muette.
-  // Si l'autoplay est bloqué, on affiche un overlay qui invite l'utilisateur à cliquer pour lancer la vidéo.
+// Tente l'autoplay muet ; si bloqué par le navigateur, affiche l'overlay
+function attemptAutoplay() {
   try {
     videoElement.muted = true;
-    // Assure que l'attribut autoplay est présent pour certains navigateurs/implémentations.
     videoElement.autoplay = true;
 
     const playPromise = videoElement.play();
-    if (playPromise && typeof playPromise.catch === 'function') {
-      playPromise.catch((err) => {
-        // Autoplay bloqué — afficher overlay invitant l'utilisateur à cliquer.
-        console.warn('Autoplay muet bloqué :', err);
-        showVideoOverlay();
-      }).then(() => {
-        // Si la lecture démarre en muet, afficher le bouton unmute.
-        if (!videoElement.paused) {
-          showUnmuteControl();
-        }
-      });
-    } else {
-      // Si play() ne renvoie pas une promesse (anciennes implémentations), on vérifie l'état.
-      setTimeout(() => {
-        if (videoElement.paused) {
+
+    if (playPromise && typeof playPromise.then === 'function') {
+      playPromise
+        .then(() => {
+          if (!videoElement.paused) showUnmuteControl();
+        })
+        .catch((err) => {
+          console.warn('Autoplay muet bloqué :', err);
           showVideoOverlay();
-        } else {
-          showUnmuteControl();
-        }
+        });
+    } else {
+      // Anciennes implémentations sans Promise
+      setTimeout(() => {
+        if (videoElement.paused) showVideoOverlay();
+        else showUnmuteControl();
       }, 250);
     }
   } catch (err) {
-    console.warn('Erreur lors de la tentative d\'autoplay :', err);
+    console.warn("Erreur lors de la tentative d'autoplay :", err);
     showVideoOverlay();
   }
 }
 
-
-// Helper pour détecter un fournisseur externe et extraire un identifiant
-function parseExternalVideo(url) {
-  // Normalize
-  const u = String(url).trim();
-
-  // YouTube
-  const ytPatterns = [
-    /(?:youtube\.com\/(?:watch\?.*v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/, // includes /shorts/
-    /[?&]v=([A-Za-z0-9_-]{11})/, // query v=
-  ];
-  for (const re of ytPatterns) {
-    const m = u.match(re);
-    if (m && m[1]) return { provider: 'youtube', id: m[1] };
-  }
-
-  // Vimeo (numeric id)
-  const mVimeo = u.match(/vimeo\.com\/(?:.*\/)?(\d+)/);
-  if (mVimeo && mVimeo[1]) return { provider: 'vimeo', id: mVimeo[1] };
-
-  // TikTok: https://www.tiktok.com/@user/video/1234567890123456789
-  const mTiktok = u.match(/tiktok\.com\/(?:@[^/]+\/video\/|embed(?:\/v2)?\/)(\d+)/);
-  if (mTiktok && mTiktok[1]) return { provider: 'tiktok', id: mTiktok[1] };
-
-  return null;
-}
-
-// ==========================================================
-// Contrôles d'autoplay / overlay
-// ==========================================================
-
+// ============================================================
+// CONTRÔLES D'AUTOPLAY / OVERLAY
+// ============================================================
 function showVideoOverlay() {
-  if (videoOverlay) {
-    videoOverlay.style.display = 'flex';
-    videoOverlay.setAttribute('aria-hidden', 'false');
-  }
+  if (!videoOverlay) return;
+  videoOverlay.style.display = 'flex';
+  videoOverlay.setAttribute('aria-hidden', 'false');
 }
 
 function hideVideoOverlay() {
-  if (videoOverlay) {
-    videoOverlay.style.display = 'none';
-    videoOverlay.setAttribute('aria-hidden', 'true');
-  }
+  if (!videoOverlay) return;
+  videoOverlay.style.display = 'none';
+  videoOverlay.setAttribute('aria-hidden', 'true');
 }
 
 function showUnmuteControl() {
-  if (unmuteBtn) {
-    unmuteBtn.hidden = false;
-    unmuteBtn.setAttribute('aria-pressed', String(!videoElement.muted));
-  }
+  if (!unmuteBtn) return;
+  unmuteBtn.hidden = false;
+  unmuteBtn.setAttribute('aria-pressed', String(!videoElement.muted));
 }
 
 function hideUnmuteControl() {
-  if (unmuteBtn) {
-    unmuteBtn.hidden = true;
-    unmuteBtn.setAttribute('aria-pressed', 'false');
-  }
+  if (!unmuteBtn) return;
+  unmuteBtn.hidden = true;
+  unmuteBtn.setAttribute('aria-pressed', 'false');
 }
 
-// Installer handlers sur les boutons overlay/unmute (si présents)
+// Branche les clics sur les boutons play/unmute de l'overlay
 function bindVideoControls() {
   if (playPreviewBtn) {
-    playPreviewBtn.addEventListener('click', async (evt) => {
-      // Ce clic est un geste utilisateur — comportement différencié selon le type de vidéo.
+    playPreviewBtn.addEventListener('click', async () => {
       hideVideoOverlay();
 
       if (externalProvider && externalProviderId) {
-        // Charger l'iframe du provider à la demande (lazy load)
-        if (videoContainer) {
-          videoContainer.innerHTML = '';
-          const iframe = document.createElement('iframe');
-          let src = '';
-
-          if (externalProvider === 'youtube') {
-            src = `https://www.youtube.com/embed/${externalProviderId}?autoplay=1&rel=0&modestbranding=1`;
-          } else if (externalProvider === 'vimeo') {
-            src = `https://player.vimeo.com/video/${externalProviderId}?autoplay=1&title=0&byline=0&portrait=0`;
-          } else if (externalProvider === 'tiktok') {
-            src = `https://www.tiktok.com/embed/v2/${externalProviderId}`;
-          }
-
-          iframe.src = src;
-          iframe.width = '100%';
-          iframe.height = '100%';
-          iframe.style.border = '0';
-          iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-          iframe.setAttribute('allowfullscreen', '');
-          videoContainer.appendChild(iframe);
-          videoContainer.setAttribute('aria-hidden', 'false');
-        }
-
-        // S'assurer que le lecteur natif est caché
-        if (videoElement) {
-          videoElement.pause();
-          videoElement.hidden = true;
-        }
-
-        // Le contrôle unmute n'est pas pertinent pour iframe
-        hideUnmuteControl();
-
+        loadExternalIframe();
         return;
       }
 
-      // Fallback : tenter la lecture du lecteur HTML5
+      // Lecteur HTML5 natif : tente le son, sinon retombe en muet
       try {
         videoElement.muted = false;
         await videoElement.play();
         showUnmuteControl();
       } catch (err) {
-        console.warn('Lecture après clic utilisateur échouée, tentative muette :', err);
+        console.warn('Lecture avec son échouée, tentative muette :', err);
         try {
           videoElement.muted = true;
           await videoElement.play();
           showUnmuteControl();
         } catch (err2) {
           console.error('Impossible de démarrer la vidéo :', err2);
-          // Laisser l'overlay caché — l'utilisateur peut utiliser les contrôles natifs.
         }
       }
     });
@@ -671,7 +411,6 @@ function bindVideoControls() {
   if (unmuteBtn) {
     unmuteBtn.addEventListener('click', () => {
       if (!videoElement) return;
-      // bascule muet
       const willBeMuted = !videoElement.muted;
       videoElement.muted = willBeMuted;
       unmuteBtn.textContent = willBeMuted ? 'Activer le son' : 'Couper le son';
@@ -680,23 +419,45 @@ function bindVideoControls() {
   }
 }
 
+// Charge l'iframe du fournisseur externe (lazy load au clic)
+function loadExternalIframe() {
+  if (videoContainer) {
+    videoContainer.innerHTML = '';
+    const iframe = document.createElement('iframe');
+    let src = '';
 
-// ==========================================================
-// Géolocalisation
-// ==========================================================
+    if (externalProvider === 'youtube') {
+      src = `https://www.youtube.com/embed/${externalProviderId}?autoplay=1&rel=0&modestbranding=1`;
+    } else if (externalProvider === 'vimeo') {
+      src = `https://player.vimeo.com/video/${externalProviderId}?autoplay=1&title=0&byline=0&portrait=0`;
+    } else if (externalProvider === 'tiktok') {
+      src = `https://www.tiktok.com/embed/v2/${externalProviderId}`;
+    }
 
-/**
- * Démarre le suivi en temps réel de la position utilisateur.
- *
- * Cette fonction ne bloque pas le chargement de la page si
- * l'utilisateur refuse l'autorisation.
- */
+    iframe.src = src;
+    iframe.width = '100%';
+    iframe.height = '100%';
+    iframe.style.border = '0';
+    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+    iframe.setAttribute('allowfullscreen', '');
+    videoContainer.appendChild(iframe);
+    videoContainer.setAttribute('aria-hidden', 'false');
+  }
+
+  if (videoElement) {
+    videoElement.pause();
+    videoElement.hidden = true;
+  }
+
+  hideUnmuteControl(); // non pertinent pour une iframe
+}
+
+// ============================================================
+// GÉOLOCALISATION
+// ============================================================
 function startGeolocationWatch() {
   if (!('geolocation' in navigator)) {
-    console.warn(
-      'La géolocalisation n’est pas supportée par ce navigateur.'
-    );
-
+    console.warn('La géolocalisation n’est pas supportée par ce navigateur.');
     return;
   }
 
@@ -706,142 +467,73 @@ function startGeolocationWatch() {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       };
-
       updateLocationDisplay();
     },
-
     (error) => {
-      console.warn(
-        'Géolocalisation indisponible :',
-        error.message
-      );
+      console.warn('Géolocalisation indisponible :', error.message);
     },
-
-    {
-      enableHighAccuracy: true,
-      maximumAge: 10000,
-      timeout: 15000,
-    }
+    { enableHighAccuracy: true, maximumAge: 10000, timeout: 15000 }
   );
 }
 
-/**
- * Arrête le suivi de la position utilisateur.
- */
 function stopGeolocationWatch() {
-  if (
-    geolocationWatchId !== null &&
-    'geolocation' in navigator
-  ) {
-    navigator.geolocation.clearWatch(
-      geolocationWatchId
-    );
-
+  if (geolocationWatchId !== null && 'geolocation' in navigator) {
+    navigator.geolocation.clearWatch(geolocationWatchId);
     geolocationWatchId = null;
   }
 }
 
-/**
- * Convertit un angle exprimé en degrés vers des radians.
- *
- * @param {number} value
- * @returns {number}
- */
 function toRad(value) {
   return (value * Math.PI) / 180;
 }
 
-/**
- * Calcule la distance à vol d'oiseau entre deux points.
- *
- * Les deux paramètres doivent avoir cette forme :
- * {
- *   lat: 4.123,
- *   lng: 9.456
- * }
- *
- * @param {{lat: number, lng: number}} pointA
- * @param {{lat: number, lng: number}} pointB
- * @returns {number} Distance en kilomètres.
- */
 function haversineDistanceKm(pointA, pointB) {
   const EARTH_RADIUS_KM = 6371;
-
   const dLat = toRad(pointB.lat - pointA.lat);
   const dLng = toRad(pointB.lng - pointA.lng);
-
   const latitudeA = toRad(pointA.lat);
   const latitudeB = toRad(pointB.lat);
 
   const haversine =
     Math.sin(dLat / 2) ** 2 +
-    Math.cos(latitudeA) *
-    Math.cos(latitudeB) *
-    Math.sin(dLng / 2) ** 2;
+    Math.cos(latitudeA) * Math.cos(latitudeB) * Math.sin(dLng / 2) ** 2;
 
-  return (
-    2 *
-    EARTH_RADIUS_KM *
-    Math.asin(Math.sqrt(haversine))
-  );
+  return 2 * EARTH_RADIUS_KM * Math.asin(Math.sqrt(haversine));
 }
 
-/**
- * Met à jour le texte de localisation et affiche la distance
- * entre l'utilisateur et le site lorsque les deux positions
- * sont disponibles.
- */
 function updateLocationDisplay() {
-  if (!locationElement) {
-    return;
-  }
+  if (!locationElement) return;
 
-  const baseLabel =
-    currentSite.localisation ||
-    fallbackSite.localisation;
+  const baseLabel = currentSite.localisation || fallbackSite.localisation;
 
   if (!userPosition || !siteCoordinates) {
     locationElement.textContent = baseLabel;
     return;
   }
 
-  const distanceKm = haversineDistanceKm(
-    userPosition,
-    siteCoordinates
-  );
-
-  locationElement.textContent =
-    `${baseLabel} • à ${distanceKm.toFixed(1)} km de vous`;
+  const distanceKm = haversineDistanceKm(userPosition, siteCoordinates);
+  locationElement.textContent = `${baseLabel} • à ${distanceKm.toFixed(1)} km de vous`;
 }
 
-
-// ==========================================================
-// Affichage des informations du site
-// ==========================================================
-
-/**
- * Affiche toutes les informations d'un site dans la page.
- *
- * @param {object} site
- */
+// ============================================================
+// AFFICHAGE DES INFORMATIONS DU SITE
+// ============================================================
 function buildQuote(site) {
   const source = site.bonASavoir || site.description || '';
-  if (!source) {
-    return 'Un lieu à découvrir.';
-  }
+  if (!source) return 'Un lieu à découvrir.';
 
-  // Première phrase, tronquée proprement si trop longue.
   const firstSentence = source.split(/(?<=[.!?])\s/)[0] || source;
   return firstSentence.length > 140 ? `${firstSentence.slice(0, 137)}…` : firstSentence;
 }
 
-function setCardContent(site) {
+// NOTE : doit être "async" car elle attend bindLikeButton()
+async function setCardContent(site) {
   videoElement.poster = site.imageUrl || fallbackSite.imageUrl;
   titleElement.textContent = site.titre || fallbackSite.titre;
   categoryElement.textContent = site.categorie || fallbackSite.categorie;
   descriptionElement.textContent = site.description || fallbackSite.description;
 
-  // Ne plus masquer l'absence de donnée réelle derrière les valeurs de secours.
+  // On n'affiche plus de valeur de secours trompeuse : "—" si absent
   difficultyElement.textContent = site.difficulte || '—';
   dangerElement.textContent = site.dangerosite || '—';
   priceElement.textContent = site.prix != null ? moneyLabel(site.prix) : 'Non communiqué';
@@ -858,35 +550,142 @@ function setCardContent(site) {
   updateLocationDisplay();
 
   factsElement.replaceChildren();
+  const item = document.createElement('li');
+  item.textContent = site.bonASavoir || 'Aucune information complémentaire renseignée pour le moment.';
+  factsElement.appendChild(item);
 
-  if (site.bonASavoir) {
-    const item = document.createElement('li');
-    item.textContent = site.bonASavoir;
-    factsElement.appendChild(item);
-  } else {
-    const empty = document.createElement('li');
-    empty.textContent = 'Aucune information complémentaire renseignée pour le moment.';
-    factsElement.appendChild(empty);
+  // Initialise le bouton like pour ce site
+  await bindLikeButton(site);
+}
+
+// ============================================================
+// SYNCHRONISATION DU CACHE DE LA LISTE (sites.html)
+// ============================================================
+//
+// sites.html garde en sessionStorage une copie de tousLesSites pour
+// restaurer la liste sans refaire d'appel serveur au retour arrière.
+// Si on like/délike ici, il faut corriger cette copie aussi, sinon
+// site.html affiche un état de like périmé au retour.
+
+const SITES_CACHE_KEY = 'sitesFeedCache';
+
+function synchroniserCacheListeSites(siteId, aimeParMoi) {
+  const raw = sessionStorage.getItem(SITES_CACHE_KEY);
+  if (!raw) return; // pas de cache actif, rien à faire
+
+  try {
+    const cache = JSON.parse(raw);
+    if (!Array.isArray(cache.sites)) return;
+
+    const site = cache.sites.find((s) => s.id === siteId);
+    if (!site) return; // ce site n'était pas dans la liste chargée
+
+    site.aimeParMoi = aimeParMoi;
+    sessionStorage.setItem(SITES_CACHE_KEY, JSON.stringify(cache));
+  } catch (error) {
+    console.warn('Impossible de synchroniser le cache de la liste :', error);
   }
 }
 
-// ==========================================================
-// Chargement principal de la page
-// ==========================================================
+// ============================================================
+// LIKE
+// ============================================================
+function updateLikeButton(bouton, estAime) {
+  bouton.classList.toggle('is-liked', estAime);
+  bouton.textContent = estAime ? '❤️' : '🤍';
+}
 
+async function basculerLike(site, bouton) {
+  const dejaAime = !!site.aimeParMoi;
+  const methode = dejaAime ? 'DELETE' : 'POST';
+  const token = getAuthToken();
 
+  bouton.disabled = true;
 
-/**
- * Charge les lieux à proximité via l'API et les affiche sur la mini-carte.
- */
+  try {
+    const response = await fetch(`/api/sites/${site.id}/like`, {
+      method: methode,
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (response.status === 401) {
+      localStorage.clear();
+      window.location.href = 'index.html';
+      return;
+    }
+
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      console.error('Erreur like :', data);
+      alert(data.error || 'Impossible de modifier le like.');
+      return;
+    }
+
+    site.aimeParMoi = !dejaAime;
+    updateLikeButton(bouton, site.aimeParMoi);
+
+    // Garde site.html à jour pour le prochain retour en arrière
+    synchroniserCacheListeSites(site.id, site.aimeParMoi);
+  } catch (error) {
+    console.error('Erreur réseau lors du like :', error);
+    alert('Impossible de contacter le serveur.');
+  } finally {
+    bouton.disabled = false;
+  }
+}
+
+// Récupère uniquement le statut like, en réutilisant la route
+// /api/sites/:id (sitesController.getSiteDetail), qui calcule déjà
+// aimeParMoi correctement. On ne redéfinit pas cette logique dans
+// site-detailsController : on réutilise l'existant sans les mélanger.
+async function fetchLikeStatus(siteId) {
+  const token = getAuthToken();
+  if (!token || !siteId) return false;
+
+  try {
+    const response = await fetch(`/api/sites/${siteId}`, {
+      method: 'GET',
+      cache: 'no-store',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) return false;
+
+    const data = await response.json();
+    return !!data.aimeParMoi;
+  } catch (error) {
+    console.error('Erreur lors de la récupération du statut du like :', error);
+    return false;
+  }
+}
+
+// Branche le bouton like sur le site courant.
+// site.aimeParMoi vient de /api/sites/details/:id (peut être absent,
+// cette route ne calcule pas le like) : on le confirme donc via
+// fetchLikeStatus, qui interroge la route qui gère vraiment le like.
+async function bindLikeButton(site) {
+  if (!btnLike || !site?.id) return;
+
+  site.aimeParMoi = await fetchLikeStatus(site.id);
+  updateLikeButton(btnLike, !!site.aimeParMoi);
+
+  btnLike.onclick = () => {
+    basculerLike(site, btnLike);
+  };
+}
+
+// ============================================================
+// CHARGEMENT PRINCIPAL DE LA PAGE
+// ============================================================
 async function loadNearbyPlaces(lat, lng) {
   if (!miniMapInstance) return;
 
   let data;
   try {
-    const response = await fetch(
-      `/api/itineraire/proximite?lat=${lat}&lng=${lng}&rayon=1500`
-    );
+    const response = await fetch(`/api/itineraire/proximite?lat=${lat}&lng=${lng}&rayon=1500`);
     if (!response.ok) throw new Error(`Statut ${response.status}`);
     data = await response.json();
   } catch (error) {
@@ -901,202 +700,89 @@ async function loadNearbyPlaces(lat, lng) {
   });
 }
 
-
-
-/**
- * Charge les informations du site sélectionné.
- */
 async function loadSiteDetail() {
   const params = new URLSearchParams(window.location.search);
   const siteId = params.get('id');
 
-  // Aucun identifiant dans l'URL : on affiche la fiche de secours,
-  // qui n'a jamais de coordonnées valides (fallbackSite.latitude = null),
-  // donc pas de mini-carte ni de lieux à proximité à charger dans ce cas.
+  // Pas d'ID dans l'URL -> fiche de secours (pas de coordonnées, pas de mini-carte)
   if (!siteId) {
     currentSite = { ...fallbackSite };
     siteCoordinates = null;
 
-    setCardContent(currentSite);
+    await setCardContent(currentSite);
     clearSiteVideo();
-
     return;
   }
 
   try {
     const site = await fetchSiteDetail(siteId);
-
     currentSite = site;
 
-    // Enregistre les coordonnées uniquement si elles
-    // respectent les limites géographiques.
     if (areValidCoordinates(site.latitude, site.longitude)) {
       siteCoordinates = { lat: site.latitude, lng: site.longitude };
-
-      // La mini-carte et les lieux à proximité n'ont de sens
-      // que si on a de vraies coordonnées pour ce site.
       initMiniMap(site.latitude, site.longitude);
       loadNearbyPlaces(site.latitude, site.longitude);
     } else {
       siteCoordinates = null;
     }
 
-    setCardContent(site);
+    await setCardContent(site);
 
-    // Utilise l'ID renvoyé par l'API lorsqu'il existe.
-    // Sinon, utilise l'ID présent dans l'URL.
+    // Utilise l'ID renvoyé par l'API si présent, sinon celui de l'URL
     await loadSiteVideo(site.id ?? siteId);
   } catch (error) {
-    console.error(
-      'Impossible de charger la fiche détaillée du site :',
-      error
-    );
+    console.error('Impossible de charger la fiche détaillée du site :', error);
 
     currentSite = { ...fallbackSite };
     siteCoordinates = null;
 
-    setCardContent(currentSite);
+    await setCardContent(currentSite);
     clearSiteVideo();
   }
 }
 
-
-// ==========================================================
-// Ouverture de la page d'itinéraire
-// ==========================================================
-
+// ============================================================
+// OUVERTURE DE LA PAGE D'ITINÉRAIRE
+// ============================================================
 function openItinerary() {
-  const params = new URLSearchParams(
-    window.location.search
-  );
-
-  const siteId =
-    params.get('id') ||
-    currentSite.id;
+  const params = new URLSearchParams(window.location.search);
+  const siteId = params.get('id') || currentSite.id;
 
   if (!siteId) {
-    console.warn(
-      'Impossible d’ouvrir l’itinéraire : identifiant du site absent.'
-    );
-
+    console.warn('Impossible d’ouvrir l’itinéraire : identifiant du site absent.');
     return;
   }
 
-  const itineraryParams = new URLSearchParams({
-    siteId: String(siteId),
-  });
+  const itineraryParams = new URLSearchParams({ siteId: String(siteId) });
 
-  // Coordonnées de destination.
   if (siteCoordinates) {
-    itineraryParams.set(
-      'destLat',
-      String(siteCoordinates.lat)
-    );
-
-    itineraryParams.set(
-      'destLng',
-      String(siteCoordinates.lng)
-    );
+    itineraryParams.set('destLat', String(siteCoordinates.lat));
+    itineraryParams.set('destLng', String(siteCoordinates.lng));
   }
 
-  const destinationLabel =
-    currentSite?.titre || fallbackSite.titre;
-  itineraryParams.set('destLabel', destinationLabel);
+  itineraryParams.set('destLabel', currentSite?.titre || fallbackSite.titre);
 
-  // Position actuelle de l'utilisateur.
   if (userPosition) {
-    itineraryParams.set(
-      'originLat',
-      String(userPosition.lat)
-    );
-
-    itineraryParams.set(
-      'originLng',
-      String(userPosition.lng)
-    );
+    itineraryParams.set('originLat', String(userPosition.lat));
+    itineraryParams.set('originLng', String(userPosition.lng));
   }
 
-  window.location.href =
-    `itinerary.html?${itineraryParams.toString()}`;
+  window.location.href = `itinerary.html?${itineraryParams.toString()}`;
 }
 
-
-// ==========================================================
-// Initialisation
-// ==========================================================
-
-function initializePage() {
-  if (!validateRequiredElements()) {
-    return;
-  }
-
-  if (openItineraryButton) {
-    openItineraryButton.addEventListener(
-      'click',
-      openItinerary
-    );
-  } else {
-    console.warn(
-      'Le bouton #openItineraryBtn est introuvable.'
-    );
-  }
-
-  // Préparer l'état des contrôles vidéo
-  try {
-    hideVideoOverlay();
-    hideUnmuteControl();
-    bindVideoControls();
-  } catch (e) {
-    // Ne pas bloquer l'initialisation si les éléments manquent
-    console.warn('Contrôles vidéo non disponibles :', e);
-  }
-
-  window.addEventListener(
-    'beforeunload',
-    stopGeolocationWatch
-  );
-
-  startGeolocationWatch();
-  loadSiteDetail();
-}
-
-// Le script doit être exécuté lorsque le DOM est disponible.
-// Cette vérification fonctionne avec ou sans l'attribut defer.
-if (document.readyState === 'loading') {
-  document.addEventListener(
-    'DOMContentLoaded',
-    initializePage
-  );
-} else {
-  initializePage();
-}
-
-
-
-
-// ==========================================================
+// ============================================================
 // MINI-CARTE (Leaflet) — site + lieux à proximité
-// ==========================================================
-
-let miniMapInstance = null;
-
-/**
- * Initialise la mini-carte centrée sur le site, avec son marqueur.
- * Ne fait rien si les coordonnées sont invalides (site sans lat/lng en base).
- */
+// ============================================================
 function initMiniMap(lat, lng) {
   const mapContainer = document.getElementById('miniMap');
   if (!mapContainer || typeof L === 'undefined') return;
 
-  // Si la page recharge un autre site (navigation sans rechargement complet),
-  // on détruit l'ancienne instance avant d'en recréer une.
+  // Recrée la carte si un autre site était déjà affiché
   if (miniMapInstance) {
     miniMapInstance.remove();
     miniMapInstance = null;
   }
 
-  // Le <div class="map-grid"> décoratif n'a plus d'utilité une fois
-  // qu'une vraie carte Leaflet occupe le conteneur.
   mapContainer.querySelector('.map-grid')?.remove();
 
   miniMapInstance = L.map(mapContainer, {
@@ -1113,16 +799,45 @@ function initMiniMap(lat, lng) {
     .bindPopup(currentSite.titre || 'Ce site');
 }
 
+// ============================================================
+// INITIALISATION
+// ============================================================
+function initializePage() {
+  if (!validateRequiredElements()) return;
 
+  if (openItineraryButton) {
+    openItineraryButton.addEventListener('click', openItinerary);
+  } else {
+    console.warn('Le bouton #openItineraryBtn est introuvable.');
+  }
 
-// Se déclenche à chaque affichage de la page — y compris un retour bfcache,
-// dont le comportement varie selon les navigateurs. On ne se fie plus
-// uniquement à event.persisted : on réinitialise systématiquement.
-window.addEventListener("pageshow", async () => {
+  try {
+    hideVideoOverlay();
+    hideUnmuteControl();
+    bindVideoControls();
+  } catch (e) {
+    console.warn('Contrôles vidéo non disponibles :', e);
+  }
+
+  window.addEventListener('beforeunload', stopGeolocationWatch);
+
+  startGeolocationWatch();
+  loadSiteDetail();
+}
+
+// Démarre après le DOM, avec ou sans l'attribut defer
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializePage);
+} else {
+  initializePage();
+}
+
+// Se redéclenche à chaque affichage de la page, y compris retour bfcache
+// (le comportement de event.persisted varie selon les navigateurs,
+// donc on recharge systématiquement plutôt que de s'y fier)
+window.addEventListener('pageshow', async () => {
   await loadSiteDetail();
 
-  // Laisse le temps au conteneur de reprendre ses dimensions finales
-  // avant de dire à Leaflet de recalculer sa taille.
   setTimeout(() => {
     if (miniMapInstance) {
       miniMapInstance.invalidateSize();

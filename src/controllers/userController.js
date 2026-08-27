@@ -1,6 +1,7 @@
 const asyncHandler = require('../middlewares/asyncHandler');
-const { findById } = require('../models/usersModel');
 const { updateUsernameAndPreferences } = require('../models/usersModel');
+const { findById, updateAvatarUrl } = require('../models/usersModel');
+const { uploadBufferToCloudinary } = require('../services/uploadAvatar');
 
 // GET /api/users/me — profil de l'utilisateur connecté
 const getMe = asyncHandler(async (req, res) => {
@@ -29,6 +30,7 @@ const getMe = asyncHandler(async (req, res) => {
     role: user.role || 'member',
     joined: user.created_at,
     preferences,
+    avatarUrl: user.avatar_url || null,
   });
 });
 
@@ -69,4 +71,24 @@ const updateProfile = asyncHandler(async (req, res) => {
 });
 
 
-module.exports = { getMe, updateProfile };
+// POST /api/users/me/avatar — upload/remplacement de l'avatar
+const uploadAvatar = asyncHandler(async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'Aucun fichier reçu (champ "avatar" attendu).' });
+  }
+
+  const avatarUrl = await uploadBufferToCloudinary(req.file.buffer, {
+    userId: req.user.id,
+  });
+
+  const updated = await updateAvatarUrl(req.user.id, avatarUrl);
+
+  if (!updated) {
+    return res.status(404).json({ error: 'user not found' });
+  }
+
+  res.json({ avatarUrl: updated.avatar_url });
+});
+
+
+module.exports = { getMe, updateProfile, uploadAvatar };
