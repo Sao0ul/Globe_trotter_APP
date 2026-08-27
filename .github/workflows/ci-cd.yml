@@ -43,6 +43,21 @@ jobs:
           RESEND_API_KEY=1234567890
           MAIL_FROM_NAME=NAME
           MAIL_FROM_ADDRESS=NAME
+
+          GOOGLE_CLIENT_ID=gogoleclient
+          GOOGLE_CLIENT_SECRET=googlesecret
+          GOOGLE_CALLBACK_URL=local
+          dc=http://localhost:5173
+          FRONTEND_URL=http://localhost:3000
+
+          FACEBOOK_APP_ID=facebookid
+          FACEBOOK_APP_SECRET=facebookeapp
+          FACEBOOK_CALLBACK_URL=http://localhost:3000/api/auth/facebook/callback
+
+          CLOUDINARY_CLOUD_NAME=cloudname
+          CLOUDINARY_API_KEY=cloudapi
+          CLOUDINARY_API_SECRET=cloudsecret
+
           EOF
 
       # --------------------------------------------------------
