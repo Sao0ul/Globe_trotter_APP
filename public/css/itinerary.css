@@ -1,5 +1,19 @@
 /* ==========================================================
-   1. RESET PLEIN ÉCRAN
+   SOMMAIRE
+   1. Reset plein écran + fond de carte
+   2. Overrides Leaflet (zoom, popups)
+   3. Boutons flottants (FAB) génériques + tooltips
+   4. Barre flottante haute (retour, itinéraire, focus, yango)
+   5. Icône cadenas (focus origin) — 2 états en CSS pur
+   6. Panneau "Itinéraire" (recherche + départ/arrivée + modes)
+   7. Résumé du trajet
+   8. Panneau "Lieux à proximité"
+   9. Responsive (mobile)
+   ========================================================== */
+
+
+/* ==========================================================
+   1. RESET PLEIN ÉCRAN + FOND DE CARTE
    ========================================================== */
 
 .itinerary-fullbleed {
@@ -14,6 +28,8 @@
   position: relative;
   width: 100%;
   height: 100vh;
+  height: 100dvh;
+  /* corrige le décalage sur mobile quand la barre d'adresse se rétracte */
   overflow: hidden;
   background: linear-gradient(180deg, #eff8f5, #f8fbf9);
 }
@@ -24,7 +40,11 @@
   font-family: 'Work Sans', sans-serif;
 }
 
-/* Contrôles zoom Leaflet, restylés */
+
+/* ==========================================================
+   2. OVERRIDES LEAFLET
+   ========================================================== */
+
 .route-map-full .leaflet-control-zoom {
   border: none !important;
   margin: 20px !important;
@@ -45,14 +65,11 @@
    sur tactile ce curseur n'a aucun sens (pas de souris). */
 @media (hover: hover) and (pointer: fine) {
   .route-map-full.is-locked .leaflet-container {
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><text y='18' font-size='18'>🔒</text></svg>") 12 12, not-allowed;
+    cursor:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23dc2626' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><rect x='5' y='11' width='14' height='9' rx='2'/><path d='M8 11V7a4 4 0 0 1 8 0v4'/></svg>") 12 12,
+      not-allowed;
   }
 }
-
-
-/* ==========================================================
-   2. POPUPS LEAFLET
-   ========================================================== */
 
 .leaflet-popup-content-wrapper {
   border-radius: 14px;
@@ -121,6 +138,10 @@
   text-decoration: none;
   cursor: pointer;
   transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+}
+
+.fab svg {
+  flex-shrink: 0;
 }
 
 .fab:hover {
@@ -199,7 +220,7 @@
    1) le bouton focus passe en rouge (indicateur visible phone + pc)
    2) les autres boutons du topbar disparaissent, pour que l'attention
       se porte uniquement sur le bouton de déverrouillage
-   3) le curseur cadenas s'ajoute en plus, sur desktop (voir section 1) */
+   3) le curseur cadenas s'ajoute en plus, sur desktop (voir section 2) */
 .route-map-full.is-locked .float-topbar .fab:not(.fab-focus) {
   display: none;
 }
@@ -211,22 +232,60 @@
 
 
 /* ==========================================================
-   5. PANNEAU "OBTENIR L'ITINÉRAIRE"
+   5. ICÔNE CADENAS (focus origin) — 2 états en CSS pur
+   Les deux SVG (ouvert / fermé) sont toujours dans le DOM ;
+   seule la classe .is-locked posée sur .route-map-full décide
+   lequel s'affiche. Pas besoin de réécrire un emoji en JS.
+   ========================================================== */
+
+.lock-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lock-icon svg {
+  display: block;
+}
+
+.lock-icon .icon-locked {
+  display: none;
+}
+
+.route-map-full.is-locked .lock-icon .icon-unlocked {
+  display: none;
+}
+
+.route-map-full.is-locked .lock-icon .icon-locked {
+  display: block;
+}
+
+
+/* ==========================================================
+   6. PANNEAU "ITINÉRAIRE"
+   Un seul conteneur central, centré à l'écran, qui regroupe :
+   - la recherche libre d'un lieu
+   - le départ / la destination (reliés par un petit rail visuel)
+   - les modes de transport
+   Tout son contenu est centré horizontalement, et le panneau lui-même
+   se centre à l'écran (tout en restant à droite de la colonne de FAB).
    ========================================================== */
 
 .directions-panel {
+  --panel-width: 420px;
   display: none;
   position: absolute;
   top: 86px;
-  left: 76px;
+  left: max(76px, calc(50% - (var(--panel-width) / 2)));
   z-index: 1200;
-  width: min(420px, calc(100vw - 96px));
-  padding: 18px 18px 16px;
+  width: min(var(--panel-width), calc(100vw - 96px));
+  padding: 20px 20px 18px;
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(14px);
   box-shadow: 0 16px 40px rgba(22, 51, 43, 0.18);
   border: 1px solid rgba(22, 51, 43, 0.08);
+  text-align: center;
 }
 
 .directions-panel.is-open {
@@ -254,52 +313,178 @@
   background: rgba(22, 51, 43, 0.12);
 }
 
-.directions-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.directions-title {
+  margin: 0 0 16px;
+  text-align: center;
 }
+
+/* --- Champ générique (utilisé par la recherche libre, avec icône) --- */
 
 .directions-field {
   position: relative;
   display: flex;
   align-items: center;
+  gap: 8px;
+  padding: 0 12px;
   margin-bottom: 10px;
-}
-
-.directions-field svg {
-  position: absolute;
-  left: 12px;
-  width: 15px;
-  height: 15px;
-  color: var(--ink-soft, #6b7d78);
-  pointer-events: none;
-}
-
-.directions-field input {
-  width: 100%;
-  padding: 11px 12px 11px 36px;
   border-radius: 10px;
   border: 1px solid rgba(22, 51, 43, 0.12);
   background: #fff;
-  font-size: 13px;
-  font-family: inherit;
-  color: var(--ink, #16332b);
+  text-align: left;
   transition: border-color .2s ease, box-shadow .2s ease;
 }
 
-.directions-field input:focus {
-  outline: none;
+.directions-field:focus-within {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
+.directions-field .field-icon {
+  flex-shrink: 0;
+  color: var(--ink-soft, #6b7d78);
+}
+
+.directions-field input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  padding: 11px 0;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--ink, #16332b);
+}
+
+.directions-field input:focus {
+  outline: none;
+}
+
 .directions-field input[readonly] {
-  background: rgba(22, 51, 43, 0.03);
+  color: var(--ink-soft, #6b7d78);
   cursor: default;
 }
 
+/* Champ "plain" : départ / destination, sans icône propre — le repère
+   visuel est porté par le rail (.directions-track) à gauche. */
+.directions-field--plain {
+  margin-bottom: 0;
+}
+
+.search-clear-btn {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(22, 51, 43, 0.06);
+  color: var(--ink, #16332b);
+  cursor: pointer;
+  transition: background .2s ease;
+}
+
+.search-clear-btn:hover {
+  background: rgba(22, 51, 43, 0.12);
+}
+
+/* Suggestions de recherche (remplies dynamiquement) */
+.search-results {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  max-height: 260px;
+  overflow-y: auto;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 16px 40px rgba(22, 51, 43, 0.2);
+  text-align: left;
+  z-index: 10;
+}
+
+.search-results:empty {
+  display: none;
+}
+
+.search-results li {
+  padding: 9px 10px;
+  border-radius: 9px;
+  font-size: 13px;
+  color: var(--ink, #16332b);
+  cursor: pointer;
+  transition: background .15s ease;
+}
+
+.search-results li:hover,
+.search-results li:focus-visible {
+  background: rgba(59, 130, 246, 0.08);
+}
+
+/* --- Départ / destination, reliés par un petit rail (point → pointillés → pin) --- */
+
+.directions-locations {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  padding-right: 40px;
+  margin-bottom: 4px;
+}
+
+.directions-track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 8px;
+  padding: 15px 0;
+  flex-shrink: 0;
+}
+
+.track-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+}
+
+.track-line {
+  flex: 1;
+  width: 2px;
+  margin: 5px 0;
+  background: repeating-linear-gradient(to bottom,
+      rgba(22, 51, 43, .25) 0 4px,
+      transparent 4px 8px);
+}
+
+.track-pin {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px 2px 2px 0;
+  background: var(--forest-deep, #16332b);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+.directions-locations-fields {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .directions-swap-btn {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
   width: 34px;
   height: 34px;
   flex-shrink: 0;
@@ -316,18 +501,16 @@
 
 .directions-swap-btn:hover {
   background: rgba(59, 130, 246, 0.08);
-  transform: rotate(180deg);
+  transform: translateY(-50%) rotate(180deg);
 }
+
+/* --- Modes de transport, centrés --- */
 
 .directions-modes {
   display: flex;
-  gap: 6px;
-  margin-top: 14px;
-}
-
-.directions-mode-btn svg {
-  width: 18px;
-  height: 18px;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
 }
 
 .directions-mode-btn.is-active {
@@ -344,7 +527,7 @@
 
 
 /* ==========================================================
-   6. RÉSUMÉ DU TRAJET (flottant bas-gauche)
+   8. RÉSUMÉ DU TRAJET (flottant bas-gauche)
    ========================================================== */
 
 .route-summary-float {
@@ -370,13 +553,58 @@
 
 
 /* ==========================================================
-   7. LÉGENDE / FILTRE DE LIEUX (bas-droite, dropdown en mobile)
+   9. PANNEAU "LIEUX À PROXIMITÉ"
+   Sur desktop : les pastilles flottent directement en bas à droite,
+   le bouton "en-tête" (.legend-header) n'est pas affiché du tout.
+   Sur mobile : la liste est masquée par défaut ; c'est le bouton
+   .legend-header (icône + libellé + chevron) qui sert de poignée
+   pour l'ouvrir/fermer. Le tout (.legend-dock) est ancré en
+   position FIXED par rapport au vrai viewport, pas ABSOLUTE par
+   rapport à la carte — ça garantit qu'il reste visible et bien
+   placé quel que soit le téléphone (voir le commentaire dans la
+   media query mobile ci-dessous pour le détail du bug que ça
+   corrige).
+
+   ⚠️ CORRECTIF : cette section ciblait auparavant une classe
+   ".legend-toggle-btn" qui n'existe plus dans le HTML — le bouton
+   réel s'appelle ".legend-header" et est enveloppé dans un
+   conteneur ".legend-dock" (ni l'un ni l'autre n'avaient de règles
+   CSS). C'est pour ça que le bouton était invisible sur mobile :
+   aucun style ne le ciblait, il n'avait donc ni taille, ni fond,
+   ni position fixed.
    ========================================================== */
+
+/* Conteneur englobant le bouton + la liste. Sur desktop il n'a
+   aucun rôle visuel propre : display:contents pour ne rien casser
+   dans le flux (la liste garde sa position absolute indépendante). */
+.legend-dock {
+  display: contents;
+}
+
+/* Bouton "en-tête" (icône + libellé + chevron) — cache sur desktop,
+   la liste des pastilles étant déjà visible directement. */
+.legend-header {
+  display: none;
+}
+
+.legend-header-icon,
+.legend-chevron {
+  flex-shrink: 0;
+}
+
+.legend-chevron {
+  transition: transform .2s ease;
+}
+
+.legend-header[aria-expanded="true"] .legend-chevron {
+  transform: rotate(180deg);
+}
 
 .detail-legend-float {
   position: absolute;
   right: 20px;
-  bottom: 20px;
+  bottom: 34px;
+  /* dégage la ligne d'attribution Leaflet / OpenStreetMap, ancrée en bas-droite */
   z-index: 2000;
   display: flex;
   flex-wrap: wrap;
@@ -413,11 +641,9 @@
   box-shadow: 0 5px 14px rgba(22, 51, 43, 0.12);
 }
 
-/* Pastille : couleur pleine par défaut, ou image du pin si
-   itinerary.js lui donne un style background-image (voir ICONES_CATEGORIE) */
-/* Pastille de légende : même image que le pin correspondant sur la carte
-   (réutilise directement --pin-icon-url défini dans map-markers.css),
-   simplement redimensionnée en petit rond. */
+/* Pastille : même image que le pin correspondant sur la carte
+   (réutilise --pin-icon-url défini dans map-markers.css), simplement
+   redimensionnée en petit rond. */
 .legend-dot {
   width: 10px;
   height: 10px;
@@ -425,7 +651,6 @@
   border-radius: 50%;
   background-image: var(--pin-icon-url, none);
   background-color: var(--pin-color, transparent);
-  /* filet de sécurité si l'image manque */
   background-size: cover;
   background-position: center;
   box-shadow: 0 0 0 2px #fff, 0 1px 4px rgba(0, 0, 0, .2);
@@ -447,21 +672,13 @@
   opacity: .75;
 }
 
-/* Bouton menu déroulant : caché sur desktop, la légende y est déjà visible */
-.legend-toggle-btn {
-  display: none;
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
-  z-index: 2100;
-}
-
 
 /* ==========================================================
-   8. RESPONSIVE
+   10. RESPONSIVE (mobile)
    ========================================================== */
 
 @media (max-width: 720px) {
+
   .directions-panel {
     left: 12px;
     right: 12px;
@@ -475,19 +692,112 @@
     max-width: none;
   }
 
-  /* La légende devient un menu déroulant : cachée par défaut,
-     ouverte via le bouton .legend-toggle-btn, en colonne scrollable
-     pour rester lisible même avec beaucoup de catégories. */
-  .legend-toggle-btn {
+  /* --- Bouton "lieux à proximité" ---
+     Bug corrigé ici : .route-map-full fait height:100dvh, mais reste
+     positionné en absolute pour tout le reste. Sur mobile, la barre
+     d'adresse qui apparaît/disparaît fait varier la hauteur réelle
+     visible ; un élément en `position: absolute` ancré à `bottom` du
+     conteneur peut alors se retrouver hors champ ou coupé par
+     l'overflow:hidden selon le téléphone. En passant ce conteneur
+     (.legend-dock, qui porte le bouton et la liste) en
+     `position: fixed`, il s'ancre au vrai viewport de l'écran et
+     reste donc TOUJOURS visible en bas, peu importe la taille ou le
+     comportement de la barre du navigateur.
+
+     Le décalage de 16px de base sert à laisser un peu d'air ;
+     `env(safe-area-inset-bottom)` ajoute en plus une marge de
+     sécurité sur les téléphones avec une barre de gestes (encoche,
+     iPhone…). */
+  .legend-dock {
+    display: block;
+    position: fixed;
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    z-index: 2100;
+  }
+
+  /* Le bouton devient une PILULE colorée (pas un rond neutre comme
+     les autres FAB) : icône + texte + chevron, pour que son rôle
+     ("ouvrir la liste des lieux à proximité") soit compris d'un
+     coup d'œil, sans avoir à deviner ce que représente une icône
+     isolée. La couleur accent (var(--primary)) le distingue aussi
+     visuellement de tous les FAB blancs/neutres du reste de l'UI. */
+  .legend-header {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    height: 44px;
+    padding: 0 16px 0 13px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: #fff;
+    box-shadow: 0 10px 26px rgba(37, 99, 235, 0.35);
+    cursor: pointer;
+    position: relative;
+    /* nécessaire pour le halo ::before ci-dessous */
+  }
+
+  .legend-header-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Le libellé texte reste visible (contrairement à la version
+     précédente) : c'est lui qui rend le rôle du bouton explicite. */
+  .legend-header-label {
+    font-size: 12.5px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  /* --- Halo pulsant ---
+     Attire l'œil vers le bouton au premier chargement, tant que le
+     JS n'a pas ajouté/retiré la classe .is-pulsing (à retirer dès
+     le premier tap — voir le snippet JS fourni à part). Le halo
+     déborde légèrement du bouton (inset négatif) et s'estompe en
+     grossissant, comme un ping radar. */
+  .legend-header.is-pulsing::before {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: inherit;
+    background: var(--primary);
+    opacity: .5;
+    z-index: -1;
+    animation: legend-pulse 1.8s ease-out infinite;
+  }
+
+  @keyframes legend-pulse {
+    0% {
+      transform: scale(1);
+      opacity: .5;
+    }
+
+    70% {
+      transform: scale(1.28);
+      opacity: 0;
+    }
+
+    100% {
+      transform: scale(1.28);
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .legend-header.is-pulsing::before {
+      animation: none;
+    }
   }
 
   .detail-legend-float {
     display: none;
+    position: fixed;
     left: 12px;
     right: 12px;
-    bottom: 74px;
-    /* au-dessus du bouton toggle */
+    bottom: calc(70px + env(safe-area-inset-bottom, 0px));
     max-width: none;
     flex-direction: column;
     flex-wrap: nowrap;

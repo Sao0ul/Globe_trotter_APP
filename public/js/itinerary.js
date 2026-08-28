@@ -1,11 +1,3 @@
-// Carte Leaflet : calcule et affiche l'itinéraire entre un point de départ
-// (position de l'utilisateur ou clic sur la carte) et le site sélectionné,
-// avec les lieux (hôtels/restaurants/hôpitaux/...) trouvés le long du trajet.
-//
-// Le calcul du tracé et la recherche des lieux se font côté backend
-// (voir itineraireController.js + lieuxModel.js) : ce script ne fait
-// qu'afficher ce que l'API renvoie.
-
 const routeSummary = document.getElementById('routeSummary');
 const yangoBouton = document.getElementById('yangoBouton');
 const itineraryTitle = document.getElementById('itineraryTitle');
@@ -74,6 +66,7 @@ function closeDirectionsPanelView() {
 if (openDirectionsBtn) {
   openDirectionsBtn.addEventListener('click', () => {
     if (directionsPanel?.classList.contains('is-open')) {
+      console.log("button pressed");
       closeDirectionsPanelView();
     } else {
       openDirectionsPanel();

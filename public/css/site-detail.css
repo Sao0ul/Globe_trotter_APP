@@ -1,27 +1,58 @@
-/* ============================================================
+/* ================================================================
+   SITE-DETAIL.CSS
+   Sommaire (Ctrl+F le numéro pour sauter à une section) :
+   1.  Variables
+   2.  Reset / base
+   3.  Layout global (page-shell, main)
+   4.  Header (topbar, titre, actions)
+   5.  Boutons (ghost, solid "View on map", back, pin icon)
+   6.  Hero / cadre vidéo
+   7.  Overlay + bouton Play
+   8.  Bouton "activer le son"
+   9.  Source / crédit vidéo
+   10. Contenu principal (grille de cartes)
+   11. Bloc "Bon à savoir"
+   12. Statistiques
+   13. Description
+   14. Carte (mini map)
+   15. Légende
+   16. Accessibilité (motion réduit)
+   17. Responsive — Tablette (<=950px)
+   18. Responsive — Mobile (<=600px)
+   19. Responsive — Petits mobiles (<=380px)
+   20. Responsive — Très larges écrans (>=1400px)
+   21. Responsive — Desktop, hero plein écran (>=951px)
+   ================================================================ */
+
+
+/* ================================================================
    1. VARIABLES
-   ============================================================ */
+   Modifie ici les couleurs / rayons / ombres globales du site.
+   ================================================================ */
 
 :root {
+  /* Couleurs de fond & texte */
   --detail-bg: #f4f7f5;
   --detail-surface: #f8fcfb;
   --detail-ink: #16332b;
   --detail-muted: #1b1b1b;
   --detail-soft: #edf3f0;
 
+  /* Couleurs de marque */
   --detail-primary: #388f22;
-  --detail-primary-dark: #2563eb;
+  --detail-primary-dark: #256b16;
+  --detail-primary-light: #56b336;
+  --detail-accent-pin: #e02808;
 
   --detail-border: rgba(22, 51, 43, 0.10);
 
+  /* Rayons */
   --detail-radius: 18px;
   --detail-radius-sm: 12px;
 
-  --detail-shadow:
-    0 10px 30px rgba(22, 51, 43, 0.08);
-
-  --video-shadow:
-    0 18px 45px rgba(0, 0, 0, 0.16);
+  /* Ombres */
+  --detail-shadow: 0 10px 30px rgba(22, 51, 43, 0.08);
+  --video-shadow: 0 18px 45px rgba(0, 0, 0, 0.16);
 
   /* Cadre vidéo */
   --video-frame: 25px;
@@ -30,6 +61,9 @@
 }
 
 
+/* ================================================================
+   2. RESET / BASE
+   ================================================================ */
 
 * {
   box-sizing: border-box;
@@ -74,17 +108,14 @@ iframe {
 }
 
 
-/* ============================================================
-   3. CONTENEUR GLOBAL
-   ============================================================ */
+/* ================================================================
+   3. LAYOUT GLOBAL
+   ================================================================ */
 
 .page-shell {
   position: relative;
-
   width: min(1180px, calc(100% - 40px));
-
   margin: 0 auto;
-
   padding: 0 0 50px;
 }
 
@@ -93,9 +124,10 @@ main {
 }
 
 
-/* ============================================================
-   4. HEADER
-   ============================================================ */
+/* ================================================================
+   4. HEADER (topbar / titre / actions)
+   ================================================================ */
+
 .detail-topbar {
   width: 100%;
   position: relative;
@@ -112,17 +144,6 @@ main {
 
   pointer-events: auto;
 }
-
-
-
-/* Bouton retour */
-
-.btn-back {
-  flex-shrink: 0;
-}
-
-
-/* Zone titre */
 
 .detail-title {
   min-width: 0;
@@ -149,8 +170,6 @@ main {
   line-height: 1.3;
 }
 
-
-/* Actions */
 .detail-actions {
   display: flex;
   align-items: center;
@@ -160,9 +179,12 @@ main {
 }
 
 
-/* ============================================================
+/* ================================================================
    5. BOUTONS
-   ============================================================ */
+   ================================================================ */
+
+/* ---- 5.1 Bouton "ghost" (retour, like) ------------------------ */
+
 .btn-ghost {
   position: relative;
   min-height: 40px;
@@ -186,69 +208,73 @@ main {
     background 0.15s ease;
 }
 
-
 .btn-ghost:hover {
   transform: translateY(-2px);
-
   background: rgba(255, 255, 255, 0.95);
-
   box-shadow:
     0 5px 0 rgba(190, 200, 197, 0.9),
     0 11px 20px rgba(22, 51, 43, 0.13),
     inset 0 1px 0 #ffffff;
 }
 
-
 .btn-ghost:active {
   transform: translateY(2px);
-
   box-shadow:
     0 1px 0 rgba(190, 200, 197, 0.9),
     0 3px 7px rgba(22, 51, 43, 0.10),
     inset 0 2px 3px rgba(0, 0, 0, 0.08);
 }
 
+.btn-back {
+  width: 100px;
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 
-/*btn-solid*/
+/* ---- 5.2 Bouton "solid" (View on map) -------------------------
+   Repris dans les tons verts de la marque, avec l'icône de pin en
+   accent rouge. `overflow: hidden` + le label en <span> empêchent
+   le texte de déborder du bouton sur petit écran (la traduction
+   FR "Voir sur la carte" est plus longue que l'anglais).
+   ----------------------------------------------------------------*/
+
 .btn-solid {
   position: relative;
 
-  min-height: 40px;
-  padding: 9px 14px;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 30px;
+  padding: 10px 16px;
 
-  border: 1px solid rgba(8, 8, 8, 0.18);
-  border-radius: 5px;
+  border: 1px solid rgba(15, 40, 10, 0.25);
+  border-radius: 999px;
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
+  gap: 8px;
+  overflow: hidden;
 
-  background: linear-gradient(145deg,
-        rgb(221, 221, 233),
-        #d0d2d6);
+  background: linear-gradient(155deg,
+      var(--detail-primary-light),
+      var(--detail-primary) 55%,
+      var(--detail-primary-dark));
 
-  color: #800202;
+  color: #f5fff2;
+  font-weight: 600;
+  letter-spacing: 0.01em;
 
   cursor: pointer;
-  white-space: nowrap;
 
-  /* profondeur */
-  box-shadow:0 2px 0 #7f8f85;
+  box-shadow:
+    0 2px 0 var(--detail-primary-dark),
+    0 8px 18px rgba(56, 143, 34, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
 
   transition:
     transform 0.15s ease,
     box-shadow 0.15s ease,
     background 0.15s ease;
-}
-
-.btn-back{
-  width: 100px;
-  letter-spacing: 0.2cap;
-  text-align: center;
-  text-decoration:wavy;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 20px ;
 }
 
 /* lumière sur le haut du bouton */
@@ -261,40 +287,33 @@ main {
   height: 35%;
   border-radius: 6px;
   background: linear-gradient(to bottom,
-      rgba(255, 255, 255, 0.18),
+      rgba(255, 255, 255, 0.28),
       rgba(255, 255, 255, 0));
-
   pointer-events: none;
 }
 
+/* le libellé texte : peut se tronquer proprement si l'espace manque */
+.btn-solid .btn-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
-/* hover : le bouton remonte légèrement */
 .btn-solid:hover {
   transform: translateY(-2px);
-
   box-shadow:
-    0 6px 0 #989b9b,
-    0 12px 20px rgba(13, 14, 13, 0.32),
-    inset 0 1px 0 rgba(3, 3, 3, 0.4),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.12);
+    0 4px 0 var(--detail-primary-dark),
+    0 14px 26px rgba(56, 143, 34, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
-
-/* clic : le bouton s'enfonce */
 .btn-solid:active {
-  transform: translateY(3px);
-
+  transform: translateY(2px);
   box-shadow:
-    0 1px 0 #1749a5,
-    0 3px 7px rgba(37, 99, 235, 0.22),
-    inset 0 2px 3px rgba(0, 0, 0, 0.16);
-}
-
-
-.btn-ghost:focus-visible,
-.btn-solid:focus-visible {
-  outline: 3px solid rgba(59, 130, 246, 0.25);
-  outline-offset: 3px;
+    0 1px 0 var(--detail-primary-dark),
+    0 4px 10px rgba(56, 143, 34, 0.24),
+    inset 0 2px 3px rgba(0, 0, 0, 0.14);
 }
 
 .btn-3d:disabled {
@@ -310,38 +329,35 @@ main {
   background: rgba(255, 255, 255, 0.18);
 }
 
-
-/* ============================================================
-   5.1 ICÔNE LOCALISATION
-   ============================================================ */
-.pin-wrap {
-  position: relative;
-
-  width: 18px;
-  height: 21px;
-
-  display: inline-flex;
-
-  align-items: center;
-  justify-content: center;
-
-  flex-shrink: 0;
+.btn-ghost:focus-visible,
+.btn-solid:focus-visible {
+  outline: 3px solid rgba(59, 130, 246, 0.25);
+  outline-offset: 3px;
 }
 
-/* Corps du pin */
+/* ---- 5.3 Icône "pin" de localisation --------------------------- */
+
+.pin-wrap {
+  position: relative;
+  width: 18px;
+  height: 21px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .pin-shape {
   position: relative;
   width: 15px;
   height: 15px;
   border-radius: 50% 50% 50% 0;
-  background: #e02808;
+  background: var(--detail-accent-pin);
   transform: rotate(-45deg);
-  box-shadow:
-    0 2px 5px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.22);
+  transition: transform 0.15s ease;
 }
 
-
-/* Petit point au centre */
 .pin-shape::after {
   content: "";
   position: absolute;
@@ -350,32 +366,28 @@ main {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--detail-primary);
-  transform:
-    translate(-50%, -50%) rotate(45deg);
+  background: #ffffff;
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
-
-/* Animation légère au hover */
 .btn-solid:hover .pin-shape {
-  transform:
-    rotate(-45deg) scale(1.08);
+  transform: rotate(-45deg) scale(1.1);
 }
 
 
-/* ============================================================
-   6. HERO / VIDÉO
-   ============================================================ */
+/* ================================================================
+   6. HERO / CADRE VIDÉO
+   ================================================================ */
 
 .detail-hero {
   position: relative;
   width: 100%;
 }
 
+.detail-video {
+  isolation: isolate;
+}
 
-/* ============================================================
-   6.2 ESPACE INTÉRIEUR DU CADRE
-   ============================================================ */
 .video-container {
   position: absolute;
   top: var(--video-frame);
@@ -388,10 +400,6 @@ main {
   background: #080a09;
 }
 
-
-/* ============================================================
-   6.3 IFRAME YOUTUBE
-   ============================================================ */
 .video-container iframe {
   display: block;
   width: 100%;
@@ -399,17 +407,12 @@ main {
   border: 0;
 }
 
-
-/* ============================================================
-   6.4 VIDÉO HTML CLASSIQUE
-   ============================================================ */
 .detail-video video {
   display: block;
   object-fit: cover;
   border-radius: var(--video-inner-radius);
   background: #080a09;
 }
-
 
 .detail-video>video {
   position: absolute;
@@ -423,9 +426,10 @@ main {
 }
 
 
-/* ============================================================
-   7. OVERLAY / APERÇU VIDÉO
-   ============================================================ */
+/* ================================================================
+   7. OVERLAY + BOUTON PLAY
+   ================================================================ */
+
 .video-overlay {
   position: absolute;
   top: var(--video-frame);
@@ -446,9 +450,6 @@ main {
   pointer-events: auto;
 }
 
-/* ============================================================
-   7.1 BOUTON PLAY
-   ============================================================ */
 #playPreviewBtn {
   position: relative;
   z-index: 30;
@@ -461,8 +462,7 @@ main {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
 
   transition:
     transform 0.2s ease,
@@ -473,8 +473,7 @@ main {
 #playPreviewBtn:hover {
   transform: scale(1.035);
   background: #ffffff;
-  box-shadow:
-    0 14px 36px rgba(0, 0, 0, 0.34);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.34);
 }
 
 #playPreviewBtn:active {
@@ -483,14 +482,13 @@ main {
 
 #playPreviewBtn:focus-visible {
   outline: 3px solid rgba(255, 255, 255, 0.65);
-
   outline-offset: 4px;
 }
 
 
-/* ============================================================
-   8. BOUTON ACTIVER LE SON
-   ============================================================ */
+/* ================================================================
+   8. BOUTON "ACTIVER LE SON"
+   ================================================================ */
 
 .video-unmute {
   position: absolute;
@@ -501,14 +499,14 @@ main {
   padding: 8px 13px;
   border-radius: 999px;
   font-size: 12px;
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
 
-/* ============================================================
-   9. SOURCE VIDÉO
-   ============================================================ */
+/* ================================================================
+   9. SOURCE / CRÉDIT VIDÉO
+   ================================================================ */
+
 .video-source {
   display: flex;
   align-items: center;
@@ -533,13 +531,13 @@ main {
   font-weight: 500;
   line-height: 1.3;
   text-align: right;
-
   overflow-wrap: anywhere;
 }
 
-/* ============================================================
-   10. CONTENU PRINCIPAL
-   ============================================================ */
+
+/* ================================================================
+   10. CONTENU PRINCIPAL (grille de cartes)
+   ================================================================ */
 
 .detail-content {
   display: grid;
@@ -558,17 +556,11 @@ main {
   background: rgba(255, 255, 255, 0.58);
   border: 1px solid rgba(255, 255, 255, 0.85);
   border-radius: var(--detail-radius);
-  box-shadow:
-    0 8px 30px rgba(22, 51, 43, 0.08);
+  box-shadow: 0 8px 30px rgba(22, 51, 43, 0.08);
 
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
-
-
-/* ============================================================
-   11. TITRES
-   ============================================================ */
 
 .detail-card h2 {
   margin: 0 0 14px;
@@ -580,9 +572,9 @@ main {
 }
 
 
-/* ============================================================
-   12. BON À SAVOIR
-   ============================================================ */
+/* ================================================================
+   11. BLOC "BON À SAVOIR"
+   ================================================================ */
 
 #siteFacts,
 .detail-facts {
@@ -602,14 +594,14 @@ main {
   display: none;
 }
 
-/* ============================================================
-   13. STATISTIQUES
-   ============================================================ */
+
+/* ================================================================
+   12. STATISTIQUES
+   ================================================================ */
 
 .detail-stats {
   display: grid;
-  grid-template-columns:
-    repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
   margin-top: 18px;
   padding-top: 15px;
@@ -638,9 +630,9 @@ main {
 }
 
 
-/* ============================================================
-   14. DESCRIPTION
-   ============================================================ */
+/* ================================================================
+   13. DESCRIPTION
+   ================================================================ */
 
 #siteDescription,
 .detail-description {
@@ -652,9 +644,9 @@ main {
 }
 
 
-/* ============================================================
-   15. CARTE
-   ============================================================ */
+/* ================================================================
+   14. CARTE (mini map)
+   ================================================================ */
 
 .detail-map-card {
   min-width: 0;
@@ -689,10 +681,7 @@ main {
   height: 245px;
   overflow: hidden;
   border-radius: var(--detail-radius-sm);
-  background:
-    linear-gradient(135deg,
-      #eef4f2,
-      #dce8e4);
+  background: linear-gradient(135deg, #eef4f2, #dce8e4);
 }
 
 .map-preview .leaflet-container {
@@ -701,9 +690,9 @@ main {
 }
 
 
-/* ============================================================
-   16. LÉGENDE
-   ============================================================ */
+/* ================================================================
+   15. LÉGENDE
+   ================================================================ */
 
 .detail-legend {
   display: flex;
@@ -726,276 +715,15 @@ main {
 }
 
 
-/* ============================================================
-   17. TABLETTE
-   ============================================================ */
-
-@media (max-width: 950px) {
-
-  .page-shell {
-    width: min(100% - 28px, 800px);
-    padding-top: 0;
-    padding-bottom: 40px;
-  }
-
-  .detail-topbar {
-    position: relative;
-    width: 100%;
-    grid-template-columns:
-      auto minmax(0, 1fr) auto;
-    gap: 12px;
-    padding: 10px 0 8px;
-  }
-  .detail-hero {
-    position: relative;
-    width: 100%;
-  }
-  .detail-title {
-    text-align: center;
-  }
-  .detail-title h1,
-  .detail-topbar h1 {
-    font-size: clamp(23px, 4vw, 32px);
-  }
-  .detail-title p {
-    font-size: 12px;
-  }
-  .detail-actions {
-    display: flex;
-    width: auto;
-    grid-column: auto;
-    gap: 6px;
-  }
-
-
-  .detail-actions>* {
-    width: auto;
-  }
-  .detail-content {
-    grid-template-columns: 1fr;
-  }
-  .detail-card+.detail-card {
-    border-left: 0;
-
-    border-top:
-      1px solid var(--detail-border);
-  }
-  .detail-stats {
-    grid-template-columns:
-      repeat(4, minmax(0, 1fr));
-
-    gap: 12px;
-  }
-  :root {
-    --video-frame: 13px;
-  }
-}
-
-/* ============================================================
-   18. MOBILE
-   ============================================================ */
-
-@media (max-width: 600px) {
-  .page-shell {
-    width: calc(100% - 16px);
-    padding-bottom: 30px;
-  }
-  .detail-topbar {
-    position: relative;
-    display: grid;
-    grid-template-columns:
-      auto minmax(0, 1fr);
-    gap: 7px;
-    width: 100%;
-    padding: 7px 0 8px;
-  }
-  .detail-topbar .btn-back {
-    min-height: 32px;
-    padding: 6px 9px;
-    font-size: 10px;
-    border-radius: 999px;
-  }
-  .detail-topbar .detail-title {
-    min-width: 0;
-
-    text-align: left;
-  }
-  .detail-topbar .detail-title h1 {
-    font-size: 18px;
-    line-height: 1.05;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .detail-topbar .detail-title p {
-    margin-top: 2px;
-    font-size: 9px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .detail-topbar .detail-actions {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-    gap: 5px;
-    width: 100%;
-  }
-  .detail-topbar .detail-actions>* {
-    width: 100%;
-    min-height: 32px;
-    padding: 6px 7px;
-    font-size: 9px;
-    border-radius: 999px;
-  }
-  .detail-topbar .btn-soon {
-    font-size: 7px;
-    padding: 2px 4px;
-  }
-  .pin-wrap {
-    width: 15px;
-    height: 18px;
-  }
-  .pin-shape {
-    width: 13px;
-    height: 13px;
-  }
-  .pin-shape::after {
-    width: 4px;
-
-    height: 4px;
-  }
-  :root {
-    --video-frame: 10px;
-    --video-radius: 22px;
-    --video-inner-radius: 13px;
-  }
-  .detail-video {
-    aspect-ratio: 16 / 9;
-    padding: var(--video-frame);
-    margin-top: 0;
-    border-radius: var(--video-radius);
-  }
-  #playPreviewBtn {
-    min-height: 44px;
-    padding: 10px 17px;
-    font-size: 12px;
-  }
-  .video-unmute {
-    right: calc(var(--video-frame) + 7px);
-    bottom: calc(var(--video-frame) + 12px);
-    min-height: 32px;
-    padding: 6px 9px;
-    font-size: 9px;
-  }
-  .detail-stats {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-  }
-  .map-preview {
-    height: 205px;
-  }
-}
-
-
-/* ============================================================
-   19. TRÈS PETITS TÉLÉPHONES
-   ============================================================ */
-
-@media (max-width: 380px) {
-  .page-shell {
-    width: calc(100% - 12px);
-    padding-left: 0;
-    padding-right: 0;
-  }
-  .detail-topbar {
-    top: 0;
-    left: 0;
-    width: 100%;
-    gap: 5px;
-    padding: 5px 0 6px;
-  }
-  .detail-topbar .btn-back {
-    min-height: 29px;
-    padding: 5px 7px;
-    font-size: 9px;
-  }
-  .detail-title h1,
-  .detail-topbar h1 {
-    font-size: 15px;
-  }
-  .detail-topbar .detail-title p {
-    font-size: 8px;
-  }
-  .detail-actions {
-    grid-template-columns: 1fr;
-  }
-  .detail-actions>* {
-    min-height: 31px;
-  }
-  :root {
-    --video-frame: 7px;
-    --video-radius: 16px;
-    --video-inner-radius: 10px;
-  }
-  .detail-video {
-    border-radius: var(--video-radius);
-  }
-  #playPreviewBtn {
-    min-height: 38px;
-    padding: 8px 12px;
-    font-size: 10px;
-  }
-  .video-unmute {
-    right: calc(var(--video-frame) + 5px);
-    bottom: calc(var(--video-frame) + 8px);
-    min-height: 28px;
-    padding: 5px 7px;
-    font-size: 8px;
-  }
-  .map-preview {
-    height: 190px;
-  }
-}
-
-
-/* ============================================================
-   20. ÉCRANS TRÈS LARGES
-   ============================================================ */
-@media (min-width: 1400px) {
-  .page-shell {
-    width: min(1240px, calc(100% - 60px));
-  }
-  .detail-topbar {
-    width: 100%;
-    padding-top: 14px;
-    padding-bottom: 10px;
-  }
-  :root {
-    --video-frame: 18px;
-    --video-radius: 32px;
-    --video-inner-radius: 20px;
-  }
-  .detail-video {
-    padding: var(--video-frame);
-    border-radius: var(--video-radius);
-  }
-  .detail-card {
-    padding:
-      24px 25px;
-  }
-}
-
-
-/* ============================================================
-   21. ACCESSIBILITÉ
-   ============================================================ */
+/* ================================================================
+   16. ACCESSIBILITÉ
+   ================================================================ */
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
+
   *,
   *::before,
   *::after {
@@ -1005,32 +733,311 @@ main {
 }
 
 
-/* ============================================================
-   22. SÉCURITÉ DES CALQUES VIDÉO
-   ============================================================ */
-.detail-video {
-  isolation: isolate;
-}
-.detail-video .video-container {
-  z-index: 2;
-}
-.detail-video>video {
-  z-index: 2;
-}
-.detail-video .video-overlay {
-  z-index: 10;
-}
-.detail-video .video-unmute {
-  z-index: 40;
+/* ================================================================
+   17. RESPONSIVE — TABLETTE (<=950px)
+   ================================================================ */
+
+@media (max-width: 950px) {
+  .page-shell {
+    width: min(100% - 28px, 800px);
+    padding-top: 0;
+    padding-bottom: 40px;
+  }
+
+  .detail-topbar {
+    position: relative;
+    width: 100%;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 12px;
+    padding: 10px 0 8px;
+  }
+
+  .detail-hero {
+    position: relative;
+    width: 100%;
+  }
+
+  .detail-title {
+    text-align: center;
+  }
+
+  .detail-title h1,
+  .detail-topbar h1 {
+    font-size: clamp(23px, 4vw, 32px);
+  }
+
+  .detail-title p {
+    font-size: 12px;
+  }
+
+  .detail-actions {
+    display: flex;
+    width: auto;
+    grid-column: auto;
+    gap: 6px;
+  }
+
+  .detail-actions>* {
+    width: auto;
+  }
+
+  .detail-content {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-card+.detail-card {
+    border-left: 0;
+    border-top: 1px solid var(--detail-border);
+  }
+
+  .detail-stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  :root {
+    --video-frame: 13px;
+  }
 }
 
-.detail-hero .detail-topbar {
-  z-index: 20;
+
+/* ================================================================
+   18. RESPONSIVE — MOBILE (<=600px)
+   ================================================================ */
+
+@media (max-width: 600px) {
+  .page-shell {
+    width: calc(100% - 16px);
+    padding-bottom: 30px;
+  }
+
+  .detail-topbar {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 7px;
+    width: 100%;
+    padding: 7px 0 8px;
+  }
+
+  .detail-topbar .btn-back {
+    width: auto;
+    min-height: 32px;
+    padding: 6px 9px;
+    font-size: 10px;
+    border-radius: 999px;
+  }
+
+  .detail-topbar .detail-title {
+    min-width: 0;
+    text-align: left;
+  }
+
+  .detail-topbar .detail-title h1 {
+    font-size: 18px;
+    line-height: 1.05;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .detail-topbar .detail-title p {
+    margin-top: 2px;
+    font-size: 9px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Les actions passent sur toute la largeur, en 2 colonnes égales.
+     min-width:0 + le <span class="btn-label"> tronqué (voir §5.2)
+     empêchent "View on map" / "Voir sur la carte" de déborder. */
+  .detail-topbar .detail-actions {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px;
+    width: 100%;
+  }
+
+  .detail-topbar .detail-actions>* {
+    width: 100%;
+    min-width: 0;
+    min-height: 34px;
+    padding: 7px 8px;
+    font-size: 10px;
+    border-radius: 999px;
+  }
+
+  .detail-topbar .btn-soon {
+    font-size: 7px;
+    padding: 2px 4px;
+  }
+
+  .pin-wrap {
+    width: 15px;
+    height: 18px;
+  }
+
+  .pin-shape {
+    width: 13px;
+    height: 13px;
+  }
+
+  .pin-shape::after {
+    width: 4px;
+    height: 4px;
+  }
+
+  :root {
+    --video-frame: 10px;
+    --video-radius: 22px;
+    --video-inner-radius: 13px;
+  }
+
+  .detail-video {
+    aspect-ratio: 16 / 9;
+    padding: var(--video-frame);
+    margin-top: 0;
+    border-radius: var(--video-radius);
+  }
+
+  #playPreviewBtn {
+    min-height: 44px;
+    padding: 10px 17px;
+    font-size: 12px;
+  }
+
+  .video-unmute {
+    right: calc(var(--video-frame) + 7px);
+    bottom: calc(var(--video-frame) + 12px);
+    min-height: 32px;
+    padding: 6px 9px;
+    font-size: 9px;
+  }
+
+  .detail-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .map-preview {
+    height: 205px;
+  }
 }
 
-/* ============================================================
-   HERO — VIDÉO ENTIÈREMENT VISIBLE SUR PC
-   ============================================================ */
+
+/* ================================================================
+   19. RESPONSIVE — PETITS MOBILES (<=380px)
+   ================================================================ */
+
+@media (max-width: 380px) {
+  .page-shell {
+    width: calc(100% - 12px);
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .detail-topbar {
+    top: 0;
+    left: 0;
+    width: 100%;
+    gap: 5px;
+    padding: 5px 0 6px;
+  }
+
+  .detail-topbar .btn-back {
+    min-height: 29px;
+    padding: 5px 7px;
+    font-size: 9px;
+  }
+
+  .detail-title h1,
+  .detail-topbar h1 {
+    font-size: 15px;
+  }
+
+  .detail-topbar .detail-title p {
+    font-size: 8px;
+  }
+
+  /* Sous 380px l'espace manque même pour 2 colonnes : les boutons
+     d'action passent en pile pleine largeur, plus de risque de
+     débordement du texte du bouton "View on map". */
+  .detail-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-actions>* {
+    min-height: 32px;
+    font-size: 10px;
+  }
+
+  :root {
+    --video-frame: 7px;
+    --video-radius: 16px;
+    --video-inner-radius: 10px;
+  }
+
+  .detail-video {
+    border-radius: var(--video-radius);
+  }
+
+  #playPreviewBtn {
+    min-height: 38px;
+    padding: 8px 12px;
+    font-size: 10px;
+  }
+
+  .video-unmute {
+    right: calc(var(--video-frame) + 5px);
+    bottom: calc(var(--video-frame) + 8px);
+    min-height: 28px;
+    padding: 5px 7px;
+    font-size: 8px;
+  }
+
+  .map-preview {
+    height: 190px;
+  }
+}
+
+
+/* ================================================================
+   20. RESPONSIVE — TRÈS LARGES ÉCRANS (>=1400px)
+   ================================================================ */
+
+@media (min-width: 1400px) {
+  .page-shell {
+    width: min(1240px, calc(100% - 60px));
+  }
+
+  .detail-topbar {
+    width: 100%;
+    padding-top: 14px;
+    padding-bottom: 10px;
+  }
+
+  :root {
+    --video-frame: 18px;
+    --video-radius: 32px;
+    --video-inner-radius: 20px;
+  }
+
+  .detail-video {
+    padding: var(--video-frame);
+    border-radius: var(--video-radius);
+  }
+
+  .detail-card {
+    padding: 24px 25px;
+  }
+}
+
+
+/* ================================================================
+   21. RESPONSIVE — DESKTOP, HERO PLEIN ÉCRAN (>=951px)
+   ================================================================ */
+
 @media (min-width: 951px) {
   .detail-hero {
     height: 100vh;
@@ -1050,15 +1057,10 @@ main {
     min-height: 0;
     display: flex;
     flex-direction: column;
-    /* empile vidéo + source, centrés ensemble */
     align-items: center;
-    /* centre horizontalement */
     justify-content: center;
-    /* centre verticalement dans l'espace restant */
     gap: 14px;
-    /* espace entre la vidéo et .video-source */
     padding: 25px;
-    /* espace uniforme, agit aussi comme marge sous le header */
   }
 
   .detail-video {
@@ -1066,25 +1068,26 @@ main {
     width: min(100%, calc((100vh - 12vh - 50px - 22px - 14px) * 16 / 9));
     height: auto;
     aspect-ratio: 16 / 9;
-    margin-top:2%;
+    margin-top: 2%;
     margin-left: auto;
     margin-right: auto;
     overflow: hidden;
     padding: var(--video-frame);
     border-radius: 10px;
     background: #f0f1f3;
-    border: 0px, 1px, 1px, 1px solid rgba(8, 8, 8, 0.08);
-    box-shadow:5px 25px 60px rgba(0, 0,0, 0.22),
+    border: 1px solid rgba(8, 8, 8, 0.08);
+    box-shadow:
+      5px 25px 60px rgba(0, 0, 0, 0.22),
       5px 8px 25px rgba(0, 0, 0, 0.12);
     isolation: isolate;
     flex-shrink: 1;
   }
 
-    .video-source {
-      margin-top: 1%;
-      padding-right:13%;
-      height: 22px;
-      flex-shrink: 0;
-      text-align: center;
-    }
+  .video-source {
+    margin-top: 1%;
+    padding-right: 13%;
+    height: 22px;
+    flex-shrink: 0;
+    text-align: center;
+  }
 }
