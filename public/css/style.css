@@ -16,7 +16,7 @@
     --shadow: 0 20px 45px rgba(0, 0, 0, .45);
 
     /* Fond changeable en un seul endroit : remplace juste cette URL */
-    --bg-image: url("https://sandee.com/_next/image?url=https%3A%2F%2Fcdn.sandee.com%2F65595_1650_1100.avif&w=3840&q=75");
+    --bg-video: url("../assets/video/login_bg.webm");
 }
 
 html,
@@ -27,16 +27,32 @@ body {
     overflow-x: hidden;
 }
 
-/* Fond : une image plutôt qu'une vidéo, pilotée par la variable --bg-image */
-body {
-    background: var(--bg-image) center center/cover no-repeat fixed;
+/* ================= ARRIÈRE-PLAN VIDÉO & OVERLAY ================= */
+
+.bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    object-position: center;
+
+    /* Étape 1 : Placé tout au fond */
+    z-index: -2;
 }
 
 .video-overlay {
     position: fixed;
+    /* Raccourci moderne pour top:0, left:0, right:0, bottom:0 */
     inset: 0;
-    background: linear-gradient(rgba(0, 0, 0, .35), rgba(0, 0, 0, .65));
-    z-index: -2;
+    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.65));
+
+    /* Étape 2 : Placé JUSTE AU-DESSUS de la vidéo pour appliquer le filtre sombre */
+    z-index: -1;
+
+    /* Empêche ce calque invisible d'intercepter les clics de la souris ou du doigt */
+    pointer-events: none;
 }
 
 /* Layout centering */

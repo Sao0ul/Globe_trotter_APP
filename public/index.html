@@ -15,6 +15,16 @@
 
 
 <body>
+    <!-- ================= FOND VIDÉO OPTIMISÉ ================= -->
+    <!-- L'attribut poster affiche une image WebP légère instantanément en attendant la vidéo -->
+    <video autoplay loop muted playsinline preload="metadata" poster="assets/images/video_fallback.webp" class="bg-video">
+        <!-- Le WebM est lu en premier par les navigateurs modernes (plus léger) -->
+        <source src="assets/video/login_bg.webm" type="video/webm">
+        <!-- Le MP4 sert uniquement de secours (fallback) pour les anciens navigateurs -->
+        <source src="assets/video/login_bg.mp4" type="video/mp4">
+    </video>
+    <!-- Le voile sombre/overlay est placé juste ici pour filtrer visuellement la vidéo -->
+    <div class="video-overlay"></div>
 
     <div id="googleSuggestPopup" class="google-suggest-popup" hidden>
         <div class="google-suggest-content">
@@ -26,7 +36,6 @@
     </div>
 
     <a href="policy.html"><i>Confidentiality policies</i></a>
-        <div class="video-overlay"></div>
 
     <!-- ================= LANGUAGE SWITCHER ================= -->
     <div id="languageSwitcher" class="language-switcher">
@@ -60,8 +69,8 @@
                     <i class="fa-solid fa-lock"></i>
                     <input type="password" id="password" name="password" placeholder="Password"
                         data-i18n-placeholder="login.passwordPlaceholder" required>
-                    <button type="button" id="togglePasswordBtn" class="password-toggle-btn" aria-label="Afficher le mot de passe"
-                        aria-pressed="false">
+                    <button type="button" id="togglePasswordBtn" class="password-toggle-btn"
+                        aria-label="Afficher le mot de passe" aria-pressed="false">
                         <i class="fa-solid fa-eye"></i>
                     </button>
                 </div>
@@ -100,6 +109,7 @@
 
     <script src="js/i18n.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/index.js"></script>
 
 </body>
 
