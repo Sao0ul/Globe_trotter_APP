@@ -1,0 +1,18 @@
+{
+    "osm_type": "node",
+    "osm_id": 9823410293,
+    "category": "hobbies",
+    "name": "Loisiland (PlaYce Warda)",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8647000,
+    "longitude": 11.5168000,
+    "description": "A modern indoor amusement center located inside the PlaYce Warda Mall, offering arcade games, virtual reality simulators, bumper cars, and dedicated soft play zones for toddlers.",
+    "bonASavoir": "Open daily aligned with mall hours (usually 9:00 AM to 9:00 PM). Entrance to the zone is free, but games operate via a rechargeable card system where activities cost between 1,000 XAF and 3,500 XAF per play. It gets very busy on rainy days and during public holidays.",
+    "imageUrl": "https://playce-yaounde.cm/wp-content/uploads/2022/03/Loisiland-001-1-1.jpg",
+    "videoUrl": "https://www.youtube.com/watch?v=BgRli_NaJ_A",
+    "video_par": "RealJeRi (youtube)",
+    "price": 2500,
+    "dangerosity": "low",
+    "difficulty": "easy"
+}

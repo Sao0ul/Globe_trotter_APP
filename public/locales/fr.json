@@ -38,7 +38,8 @@
     "mountain": "Montagne",
     "beach": "Plage",
     "other": "Autre",
-    "shop":"Boutique"
+    "shop":"Boutique",
+    "parcAttraction":"parc-attraction"
   },
   "sidebar": {
     "navigation": "Navigation",
@@ -64,7 +65,10 @@
     "culture": "Culture",
     "beach": "Plage",
     "mountain": "Montagne",
-    "adventure": "Aventure"
+    "adventure": "Aventure",
+    "shop": "Supermarche",
+    "food":"Nourriture",
+    "loisir": "loisir"
   },
   "state": {
     "loading": "Chargement des destinations...",
@@ -106,6 +110,9 @@
     "adventure": "Aventure",
     "aventure": "Aventure",
     "relaxation": "Détente",
+    "shop": "Boutique",
+    "parcAttraction": "Loisirs",
+    "food":"Nourriture",
     "other": "Autre"
   },
   "difficulty": {

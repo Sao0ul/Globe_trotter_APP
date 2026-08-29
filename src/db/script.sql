@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS sites (
     category VARCHAR(20) NOT NULL DEFAULT 'other'
         CHECK (category IN (
             'nature', 'culture', 'adventure',
-            'relaxation', 'mountain', 'beach', 'other', 'shop'
+            'relaxation', 'mountain', 'beach', 'other', 'shop', 'hobbies', 'food'
         )),
     price INTEGER DEFAULT 0 CHECK (price >= 0),
     user_id UUID,

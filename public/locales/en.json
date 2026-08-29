@@ -38,7 +38,8 @@
     "mountain": "Mountain",
     "beach": "Beach",
     "other": "Other",
-    "shop":"Shop"
+    "shop":"Shop",
+    "parcAttraction": "amusement-park "
   },
   "sidebar": {
     "navigation": "Navigation",
@@ -64,7 +65,10 @@
     "culture": "Culture",
     "beach": "Beach",
     "mountain": "Mountain",
-    "adventure": "Adventure"
+    "adventure": "Adventure",
+    "shop": "Shop",
+    "food": "Food",
+    "loisir": "hobbies"
   },
   "state": {
     "loading": "Loading destinations...",
@@ -106,6 +110,9 @@
     "adventure": "Adventure",
     "aventure": "Adventure",
     "relaxation": "Relaxation",
+    "shop": "Shop",
+    "parcAttraction": "Hobbies",
+    "food": "Food",
     "other": "Other"
   },
   "difficulty": {

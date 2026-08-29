@@ -704,7 +704,6 @@ button {
   align-items: center;
   gap: 10px;
 }
-
 .chip-icon {
   width: 24px;
   height: 24px;
@@ -716,29 +715,32 @@ button {
   color: white;
   box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.35);
 }
-
 .chip-icon-tous {
   background: linear-gradient(135deg, var(--forest-mid), var(--forest-deep));
 }
-
 .chip-icon-nature {
   background: linear-gradient(135deg, #9c963f, #2e9435);
 }
-
 .chip-icon-culture {
   background: linear-gradient(135deg, var(--clay), #7A2010);
 }
-
 .chip-icon-beach {
   background: linear-gradient(135deg, var(--gold-soft), var(--gold));
 }
-
 .chip-icon-montagne {
   background: linear-gradient(135deg, #6B6B6B, #2E2E2E);
 }
-
 .chip-icon-aventure {
   background: linear-gradient(135deg, #4FA3C4, #235C74);
+}
+.chip-icon-shop {
+  background: linear-gradient(135deg, #8B7CF6, #5B3DE0);
+}
+.chip-icon-loisir {
+  background: linear-gradient(135deg, #F472B6, #C2286D);
+}
+.chip-icon-food {
+  background: linear-gradient(135deg, #F59E42, #C2540C);
 }
 
 
