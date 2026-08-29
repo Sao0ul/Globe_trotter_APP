@@ -433,7 +433,7 @@ async function initDestination() {
   const originLat = params.get('originLat');
   const originLng = params.get('originLng');
 
-  if (originLat !== null && originLng !== null) {
+  if (originLat && originLng && Number.isFinite(Number(originLat)) && Number.isFinite(Number(originLng))) {
     placeOriginMarker(Number(originLat), Number(originLng));
     calculerItineraire();
   } else {
@@ -559,6 +559,9 @@ if (focusOriginBtn) {
 
   // Mise à jour de l'icône et du tooltip
   function updateFocusButtonState() {
+    if (originMarker) {
+      isLocked ? originMarker.dragging.disable() : originMarker.dragging.enable();
+    }
     const icon = document.getElementById('focusOriginIcon');
     if (icon) {
       icon.innerHTML = getLockIcon(isLocked);
@@ -610,12 +613,8 @@ if (legendToggleBtn && legendContainer) {
 // ==========================================================
 // Interactions utilisateur
 // ==========================================================
-
 map.on('click', (event) => {
-  if (routeLayer && !editingOrigin) {
-    return; // itinéraire déjà calculé, clic ignoré tant que le focus n'est pas activé
-  }
-
+  if (!editingOrigin) return;
   placeOriginMarker(event.latlng.lat, event.latlng.lng);
   calculerItineraire();
 });
@@ -696,16 +695,9 @@ function mettreAJourEtatLegende() {
 const REF_SITE = 'camerounvisit'; // lettres uniquement, pas d'accent/espace
 
 function buildYangoLink(origin, destination) {
-  const fallback = encodeURIComponent(
-    `https://yango.com/en_int/order/?gfrom=${destination.lng},${destination.lat}` +
-    `&gto=${origin.lng},${origin.lat}&ref=${REF_SITE}`
-  );
-
   return (
-    `https://yango.go.link/route?start-lat=${origin.lat}&start-lon=${origin.lng}` +
-    `&end-lat=${destination.lat}&end-lon=${destination.lng}` +
-    `&ref=${REF_SITE}&adj_t=vokme8e_nd9s9z9&lang=fr&adj_deeplink_js=1` +
-    `&adj_fallback=${fallback}`
+    `https://yango.com/en_int/order/?gfrom=${origin.lng},${origin.lat}` +
+    `&gto=${destination.lng},${destination.lat}&ref=${REF_SITE}`
   );
 }
 
@@ -714,7 +706,7 @@ function ouvrirYango() {
     setRouteSummary('Set a starting point before ordering a taxi.');
     return;
   }
-
+  console.log('origin:', originPoint, 'destination:', destinationPoint);
   window.open(buildYangoLink(originPoint, destinationPoint), '_blank');
 }
 

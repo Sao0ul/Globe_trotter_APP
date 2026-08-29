@@ -207,14 +207,24 @@ body {
     right: 0;
     background: #fff;
     border-radius: 50%;
-    width: 28px;
-    height: 28px;
+    width: 36px;
+    height:36px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    touch-action: manipulation;
 }
+
+.profile-avatar-edit::after {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    /* étend la zone tactile de 8px tout autour */
+}
+
 
 .profile-identity-text h2 {
     margin: 0 0 6px;
@@ -455,19 +465,3 @@ body {
     }
 }
 
-.profile-avatar-edit {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background: #fff;
-    border-radius: 50%;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-    z-index: 10;
-    touch-action: manipulation;
-}
