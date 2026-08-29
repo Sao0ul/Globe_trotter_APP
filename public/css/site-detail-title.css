@@ -1,0 +1,514 @@
+/* ================================================================
+   WP-HEADER.CSS
+   Composant d'en-tête "waypoint" — totalement indépendant : tous les
+   tokens (couleurs, rayons, ombres) sont définis localement sur
+   .wp-header, aucune dépendance à --detail-* ni à d'autres classes
+   du site. Peut être copié tel quel sur une autre page.
+
+   Sommaire :
+   1. Tokens locaux
+   2. Conteneur / grille
+   3. Bouton retour
+   4. Identité (titre + repère de localisation)
+   5. Bouton "View on map"
+   6. Bouton favoris
+   7. Responsive
+   8. Accessibilité
+   ================================================================ */
+
+
+/* ================================================================
+   1. TOKENS LOCAUX
+   Modifie uniquement ces variables pour re-thémer tout le composant.
+   ================================================================ */
+
+.wp-header {
+    --wp-ink: #16332b;
+    --wp-green: #388f22;
+    --wp-green-dark: #2b6b1a;
+    --wp-gold: #c98a2e;
+    --wp-gold-soft: rgba(201, 138, 46, 0.14);
+
+    --wp-chip-bg: rgba(255, 255, 255, 0.72);
+    --wp-chip-bg-hover: rgba(255, 255, 255, 0.92);
+    --wp-chip-border: rgba(22, 51, 43, 0.10);
+
+    --wp-radius-chip: 999px;
+    --wp-shadow-chip: 0 4px 14px rgba(22, 51, 43, 0.08);
+    --wp-shadow-chip-hover: 0 8px 20px rgba(22, 51, 43, 0.14);
+}
+
+
+/* ================================================================
+   2. CONTENEUR / GRILLE
+   ================================================================ */
+
+.wp-header {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 18px;
+    padding: 14px 24px;
+
+    background: transparent;
+    border-bottom: 1px solid rgba(22, 51, 43, 0.07);
+
+    font-family: "Work Sans", sans-serif;
+    color: var(--wp-ink);
+}
+
+
+/* ================================================================
+   3. BOUTON RETOUR
+   Chip circulaire plate, flèche 100% CSS (pas d'icône externe).
+   ================================================================ */
+
+.wp-header__back {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    border: 1px solid var(--wp-chip-border);
+    background: var(--wp-chip-bg);
+    box-shadow: var(--wp-shadow-chip);
+
+    text-decoration: none;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.wp-header__back-icon {
+    display: block;
+    width: 9px;
+    height: 9px;
+    border-left: 2px solid var(--wp-ink);
+    border-bottom: 2px solid var(--wp-ink);
+    transform: rotate(45deg) translate(1px, -1px);
+    transition: transform 0.18s ease;
+}
+
+.wp-header__back:hover {
+    background: var(--wp-chip-bg-hover);
+    box-shadow: var(--wp-shadow-chip-hover);
+    transform: translateY(-1px);
+}
+
+.wp-header__back:hover .wp-header__back-icon {
+    transform: rotate(45deg) translate(-1px, -1px);
+}
+
+.wp-header__back:active {
+    transform: translateY(0);
+}
+
+.wp-header__back:focus-visible {
+    outline: 2px solid var(--wp-green);
+    outline-offset: 3px;
+}
+
+
+/* ================================================================
+   4. IDENTITÉ (titre + repère de localisation)
+   ================================================================ */
+
+.wp-header__identity {
+    min-width: 0;
+    text-align: center;
+}
+
+.wp-header__title {
+    margin: 0;
+    font-family: "DM Serif Display", serif;
+    font-size: clamp(26px, 3vw, 38px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--wp-ink);
+    overflow-wrap: anywhere;
+}
+
+.wp-header__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    width: fit-content;
+    max-width: 100%;
+    margin: 8px auto 0;
+    padding: 4px 12px 4px 9px;
+
+    border-radius: var(--wp-radius-chip);
+    background: var(--wp-gold-soft);
+
+    color: var(--wp-gold);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.wp-header__eyebrow::before {
+    content: "";
+    flex-shrink: 0;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--wp-gold);
+}
+
+
+/* ================================================================
+   5. BOUTON "VIEW ON MAP"
+   ================================================================ */
+
+.wp-header__actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    min-width: 0;
+}
+
+.wp-header__map {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-height: 42px;
+    min-width: 0;
+    max-width: 100%;
+    padding: 0 18px;
+
+    border: none;
+    border-radius: var(--wp-radius-chip);
+    background: var(--wp-green);
+    overflow: hidden;
+
+    color: #ffffff;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+
+    box-shadow: 0 6px 18px rgba(56, 143, 34, 0.28);
+
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.wp-header__map-label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.wp-header__map:hover {
+    background: var(--wp-green-dark);
+    box-shadow: 0 10px 24px rgba(56, 143, 34, 0.34);
+    transform: translateY(-1px);
+}
+
+.wp-header__map:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(56, 143, 34, 0.24);
+}
+
+.wp-header__map:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
+.wp-header__pin {
+    width: 14px;
+    height: 16px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wp-header__pin-mark {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    border-radius: 50% 50% 50% 0;
+    background: #ffffff;
+    transform: rotate(-45deg);
+}
+
+.wp-header__pin-mark::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--wp-green);
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+
+/* ================================================================
+   6. BOUTON FAVORIS
+   ================================================================ */
+
+.wp-header__like {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    border: 1px solid var(--wp-chip-border);
+    background: var(--wp-chip-bg);
+    box-shadow: var(--wp-shadow-chip);
+    overflow: visible;
+    /* laisse l'anneau de propagation déborder du bouton */
+
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease,
+        box-shadow 0.18s ease,
+        border-color 0.18s ease;
+}
+
+.wp-header__like:hover {
+    background: var(--wp-chip-bg-hover);
+    box-shadow: var(--wp-shadow-chip-hover);
+    transform: translateY(-1px);
+}
+
+.wp-header__like:active {
+    transform: scale(0.92);
+}
+
+/* Anneau qui se propage et s'efface, déclenché uniquement quand
+   .is-liked est ajoutée (état "aimé"). */
+.wp-header__like::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(224, 40, 8, 0.55);
+    opacity: 0;
+    transform: scale(0.6);
+    pointer-events: none;
+}
+
+/* Mini feu d'artifice : 8 particules qui jaillissent du centre du
+   bouton et s'effacent en s'éloignant. Une seule animation pilote
+   les 8 offsets de box-shadow simultanément (aucun HTML ajouté). */
+.wp-header__like::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: transparent;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+}
+
+/* Piloté par : bouton.classList.toggle('is-liked', estAime) dans
+   updateLikeButton(). Rebond élastique du cœur + anneau qui se propage
+   quand estAime devient true ; retour neutre en douceur sinon (via les
+   transitions déjà posées ci-dessus sur background/border-color). */
+.wp-header__like.is-liked {
+    background: rgba(224, 40, 8, 0.10);
+    border-color: rgba(224, 40, 8, 0.25);
+    animation: wp-like-pop 0.45s cubic-bezier(0.17, 0.89, 0.32, 1.49);
+}
+
+.wp-header__like.is-liked::after {
+    animation: wp-like-ring 0.5s ease-out;
+}
+
+.wp-header__like.is-liked::before {
+    animation: wp-like-burst 0.65s ease-out forwards;
+}
+
+@keyframes wp-like-pop {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    35% {
+        transform: scale(1.35) rotate(-8deg);
+    }
+
+    60% {
+        transform: scale(0.92) rotate(4deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes wp-like-ring {
+    0% {
+        opacity: 0.6;
+        transform: scale(0.6);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.9);
+    }
+}
+
+/* 8 particules réparties en étoile autour du bouton (haut, bas,
+   gauche, droite + 4 diagonales), alternant rouge et rose corail
+   pour un rendu "confetti" plutôt qu'une simple pulsation uniforme.
+   Le spread (3ème valeur) fait grossir légèrement chaque particule
+   en même temps qu'elle s'éloigne, avant de tout faire disparaître. */
+@keyframes wp-like-burst {
+    0% {
+        opacity: 1;
+        box-shadow:
+            0 0 0 0 #e02808,
+            0 0 0 0 #ff6b57,
+            0 0 0 0 #e02808,
+            0 0 0 0 #ff6b57,
+            0 0 0 0 #e02808,
+            0 0 0 0 #ff6b57,
+            0 0 0 0 #e02808,
+            0 0 0 0 #ff6b57;
+    }
+
+    55% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        box-shadow:
+            0 -26px 0 1px #e02808,
+            17px -22px 0 1px #ff6b57,
+            25px 0 0 1px #e02808,
+            17px 22px 0 1px #ff6b57,
+            0 26px 0 1px #e02808,
+            -17px 22px 0 1px #ff6b57,
+            -25px 0 0 1px #e02808,
+            -17px -22px 0 1px #ff6b57;
+    }
+}
+
+.wp-header__like:focus-visible {
+    outline: 2px solid var(--wp-green);
+    outline-offset: 3px;
+}
+
+
+/* ================================================================
+   7. RESPONSIVE
+   ================================================================ */
+
+@media (max-width: 950px) {
+    .wp-header {
+        gap: 12px;
+        padding: 10px 0 8px;
+    }
+}
+
+@media (max-width: 600px) {
+    .wp-header {
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        gap: 8px;
+        padding: 7px 0 8px;
+    }
+
+    .wp-header__title {
+        font-size: 18px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .wp-header__eyebrow {
+        font-size: 9px;
+        padding: 3px 10px 3px 8px;
+    }
+
+    .wp-header__back,
+    .wp-header__like {
+        width: 38px;
+        height: 38px;
+    }
+
+    .wp-header__map {
+        min-height: 38px;
+        padding: 0 14px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 380px) {
+
+    .wp-header__back,
+    .wp-header__like {
+        width: 34px;
+        height: 34px;
+    }
+
+    .wp-header__map {
+        min-height: 34px;
+        padding: 0 12px;
+        font-size: 11px;
+    }
+}
+
+
+/* ================================================================
+   8. ACCESSIBILITÉ
+   ================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .wp-header__back,
+    .wp-header__back-icon,
+    .wp-header__like,
+    .wp-header__map {
+        transition: none;
+    }
+
+    .wp-header__like.is-liked,
+    .wp-header__like.is-liked::after,
+    .wp-header__like.is-liked::before {
+        animation: none;
+    }
+}

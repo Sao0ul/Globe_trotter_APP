@@ -12,7 +12,7 @@ const videoParElement = document.getElementById('siteVideoCredit');
 
 const titleElement = document.getElementById('siteTitle');
 const categoryElement = document.getElementById('siteCategory');
-const locationElement = document.getElementById('siteLocation');
+const locationElement = document.getElementById('siteDistance');
 const descriptionElement = document.getElementById('siteDescription');
 const difficultyElement = document.getElementById('siteDifficulty');
 const dangerElement = document.getElementById('siteDanger');

@@ -351,7 +351,7 @@ async function chargerSites(reinitialiser = true) {
   // Tant que l'utilisateur n'a rien liké, on fait passer les sites qui
   // correspondent à ses préférences avant le reste. On réutilise la même
   // requête de profil lancée au démarrage : ça n'ajoute aucun appel serveur.
-  if (!state.aDejaLike && state.profilPromise) {
+  if (state.profilPromise) {
     await state.profilPromise;
     if (!state.aDejaLike) {
       lot = trierParPreference(lot, state.preferences);

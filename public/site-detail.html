@@ -16,34 +16,36 @@
         rel="stylesheet">
     <!-- CSS -->
     <link rel="stylesheet" href="css/site-detail.css">
+    <link rel="stylesheet" href="css/site-detail-title.css">
     <link rel="stylesheet" href="css/map-markers.css">
 </head>
 
 
 <body class="page-shell">
-    <header class="detail-topbar">
-        <!-- Bouton retour -->
-        <a class="btn-ghost btn-back" href="sites.html">Back</a>
+    <header class="wp-header">
 
-        <!-- Titre -->
-        <div class="detail-title">
-            <h1 id="siteTitle">Loading...</h1>
-            <p id="siteLocation">—</p>
+        <!-- Bouton retour -->
+        <a class="wp-header__back" href="sites.html" aria-label="Back">
+            <span class="wp-header__back-icon" aria-hidden="true"></span>
+        </a>
+
+        <!-- Identité du site -->
+        <div class="wp-header__identity">
+            <h1 class="wp-header__title" id="siteTitle">Loading...</h1>
+            <p class="wp-header__eyebrow" id="siteDistance">—</p>
         </div>
 
         <!-- Actions -->
-        <div class="detail-actions">
-            <!-- Voir sur la carte -->
-            <button class="btn-solid" id="openItineraryBtn" type="button">
-                <span class="btn-label">View on map</span>
-                <span class="pin-wrap">
-                    <span class="pin-shape"></span>
+        <div class="wp-header__actions">
+
+            <button class="wp-header__map" id="openItineraryBtn" type="button">
+                <span class="wp-header__map-label">View on map</span>
+                <span class="wp-header__pin" aria-hidden="true">
+                    <span class="wp-header__pin-mark"></span>
                 </span>
             </button>
 
-            <!-- Like button -->
-            <button class="btn-ghost" id="btn-likes" type="button">🤍</button>
-            </button>
+            <button class="wp-header__like" id="btn-likes" type="button" aria-label="Add to favorites">🤍</button>
 
         </div>
 
@@ -77,8 +79,8 @@
                     </div>
                 </div>
                 <!-- =================================================
-                     SOURCE VIDÉO
-                     ================================================= -->
+                    SOURCE VIDÉO
+                ================================================= -->
                 <div class="video-source">
                     <span class="video-source-label"></span>
                     <span id="siteVideoCredit">—</span>

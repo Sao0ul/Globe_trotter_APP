@@ -1,9 +1,4 @@
 ﻿/* ============================================
-   FICHIER: site.css
-   ORDONNÉ ET STRUCTURÉ
-   ============================================ */
-
-/* ============================================
    1. VARIABLES & ROOT
    ============================================ */
 :root {
@@ -112,18 +107,23 @@ button {
 
 /* -------- 5.1 SIDEBAR PRINCIPALE -------- */
 .sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  /* hauteur réellement visible sur mobile, contourne le bug 100vh */
+  overflow: hidden;
+  /* le sidebar entier ne scrolle jamais */
   background: rgba(22, 51, 43, 0.6);
   backdrop-filter: blur(20px) saturate(150%);
   -webkit-backdrop-filter: blur(20px) saturate(150%);
   color: var(--ink-inverse);
   padding: 26px 20px 22px;
-  display: flex;
-  flex-direction: column;
   gap: 10px;
   position: sticky;
   top: 0;
-  height: 100vh;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-sizing: border-box;
 }
 
 /* -------- 5.2 BOUTON FERMER (mobile) -------- */
@@ -192,10 +192,14 @@ button {
 
 /* -------- 5.4 NAVIGATION -------- */
 .sidebar-nav {
+  flex: 1 1 auto;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 2px;
   flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .nav-label {
@@ -205,25 +209,28 @@ button {
   letter-spacing: 0.1em;
   color: #74907F;
   padding: 0 10px 8px;
+  flex-shrink: 0;
+  margin-bottom: 14px;
 }
 
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: clamp(10px, 2.4vw, 16px);
   width: 100%;
-  padding: 11px 12px;
-  border-radius: 10px;
+  padding: clamp(10px, 1.8vh, 15px) clamp(10px, 2.4vw, 15px);
+  border-radius: 12px;
   color: #CBDCD1;
-  font-size: 0.92rem;
+  font-size: clamp(10px, 2.6vh, 15px);
   font-weight: 500;
   transition: background 0.15s ease, color 0.15s ease;
   text-align: left;
+  line-height: 1.25;
 }
 
 .nav-item svg {
-  width: 19px;
-  height: 19px;
+  width: clamp(20px, 3.6vh, 29px);
+  height: clamp(20px, 3.6vh, 29px);
   flex-shrink: 0;
 }
 
@@ -253,6 +260,7 @@ button {
   margin-top: 10px;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   padding-top: 16px;
+  flex-shrink: 0;
 }
 
 .nav-collapse svg {
@@ -261,10 +269,15 @@ button {
 
 /* -------- 5.6 BOUTON DÉCONNEXION -------- */
 .nav-logout {
-  margin-top: 10px;
+  margin-top: auto;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
-  padding-top: 16px;
-  color: #E8B0A2;
+  padding-top: auto;
+  color: #da5635;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
 }
 
 .nav-logout:hover {
@@ -275,6 +288,15 @@ button {
 /* -------- 5.7 SCRIM (mobile) -------- */
 .sidebar-scrim {
   display: none;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  /* gap proportionnel à la hauteur d'écran, mais borné :
+     min 10px, cible 3.2vh, jamais plus de 34px même sur un très
+     grand écran / tablette en mode sidebar étroite */
+  gap: clamp(10px, 3.2vh, 34px);
 }
 
 

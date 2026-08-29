@@ -663,6 +663,15 @@
   box-shadow: 0 5px 15px rgba(22, 51, 43, .25);
 }
 
+.legend-item.is-active:hover {
+  background: var(--forest-deep, #16332b) !important;
+  color: #ffffff !important;
+}
+
+.legend-item.is-active:hover .legend-label {
+  color: #ffffff !important;
+}
+
 .legend-item.is-dimmed {
   opacity: .35;
 }

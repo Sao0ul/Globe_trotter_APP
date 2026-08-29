@@ -155,3 +155,42 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('📌 Explore Cameroon like never before!');
 
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('channelModal');
+    const closeBtn = document.getElementById('closeModalBtn');
+    const skipBtn = document.getElementById('skipModalBtn');
+    const joinBtn = document.getElementById('joinChannelBtn');
+
+    // Fonction pour ouvrir la modale
+    const openModal = () => {
+        modal.classList.add('active');
+    };
+
+    // Fonction pour fermer la modale
+    const closeModal = () => {
+        modal.classList.remove('active');
+    };
+
+    // Ouvre la pop-up 600ms après le chargement complet de la page
+    setTimeout(openModal, 600);
+
+    // Événements de fermeture (bouton X et "Plus tard")
+    closeBtn.addEventListener('click', closeModal);
+    skipBtn.addEventListener('click', closeModal);
+    joinBtn.addEventListener('click', closeModal);
+
+    // Fermer si l'utilisateur clique en dehors de la carte (sur le fond flouté)
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Fermer avec la touche Échap (Escape)
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+});

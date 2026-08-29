@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About  Discover Cameroon</title>
+    <title>About Discover Cameroon</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -25,46 +25,80 @@
         <!-- Main Content -->
         <main class="info-main">
 
-            <!-- LEFT COLUMN - Profile Card -->
-            <aside class="profile-card">
-                <div class="profile-avatar">
-                    <img src="assets/images/raoul-daril.jpg" alt="Raoul Daril" id="profileImage">
-                    <div class="avatar-badge">
-                        <i class="fas fa-code"></i>
+            <!-- LEFT COLUMN - Flipped Profile Card Container -->
+            <aside class="profile-card-container">
+                <div class="profile-card-inner">
+
+                    <!-- FACE AVANT (Profil du Développeur) -->
+                    <div class="card-front">
+                        <div class="profile-avatar">
+                            <img src="assets/images/raoul-daril.jpg" alt="Raoul Daril" id="profileImage">
+                            <div class="avatar-badge">
+                                <i class="fas fa-code"></i>
+                            </div>
+                        </div>
+                        <h1 class="profile-name">Raoul Daril</h1>
+                        <p class="profile-title">Full-Stack Developer &amp; UI/UX Designer</p>
+
+                        <div class="profile-divider"></div>
+
+                        <div class="profile-info-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Computer Science Student</span>
+                        </div>
+                        <div class="profile-info-item">
+                            <i class="fas fa-map-pin"></i>
+                            <span>Yaoundé, Cameroon</span>
+                        </div>
+                        <div class="profile-info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>no-reply@discovercameroon.online</span>
+                        </div>
+                        <div class="profile-info-item">
+                            <i class="fas fa-globe"></i>
+                            <span>discovercameroon.online</span>
+                        </div>
+
+                        <div class="profile-social">
+                            <a href="https://github.com/sao0ul" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/raoul-daril-tankam-soh-622279419"
+                                aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+
+                        <div class="profile-badge">
+                            <i class="fas fa-code-branch"></i>
+                            <span>v2.0 School Project</span>
+                        </div>
+
+                        <div class="flip-hint">
+                            <i class="fas fa-sync-alt"></i> Hover to see Channel
+                        </div>
                     </div>
-                </div>
-                <h1 class="profile-name">Raoul Daril</h1>
-                <p class="profile-title">Full-Stack Developer &amp; UI/UX Designer</p>
 
-                <div class="profile-divider"></div>
+                    <!-- FACE ARRIÈRE (Mise en avant du Canal WhatsApp) -->
+                    <div class="card-back">
+                        <div class="channel-highlight">
+                            <div class="channel-icon-large">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <h2>Join Our Community!</h2>
+                            <p>Stay updated with the latest beautiful spots, travel tips, and cultural insights directly
+                                on our official WhatsApp Channel.</p>
 
-                <div class="profile-info-item">
-                    <i class="fas fa-graduation-cap"></i>
-                    <span>Computer Science Student</span>
-                </div>
-                <div class="profile-info-item">
-                    <i class="fas fa-map-pin"></i>
-                    <span>Yaoundé, Cameroon</span>
-                </div>
-                <div class="profile-info-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>raoul.daril@example.com</span>
-                </div>
-                <div class="profile-info-item">
-                    <i class="fas fa-globe"></i>
-                    <span>discover-cameroon.com</span>
-                </div>
+                            <div class="channel-link-display">
+                                <i class="fas fa-link"></i>
+                                <span>whatsapp.com/channel/...</span>
+                            </div>
 
-                <div class="profile-social">
-                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                </div>
+                            <a href="https://whatsapp.com/channel/0029VbDRGvNGehENRb9tHD3r" target="_blank"
+                                rel="noopener noreferrer" class="btn-channel-pop">
+                                <i class="fab fa-whatsapp"></i> Join Channel Now
+                            </a>
+                        </div>
+                    </div>
 
-                <div class="profile-badge">
-                    <i class="fas fa-code-branch"></i>
-                    <span>v1.0 — School Project</span>
                 </div>
             </aside>
 
@@ -83,7 +117,7 @@
                     <p>
                         I believe that technology can bridge the gap between people and the hidden
                         gems of our beautiful country. My goal is to make exploration accessible,
-                        intuitive, and enjoyable for everyone — whether you're a local or a visitor.
+                        intuitive, and enjoyable for everyone whether you're a local or a visitor.
                     </p>
                 </div>
 
@@ -178,10 +212,33 @@
 
         <!-- Footer -->
         <footer class="info-footer">
-            <p>&copy; 2026 Discover Cameroon — Made with <i class="fas fa-heart" style="color: #e74c3c;"></i> by Raoul
+            <p>&copy; 2026 Discover Cameroon Made with <i class="fas fa-heart" style="color: #e74c3c;"></i> by Raoul
                 Daril</p>
         </footer>
 
+    </div>
+    <!-- WHATSAPP CHANNEL POPUP MODAL -->
+    <div id="channelModal" class="modal-overlay">
+        <div class="modal-card">
+            <button class="modal-close" id="closeModalBtn" aria-label="Close modal">&times;</button>
+    
+            <div class="modal-icon">
+                <i class="fab fa-whatsapp"></i>
+            </div>
+    
+            <span class="modal-badge">Official Community</span>
+            <h2>Rejoignez notre Canal WhatsApp !</h2>
+            <p>Ne manquez aucune mise à jour ! Recevez directement sur votre téléphone les meilleurs spots touristiques,
+                astuces de voyage et nouveautés sur <strong>Discover Cameroon</strong>.</p>
+    
+            <div class="modal-actions">
+                <a href="https://whatsapp.com/channel/0029VbDRGvNGehENRb9tHD3r" target="_blank" rel="noopener noreferrer"
+                    class="btn-modal-primary" id="joinChannelBtn">
+                    <i class="fab fa-whatsapp"></i> Rejoindre le Canal
+                </a>
+                <button class="btn-modal-secondary" id="skipModalBtn">Plus tard</button>
+            </div>
+        </div>
     </div>
 
     <script src="js/info.js"></script>
