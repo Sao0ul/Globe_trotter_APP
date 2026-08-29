@@ -33,7 +33,7 @@ const fallbackSite = {
   id: null,
   titre: 'Centre touristique de Kribi',
   localisation: 'Kribi, Cameroun',
-  categorie: 'Nature',
+  categorie: 'other',
   description:
     'Un point de départ idéal pour découvrir les plages, le paysage côtier et les points de repère utiles avant la visite.',
   imageUrl:

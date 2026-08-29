@@ -1,0 +1,18 @@
+{
+    "osm_type": "node",
+    "osm_id": 9823410293,
+    "category": "shop",
+    "name": "PlaYce Warda (Carrefour)",
+    "address": "Quartier Warda, Yaoundé, Cameroun",
+    "phone": "null",
+    "latitude": 3.8647000,
+    "longitude": 11.5168000,
+    "description": "A modern and spacious commercial center located in the heart of Yaoundé, featuring a Carrefour hypermarket, international fashion brands, beauty shops, and a vibrant food court.",
+    "bonASavoir": "Entry is free, but security checks at the entrance are mandatory. Peak hours occur on Saturday afternoons, leading to heavy parking congestion. Expect higher prices on imported goods.",
+    "imageUrl": "https://playce-yaounde.cm/wp-content/uploads/2022/03/Loisiland-001-1-1.jpg",
+    "videoUrl": "https://youtu.be/ArJxPHGTbeI?si=1JeW6npecb4mqyjT",
+    "video_par": "Karen Sunjo (youtube)",
+    "price": 0,
+    "dangerosity": "low",
+    "difficulty": "easy"
+}

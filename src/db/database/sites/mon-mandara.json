@@ -1,0 +1,19 @@
+{
+ "osm_type": "node",
+ "osm_id": 250206871,
+ "category": "mountain",
+ "name": "Pic de Rhumsiki (Monts Mandara)",
+ "address": null,
+ "phone": null,
+ "latitude": 10.5123100,
+ "longitude": 13.5853300,
+ "Description": "A spectacular and iconic volcanic spire offering a unique lunar landscape in the heart of the Mandara Mountains.",
+ "bonASavoir": "The actual cost: The basic entrance fee to Mount Cameroon National Park is approximately 5,000 FCFA. The reality on the ground: It is strictly forbidden and dangerous to hike alone. You must go through the ecotourism office in Buea. A complete 2-3 day trek (including the park permit, mandatory guide, porters, and food) generally costs between 25,000 and 35,000 FCFA per day for a solo hiker, and all-inclusive agency packages range from 150,000 to 375,000 FCFA.",
+ "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJM8su6Y-Js9LrRWQ2UanJqcC1TZQ7QerezqHA5buvuGy3qHs8hDbWoc8&s=10",
+ "videoUrl": "https://youtube.com/shorts/u5gKhR2XYNQ?si=LDYg7OEyA0kHcGU4",
+ "video_par": "yengafrica",
+ "price": 3000,
+ "dangerosity": "low",
+ "difficulty": "easy"
+}
+

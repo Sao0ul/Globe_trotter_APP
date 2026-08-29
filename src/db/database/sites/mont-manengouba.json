@@ -1,0 +1,18 @@
+{
+    "osm_type": "node",
+    "osm_id": 29355890,
+    "category": "mountain",
+    "name": "Mont Manengouba",
+    "address": null,
+    "phone": null,
+    "latitude": 5.0247000,
+    "longitude": 9.8247000,
+    "description": "A mountain famous for its verdant caldera, home to the magnificent twin crater lakes (male and female).",
+    "bonASavoir": "The actual cost: There is no official state barrier, but the caldera is managed by local communities (the Bororo herders and surrounding villages). A community contribution of approximately 2,000 to 5,000 FCFA is requested at the entrance to the site.The reality on the ground: If you book a trek with an overnight bivouac at the twin lakes through a local agency (including guide, camp logistics, and meals), prices start at around 45,000 FCFA per person.",
+    "imageUrl": "",
+    "videoUrl": "https://youtube.com/shorts/59IlaDgdoYo?si=zT70f4HCAuhGvHJu",
+    "video_par": "https://img.rezdy.com/PRODUCT_IMAGE/13699/23_manengouba.jpeg",
+    "price": 5000,
+    "dangerosity": "low",
+    "difficulty": "moderate"
+}

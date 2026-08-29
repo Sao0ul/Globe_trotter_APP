@@ -1,0 +1,18 @@
+  {
+    "osm_type": "node",
+    "osm_id": 619628767,
+    "category": "mountain",
+    "name": "Mont Cameroun",
+    "address": null,
+    "phone": null,
+    "latitude": 4.2180000,
+    "longitude": 9.1734000,
+    "description": "The highest peak in Cameroon and a majestic active volcano, also known as the Chariot of the Gods.",
+    "bonASavoir": "The climb requires a certified guide in Buea. Bring warm clothing as temperatures drop drastically near the Fako summit.The access to the nature is free but sometime you have to pay to be there legally",
+    "imageUrl": "https://d34-a.sdn.cz/d_34/c_img_p8_A/kY1K2LlXQBdLY8BeXFxbVwS/8290.jpeg?fl=res,400,225,3",
+    "videoUrl": "https://youtube.com/shorts/Ck7UbvXfDy0?si=1YifwYGuHnsufcOP",
+    "video_par": "Discover Cameroon",
+    "price": 5000,
+    "dangerosity": "moderate",
+    "difficulty": "hard"
+}

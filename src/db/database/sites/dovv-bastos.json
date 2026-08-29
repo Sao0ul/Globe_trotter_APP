@@ -1,0 +1,18 @@
+{
+    "osm_type": "node",
+    "osm_id": 193960633,
+    "category": "shop",
+    "name": "DOVV Bastos",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8925400,
+    "longitude": 11.5101000,
+    "description": "A popular retail store located in the diplomatic neighborhood of Bastos, offering a wide selection of local groceries, fresh food, pastries, and household essentials.",
+    "bonASavoir": "The store is very busy during late afternoon rush hours. While entry is open to everyone, parking directly in front of the supermarket can be tricky due to heavy traffic on the main road.",
+    "imageUrl": "https://ayilaa.s3.eu-west-1.amazonaws.com/attraction/logos/64c92423e6d41_1690903587_Supermarche%20Dovv%20@3x-80.50f40e30.webp",
+    "videoUrl": "https://youtu.be/l1Cx8WvduFk?si=edOX2zQOImWZo_5b",
+    "video_par": "SUPERMARCHE DÔVV (youtube)",
+    "price": 0,
+    "dangerosity": "low",
+    "difficulty": "easy"
+}

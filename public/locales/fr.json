@@ -37,7 +37,8 @@
     "relaxation": "Détente",
     "mountain": "Montagne",
     "beach": "Plage",
-    "other": "Autre"
+    "other": "Autre",
+    "shop":"Boutique"
   },
   "sidebar": {
     "navigation": "Navigation",

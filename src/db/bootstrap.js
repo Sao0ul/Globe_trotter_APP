@@ -10,21 +10,6 @@
 
 const pool = require('../db/pool');
 
-/**
- * Récupère la vidéo et l'image principales d'un site à partir
- * de son ID, en lisant la table site_media.
- *
- * @param {string} id - UUID du site.
- * @returns {Promise<object|null>}
- * Retourne :
- * {
- *   video_url: "..." | null,
- *   image_url: "..." | null
- * }
- *
- * Retourne null si le site lui-même n'existe pas
- * (distinct du cas "site existe mais sans média").
- */
 async function getVideoBySiteId(id) {
   // LEFT JOIN : on garde une ligne même sans média, pour pouvoir
   // distinguer "site introuvable" de "site sans média".

@@ -37,7 +37,8 @@
     "relaxation": "Relaxation",
     "mountain": "Mountain",
     "beach": "Beach",
-    "other": "Other"
+    "other": "Other",
+    "shop":"Shop"
   },
   "sidebar": {
     "navigation": "Navigation",

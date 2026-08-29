@@ -1,0 +1,18 @@
+{
+    "osm_type": "node",
+    "osm_id": 10243561,
+    "category": "mountain",
+    "name": "Mont Mbapit",
+    "address": null,
+    "phone": null,
+    "latitude": 5.5197222,
+    "longitude": 10.7305556,
+    "description": "An ancient volcano in the western region, home to an impressive crater lake with steep, vertical rock walls.",
+    "bonASavoir": "The actual cost: A community tax of approximately 1,000 to 2,000 FCFA is collected in the village of Koupa-Matapit to access the constructed stairs leading to the crater lake. The reality on the ground: As the site is very isolated and surrounded by local legends, it is strongly recommended to hire a guide from the village. Agencies in the west offer guided day trips for around 35,000 FCFA.",
+    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkSqJqGb1PeJ5a_Y_D0xVdcjJNFM6uK3uYXLt80EpE1nHNGj_Ac2QuTUSN&s=10",
+    "videoUrl": "https://youtu.be/YGpuV2muciw?si=yoCtBrLnNO8C6l1R",
+    "video_par": "yengafrica",
+    "price": 2000,
+    "dangerosity": "low",
+    "difficulty": "moderate"
+}

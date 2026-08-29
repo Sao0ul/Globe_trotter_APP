@@ -1,0 +1,18 @@
+{
+    "osm_type": "node",
+    "osm_id": 767476718,
+    "category": "shop",
+    "name": "Supermarché Casino Bastos",
+    "address": null,
+    "phone": null,
+    "latitude": 3.8880300,
+    "longitude": 11.5159800,
+    "description": "A well-known supermarket providing European imported goods, fresh bakery items, wines, and everyday domestic products in a clean, air-conditioned environment.",
+    "bonASavoir": "Visitors should be prepared for higher price points compared to local markets, as many products are directly imported from France. Security guards check bags at the entry and exit points.",
+    "imageUrl": "https://maligah.com/files?filename=1638814332511Casino%20Mandarine2.jpg",
+    "videoUrl": "https://youtube.com/shorts/J0lOE5buyc4?si=wHhBS_2A7uqsqA_w",
+    "video_par": "williamfomen84(youtube)",
+    "price": 0,
+    "dangerosity": "low",
+    "difficulty": "easy"
+}
