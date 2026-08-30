@@ -539,7 +539,7 @@ function selectionnerCategorie(categorie) {
   afficherSites();
   fermerMenuFiltre();
 }
- 
+
 filtersToggle.addEventListener("click", (event) => {
   event.stopPropagation();
   const estOuvert = filtersToggle.getAttribute("aria-expanded") === "true";

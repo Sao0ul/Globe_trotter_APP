@@ -101,7 +101,7 @@ async function getSiteById(id) {
   if (!UUID_REGEX.test(id)) {
     return null; // même comportement qu'un ID valide mais introuvable → 404 côté controller
   }
-  
+
   const { rows } = await pool.query(
     `${buildSiteBaseQuery()} WHERE s.id = $1 GROUP BY s.id`,
     [id]
@@ -159,7 +159,7 @@ async function createSite({
     await client.query('BEGIN');
 
     const { rows } = await client.query(
-     `INSERT INTO sites
+      `INSERT INTO sites
       (id, title, description, bon_a_savoir, location, category, author, image_url, video_url, latitude, longitude, difficulty, dangerosity, price, user_id)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
        ON CONFLICT (id) DO UPDATE SET
@@ -178,7 +178,7 @@ async function createSite({
         price = EXCLUDED.price,
         user_id = EXCLUDED.user_id
       RETURNING *`,
-     [siteId, title, description, bonASavoir, location, category, author, imageUrl, videoUrl, latitude, longitude, difficulty, dangerosity, price, userId]
+      [siteId, title, description, bonASavoir, location, category, author, imageUrl, videoUrl, latitude, longitude, difficulty, dangerosity, price, userId]
     );
 
     await persistSiteMedia(client, rows[0] ? rows[0].id : siteId, media);
@@ -270,10 +270,11 @@ async function isSiteLikedByUser(userId, siteId) {
   return rows.length > 0;
 }
 
-module.exports = { getAllSites, 
-  getSiteById, 
-  createSite, 
-  addRating, 
+module.exports = {
+  getAllSites,
+  getSiteById,
+  createSite,
+  addRating,
   getSiteByPreference,
   likeSite,
   unlikeSite,

@@ -692,7 +692,7 @@ function mettreAJourEtatLegende() {
 // Intégration Yango (commande de taxi)
 // ==========================================================
 
-const REF_SITE = 'camerounvisit'; // lettres uniquement, pas d'accent/espace
+const REF_SITE = 'camertravelapp'; // lettres uniquement, pas d'accent/espace
 
 function buildYangoLink(origin, destination) {
   return (

@@ -28,9 +28,9 @@ const CATEGORY_FR_TO_EN = {
   mountain: 'mountain',
   relaxation: 'relaxation',
   other: 'other',
-  shop:'shop',
-  hobbies:'hobbies',
-  food:'food',
+  shop: 'shop',
+  hobbies: 'hobbies',
+  food: 'food',
 };
 
 const CATEGORY_EN_TO_FR = Object.fromEntries(

@@ -26,16 +26,27 @@
     <!-- Le voile sombre/overlay est placé juste ici pour filtrer visuellement la vidéo -->
     <div class="video-overlay"></div>
 
-    <div id="googleSuggestPopup" class="google-suggest-popup" hidden>
-        <div class="google-suggest-content">
-            <button type="button" class="google-suggest-close" aria-label="Fermer">&times;</button>
-            <i class="fab fa-google"></i>
-            <p>login or sign up faster using Google.</p>
-            <button type="button" class="google-suggest-cta">Continue with Google</button>
-        </div>
-    </div>
 
     <a href="policy.html"><i>Confidentiality policies</i></a>
+   <!--====================== popup google ============================-->
+
+    <div id="googleSuggestPopup" class="google-suggest-popup">
+        <div class="google-suggest-content">
+            <button type="button" class="google-suggest-close" aria-label="Fermer">&times;</button>
+    
+            <!-- Mascotte Émoji dynamique -->
+            <div class="emoji-mascot">
+                <span class="emoji-face">✌️</span>
+                <span class="emoji-hand">😁</span>
+            </div>
+    
+            <p>sign in or sign up easier with google</p>
+    
+            <button type="button" class="google-suggest-cta">
+                Continue with google
+            </button>
+        </div>
+    </div>
 
     <!-- ================= LANGUAGE SWITCHER ================= -->
     <div id="languageSwitcher" class="language-switcher">
@@ -110,6 +121,7 @@
     <script src="js/i18n.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/index.js"></script>
+    <script src="js/popup.js"></script>
 
 </body>
 
