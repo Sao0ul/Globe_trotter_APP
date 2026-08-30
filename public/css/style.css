@@ -14,9 +14,6 @@
     --glass: rgba(255, 255, 255, .12);
     --border: rgba(255, 255, 255, .18);
     --shadow: 0 20px 45px rgba(0, 0, 0, .45);
-
-    /* Fond changeable en un seul endroit : remplace juste cette URL */
-    --bg-video: url("../assets/video/login_bg.webm");
 }
 
 html,

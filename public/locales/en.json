@@ -28,7 +28,10 @@
     "successHtml": "Account created! Confirm it by clicking {link}.",
     "successLink": "here",
     "preferencesSelected": "{count} preference(s) selected",
-    "checkYourEmail": "Account created ! please open your mailbox to confirm and then try to login again."
+    "checkYourEmail": "Account created ! please open your mailbox to confirm and then try to login again.",
+    "shop": "Shop",
+    "food": "Food",
+    "hobbies": "hobbies"
   },
   "preferences": {
     "nature": "Nature",
@@ -39,7 +42,8 @@
     "beach": "Beach",
     "other": "Other",
     "shop":"Shop",
-    "parcAttraction": "amusement-park "
+    "parcAttraction": "Hobbies",
+    "food":"Food"
   },
   "sidebar": {
     "navigation": "Navigation",

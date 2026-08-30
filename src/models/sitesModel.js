@@ -270,6 +270,33 @@ async function isSiteLikedByUser(userId, siteId) {
   return rows.length > 0;
 }
 
+// Pagination par curseur : contrairement à page/offset, `limit` peut varier
+// librement à chaque appel sans jamais sauter ou répéter un site.
+// Le curseur est (created_at, id) pour rester stable même si plusieurs
+// sites partagent exactement la même date de création.
+async function getSitesFeedCursor({ search, category, preference, cursorDate, cursorId, limit = 20 } = {}) {
+  const baseQuery = buildSiteBaseQuery();
+  const { conditions, params } = buildSiteFilterQuery({ search, category, preference });
+
+  if (cursorDate && cursorId) {
+    conditions.push(
+      `(s.created_at, s.id) < ($${params.length + 1}::timestamptz, $${params.length + 2}::uuid)`
+    );
+    params.push(cursorDate, cursorId);
+  }
+
+  let query = baseQuery;
+  if (conditions.length) {
+    query += ` WHERE ${conditions.join(' AND ')}`;
+  }
+  query += ` GROUP BY s.id ORDER BY s.created_at DESC, s.id DESC LIMIT $${params.length + 1}`;
+  params.push(Number(limit) || 20);
+
+  const { rows } = await pool.query(query, params);
+  return rows;
+}
+
+
 module.exports = {
   getAllSites,
   getSiteById,
@@ -281,5 +308,6 @@ module.exports = {
   getLikedCategories,
   getSitesByLikedCategories,
   getLikedSiteIds,
-  isSiteLikedByUser
+  isSiteLikedByUser,
+  getSitesFeedCursor
 };

@@ -70,7 +70,7 @@ const state = {
   categorieActive: "tous",
   rechercheActuelle: "",
 
-  pageActuelle: 1,
+  curseur: null,
   chargementEnCours: false,
   ilResteDesSites: true,
   colonnesConnues: 0,
@@ -139,6 +139,17 @@ const Api = {
     });
   },
 
+  async getSitesFeed({ limit, search, category, curseur }) {
+    const params = new URLSearchParams({ limit });
+    if (search) params.set("search", search);
+    if (category) params.set("category", category);
+    if (curseur) {
+      params.set("cursorDate", curseur.cursorDate);
+      params.set("cursorId", curseur.cursorId);
+    }
+    return fetch(`/api/sites/feed?${params.toString()}`, { headers: this.headers() });
+  },
+
   async like(siteId) {
     return fetch(`/api/sites/${siteId}/like`, { method: "POST", headers: this.headers() });
   },
@@ -159,16 +170,10 @@ function compterColonnesVisibles() {
   return colonnes.length || 1;
 }
 
-// Fixé une seule fois pour toute la session (voir state.limiteSession) :
-// 2 rangées affichées immédiatement + 2 rangées en réserve (préchargées),
-// pour que le scroll suivant soit instantané. Ne JAMAIS recalculer après
-// coup — sinon page × limit ne correspond plus à ce que le backend attend.
 function calculerLimiteParPage() {
-  if (state.limiteSession) return state.limiteSession;
   const colonnes = compterColonnesVisibles();
   state.colonnesConnues = colonnes;
-  state.limiteSession = colonnes * 4;
-  return state.limiteSession;
+  return colonnes * 4;
 }
 
 function moyenneNote(site) {
@@ -276,12 +281,11 @@ async function chargerSites(reinitialiser = true) {
 
   if (reinitialiser) {
     afficherEtat("loading");
-    state.pageActuelle = 1;
     state.tousLesSites = [];
     state.ilResteDesSites = true;
     state.idsDejaAffiches = new Set();
-    // NOTE : on ne touche pas à state.limiteSession ici — le limit doit
-    // rester fixe pour toute la session, même en changeant de filtre.
+    state.curseur = null;
+    sitesGrid.innerHTML = "";
   }
 
   const limit = calculerLimiteParPage();
@@ -290,11 +294,11 @@ async function chargerSites(reinitialiser = true) {
 
   let response;
   try {
-    response = await Api.getSites({
-      page: state.pageActuelle,
+    response = await Api.getSitesFeed({
       limit,
       search: state.rechercheActuelle.trim(),
       category,
+      curseur: state.curseur,
     });
   } catch {
     afficherEtat("error");
@@ -303,7 +307,6 @@ async function chargerSites(reinitialiser = true) {
   }
 
   if (Api.gererNonAutorise(response)) return;
-
   if (!response.ok) {
     afficherEtat("error");
     state.chargementEnCours = false;
@@ -313,8 +316,6 @@ async function chargerSites(reinitialiser = true) {
   const data = await response.json();
   let lot = data.sites;
 
-  // Le tri par préférence ne s'applique que sur le feed par défaut
-  // (aucun filtre de catégorie actif) — sinon on respecte l'ordre du backend.
   if (!category && state.profilPromise) {
     await state.profilPromise;
     if (!state.aDejaLike) {
@@ -324,7 +325,7 @@ async function chargerSites(reinitialiser = true) {
 
   state.tousLesSites = state.tousLesSites.concat(lot);
   state.ilResteDesSites = data.hasMore;
-  state.pageActuelle++;
+  state.curseur = data.nextCursor; // fourni tout fait par le serveur
 
   afficherSites();
   state.chargementEnCours = false;
@@ -671,7 +672,7 @@ function sauvegarderEtatListe() {
     SITES_CACHE_KEY,
     JSON.stringify({
       sites: state.tousLesSites,
-      page: state.pageActuelle,
+      curseur: state.curseur,
       ilResteDesSites: state.ilResteDesSites,
       categorieActive: state.categorieActive,
       rechercheActuelle: state.rechercheActuelle,
@@ -688,7 +689,7 @@ function restaurerEtatListe() {
     const etat = JSON.parse(brut);
 
     state.tousLesSites = etat.sites || [];
-    state.pageActuelle = etat.page || 1;
+    curseur: state.curseur || 1;
     state.ilResteDesSites = etat.ilResteDesSites ?? true;
     state.categorieActive = etat.categorieActive || "tous";
     state.rechercheActuelle = etat.rechercheActuelle || "";
@@ -749,6 +750,7 @@ async function basculerLike(site, bouton) {
 }
 
 
+
 // --------------------------------------------------------------------
 // 18. Déconnexion
 // --------------------------------------------------------------------
@@ -779,3 +781,4 @@ window.i18n?.ready?.then(() => {
     chargerSites(true);
   }
 });
+

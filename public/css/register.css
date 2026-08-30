@@ -1,4 +1,18 @@
 /* Register page specific styling */
+/* ===== OPTION 2: Avec overlay pour meilleure lisibilité ===== */
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.4)),
+    url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX_hXjpu0MXjubOod6ZpQvQUTHkXleyEG7SE4xoEgzlruy0zWz7ACCSFBl&s=10");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 
 /* ============ Menu déroulant "préférences de voyage" ============ */
 

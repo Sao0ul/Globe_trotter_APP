@@ -11,7 +11,8 @@ const {
   getLikedCategories,
   getSitesByLikedCategories,
   getLikedSiteIds,
-  isSiteLikedByUser
+  isSiteLikedByUser,
+  getSitesFeedCursor
 } = require('../models/sitesModel');
 
 const crypto = require('crypto');
@@ -19,7 +20,7 @@ const crypto = require('crypto');
 // ==========================================================
 // CONVERSION FR (frontend) <-> EN (base de données)
 // ==========================================================
-
+ 
 const CATEGORY_FR_TO_EN = {
   nature: 'nature',
   culture: 'culture',
@@ -353,6 +354,28 @@ const unlikeSiteHandler = asyncHandler(async (req, res) => {
   }
 });
 
+
+const getSitesFeed = asyncHandler(async (req, res) => {
+  const limit = Number(req.query.limit) || 10;
+  const { search, category, preference, cursorDate, cursorId } = req.query;
+
+  const sites = await getSitesFeedCursor({ search, category, preference, cursorDate, cursorId, limit });
+
+  const likedIds = req.user ? await getLikedSiteIds(req.user.id) : new Set();
+  const frontendSites = sites.map(s => ({ ...toFrontendSite(s), aimeParMoi: likedIds.has(s.id) }));
+
+  const dernier = sites[sites.length - 1];
+
+  res.json({
+    sites: frontendSites,
+    hasMore: sites.length === limit,
+    // à renvoyer tel quel au prochain appel, rien à recalculer côté frontend
+    nextCursor: dernier ? { cursorDate: dernier.created_at, cursorId: dernier.id } : null,
+  });
+});
+
+
+
 // ==========================================================
 // EXPORTS
 // ==========================================================
@@ -365,6 +388,7 @@ module.exports = {
   likeSite: likeSiteHandler,
   unlikeSite: unlikeSiteHandler,
   toFrontendSite,
+  getSitesFeed,
   // Utilitaires (si besoin dans d'autres contrôleurs)
   CATEGORY_FR_TO_EN,
   CATEGORY_EN_TO_FR,
