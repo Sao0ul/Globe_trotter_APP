@@ -7,7 +7,7 @@
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: #f0f2f5;
+    background-image: url("https://images.pexels.com/photos/32166532/pexels-photo-32166532.jpeg");
     color: #1a1a2e;
     line-height: 1.6;
     min-height: 100vh;
@@ -18,7 +18,7 @@ body {
     max-width: 1440px;
     margin: 0 auto;
     padding: 24px 32px 40px;
-    background: #f0f2f5;
+    background: transparent;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -209,10 +209,15 @@ body {
 }
 
 .content-block {
-    background: white;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-radius: 24px;
     padding: 28px 32px 32px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
     transition: transform 0.15s ease;
 }
 
@@ -516,14 +521,216 @@ body {
     width: 100%;
     height: 100%;
     -webkit-backface-visibility: hidden;
-    /* Cache le dos pendant la rotation */
     backface-visibility: hidden;
     border-radius: 24px;
-    background: white;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    /* Pour les enfants qui dépassent */
+
+    /* ===== EFFET GLASSMORPHISM AVEC FLOU ===== */
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+
+    /* ===== ANIMATION BORDURE MIROIR ===== */
+    position: relative;
+}
+
+/* Bordure animée qui tourne */
+.card-front::before,
+.card-back::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 25px;
+    padding: 2px;
+    background: conic-gradient(from 0deg,
+            transparent,
+            rgba(255, 255, 255, 0.5),
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    animation: rotateBorder 4s linear infinite;
+    z-index: -1;
+}
+
+/* Reflet lumineux qui glisse */
+.card-front::after,
+.card-back::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            transparent 30%,
+            rgba(255, 255, 255, 0.1) 50%,
+            transparent 70%);
+    border-radius: 24px;
+    pointer-events: none;
+}
+
+/* Animation de rotation */
+@keyframes rotateBorder {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Bordure animée qui tourne */
+.card-front::before,
+.card-back::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 25px;
+    padding: 2px;
+    background: conic-gradient(from 0deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent,
+            rgba(255, 255, 255, 0.1),
+            transparent);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    animation: rotateBorder 4s linear infinite;
+}
+
+/* Reflet lumineux qui glisse */
+.card-front::after,
+.card-back::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            transparent 30%,
+            rgba(255, 255, 255, 0.05) 50%,
+            transparent 70%);
+    border-radius: 24px;
+    pointer-events: none;
+}
+
+/* Animation de la bordure */
+@keyframes rotateBorder {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================
+   EFFET GLASSMORPHISM AVEC FLOU - CONTENT BLOCK
+   ============================================ */
+.content-block {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 24px;
+    padding: 28px 32px 32px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transition: transform 0.15s ease;
+}
+
+/* Effet au survol pour le content-block */
+.content-block:hover {
+    transform: scale(1.02);
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow:
+        0 12px 48px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* Option 1: Bordure avec effet miroir néon */
+.card-front::before,
+.card-back::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 25px;
+    padding: 2px;
+    background: conic-gradient(from 0deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent,
+            rgba(255, 255, 255, 0.1),
+            transparent);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    animation: rotateBorder 4s linear infinite;
+}
+
+/* Option 2: Effet miroir avec reflet */
+.card-front::after,
+.card-back::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            transparent 30%,
+            rgba(255, 255, 255, 0.05) 50%,
+            transparent 70%);
+    border-radius: 24px;
+    pointer-events: none;
+}
+
+/* Animation de la bordure (optionnelle) */
+@keyframes rotateBorder {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Effet miroir au hover (optionnel) */
+.card-front:hover,
+.card-back:hover {
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow:
+        inset 0 0 40px rgba(255, 255, 255, 0.15),
+        0 0 30px rgba(255, 255, 255, 0.1),
+        0 0 80px rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
 }
 
 /* ===== FACE AVANT (Adaptation de l'ancien style) ===== */
