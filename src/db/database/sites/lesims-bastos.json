@@ -1,0 +1,18 @@
+{
+    "osm_type": "node",
+    "osm_id": 7319482051,
+    "category": "food",
+    "name": "Le Sims",
+    "address": "Nylon Bastos, Yaoundé, Cameroon",
+    "phone": "+237657030616",
+    "latitude": 3.890650000000000,
+    "longitude": 11.510850000000000,
+    "description": "A well-known restaurant in Bastos offering Cameroonian and international cuisine, including grilled meats, seafood, traditional dishes and varied European-inspired meals.",
+    "bonASavoir": "The restaurant offers both gastronomy and fast food. Popular dishes include grilled chicken, prawns, sole, ndolé and chicken basquaise. Prices start around 3,000 FCFA depending on the dish.",
+    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRK7Re-x5LlrccjG5TxjhjugHE9_QGnWondLJHv-C95ZGuue2_fsVR49VDv&s=10",
+    "videoUrl": "https://www.facebook.com/restaurantlesimsofficiel/?locale=fr_FR",
+    "video_par": "le sims (facebook)",
+    "price": 3000,
+    "dangerosity": "low",
+    "difficulty": "easy"
+}

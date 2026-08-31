@@ -1,0 +1,18 @@
+{
+    "osm_type": "node",
+    "osm_id": 6924185730,
+    "category": "food",
+    "name": "Socrat Restaurant",
+    "address": "Nouvelle Route Bastos, Yaoundé, Cameroon",
+    "phone": "+237690040404",
+    "latitude": 3.886760500000000,
+    "longitude": 11.503905900000000,
+    "description": "A popular Lebanese, Mediterranean and international restaurant in Bastos offering seafood, grilled meats, pasta, rice, hummus and other Middle Eastern specialties.",
+    "bonASavoir": "Socrat is suitable for lunch, dinner, brunch and business meals. The usual price range is around 12,000 to 20,000 FCFA per person.",
+    "imageUrl": null,
+    "videoUrl": null,
+    "video_par": null,
+    "price": 12000,
+    "dangerosity": "low",
+    "difficulty": "easy"
+}

@@ -1,0 +1,18 @@
+{
+    "osm_type": "node",
+    "osm_id": 7482051936,
+    "category": "food",
+    "name": "L'Hybride",
+    "address": "Nouvelle Route Bastos, entrance Banque Mondiale, Yaoundé, Cameroon",
+    "phone": "+237695047008",
+    "latitude": 3.889500000000000,
+    "longitude": 11.506900000000000,
+    "description": "A modern upscale restaurant and bar in Bastos offering meals, brunches, cocktails and a varied dining experience in a contemporary setting.",
+    "bonASavoir": "The restaurant offers a lunch special around 8,000 FCFA including a starter, hot dish and dessert. Sunday brunches are also offered, sometimes with access to the swimming pool.",
+    "imageUrl": "https://img5.restaurants10.com/022/480/1025527680224809.jpg",
+    "videoUrl": "https://www.youtube.com/watch?v=THo-JNOkQuY",
+    "video_par": "Zainab the Youtuber (YouTube)",
+    "price": 8000,
+    "dangerosity": "low",
+    "difficulty": "easy"
+}

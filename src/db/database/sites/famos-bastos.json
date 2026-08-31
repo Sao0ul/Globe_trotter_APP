@@ -1,0 +1,18 @@
+{
+    "osm_type": "node",
+    "osm_id": 4186273950,
+    "category": "food",
+    "name": "The Famous",
+    "address": "Boulevard de l'URSS, Mini Prix Bastos, Yaoundé, Cameroon",
+    "phone": "+237656898001",
+    "latitude": 3.892100000000000,
+    "longitude": 11.517000000000000,
+    "description": "A stylish bistro-cafe in Bastos known for international and gastronomic cuisine, including sushi, pasta, French dishes, Asian specialties and grilled meats.",
+    "bonASavoir": "The restaurant has two levels, a modern interior and a lounge atmosphere. It is particularly known for dinners, events and a varied international menu. Dishes start from around 6,000 FCFA.",
+    "imageUrl": "https://www.ndeforcobarchitects.com/wp-content/uploads/2020/07/The-Famous-1.jpg",
+    "videoUrl": "https://www.youtube.com/watch?v=COIv1M69oEY",
+    "video_par": "SS Creative Studios (YouTube)",
+    "price": 6000,
+    "dangerosity": "low",
+    "difficulty": "easy"
+}
