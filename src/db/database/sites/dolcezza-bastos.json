@@ -1,0 +1,18 @@
+{
+    "osm_type": "node",
+    "osm_id": 5842017392,
+    "category": "food",
+    "name": "Dolcezza",
+    "address": "Nouvelle Route Bastos, Yaoundé, Cameroon",
+    "phone": "+237658597755",
+    "latitude": 3.886290000000000,
+    "longitude": 11.505650000000000,
+    "description": "A popular pizzeria and grill restaurant in Bastos known for handmade pizzas, grilled dishes, natural juices and Italian-style gelato.",
+    "bonASavoir": "Dolcezza combines Italian pizza-making with Cameroonian flavors. Pizzas start around 7,500 FCFA, while grilled dishes such as fish and chicken are available from around 3,500 to 5,000 FCFA.",
+    "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmEDqoEUFMR9_XXNJyrfF5LTnYN10Fwi-6E9VCv2w7nW1gaSQFnnQeBlxVkvfH1gRmWFeH4yHR_iQc6JNJm5oG7SG7JyQC2OuO60GKqPBLg5jM2OEk50bF8Wgft3Nlk6XNdwIU=s1360-w1360-h1020-rw",
+    "videoUrl": "https://www.facebook.com/reel/2129517551304716",
+    "video_par": "dolcezza (facebook)",
+    "price": 3500,
+    "dangerosity": "low",
+    "difficulty": "easy"
+}
