@@ -1,0 +1,18 @@
+{
+    "osm_type": "node",
+    "osm_id": 2292001972,
+    "category": "hobbies",
+    "name": "Dade Park",
+    "address": null,
+    "phone": null,
+    "latitude": 3.894211058319472,
+    "longitude": 11.55831149204812,
+    "description": "An amusement and leisure park located in the Ngona neighborhood of Yaoundé. It offers various outdoor activities including water sports, minigolf, sports fields, a small zoo, and relaxation areas for families.",
+    "bonASavoir": "The general admission fee gives you access to the green spaces, but individual activities like canoeing, swimming, or minigolf require additional tickets ranging",
+    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS84Y1DsgGSfza5KLQnX7Sd5Rkdg73PzUxwHDGnQMlZaispOPaPY-1Jre4&s=10",
+    "videoUrl": "https://youtu.be/OY8AVGc1knA?si=CdeUy7uJPyu6SblP",
+    "video_par": "dade park tv(youtube)",
+    "price": 500,
+    "dangerosity": "low",
+    "difficulty": "easy"
+}

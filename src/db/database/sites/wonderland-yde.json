@@ -1,0 +1,18 @@
+{
+    "osm_type": "node",
+    "osm_id": 5210948331,
+    "category": "hobbies",
+    "name": "Wonderland Yde",
+    "address": null,
+    "phone": null,
+    "latitude": 3.876121485929175,
+    "longitude": 11.51032291041923,
+    "description": "An indoor and outdoor family entertainment complex located along the new Bastos road. It includes arcade lounges, a modern kids' playground, trampoline zones, a small roller rink, bicycle tracks, and swimming pools.",
+    "bonASavoir": "This park focuses primarily on kids and teenagers. Entrance fees vary by duration: expect to pay 4,000 FCFA per child for mid-day access or 7,000 FCFA for a full-day pass. On-site meals and drinks are considered expensive by visitors.",
+    "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnAR9SA3dOjWaM0XtzBUzCv5bH3i_ItA3zGyEox4vNxig5g_G4yB2d8bamyz3C8SiJvUk2w1ghN6Omi2Bxkg9BNEGB3bFArjsdwhQQSyqcp3a0ECqbgnUg05osihb751RsWx4k=s1360-w1360-h1020-rw",
+    "videoUrl": "https://youtu.be/ylpuqA86638?si=kkcgURCf76GkdgGE",
+    "video_par": "(youtube)",
+    "price": 5000,
+    "dangerosity": "low",
+    "difficulty": "easy"
+}

@@ -1,0 +1,18 @@
+{
+    "osm_type": "node",
+    "osm_id": 2292001971,
+    "category": "hobbies",
+    "name": "Manèges de Ya-Fé",
+    "address": null,
+    "phone": null,
+    "latitude": 3.893562500000000,
+    "longitude": 11.500937500000000,
+    "description": "Manèges de Ya-Fé is a popular family amusement area at the Palais des Congrès in Yaoundé, featuring bumper cars, carousels, spinning rides, a small roller coaster and electronic games.",
+    "bonASavoir": "The rides are mainly aimed at families and children, although several attractions are suitable for adults. A ride has been reported at around 500 FCFA. The attraction is particularly active during weekends and festive periods.",
+    "imageUrl": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/24/86/9e/d1/amusement-rides-from.jpg?w=900&h=-1&s=1",
+    "videoUrl": "https://youtube.com/shorts/4YPYK8YHUJM?si=7ICyFldsne-_LBZe",
+    "video_par": "moisehouli3677(youtube)",
+    "price": 500,
+    "dangerosity": "low",
+    "difficulty": "easy"
+}
