@@ -1,0 +1,18 @@
+{
+    "osm_type": "way",
+    "osm_id": 710755996,
+    "category": "hobbies",
+    "name": "Stade d'Olembé (Complexe Paul Biya)",
+    "address": null,
+    "phone": null,
+    "latitude": 3.950960000000000,
+    "longitude": 11.540580000000000,
+    "description": "The largest stadium in Cameroon with a capacity of 60,000 spectators, located in the northern Olembé neighborhood. It is designed as a massive modern sports complex that includes training pitches, commercial spaces, and multi-sport facilities.",
+    "bonASavoir": "Situated about 13 kilometers north of the city center along the main highway. General entry outside match days is typically closed to the public unless a guided tour, official administration appointment, or community event is scheduled on site.The price bellow is the one you pay to have a place during a match",
+    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHCLMct6gy8MB-mQhzdFdJmGMlX-CvUZ16kTdaP4DWdqj2Gtbk7CRpiYCa&s=10",
+    "videoUrl": "https://youtu.be/5quPxpaLeao?si=r4gKfWnXkRK9fonO",
+    "video_par": "Gil media(YouTube)",
+    "price": 5000,
+    "dangerosity": "low",
+    "difficulty": "easy"
+}

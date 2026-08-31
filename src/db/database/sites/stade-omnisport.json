@@ -1,0 +1,18 @@
+{
+    "osm_type": "way",
+    "osm_id": 496137255,
+    "category": "hobbies",
+    "name": "Stade Omnisports Ahmadou Ahidjo",
+    "address": null,
+    "phone": null,
+    "latitude": 3.885510000000000,
+    "longitude": 11.540670000000000,
+    "description": "A multi-purpose historic stadium built in 1972 and heavily renovated, located in the Mfandena neighborhood near the Mobil junction. It primarily hosts football matches for local clubs and the national team, athletics, and major public events.",
+    "bonASavoir": "The venue includes adjacent training annexes and the popular 'Mobil Omnisports' amusement space nearby. Access is restricted during official sports matches or athletic events unless you purchase a ticket, but the surrounding open pathways are heavily used by the public for running.The price bellow it's the one you pay to have a place during a match",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Stade_Omnisports_Ahmadou_Ahidjo_Yaound%C3%A9_01.jpg?utm_source=fr.wikipedia.org&utm_campaign=index&utm_content=original",
+    "videoUrl": "https://youtu.be/jVubF7efCK8?si=wi8Fam2gIIq7UdoO",
+    "video_par": "l'indomptable sport (YouTube)",
+    "price": 5000,
+    "dangerosity": "low",
+    "difficulty": "easy"
+}
