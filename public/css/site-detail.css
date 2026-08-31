@@ -128,13 +128,30 @@ main {
    4. HEADER (topbar / titre / actions)
    ================================================================ */
 
+.detail-topbar {
+  width: 100%;
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 24px;
+  z-index: 20;
+
+  background: transparent;
+  border-bottom: 1px solid rgba(22, 51, 43, 0.08);
+  box-shadow: 0 4px 20px -8px rgba(22, 51, 43, 0.15);
+
+  pointer-events: auto;
+}
 
 .detail-title {
   min-width: 0;
   text-align: center;
 }
 
-.detail-title h1{
+.detail-title h1,
+.detail-topbar h1 {
   margin: 0;
   font-family: "DM Serif Display", serif;
   font-size: clamp(26px, 3vw, 38px);
@@ -369,8 +386,6 @@ main {
 
 .detail-video {
   isolation: isolate;
-  width: 100% !important;
-  object-fit: cover !important;
 }
 
 .video-container {
@@ -729,6 +744,14 @@ main {
     padding-bottom: 40px;
   }
 
+  .detail-topbar {
+    position: relative;
+    width: 100%;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 12px;
+    padding: 10px 0 8px;
+  }
+
   .detail-hero {
     position: relative;
     width: 100%;
@@ -738,7 +761,8 @@ main {
     text-align: center;
   }
 
-  .detail-title h1{
+  .detail-title h1,
+  .detail-topbar h1 {
     font-size: clamp(23px, 4vw, 32px);
   }
 
@@ -787,7 +811,16 @@ main {
     padding-bottom: 30px;
   }
 
-  .btn-back {
+  .detail-topbar {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 7px;
+    width: 100%;
+    padding: 7px 0 8px;
+  }
+
+  .detail-topbar .btn-back {
     width: auto;
     min-height: 32px;
     padding: 6px 9px;
@@ -795,12 +828,12 @@ main {
     border-radius: 999px;
   }
 
- .detail-title {
+  .detail-topbar .detail-title {
     min-width: 0;
     text-align: left;
   }
 
-   .detail-title h1 {
+  .detail-topbar .detail-title h1 {
     font-size: 18px;
     line-height: 1.05;
     white-space: nowrap;
@@ -808,7 +841,7 @@ main {
     text-overflow: ellipsis;
   }
 
-   .detail-title p {
+  .detail-topbar .detail-title p {
     margin-top: 2px;
     font-size: 9px;
     white-space: nowrap;
@@ -819,7 +852,7 @@ main {
   /* Les actions passent sur toute la largeur, en 2 colonnes égales.
      min-width:0 + le <span class="btn-label"> tronqué (voir §5.2)
      empêchent "View on map" / "Voir sur la carte" de déborder. */
-   .detail-actions {
+  .detail-topbar .detail-actions {
     grid-column: 1 / -1;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -827,7 +860,7 @@ main {
     width: 100%;
   }
 
-   .detail-actions>* {
+  .detail-topbar .detail-actions>* {
     width: 100%;
     min-width: 0;
     min-height: 34px;
@@ -836,7 +869,7 @@ main {
     border-radius: 999px;
   }
 
-   .btn-soon {
+  .detail-topbar .btn-soon {
     font-size: 7px;
     padding: 2px 4px;
   }
@@ -904,18 +937,26 @@ main {
     padding-right: 0;
   }
 
-   .btn-back {
+  .detail-topbar {
+    top: 0;
+    left: 0;
+    width: 100%;
+    gap: 5px;
+    padding: 5px 0 6px;
+  }
+
+  .detail-topbar .btn-back {
     min-height: 29px;
     padding: 5px 7px;
     font-size: 9px;
   }
 
   .detail-title h1,
-   h1 {
+  .detail-topbar h1 {
     font-size: 15px;
   }
 
-   .detail-title p {
+  .detail-topbar .detail-title p {
     font-size: 8px;
   }
 
@@ -970,6 +1011,12 @@ main {
     width: min(1240px, calc(100% - 60px));
   }
 
+  .detail-topbar {
+    width: 100%;
+    padding-top: 14px;
+    padding-bottom: 10px;
+  }
+
   :root {
     --video-frame: 18px;
     --video-radius: 32px;
@@ -999,6 +1046,12 @@ main {
     overflow: hidden;
   }
 
+  .detail-topbar {
+    height: 12vh;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
   .detail-video-area {
     flex: 1;
     min-height: 0;
@@ -1007,18 +1060,12 @@ main {
     align-items: center;
     justify-content: center;
     gap: 14px;
-    padding: 25px;
-
-    /*adding*/
-    display: flex !important;
-      flex-direction: column !important;
-      aspect-ratio: 16 / 9 !important;
-      overflow: hidden;
+    padding: 15px 25px;/* moins vertical, garde le côté */
   }
 
   .detail-video {
     position: relative;
-    width: min(100%, calc((100vh - 12vh - 50px - 22px - 14px) * 16 / 9));
+    width: min(100%, calc((100vh - 9vh - 50px - 22px - 14px) * 16 / 9));
     height: auto;
     aspect-ratio: 16 / 9;
     margin-top: 2%;
