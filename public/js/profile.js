@@ -29,9 +29,6 @@ const likedSitesLoadMoreBtn = document.getElementById("likedSitesLoadMoreBtn");
 const avatarInput = document.getElementById("avatarInput");
 const avatarEditBtn = document.getElementById("avatarEditBtn");
 
-avatarEditBtn.addEventListener("click", () => {
-    avatarInput.click();
-});
 
 // Icône + libellé par préférence — même mapping que dans register.html,
 // pour garder une cohérence visuelle sur toute l'app.

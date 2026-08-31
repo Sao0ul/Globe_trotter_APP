@@ -198,7 +198,7 @@ button {
   flex-direction: column;
   gap: 2px;
   flex: 1;
-  overflow-y: auto;
+  overflow: hidden;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -1057,7 +1057,7 @@ button {
   height: 100%;
   background: var(--card);
   padding: 30px 30px 40px;
-  overflow-y: auto;
+  overflow:hidden;
   transform: translateX(24px);
   transition: transform 0.25s ease;
 }
