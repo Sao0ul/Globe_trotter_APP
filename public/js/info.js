@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         title: 'Full-Stack Developer & UI/UX Designer',
         email: 'raoul.daril@example.com',
         location: 'Yaoundé, Cameroon',
-        website: 'discover-cameroon.com',
+        website: 'discovercameroon.online',
         bio: `Hello! I'm Raoul Daril, a passionate Computer Science student 
               with a love for building meaningful digital experiences. 
               This project, Discover Cameroon, was created as part of my school 

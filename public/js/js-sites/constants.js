@@ -14,6 +14,9 @@ export const FILTER_LABEL_KEYS = {
   beach: "filters.beach",
   mountain: "filters.mountain",
   aventure: "filters.adventure",
+  shop: "filters.shop",
+  hobbies: "filters.hobbies",
+  food: "filters.food",
 };
 
 // Conversion des codes de catégorie (frontend, en français) vers les
@@ -25,4 +28,7 @@ export const CATEGORY_VERS_BACKEND = {
   beach: "beach",
   mountain: "mountain",
   aventure: "adventure",
+  shop: "shop",
+  loisir: "hobbies",
+  food: "food",
 };

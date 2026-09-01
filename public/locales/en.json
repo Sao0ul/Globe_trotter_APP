@@ -42,7 +42,7 @@
     "beach": "Beach",
     "other": "Other",
     "shop":"Shop",
-    "parcAttraction": "Hobbies",
+    "hobbies":"Hobbies",
     "food":"Food"
   },
   "sidebar": {
@@ -72,7 +72,8 @@
     "adventure": "Adventure",
     "shop": "Shop",
     "food": "Food",
-    "loisir": "hobbies"
+    "loisir": "hobbies",
+    "hobbies": "hobbies"
   },
   "state": {
     "loading": "Loading destinations...",
@@ -115,7 +116,7 @@
     "aventure": "Adventure",
     "relaxation": "Relaxation",
     "shop": "Shop",
-    "parcAttraction": "Hobbies",
+    "hobbies": "Hobbies",
     "food": "Food",
     "other": "Other"
   },

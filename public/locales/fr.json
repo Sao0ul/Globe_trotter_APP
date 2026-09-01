@@ -43,7 +43,6 @@
     "beach": "Plage",
     "other": "Autre",
     "shop":"Boutique",
-    "parcAttraction":"parc-attraction",
     "hobbies":"loisirs",
     "food":"Nourriture"
   },
@@ -74,7 +73,8 @@
     "adventure": "Aventure",
     "shop": "Supermarche",
     "food":"Nourriture",
-    "loisir": "loisir"
+    "loisir": "loisir",
+    "hobbies":"loisirs"
   },
   "state": {
     "loading": "Chargement des destinations...",
@@ -117,8 +117,8 @@
     "aventure": "Aventure",
     "relaxation": "Détente",
     "shop": "Boutique",
-    "parcAttraction": "Loisirs",
     "food":"Nourriture",
+    "hobbies":"loisirs",
     "other": "Autre"
   },
   "difficulty": {
