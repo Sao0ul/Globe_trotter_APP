@@ -5,9 +5,13 @@
 import { appShell, collapseBtn, sidebar, sidebarScrim } from "./dom.js";
 import { state } from "./state.js";
 import { compterColonnesVisibles } from "./utils.js";
-import { afficherSites, chargerPageSuivanteSiNecessaire } from "./sites-loader.js";
+import {
+  afficherSites,
+  chargerPageSuivanteSiNecessaire,
+  chargerPourReequilibrerLaGrille,
+} from "./sites-loader.js";
 
-function recalculerApresChangementDeMiseEnPage() {
+async function recalculerApresChangementDeMiseEnPage() {
   const colonnes = compterColonnesVisibles();
 
   // Sert uniquement à décider si on réaffiche/précharge davantage —
@@ -18,7 +22,8 @@ function recalculerApresChangementDeMiseEnPage() {
   state.colonnesConnues = colonnes;
 
   afficherSites();
-  chargerPageSuivanteSiNecessaire();
+  await chargerPourReequilibrerLaGrille();
+  await chargerPageSuivanteSiNecessaire();
 }
 
 function fermerSidebar() {

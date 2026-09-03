@@ -7,12 +7,17 @@ import { state } from "./state.js";
 import { CATEGORY_VERS_BACKEND } from "./constants.js";
 import { Api } from "./api.js";
 import { afficherEtat } from "./ui-state.js";
-import { calculerLimiteParPage, correspondAuxFiltres, trierParPreference } from "./utils.js";
+import {
+  compterColonnesVisibles,
+  calculerLimiteParPage,
+  correspondAuxFiltres,
+  trierParPreference,
+} from "./utils.js";
 import { construireCarte } from "./card-builder.js";
 
 // reinitialiser=true : repart de zéro (changement de filtre/recherche, retry).
 // reinitialiser=false : page suivante du scroll infini.
-export async function chargerSites(reinitialiser = true) {
+export async function chargerSites(reinitialiser = true, limite = null) {
   if (state.chargementEnCours) return;
   if (!reinitialiser && !state.ilResteDesSites) return;
 
@@ -23,7 +28,7 @@ export async function chargerSites(reinitialiser = true) {
   // n'a plus de boîte de mise en page : `grid-template-columns` ne peut
   // plus se résoudre et retombe systématiquement sur 1 colonne, ce qui
   // faussait la taille de page à chaque changement de filtre/recherche.
-  const limit = calculerLimiteParPage();
+  const limit = limite ?? calculerLimiteParPage();
 
   if (reinitialiser) {
     afficherEtat("loading");
@@ -89,6 +94,20 @@ export async function chargerPageSuivanteSiNecessaire() {
   if (!pageEstAssezRemplie && state.ilResteDesSites && !state.chargementEnCours) {
     await chargerSites(false);
   }
+}
+
+// Après un changement de largeur, la grille peut gagner une colonne et
+// laisser un dernier rang incomplet. On charge le complément nécessaire,
+// plus un rang d'avance pour que le prochain scroll dispose déjà de cartes.
+export async function chargerPourReequilibrerLaGrille() {
+  const colonnes = state.colonnesConnues || compterColonnesVisibles();
+  const sitesFiltres = state.tousLesSites.filter(correspondAuxFiltres);
+  const reste = sitesFiltres.length % colonnes;
+
+  if (!reste || !state.ilResteDesSites || state.chargementEnCours) return;
+
+  const complement = colonnes - reste;
+  await chargerSites(false, complement + colonnes);
 }
 
 export function afficherSites() {
