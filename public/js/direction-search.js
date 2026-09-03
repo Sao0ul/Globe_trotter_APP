@@ -1,337 +1,246 @@
-// ================================================================
-// directions-search.js
-// ----------------------------------------------------------------
-// Ce fichier NE FONCTIONNE PAS SEUL : il réutilise les variables et
-// fonctions déjà déclarées dans itinerary.js (departInput, arriveeInput,
-// modeDriveBtn, modeWalkBtn, modeBikeBtn, placeOriginMarker,
-// placeDestinationMarker, calculerItineraire, setRouteSummary, map,
-// originPoint, destinationPoint, ITINERAIRE_API_BASE, routeLayer,
-// poiLayer, creerIconeCarte, formaterNomCategorie, COULEUR_TRAJET...).
-// Ces variables sont accessibles ici car deux balises <script> classiques
-// (pas type="module") sur la même page partagent le même scope global.
-//
-// IMPORTANT — ordre des balises dans le HTML, itinerary.js doit être
-// chargé EN PREMIER :
-//
-//   <script src="js/itinerary.js" defer></script>
-//   <script src="js/directions-search.js" defer></script>
-//
-// ================================================================
-
 (function () {
-    'use strict';
+  'use strict';
 
-    // ==============================================================
-    // 1. RECHERCHE D'ADRESSE (autocomplete départ / arrivée)
-    // ==============================================================
+  const GEOCODE_URL = 'https://nominatim.openstreetmap.org/search';
+  const ROUTER_URL = 'https://router.project-osrm.org/route/v1';
+  const modeButtons = {
+    driving: typeof modeDriveBtn !== 'undefined' ? modeDriveBtn : document.getElementById('modeDriveBtn'),
+    walking: typeof modeWalkBtn !== 'undefined' ? modeWalkBtn : document.getElementById('modeWalkBtn'),
+    cycling: typeof modeBikeBtn !== 'undefined' ? modeBikeBtn : document.getElementById('modeBikeBtn'),
+  };
 
-    // API de géocodage public (OpenStreetMap Nominatim). Si tu as / crées
-    // un endpoint côté backend (ex: /api/geocode?q=...), remplace juste
-    // GEOCODE_API et adapte rechercherAdresses() en conséquence — le
-    // reste du fichier n'a pas besoin de changer.
-    const GEOCODE_API = 'https://nominatim.openstreetmap.org/search';
-    const GEOCODE_DELAY = 350; // ms avant de lancer la recherche après la frappe
-    const GEOCODE_MIN_LENGTH = 3;
+  const panel = typeof directionsPanel !== 'undefined'
+    ? directionsPanel
+    : document.getElementById('directionsPanel');
+  let openButton = typeof openDirectionsBtn !== 'undefined'
+    ? openDirectionsBtn
+    : document.getElementById('openDirectionsBtn');
+  let closeButton = typeof closeDirectionsPanel !== 'undefined'
+    ? closeDirectionsPanel
+    : document.getElementById('closeDirectionsPanel');
+  const originInput = typeof departInput !== 'undefined'
+    ? departInput
+    : document.getElementById('departInput');
+  const destinationInput = typeof arriveeInput !== 'undefined'
+    ? arriveeInput
+    : document.getElementById('arriveeInput');
+  let swapButton = typeof swapDirectionsBtn !== 'undefined'
+    ? swapDirectionsBtn
+    : document.getElementById('swapDirectionsBtn');
+  const placeInput = document.getElementById('placeSearchInput');
+  const placeResults = document.getElementById('placeSearchResults');
+  const clearSearchButton = document.getElementById('placeSearchClearBtn');
 
-    function debounce(fn, delay) {
-        let timerId = null;
-        return (...args) => {
-            clearTimeout(timerId);
-            timerId = setTimeout(() => fn(...args), delay);
-        };
+  let activeMode = 'driving';
+  let searchTimer;
+  let searchController;
+
+  function replaceControl(control) {
+    if (!control) return null;
+    const replacement = control.cloneNode(true);
+    control.replaceWith(replacement);
+    return replacement;
+  }
+
+  // itinerary.js also wires these controls; replacing them prevents duplicate actions.
+  openButton = replaceControl(openButton);
+  closeButton = replaceControl(closeButton);
+  swapButton = replaceControl(swapButton);
+  Object.keys(modeButtons).forEach((mode) => {
+    modeButtons[mode] = replaceControl(modeButtons[mode]);
+  });
+
+  function summary(message) {
+    if (typeof setRouteSummary === 'function') {
+      setRouteSummary(message);
     }
+  }
 
-    // Annule la requête précédente si l'utilisateur retape avant la réponse.
-    let controleurRecherche = null;
+  function currentPoint(name) {
+    if (name === 'origin' && typeof originPoint !== 'undefined') return originPoint;
+    if (name === 'destination' && typeof destinationPoint !== 'undefined') return destinationPoint;
+    return null;
+  }
 
-    async function rechercherAdresses(query) {
-        if (controleurRecherche) {
-            controleurRecherche.abort();
-        }
-        controleurRecherche = new AbortController();
-
-        const url =
-            `${GEOCODE_API}?format=jsonv2&addressdetails=0&limit=5` +
-            `&accept-language=fr&q=${encodeURIComponent(query)}`;
-
-        try {
-            const response = await fetch(url, { signal: controleurRecherche.signal });
-            if (!response.ok) return [];
-
-            const data = await response.json();
-
-            return data.map((item) => ({
-                label: item.display_name,
-                lat: Number(item.lat),
-                lon: Number(item.lon),
-            }));
-        } catch (error) {
-            if (error.name !== 'AbortError') {
-                console.error('Erreur de géocodage :', error);
-            }
-            return [];
-        }
-    }
-
-    // Construit / réutilise le conteneur de suggestions juste sous un input.
-    function creerListeSuggestions(input) {
-        let liste = input.nextElementSibling;
-
-        if (!liste || !liste.classList.contains('address-suggestions')) {
-            liste = document.createElement('ul');
-            liste.className = 'address-suggestions';
-            liste.hidden = true;
-            input.insertAdjacentElement('afterend', liste);
-
-            // Positionnement minimal en cas d'absence de CSS dédié.
-            // Ajoute .address-suggestions dans ton CSS pour un style propre ;
-            // ceci garantit juste que ça reste utilisable sans rien ajouter.
-            liste.style.position = 'absolute';
-            liste.style.zIndex = '1000';
-            liste.style.listStyle = 'none';
-            liste.style.margin = '2px 0 0';
-            liste.style.padding = '4px 0';
-            liste.style.background = '#fff';
-            liste.style.borderRadius = '10px';
-            liste.style.boxShadow = '0 8px 24px rgba(0,0,0,0.18)';
-            liste.style.maxHeight = '220px';
-            liste.style.overflowY = 'auto';
-            liste.style.width = `${input.offsetWidth}px`;
-        }
-
-        return liste;
-    }
-
-    function viderSuggestions(liste) {
-        liste.innerHTML = '';
-        liste.hidden = true;
-    }
-
-    function afficherSuggestions(liste, resultats, onSelect) {
-        liste.innerHTML = '';
-
-        if (resultats.length === 0) {
-            liste.hidden = true;
-            return;
-        }
-
-        resultats.forEach((lieu) => {
-            const item = document.createElement('li');
-            item.textContent = lieu.label;
-            item.style.padding = '8px 12px';
-            item.style.cursor = 'pointer';
-            item.style.fontSize = '13px';
-
-            item.addEventListener('mouseenter', () => {
-                item.style.background = '#f0f4f2';
-            });
-            item.addEventListener('mouseleave', () => {
-                item.style.background = 'transparent';
-            });
-
-            // mousedown (pas click) pour sélectionner AVANT que le blur de
-            // l'input ne referme la liste.
-            item.addEventListener('mousedown', (event) => {
-                event.preventDefault();
-                onSelect(lieu);
-                liste.hidden = true;
-            });
-
-            liste.appendChild(item);
-        });
-
-        liste.hidden = false;
-    }
-
-    // Branche la recherche + sélection sur un input donné.
-    function attacherRecherche(input, onSelect) {
-        if (!input) return;
-
-        const liste = creerListeSuggestions(input);
-
-        const lancerRecherche = debounce(async (valeur) => {
-            if (valeur.trim().length < GEOCODE_MIN_LENGTH) {
-                viderSuggestions(liste);
-                return;
-            }
-
-            const resultats = await rechercherAdresses(valeur.trim());
-            afficherSuggestions(liste, resultats, (lieu) => {
-                onSelect(lieu);
-            });
-        }, GEOCODE_DELAY);
-
-        input.addEventListener('input', () => lancerRecherche(input.value));
-
-        input.addEventListener('blur', () => {
-            // Petit délai pour laisser le mousedown de la suggestion s'exécuter.
-            setTimeout(() => viderSuggestions(liste), 100);
-        });
-
-        input.addEventListener('focus', () => {
-            if (liste.childElementCount > 0) {
-                liste.hidden = false;
-            }
-        });
-    }
-
-    // Départ choisi via la recherche : on déverrouille le focus si besoin
-    // (sinon placeOriginMarker sert juste à repositionner le marqueur).
-    attacherRecherche(departInput, (lieu) => {
-        placeOriginMarker(lieu.lat, lieu.lon);
-        departInput.value = lieu.label; // remplace le libellé "lat, lng" par défaut
-        calculerItineraire();
+  function setModeButtonState() {
+    Object.entries(modeButtons).forEach(([mode, button]) => {
+      if (button) button.classList.toggle('is-active', mode === activeMode);
     });
+  }
 
-    // Arrivée choisie via la recherche.
-    attacherRecherche(arriveeInput, (lieu) => {
-        placeDestinationMarker(lieu.lat, lieu.lon, lieu.label);
-        map.setView([lieu.lat, lieu.lon], 14);
-        calculerItineraire();
+  function openPanel() {
+    if (!panel) return;
+    panel.classList.add('is-open');
+    panel.style.display = 'block';
+    openButton?.classList.add('is-active');
+    originInput?.focus();
+  }
+
+  function closePanel() {
+    if (!panel) return;
+    panel.classList.remove('is-open');
+    panel.style.display = 'none';
+    openButton?.classList.remove('is-active');
+  }
+
+  function showResults(results) {
+    if (!placeResults) return;
+    placeResults.innerHTML = '';
+    placeResults.hidden = results.length === 0;
+
+    results.forEach((result) => {
+      const item = document.createElement('li');
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = result.display_name;
+      button.addEventListener('click', () => {
+        const point = { lat: Number(result.lat), lon: Number(result.lon) };
+        if (originInput?.value.trim()) {
+          if (typeof placeDestinationMarker === 'function') {
+            placeDestinationMarker(point.lat, point.lon, result.display_name);
+          }
+          if (destinationInput) destinationInput.value = result.display_name;
+        } else if (typeof placeOriginMarker === 'function') {
+          placeOriginMarker(point.lat, point.lon);
+          if (originInput) originInput.value = result.display_name;
+        }
+        placeResults.hidden = true;
+        calculateRoute();
+      });
+      item.appendChild(button);
+      placeResults.appendChild(item);
     });
+  }
 
-    // ==============================================================
-    // 2. SÉLECTEUR DE TYPE DE TRANSPORT (voiture / marche / vélo)
-    // ==============================================================
-    // itinerary.js affichait juste un message "coming soon" pour marche et
-    // vélo, et n'avait AUCUN écouteur sur modeDriveBtn. On remplace tout
-    // ça par une vraie sélection qui relance le calcul d'itinéraire avec
-    // le bon profil.
-    //
-    // ⚠️ Le calcul réel dépend de ton backend /api/itineraire : il doit
-    // accepter un paramètre `profil` (driving / walking / cycling) et le
-    // transmettre à OSRM. Le routeur public utilisé jusqu'ici
-    // (router.project-osrm.org) ne sert QUE le profil voiture — si ton
-    // backend ne relaie pas encore le profil, marche/vélo renverront le
-    // même trajet que voiture tant que ce n'est pas branché côté serveur.
+  async function searchPlaces(query) {
+    searchController?.abort();
+    searchController = new AbortController();
+    const url = `${GEOCODE_URL}?format=jsonv2&limit=5&accept-language=fr&q=${encodeURIComponent(query)}`;
 
-    const PROFILS = {
-        driving: modeDriveBtn,
-        walking: modeWalkBtn,
-        cycling: modeBikeBtn,
+    try {
+      const response = await fetch(url, { signal: searchController.signal });
+      if (!response.ok) throw new Error(`Geocoding failed with status ${response.status}`);
+      showResults(await response.json());
+    } catch (error) {
+      if (error.name !== 'AbortError') {
+        console.error('Erreur de recherche de lieu :', error);
+        showResults([]);
+      }
+    }
+  }
+
+  async function requestRoute(origin, destination) {
+    const coordinates = `${origin.lng},${origin.lat};${destination.lng},${destination.lat}`;
+    const url = `${ROUTER_URL}/${activeMode}/${coordinates}?overview=full&geometries=geojson`;
+    const response = await fetch(url);
+    const data = await response.json();
+    if (!response.ok || data.code !== 'Ok' || !data.routes?.length) {
+      throw new Error(data.message || 'Aucun itinéraire trouvé.');
+    }
+    return data.routes[0];
+  }
+
+  function drawRoute(route) {
+    if (typeof map === 'undefined' || typeof L === 'undefined') return;
+    if (typeof routeLayer !== 'undefined' && routeLayer) map.removeLayer(routeLayer);
+
+    const layer = L.geoJSON(route.geometry, {
+      style: { color: typeof COULEUR_TRAJET !== 'undefined' ? COULEUR_TRAJET : '#E3A93A', weight: 5, opacity: 0.85 },
+    }).addTo(map);
+
+    if (typeof routeLayer !== 'undefined') routeLayer = layer;
+    map.fitBounds(layer.getBounds(), { padding: [40, 40] });
+  }
+
+  async function calculateRoute() {
+    const origin = currentPoint('origin');
+    const destination = currentPoint('destination');
+    if (!origin || !destination) {
+      summary('Choisissez un point de départ et une destination.');
+      return;
+    }
+
+    summary('Calcul de l’itinéraire…');
+    try {
+      const route = activeMode === 'driving' && typeof ITINERAIRE_API_BASE !== 'undefined'
+        ? await requestBackendRoute(origin, destination)
+        : await requestRoute(origin, destination);
+      if (route.geometry) drawRoute(route);
+
+      const modeNames = { driving: 'voiture', walking: 'marche', cycling: 'vélo' };
+      summary(
+        `Trajet (${modeNames[activeMode]}) — ${(route.distance / 1000).toFixed(1)} km, ` +
+        `environ ${Math.round(route.duration / 60)} min.`
+      );
+    } catch (error) {
+      console.error('Erreur de calcul d’itinéraire :', error);
+      summary('Impossible de calculer cet itinéraire.');
+    }
+  }
+
+  async function requestBackendRoute(origin, destination) {
+    const params = new URLSearchParams({
+      depart: `${origin.lat},${origin.lng}`,
+      arrivee: `${destination.lat},${destination.lng}`,
+      rayon: '1500',
+    });
+    const response = await fetch(`${ITINERAIRE_API_BASE}?${params}`);
+    const data = await response.json();
+    if (!response.ok || !data.trajet) throw new Error(data.error || 'Calcul backend impossible.');
+    return {
+      geometry: data.trajet,
+      distance: Number(data.distanceKm) * 1000,
+      duration: Number(data.dureeMin) * 60,
     };
+  }
 
-    let modeActif = 'driving';
+  function selectMode(mode) {
+    activeMode = mode;
+    setModeButtonState();
+    calculateRoute();
+  }
 
-    // On clone chaque bouton pour retirer proprement l'ancien écouteur
-    // "coming soon" posé par itinerary.js, sans toucher à itinerary.js.
-    Object.keys(PROFILS).forEach((profil) => {
-        const ancien = PROFILS[profil];
-        if (!ancien) return;
-
-        const nouveau = ancien.cloneNode(true);
-        ancien.replaceWith(nouveau);
-        PROFILS[profil] = nouveau;
-    });
-
-    function mettreAJourEtatBoutonsMode() {
-        Object.entries(PROFILS).forEach(([profil, bouton]) => {
-            bouton?.classList.toggle('is-active', profil === modeActif);
-        });
+  function swapPoints() {
+    const origin = currentPoint('origin');
+    const destination = currentPoint('destination');
+    if (!origin || !destination || typeof placeOriginMarker !== 'function' || typeof placeDestinationMarker !== 'function') {
+      summary('Choisissez un départ et une destination avant d’inverser le trajet.');
+      return;
     }
+    const originLabel = originInput?.value || 'Point de départ';
+    const destinationLabel = destinationInput?.value || 'Destination';
+    placeOriginMarker(destination.lat, destination.lng);
+    placeDestinationMarker(origin.lat, origin.lng, originLabel);
+    if (originInput) originInput.value = destinationLabel;
+    calculateRoute();
+  }
 
-    function selectionnerMode(profil) {
-        if (modeActif === profil) return;
+  openButton?.addEventListener('click', () => {
+    panel?.classList.contains('is-open') ? closePanel() : openPanel();
+  });
+  closeButton?.addEventListener('click', closePanel);
+  swapButton?.addEventListener('click', swapPoints);
+  Object.entries(modeButtons).forEach(([mode, button]) => button?.addEventListener('click', () => selectMode(mode)));
+  setModeButtonState();
 
-        modeActif = profil;
-        mettreAJourEtatBoutonsMode();
+  [originInput, destinationInput].forEach((input) => {
+    input?.addEventListener('change', calculateRoute);
+  });
 
-        if (originPoint && destinationPoint) {
-            calculerItineraire();
-        } else {
-            setRouteSummary(
-                `Mode : ${profil}. Choisissez un départ et une arrivée pour calculer le trajet.`
-            );
-        }
+  placeInput?.addEventListener('input', () => {
+    clearTimeout(searchTimer);
+    const query = placeInput.value.trim();
+    if (clearSearchButton) clearSearchButton.hidden = query.length === 0;
+    if (query.length < 3) {
+      if (placeResults) placeResults.hidden = true;
+      return;
     }
+    searchTimer = setTimeout(() => searchPlaces(query), 350);
+  });
 
-    PROFILS.driving?.addEventListener('click', () => selectionnerMode('driving'));
-    PROFILS.walking?.addEventListener('click', () => selectionnerMode('walking'));
-    PROFILS.cycling?.addEventListener('click', () => selectionnerMode('cycling'));
-
-    mettreAJourEtatBoutonsMode();
-
-    // ==============================================================
-    // 3. SURCHARGE DE calculerItineraire POUR TENIR COMPTE DU MODE
-    // ==============================================================
-    // calculerItineraire est une simple "function" déclarée dans
-    // itinerary.js (pas const), donc réassignable ici. Tous les appels
-    // existants (clic carte, swapDirectionsBtn, drag du marqueur départ,
-    // verrouillage du focus...) utiliseront automatiquement cette version,
-    // car ils appellent `calculerItineraire()` par son nom à chaque clic,
-    // et JS résout ce nom dans le scope partagé au moment de l'appel.
-
-    calculerItineraire = async function calculerItineraireAvecProfil() {
-        if (!originPoint || !destinationPoint) {
-            setRouteSummary(
-                'Place a point to start(your starting point) or click on the map.'
-            );
-            return;
-        }
-
-        setRouteSummary('Calculating...');
-
-        const depart = `${originPoint.lat},${originPoint.lng}`;
-        const arrivee = `${destinationPoint.lat},${destinationPoint.lng}`;
-
-        try {
-            const response = await fetch(
-                `${ITINERAIRE_API_BASE}?depart=${encodeURIComponent(depart)}` +
-                `&arrivee=${encodeURIComponent(arrivee)}&rayon=1500&profil=${modeActif}`
-            );
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                setRouteSummary(data.error || 'Impossible to calculate itinerary.');
-                return;
-            }
-
-            if (routeLayer) {
-                map.removeLayer(routeLayer);
-            }
-
-            routeLayer = L.geoJSON(data.trajet, {
-                style: { color: COULEUR_TRAJET, weight: 5, opacity: 0.85 },
-            }).addTo(map);
-
-            map.fitBounds(routeLayer.getBounds(), { padding: [40, 40] });
-
-            poiLayer.clearLayers();
-
-            (data.lieux || []).forEach((lieu) => {
-                const marker = L.marker(
-                    [lieu.latitude, lieu.longitude],
-                    {
-                        icon: creerIconeCarte(lieu.category),
-                        poiCategory: lieu.category,
-                    }
-                );
-                marker
-                    .bindPopup(`
-        <span class="popup-category">
-          ${formaterNomCategorie(lieu.category)}
-        </span>
-        <span class="popup-title">${lieu.name}</span>
-        ${lieu.address ? `<div>${lieu.address}</div>` : ''}
-      `)
-                    .addTo(poiLayer);
-            });
-
-            const nomsProfils = {
-                driving: 'voiture',
-                walking: 'marche',
-                cycling: 'vélo',
-            };
-
-            setRouteSummary(
-                `Trajet (${nomsProfils[modeActif] || modeActif}) vers ${destinationLabel} — ` +
-                `${data.distanceKm} km, environ ${data.dureeMin} min. ` +
-                `${(data.lieux || []).length} lieu(x) trouvé(s) à proximité.`
-            );
-        } catch (error) {
-            console.error('Error during calculating itinerary :', error);
-            setRouteSummary('The itinerary service is not available.');
-        }
-    };
+  clearSearchButton?.addEventListener('click', () => {
+    if (placeInput) placeInput.value = '';
+    clearSearchButton.hidden = true;
+    if (placeResults) placeResults.hidden = true;
+  });
 })();
