@@ -54,10 +54,7 @@ const register = asyncHandler(async (req, res) => {
     preferences: normalizedPreferences,
   });
 
-  // Lien de confirmation — en conditions réelles, on l'enverrait par email (SMTP).
-  // Ici on simule l'envoi : le lien est loggé côté serveur et renvoyé dans la
-  // réponse API, pour pouvoir tester sans configurer de vrai service mail.
-  // APRÈS — envoi réel via Resend
+  // Lien de confirmation
   const confirmationLink = `${req.protocol}://${req.get('host')}/api/auth/verify/${verificationToken}`;
 
   try {
@@ -70,8 +67,7 @@ const register = asyncHandler(async (req, res) => {
   }
 
   res.status(201).json(newUser);
-  // confirmationLink n'est plus exposé dans la réponse : maintenant qu'un
-  // vrai mail part, plus besoin de le donner au client
+
 });
 
 // GET /api/auth/verify/:token — confirme le compte via le lien reçu et redirige vers une page HTML dédiée avec le résultat en paramètre

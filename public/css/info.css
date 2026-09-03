@@ -758,6 +758,10 @@ body {
 /* ===== FACE ARRIÈRE (Nouveau design percutant) ===== */
 .card-back {
     background: linear-gradient(135deg, #1a1a2e 0%, #2d3436 100%);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    /* Le fond est opaque, le flou hérité de .card-front/.card-back casse le rendu
+       de cette face dans Chrome/Edge quand elle est combinée à backface-visibility: hidden */
     color: white;
     transform: rotateY(180deg);
     /* Positionnée face cachée au départ */
@@ -870,8 +874,11 @@ body {
 
 /* ===== RESPONSIVE ADAPTATIONS ===== */
 
-/* On désactive le sticky et la hauteur fixe sur mobile */
-@media (max-width: 1024px) {
+/* On désactive le sticky et la hauteur fixe uniquement sur les appareils
+   tactiles (pas de vrai survol). Le flip 3D reste actif sur PC quelle
+   que soit la largeur de la fenêtre. */
+@media (hover: none),
+(pointer: coarse) {
     .profile-card-container {
         position: relative;
         top: 0;
