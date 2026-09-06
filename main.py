@@ -16,6 +16,7 @@ IGNORED_DIRS = {
     "dist",
     "build",
     "__pycache__"
+    ".css"
 }
 
 HTML_EXT = {".html", ".htm"}
