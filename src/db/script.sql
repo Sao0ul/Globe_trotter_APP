@@ -330,3 +330,33 @@ CREATE TRIGGER trg_update_conversation_timestamp_video
 AFTER INSERT ON messages_video
 FOR EACH ROW
 EXECUTE FUNCTION update_conversation_timestamp();
+
+
+-- ============================================================
+-- COMMENTS — commentaires laissés par les users sur un site.
+-- Voir / ajouter / supprimer uniquement (pas d'édition prévue,
+-- donc pas de colonne updated_at).
+-- ============================================================
+
+CREATE TABLE IF NOT EXISTS comments (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    site_id UUID NOT NULL,
+    user_id UUID NOT NULL,
+    content VARCHAR(500) NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    -- Si le site est supprimé, ses commentaires partent avec.
+    CONSTRAINT fk_comments_site
+        FOREIGN KEY (site_id) REFERENCES sites(id) ON DELETE CASCADE,
+
+    -- Si le user est supprimé, ses commentaires partent avec
+    -- (contrairement à sites.user_id qui fait SET NULL : ici un
+    -- commentaire sans auteur n'a pas de sens, donc CASCADE).
+    CONSTRAINT fk_comments_user
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Index critique : la requête la plus fréquente sera
+-- "tous les commentaires d'un site, triés par date".
+CREATE INDEX IF NOT EXISTS idx_comments_site_id ON comments(site_id);
+CREATE INDEX IF NOT EXISTS idx_comments_user_id ON comments(user_id);

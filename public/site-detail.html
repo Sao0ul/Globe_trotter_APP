@@ -18,7 +18,10 @@
     <link rel="stylesheet" href="css/site-detail.css">
     <link rel="stylesheet" href="css/site-detail-title.css">
     <link rel="stylesheet" href="css/map-markers.css">
+    <!-- CSS Commentaires (fichier séparé) -->
     <link rel="stylesheet" href="css/site-detail-comments.css">
+    <!-- CSS Partage (fichier séparé) -->
+    <link rel="stylesheet" href="css/site-details-share.css">
 </head>
 
 
@@ -46,7 +49,53 @@
                 </span>
             </button>
 
+            <button class="wp-header__share" id="btn-share" type="button" aria-label="Share this site"
+                aria-expanded="false" aria-haspopup="true">
+                <svg class="wp-header__share-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true">
+                    <circle cx="18" cy="5" r="2.6" stroke="currentColor" stroke-width="1.8" />
+                    <circle cx="6" cy="12" r="2.6" stroke="currentColor" stroke-width="1.8" />
+                    <circle cx="18" cy="19" r="2.6" stroke="currentColor" stroke-width="1.8" />
+                    <line x1="8.3" y1="10.6" x2="15.7" y2="6.4" stroke="currentColor" stroke-width="1.8" />
+                    <line x1="8.3" y1="13.4" x2="15.7" y2="17.6" stroke="currentColor" stroke-width="1.8" />
+                </svg>
+            </button>
+
             <button class="wp-header__like" id="btn-likes" type="button" aria-label="Add to favorites">🤍</button>
+
+            <!-- Panneau de partage : DÉPLACÉ ICI, à l'intérieur de .wp-header__actions.
+                 C'était le bug : ce panneau était avant un enfant direct de <header>,
+                 sans ancêtre positionné (position: relative) correspondant à son
+                 "position: absolute" en CSS, donc il se plaçait par rapport
+                 au viewport/document entier -> apparaissait en bas de l'écran.
+                 Masqué par défaut, ouvert/fermé par site-detail-share.js -->
+            <div class="share-panel" id="sharePanel" hidden>
+                <div class="share-panel__head">
+                    <h3>Share this site</h3>
+                    <button class="share-panel__close" id="shareCloseBtn" type="button" aria-label="Close">✕</button>
+                </div>
+
+                <button class="share-panel__option" id="shareCopyLinkBtn" type="button">
+                    <span class="share-panel__icon">🔗</span> Copy link
+                </button>
+
+                <a class="share-panel__option" id="shareWhatsappLink" href="#" target="_blank" rel="noopener">
+                    <span class="share-panel__icon">💬</span> Share via WhatsApp
+                </a>
+
+                <button class="share-panel__option" id="shareToChatBtn" type="button">
+                    <span class="share-panel__icon">✉️</span> Send to a conversation
+                </button>
+
+                <p id="shareFeedback" class="share-panel__feedback" hidden></p>
+
+                <!-- Sous-liste des conversations, affichée après clic sur "Send to a conversation" -->
+                <div class="share-panel__conversations" id="shareConversations" hidden>
+                    <p class="share-panel__loading" id="shareConvLoading">Loading conversations...</p>
+                    <p class="share-panel__empty" id="shareConvEmpty" hidden>No conversations yet.</p>
+                    <ul class="share-panel__conv-list" id="shareConvList"></ul>
+                </div>
+            </div>
 
         </div>
 
@@ -202,7 +251,10 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="js/mapicons.js"></script>
     <script src="js/site-detail.js"></script>
+    <!-- JS Commentaires (fichier séparé) -->
     <script src="js/site-detail-comments.js"></script>
+    <!-- JS Partage (fichier séparé) -->
+    <script src="js/site-details-share.js"></script>
 
 </body>
 

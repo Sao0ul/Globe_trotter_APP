@@ -10,9 +10,9 @@
     --text-primary: #0f172a;
     --text-secondary: #64748b;
     --msg-own-bg: #f3f3f6;
-    --msg-own-text: #ffffff;
-    --msg-other-bg: #f1f5f9;
-    --msg-other-text: #0f172a;
+    --msg-own-text: #0c0c0c;
+    --msg-other-bg: #f3f3f6;
+    --msg-other-text: #170301;
     --online-color: #22c55e;
 }
 
