@@ -1,10 +1,24 @@
 // Gère l'onboarding après un login Google/Facebook : choix du username + préférences.
-
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const token = localStorage.getItem("token");
-
     if (!token) {
         window.location.href = "index.html";
+        return;
+    }
+
+    const res = await fetch("/api/users/me", {
+        headers: { Authorization: `Bearer ${token}` }
+    });
+
+    if (!res.ok) {
+        localStorage.removeItem("token");
+        window.location.href = "index.html";
+        return;
+    }
+
+    const user = await res.json();
+    if (!user.needsOnboarding) {
+        window.location.href = "sites.html"; // déjà onboardé, on saute le formulaire
         return;
     }
 

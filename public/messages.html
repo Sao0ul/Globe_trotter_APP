@@ -1,26 +1,52 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Messages</title>
-    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/messages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
-<body class="page-shell">
-    <div class="page-frame compact-frame">
-        <header class="detail-topbar">
-            <a href="sites.html" class="btn-ghost btn-back">← Retour</a>
-            <div class="detail-title-wrap">
-                <span class="eyebrow">Messages</span>
-                <h1>Boîte de discussion</h1>
+<body>
+    <div class="messages-layout">
+        <!-- Left Column: Search & Conversations -->
+        <aside class="conversations-list" id="conversationsList">
+            <div class="conversations-header">
+                <h2>Messages</h2>
             </div>
-        </header>
-        <main class="placeholder-card">
-            <p>Cette page est maintenant disponible dans l'application. Elle garde le même style visuel que les autres écrans publics.</p>
+
+            <div class="user-search">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="userSearchInput" placeholder="Search user..." autocomplete="off">
+                <ul id="userSearchResults"></ul>
+            </div>
+
+            <ul id="conversationsUl"></ul>
+        </aside>
+
+        <!-- Right Column: Active Chat Window -->
+        <main class="chat-window">
+            <div class="chat-header" id="chatHeader" style="display: none;">
+                <div class="chat-header-info">
+                    <h3 id="chatHeaderTitle">Conversation</h3>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages"></div>
+
+            <form id="messageForm" class="chat-form">
+                <input type="text" id="messageInput" placeholder="Write a message..." autocomplete="off" required>
+                <button type="submit" aria-label="Send message">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
         </main>
     </div>
+
+    <script src="js/messages.js"></script>
 </body>
 
 </html>

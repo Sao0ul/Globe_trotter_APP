@@ -1,7 +1,7 @@
 const asyncHandler = require('../middlewares/asyncHandler');
 const { updateUsernameAndPreferences } = require('../models/usersModel');
-const { findById, updateAvatarUrl } = require('../models/usersModel');
-const { uploadBufferToCloudinary } = require('../services/uploadAvatar');
+const { findById, updateAvatarUrl, searchUsersByUsername } = require('../models/usersModel');
+const { uploadBufferToCloudinary } = require('../services/uploadAvatar'); 
 
 // GET /api/users/me — profil de l'utilisateur connecté
 const getMe = asyncHandler(async (req, res) => {
@@ -31,6 +31,7 @@ const getMe = asyncHandler(async (req, res) => {
     joined: user.created_at,
     preferences,
     avatarUrl: user.avatar_url || null,
+    needsOnboarding: !user.username,
   });
 });
 
@@ -48,7 +49,18 @@ const ALLOWED_PREFERENCES = [
 // PATCH /api/users/me — complète le profil après un login OAuth
 const updateProfile = asyncHandler(async (req, res) => {
   const { username, preferences } = req.body;
-  const userId = req.user.id; // injecté par verifierToken
+  const userId = req.user.id; // <-- déjà là, injecté par verifierToken, comme avant
+
+  // On va chercher l'état ACTUEL de CET utilisateur en base, via son id (pas via l'URL)
+  const existingUser = await findById(userId);
+  if (!existingUser) {
+    return res.status(404).json({ error: 'user not found' });
+  }
+
+  // On vérifie si CE user (identifié par son token, donc son id) a déjà un username en base
+  if (existingUser.username) {
+    return res.status(409).json({ error: 'profile already completed' });
+  }
 
   if (!username || !username.trim()) {
     return res.status(400).json({ error: 'username is required' });
@@ -89,6 +101,17 @@ const uploadAvatar = asyncHandler(async (req, res) => {
 
   res.json({ avatarUrl: updated.avatar_url });
 });
+const searchUsers = asyncHandler(async (req, res) => {
+  const { q } = req.query;
+  const currentUserId = req.user.id;
 
+  if (!q || q.trim().length < 2) {
+    return res.status(400).json({ erreur: 'Recherche trop courte (2 caractères min)' });
+  }
 
-module.exports = { getMe, updateProfile, uploadAvatar };
+  const users = await searchUsersByUsername(q.trim(), currentUserId);
+  res.status(200).json(users);
+});
+  
+
+module.exports = { getMe, updateProfile, uploadAvatar, searchUsers };

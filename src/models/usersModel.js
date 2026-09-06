@@ -171,6 +171,19 @@ async function updateAvatarUrl(userId, avatarUrl) {
 }
 
 
+// Recherche des utilisateurs par username (recherche partielle, insensible à la casse)
+async function searchUsersByUsername(query, excludeUserId) {
+  const result = await pool.query(
+    `SELECT id, username, avatar_url, preferences
+         FROM users
+         WHERE username ILIKE $1 AND id != $2
+         LIMIT 10`,
+    [`%${query}%`, excludeUserId]
+  );
+  return result.rows;
+}
+
+
 
 module.exports = { 
   findByEmail, 
@@ -183,5 +196,6 @@ module.exports = {
   findByFacebookId,
   createUserFromFacebook,
   updateUsernameAndPreferences,
-  updateAvatarUrl
- };
+  updateAvatarUrl,
+  searchUsersByUsername,
+};

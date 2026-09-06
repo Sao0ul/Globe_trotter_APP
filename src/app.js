@@ -10,6 +10,7 @@ const sitesRoutes = require('./routes/sitesRoutes');
 const userRoutes = require('./routes/userRoutes');
 const itineraireRoutes = require('./routes/itineraireRoutes');
 const sitedetailsRoutes = require('./routes/sites-detailsRoutes');
+const messageRoutes = require('./routes/messageRoutes');
 
 const app = express();
 const PORT = process.env.PORT;
@@ -32,6 +33,7 @@ app.use('/api/sites/details', sitedetailsRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/itineraire', itineraireRoutes);
+app.use('/api/conversations', messageRoutes);
 
 // Gestionnaire d'erreurs en dernier
 app.use(errorHandler);
