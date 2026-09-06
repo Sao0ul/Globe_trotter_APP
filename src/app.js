@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const http = require('http');
 
 // middlewares
 const errorHandler = require('./middlewares/errorHandler');
@@ -23,7 +24,6 @@ app.use(cors({
 app.use(express.json());
 app.use(express.static('public'));
 
-// Health check
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'UP' });
 });
@@ -36,11 +36,14 @@ app.use('/api/itineraire', itineraireRoutes);
 app.use('/api/conversations', messageRoutes);
 app.use('/api/conversations', require('./routes/mediaRoutes'));
 
-// Gestionnaire d'erreurs en dernier
 app.use(errorHandler);
 
+// ---- NOUVEAU : serveur HTTP explicite + Socket.io greffé dessus ----
+const server = http.createServer(app);
+require('./services/socketServer')(server);
+
 if (require.main === module) {
-  app.listen(PORT, () => {
+  server.listen(PORT, () => {
     console.log(`Serveur démarré sur le port ${PORT}`);
   });
 }

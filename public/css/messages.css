@@ -1,3 +1,6 @@
+/* ============================================================
+   1. VARIABLES GLOBALES (couleurs, réutilisées partout via var(--nom))
+   ============================================================ */
 :root {
     --primary-color: #4f46e5;
     --primary-hover: #4338ca;
@@ -6,19 +9,33 @@
     --border-color: #e2e8f0;
     --text-primary: #0f172a;
     --text-secondary: #64748b;
-    --msg-own-bg: #4f46e5;
+    --msg-own-bg: #f3f3f6;
     --msg-own-text: #ffffff;
     --msg-other-bg: #f1f5f9;
     --msg-other-text: #0f172a;
     --online-color: #22c55e;
 }
 
+/* ============================================================
+   2. BASE / RESET
+   ============================================================ */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #f1f5f9;
     margin: 0;
 }
 
+/* box-sizing: border-box = padding et border comptent DANS la largeur/hauteur
+   fixée (au lieu de s'ajouter par-dessus). Évite plein de bugs de débordement. */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* ============================================================
+   3. LAYOUT GÉNÉRAL (les 2 colonnes)
+   ============================================================ */
 .messages-layout {
     display: flex;
     height: calc(100vh - 40px);
@@ -26,15 +43,19 @@ body {
     margin: 20px auto;
     background: var(--bg-card);
     border-radius: 16px;
+    /* box-shadow: décalage-x, décalage-y, flou, étendue, couleur — 2 ombres cumulées ici */
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
     overflow: hidden;
 }
 
-/* ===== Left Column: Sidebar ===== */
-
+/* ============================================================
+   4. COLONNE GAUCHE — Liste des conversations
+   ============================================================ */
 .conversations-list {
     width: 320px;
     flex-shrink: 0;
+    /* flex-shrink: 0 = interdit à flexbox de rétrécir cette colonne
+       même si l'espace manque (elle garde toujours ses 320px) */
     border-right: 1px solid var(--border-color);
     background: var(--bg-main);
     display: flex;
@@ -52,8 +73,11 @@ body {
     color: var(--text-primary);
 }
 
+/* --- Barre de recherche utilisateur --- */
 .user-search {
     position: relative;
+    /* position: relative sur le parent = sert de repère pour l'icône
+       et la liste de résultats qui sont en position: absolute */
     padding: 0 16px 12px;
 }
 
@@ -68,18 +92,19 @@ body {
 .user-search input {
     width: 100%;
     padding: 10px 12px 10px 36px;
+    /* padding-left plus grand pour laisser la place à l'icône loupe */
     border: 1px solid var(--border-color);
     border-radius: 10px;
     font-size: 0.875rem;
     background: var(--bg-card);
     color: var(--text-primary);
-    box-sizing: border-box;
     transition: all 0.2s ease;
 }
 
 .user-search input:focus {
     outline: none;
     border-color: var(--primary-color);
+    /* box-shadow ici sert de "halo" de focus à la place de l'outline par défaut */
     box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
 }
 
@@ -88,6 +113,7 @@ body {
     left: 16px;
     right: 16px;
     top: 100%;
+    /* top: 100% = juste sous l'élément parent positionné (le .user-search) */
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: 10px;
@@ -97,9 +123,11 @@ body {
     max-height: 220px;
     overflow-y: auto;
     z-index: 20;
+    /* z-index: ordre d'empilement — élevé pour passer au-dessus de la liste de conversations */
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
+/* :empty = cible l'élément uniquement s'il n'a AUCUN contenu à l'intérieur */
 #userSearchResults:empty {
     display: none;
 }
@@ -117,12 +145,49 @@ body {
     background: var(--msg-other-bg);
 }
 
+#userSearchResults li.no-result {
+    color: var(--text-secondary);
+    cursor: default;
+    text-align: center;
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-result-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+    /* min-width: 0 = autorise un enfant flex à rétrécir sous sa taille
+       "naturelle" (utile pour que le texte fasse text-overflow: ellipsis) */
+}
+
+.preference-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.preference-tag {
+    font-size: 0.7rem;
+    background: var(--msg-other-bg);
+    color: var(--text-secondary);
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+/* --- Liste des conversations --- */
 #conversationsUl {
     list-style: none;
     margin: 0;
     padding: 0 8px;
     overflow-y: auto;
     flex: 1;
+    /* flex: 1 = prend tout l'espace vertical restant dans .conversations-list */
 }
 
 .conversation-item {
@@ -144,6 +209,7 @@ body {
     background: #eef2ff;
 }
 
+/* --- Avatar + statut en ligne --- */
 .avatar-container {
     position: relative;
     width: 40px;
@@ -156,6 +222,30 @@ body {
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
+    /* object-fit: cover = l'image remplit tout le cercle sans se déformer,
+       en rognant l'excédent (comme un fond d'écran "recadré") */
+}
+
+.avatar-fallback {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+/* variante réduite (utilisée par ex. dans les résultats de recherche) */
+.avatar-container.small,
+.avatar.small,
+.avatar-fallback.small {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
 }
 
 .status-indicator {
@@ -166,6 +256,8 @@ body {
     height: 10px;
     border-radius: 50%;
     border: 2px solid var(--bg-card);
+    /* la bordure couleur "carte" simule une découpe autour du point vert,
+       comme sur WhatsApp/Messenger */
 }
 
 .status-indicator.online {
@@ -202,15 +294,23 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    /* trio nowrap + overflow hidden + text-overflow: ellipsis = obligatoire
+       ensemble pour obtenir les "..." de troncature du texte */
 }
 
-/* ===== Right Column: Chat Window ===== */
-
+/* ============================================================
+   5. COLONNE DROITE — Fenêtre de chat (structure générale)
+   ============================================================ */
 .chat-window {
     flex: 1;
     display: flex;
     flex-direction: column;
     background: var(--bg-card);
+    min-width: 0;
+    /* min-width: 0 = essentiel ici : sans ça, si un message ou un média
+       est très large, toute la colonne peut pousser le layout et faire
+       apparaître un scroll horizontal global au lieu de rester à l'intérieur */
+    overflow: hidden;
 }
 
 .chat-header {
@@ -219,6 +319,7 @@ body {
     gap: 12px;
     padding: 16px 24px;
     border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
 }
 
 .chat-header-info h3 {
@@ -234,9 +335,16 @@ body {
     color: var(--text-secondary);
 }
 
+/* ============================================================
+   6. ZONE DES MESSAGES + BULLES
+   ============================================================ */
 .chat-messages {
     flex: 1;
     overflow-y: auto;
+    overflow-x: hidden;
+    /* overflow-x: hidden = le vrai verrou anti-débordement horizontal.
+       Sans ça, une image/audio trop large dans une bulle peut élargir
+       toute la zone de chat et pousser le formulaire d'envoi hors champ. */
     padding: 24px;
     display: flex;
     flex-direction: column;
@@ -250,8 +358,13 @@ body {
     font-size: 0.9rem;
     line-height: 1.4;
     word-wrap: break-word;
+    /* word-wrap (overflow-wrap): break-word = coupe les mots/liens trop
+       longs plutôt que de laisser la bulle déborder */
     display: flex;
     flex-direction: column;
+    min-width: 0;
+    /* même logique que plus haut : empêche le contenu (surtout un média)
+       de forcer la bulle à s'agrandir au-delà de max-width: 60% */
 }
 
 .message p {
@@ -270,6 +383,8 @@ body {
     background: var(--msg-own-bg);
     color: var(--msg-own-text);
     border-bottom-right-radius: 4px;
+    /* un seul coin non arrondi = donne l'effet "bulle qui pointe"
+       classique des apps de messagerie */
 }
 
 .message.other {
@@ -279,16 +394,73 @@ body {
     border-bottom-left-radius: 4px;
 }
 
+/* ------------------------------------------------------------
+   6bis. MÉDIAS DANS LES MESSAGES (images, vidéos, audio/vocaux)
+   >>> C'EST LE FIX pour le bug de débordement <<<
+   Avant : une image ou un lecteur audio avec sa taille "naturelle"
+   pouvait être plus large que la bulle (60% max-width) ou que la
+   colonne de chat elle-même. Comme flexbox ne réduit pas un contenu
+   sous sa taille intrinsèque par défaut (min-width: auto), ça poussait
+   toute la mise en page et cachait le bouton d'envoi.
+   Solution : forcer tout média à ne jamais dépasser la largeur de
+   sa bulle, avec une taille de secours pour l'audio.
+   ------------------------------------------------------------ */
+.message img,
+.message video {
+    display: block;
+    max-width: 100%;
+    /* max-width: 100% = ne dépasse jamais la largeur du parent (la bulle) */
+    height: auto;
+    /* height: auto = garde les proportions de l'image quand la largeur réduit */
+    border-radius: 12px;
+    margin-top: 4px;
+}
+
+.message video {
+    max-height: 260px;
+}
+
+.message audio {
+    display: block;
+    /* les lecteurs audio natifs n'ont pas de "ratio" à garder, donc on
+       leur donne une largeur fixe raisonnable qui ne dépasse jamais la bulle */
+    width: 220px;
+    max-width: 100%;
+    margin-top: 4px;
+}
+
+/* Si le JS enveloppe le média dans un conteneur dédié
+   (ex: <div class="message-media">), ce filet de sécurité s'applique
+   aussi à lui — à adapter si le nom de classe réel diffère. */
+.message-media {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.message-media img,
+.message-media video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ============================================================
+   7. FORMULAIRE D'ENVOI (texte, image, micro)
+   ============================================================ */
 .chat-form {
     display: flex;
     gap: 12px;
     padding: 16px 24px;
     border-top: 1px solid var(--border-color);
     background: var(--bg-card);
+    flex-shrink: 0;
+    /* flex-shrink: 0 = le formulaire garde toujours sa hauteur et reste
+       visible, même si la zone des messages au-dessus déborde */
 }
 
 .chat-form input {
     flex: 1;
+    min-width: 0;
     padding: 12px 16px;
     border: 1px solid var(--border-color);
     border-radius: 24px;
@@ -308,6 +480,7 @@ body {
 .chat-form button {
     width: 42px;
     height: 42px;
+    flex-shrink: 0;
     border: none;
     border-radius: 50%;
     background: var(--primary-color);
@@ -328,62 +501,8 @@ body {
 .chat-form button:active {
     transform: scale(0.95);
 }
-.avatar-fallback {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: var(--primary-color);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 1rem;
-}
 
-.avatar-container.small,
-.avatar.small,
-.avatar-fallback.small {
-    width: 32px;
-    height: 32px;
-    font-size: 0.8rem;
-}
-
-.search-result-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.search-result-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    min-width: 0;
-}
-
-.preference-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-}
-
-.preference-tag {
-    font-size: 0.7rem;
-    background: var(--msg-other-bg);
-    color: var(--text-secondary);
-    padding: 2px 8px;
-    border-radius: 10px;
-}
-
-#userSearchResults li.no-result {
-    color: var(--text-secondary);
-    cursor: default;
-    text-align: center;
-}
-
-
-/* ===== MICRO ===== */
+/* --- Boutons "trombone" (image) et micro (vocal) --- */
 .chat-form .media-attach-btn {
     display: flex;
     align-items: center;
@@ -391,9 +510,8 @@ body {
     width: 40px;
     height: 40px;
     min-width: 40px;
-    /* empêche le rétrécissement du texte du timer */
+    /* empêche le rétrécissement du bouton par flexbox */
     flex-shrink: 0;
-    /* empêche flexbox de le compresser/étirer */
     overflow: hidden;
     cursor: pointer;
     color: #666;
@@ -405,8 +523,10 @@ body {
 
 .recording-time {
     font-size: 0.65rem;
-    /* plus petit pour tenir dans 40px */
+    /* plus petit pour tenir dans les 40px du bouton */
     font-variant-numeric: tabular-nums;
+    /* tabular-nums = tous les chiffres ont la même largeur, évite que
+       le minuteur "tremble" horizontalement chaque seconde */
     white-space: nowrap;
 }
 
@@ -433,7 +553,6 @@ body {
     background: transparent;
 }
 
-
 @keyframes pulse-record {
 
     0%,
@@ -448,8 +567,73 @@ body {
 
 
 
-/* ===== Responsive Design ===== */
+/* ============================================================
+   9. PHONE CALL MODAL (popup d'appel vocal)
+   ============================================================ */
+.call-btn {
+    border: none;
+    background: transparent;
+    color: #666;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: auto;
+}
 
+.call-btn:hover {
+    color: #2e7d32;
+}
+
+.call-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.call-modal-content {
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px;
+    text-align: center;
+    min-width: 260px;
+}
+
+.call-modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.call-accept-btn,
+.call-reject-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    color: #fff;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.call-accept-btn {
+    background: #2e7d32;
+}
+
+.call-reject-btn {
+    background: #e53935;
+}
+
+
+
+
+
+/* ============================================================
+   8. RESPONSIVE (mobile)
+   ============================================================ */
 @media (max-width: 768px) {
     .messages-layout {
         flex-direction: column;

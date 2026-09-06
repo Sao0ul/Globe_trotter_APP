@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="css/site-detail.css">
     <link rel="stylesheet" href="css/site-detail-title.css">
     <link rel="stylesheet" href="css/map-markers.css">
+    <link rel="stylesheet" href="css/site-detail-comments.css">
 </head>
 
 
@@ -144,6 +145,55 @@
                 <div class="detail-legend"></div>
 
             </section>
+
+            <!-- =================================================
+                 COMMENTAIRES
+                 ================================================= -->
+            <section class="detail-card detail-comments-card" id="commentsSection">
+                <div class="detail-card-head">
+                    <h2>Comments</h2>
+                    <span class="detail-tag" id="commentsCount">0</span>
+                </div>
+
+                <!-- Formulaire d'ajout de commentaire -->
+                <form id="commentForm" class="comment-form" autocomplete="off">
+                    <textarea id="commentInput" class="comment-form__input" name="comment" maxlength="500" rows="2"
+                        placeholder="Write a comment..." required></textarea>
+                    <button type="submit" id="commentSubmitBtn" class="comment-form__submit">
+                        Post
+                    </button>
+                </form>
+                <p id="commentFormError" class="comment-form__error" hidden></p>
+
+                <!-- État de chargement -->
+                <p id="commentsLoading" class="comments-loading">Loading comments...</p>
+
+                <!-- État vide -->
+                <p id="commentsEmpty" class="comments-empty" hidden>No comments yet. Be the first to comment!</p>
+
+                <!-- Liste des commentaires -->
+                <ul id="commentsList" class="comments-list"></ul>
+
+                <!-- Template d'un commentaire (utilisé par le JS pour cloner) -->
+                <template id="commentItemTemplate">
+                    <li class="comment-item" data-comment-id="">
+                        <div class="comment-item__avatar">
+                            <img class="comment-item__avatar-img" src="" alt="" hidden>
+                            <span class="comment-item__avatar-fallback"></span>
+                        </div>
+                        <div class="comment-item__body">
+                            <div class="comment-item__head">
+                                <span class="comment-item__username"></span>
+                                <span class="comment-item__date"></span>
+                            </div>
+                            <p class="comment-item__text"></p>
+                        </div>
+                        <button type="button" class="comment-item__delete" aria-label="Delete comment" hidden>
+                            🗑
+                        </button>
+                    </li>
+                </template>
+            </section>
         </section>
 
     </main>
@@ -152,6 +202,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="js/mapicons.js"></script>
     <script src="js/site-detail.js"></script>
+    <script src="js/site-detail-comments.js"></script>
 
 </body>
 
