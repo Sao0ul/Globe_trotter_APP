@@ -167,7 +167,7 @@ const googleCallback = asyncHandler(async (req, res) => {
     user = await createUserFromGoogle({
       id: crypto.randomUUID(),
       email: payload.email,
-      username: payload.name || payload.email.split('@')[0],
+      username: null,
       googleId: payload.sub,
     });
   }
@@ -243,7 +243,7 @@ const facebookCallback = asyncHandler(async (req, res) => {
     user = await createUserFromFacebook({
       id: crypto.randomUUID(),
       email,
-      username: profile.name || `facebook_user_${profile.id}`,
+      username: null,
       facebookId: profile.id,
     });
   }

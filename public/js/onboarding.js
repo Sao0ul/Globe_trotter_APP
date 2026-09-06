@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         window.location.href = "sites.html"; // déjà onboardé, on saute le formulaire
         return;
     }
+    // AFFICHER LE FORMULAIRE ICI
+    onboardingForm.hidden = false;
 
     const onboardingForm = document.getElementById("onboardingForm");
     const errorMessage = document.getElementById("errorMessage");

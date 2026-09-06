@@ -267,3 +267,6 @@ CREATE TRIGGER trg_update_conversation_timestamp
 AFTER INSERT ON messages
 FOR EACH ROW
 EXECUTE FUNCTION update_conversation_timestamp();
+
+
+ALTER TABLE users ALTER COLUMN username DROP NOT NULL;
