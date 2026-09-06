@@ -382,37 +382,71 @@ body {
     text-align: center;
 }
 
-.media-attach-btn {
+
+/* ===== MICRO ===== */
+.chat-form .media-attach-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 40px;
+    height: 40px;
+    min-width: 40px;
+    /* empêche le rétrécissement du texte du timer */
+    flex-shrink: 0;
+    /* empêche flexbox de le compresser/étirer */
+    overflow: hidden;
     cursor: pointer;
-    color: var(--text-secondary, #666);
+    color: #666;
     font-size: 1.1rem;
+    border: none;
+    background: transparent;
+    padding: 0;
 }
 
-.media-attach-btn:hover {
-    color: var(--text-primary, #333);
+.recording-time {
+    font-size: 0.65rem;
+    /* plus petit pour tenir dans 40px */
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
 }
 
-.message-image {
-    max-width: 240px;
-    max-height: 320px;
-    border-radius: 12px;
-    display: block;
-    object-fit: cover;
+.chat-form .media-attach-btn i,
+.chat-form .media-attach-btn .recording-time {
+    color: inherit;
 }
 
-.message-audio {
-    width: 220px;
+.chat-form .media-attach-btn:hover,
+.chat-form .media-attach-btn:focus,
+.chat-form .media-attach-btn:active {
+    color: #333;
+    background: transparent;
+    outline: none;
 }
 
-.message:has(.message-image),
-.message:has(.message-audio) {
-    padding: 4px;
+.chat-form #voiceBtn.recording {
+    color: #e53935;
+    background: transparent;
+    animation: pulse-record 1s infinite;
+}
+
+.chat-form #voiceBtn.recording:hover {
     background: transparent;
 }
+
+
+@keyframes pulse-record {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+
 
 /* ===== Responsive Design ===== */
 

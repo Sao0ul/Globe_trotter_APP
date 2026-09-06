@@ -26,8 +26,14 @@ const MEDIA_TYPES = {
 
 const ALL_ALLOWED_MIME_TYPES = Object.values(MEDIA_TYPES).flatMap((t) => t.mimeTypes);
 
-function getMediaConfigByMimeType(mimetype) {
-    return Object.values(MEDIA_TYPES).find((cfg) => cfg.mimeTypes.includes(mimetype)) || null;
+function normalizeMimeType(mimetype) {
+    return mimetype.split(';')[0].trim();
 }
 
-module.exports = { MEDIA_TYPES, ALL_ALLOWED_MIME_TYPES, getMediaConfigByMimeType };
+function getMediaConfigByMimeType(mimetype) {
+    const clean = normalizeMimeType(mimetype);
+    return Object.values(MEDIA_TYPES).find((cfg) => cfg.mimeTypes.includes(clean)) || null;
+}
+
+module.exports = { MEDIA_TYPES, ALL_ALLOWED_MIME_TYPES, getMediaConfigByMimeType, normalizeMimeType };
+

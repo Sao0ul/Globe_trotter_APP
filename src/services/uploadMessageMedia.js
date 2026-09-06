@@ -6,12 +6,13 @@
 
 const multer = require('multer');
 const cloudinary = require('./cloudinaryClient');
-const { ALL_ALLOWED_MIME_TYPES, getMediaConfigByMimeType } = require('./mediaTypes');
+const { ALL_ALLOWED_MIME_TYPES, getMediaConfigByMimeType, normalizeMimeType } = require('./mediaTypes');
 
 const storage = multer.memoryStorage();
 
+
 function fileFilter(req, file, cb) {
-    if (!ALL_ALLOWED_MIME_TYPES.includes(file.mimetype)) {
+    if (!ALL_ALLOWED_MIME_TYPES.includes(normalizeMimeType(file.mimetype))) {
         return cb(new Error('Format de fichier non supporté.'));
     }
     cb(null, true);
