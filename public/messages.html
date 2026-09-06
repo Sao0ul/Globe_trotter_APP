@@ -37,16 +37,25 @@
 
             <div class="chat-messages" id="chatMessages"></div>
 
-            <form id="messageForm" class="chat-form">
-                <input type="text" id="messageInput" placeholder="Write a message..." autocomplete="off" required>
-                <button type="submit" aria-label="Send message">
-                    <i class="fa-solid fa-paper-plane"></i>
-                </button>
-            </form>
+        <!--====================options messagerie========================-->
+        <form id="messageForm" class="chat-form">
+            <label for="mediaInput" class="media-attach-btn" aria-label="Envoyer une image">
+                <i class="fa-solid fa-image"></i>
+            </label>
+            <input type="file" id="mediaInput" accept="image/jpeg,image/png,image/webp" hidden>
+        
+            <input type="text" id="messageInput" placeholder="Write a message..." autocomplete="off" required>
+            <button type="submit" aria-label="Send message">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </form>
+
+
         </main>
     </div>
 
     <script src="js/messages.js"></script>
+    <script src="js/messages-media.js"></script>
 </body>
 
 </html>

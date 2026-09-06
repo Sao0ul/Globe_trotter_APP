@@ -34,6 +34,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/itineraire', itineraireRoutes);
 app.use('/api/conversations', messageRoutes);
+app.use('/api/conversations', require('./routes/mediaRoutes'));
 
 // Gestionnaire d'erreurs en dernier
 app.use(errorHandler);

@@ -382,6 +382,38 @@ body {
     text-align: center;
 }
 
+.media-attach-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    cursor: pointer;
+    color: var(--text-secondary, #666);
+    font-size: 1.1rem;
+}
+
+.media-attach-btn:hover {
+    color: var(--text-primary, #333);
+}
+
+.message-image {
+    max-width: 240px;
+    max-height: 320px;
+    border-radius: 12px;
+    display: block;
+    object-fit: cover;
+}
+
+.message-audio {
+    width: 220px;
+}
+
+.message:has(.message-image),
+.message:has(.message-audio) {
+    padding: 4px;
+    background: transparent;
+}
+
 /* ===== Responsive Design ===== */
 
 @media (max-width: 768px) {

@@ -270,3 +270,63 @@ EXECUTE FUNCTION update_conversation_timestamp();
 
 
 ALTER TABLE users ALTER COLUMN username DROP NOT NULL;
+
+
+-- ============================================
+-- Messagerie — médias indépendants (photo, audio, vidéo)
+-- Tables séparées de `messages` : aucune dépendance entre les deux,
+-- chaque table gère son propre type de média de bout en bout.
+-- ============================================
+
+CREATE TABLE IF NOT EXISTS messages_photo (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    conversation_id UUID NOT NULL REFERENCES conversations(id) ON DELETE CASCADE,
+    sender_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    media_url TEXT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    read_at TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS messages_audio (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    conversation_id UUID NOT NULL REFERENCES conversations(id) ON DELETE CASCADE,
+    sender_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    media_url TEXT NOT NULL,
+    duration_seconds INTEGER CHECK (duration_seconds >= 0),
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    read_at TIMESTAMP
+);
+
+-- Scaffold : pas encore branché à une route, mais la table existe déjà
+-- pour ne pas re-toucher au schéma quand la vidéo (message, pas appel) arrivera.
+CREATE TABLE IF NOT EXISTS messages_video (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    conversation_id UUID NOT NULL REFERENCES conversations(id) ON DELETE CASCADE,
+    sender_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    media_url TEXT NOT NULL,
+    thumbnail_url TEXT,
+    duration_seconds INTEGER CHECK (duration_seconds >= 0),
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    read_at TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_messages_photo_conversation ON messages_photo(conversation_id);
+CREATE INDEX IF NOT EXISTS idx_messages_audio_conversation ON messages_audio(conversation_id);
+CREATE INDEX IF NOT EXISTS idx_messages_video_conversation ON messages_video(conversation_id);
+
+-- Réutilise la fonction déjà définie pour messages : même effet de bord
+-- (bump updated_at de la conversation), peu importe la table d'origine.
+CREATE TRIGGER trg_update_conversation_timestamp_photo
+AFTER INSERT ON messages_photo
+FOR EACH ROW
+EXECUTE FUNCTION update_conversation_timestamp();
+
+CREATE TRIGGER trg_update_conversation_timestamp_audio
+AFTER INSERT ON messages_audio
+FOR EACH ROW
+EXECUTE FUNCTION update_conversation_timestamp();
+
+CREATE TRIGGER trg_update_conversation_timestamp_video
+AFTER INSERT ON messages_video
+FOR EACH ROW
+EXECUTE FUNCTION update_conversation_timestamp();
