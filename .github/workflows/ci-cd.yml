@@ -373,7 +373,7 @@ jobs:
           script: |
             cd ~/Globe_trotter_APP
             git pull origin main
-            docker compose up -d --build -V
+            docker compose up -d --build -V api
 
 
   # ==========================================================
